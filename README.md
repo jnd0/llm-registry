@@ -1,36 +1,67 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# LLM Registry
+
+The Source of Truth for LLM Benchmarks. Compare top models like **DeepSeek V3**, **Claude 3.5 Sonnet**, and **GPT-4o** across trusted evaluation sets.
+
+## Features
+
+- **Global Leaderboard**: Sortable, filterable index of top LLMs.
+- **Interactive Comparison**: "Versus Mode" with Radar Charts and Delta tables.
+- **Deep Specs**: Detailed context window, pricing, and parameter data.
+- **Verified Scores**: Distinguishes between self-reported and verified benchmark results.
+- **Data Validation**: Built-in scripts to prevent broken IDs and out-of-range scores.
+
+## Stack
+
+- **Framework**: Next.js 15 (App Router)
+- **Styling**: Tailwind CSS v4 + Shadcn UI
+- **Data**: TypeScript-based local "database" (for speed & type safety)
+- **State**: `nuqs` (URL-driven state management)
+- **Charts**: Recharts
 
 ## Getting Started
 
-First, run the development server:
+1. Install dependencies:
+   ```bash
+   bun install
+   ```
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+2. Run the development server:
+   ```bash
+   bun dev
+   ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+3. Open [http://localhost:3000](http://localhost:3000)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Data Quality Commands
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- Validate registry integrity:
+  ```bash
+  npm run validate:data
+  ```
+- Run strict validation (CI parity):
+  ```bash
+  npm run validate:data:strict
+  ```
+- Generate a category and benchmark coverage report:
+  ```bash
+  npm run report:coverage
+  ```
 
-## Learn More
+## Methodology
 
-To learn more about Next.js, take a look at the following resources:
+- Global and category views use normalized benchmark scores (0-100).
+- Lower-is-better metrics are inverted so higher normalized score always means better performance.
+- Category averages are computed over available scores for that category.
+- Full methodology page: `/about`
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Project Structure
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- `src/data`: The source of truth for models and benchmarks.
+- `src/components/dashboard`: Core interactive components (Table, Radar).
+- `src/types`: Strict TypeScript definitions.
 
-## Deploy on Vercel
+## Adding a Model
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. Open `src/data/models.ts`
+2. Add a new object to the `models` array following the `Model` interface.
+3. Add scores for existing benchmarks.

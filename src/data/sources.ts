@@ -1,0 +1,119 @@
+import { SourceRecord } from "@/types";
+
+export const sources: SourceRecord[] = [
+  {
+    id: "openai-blog",
+    name: "OpenAI Blog",
+    url: "https://openai.com/news",
+    publisher: "OpenAI",
+  },
+  {
+    id: "anthropic-news",
+    name: "Anthropic News",
+    url: "https://www.anthropic.com/news",
+    publisher: "Anthropic",
+  },
+  {
+    id: "google-ai-blog",
+    name: "Google AI Blog",
+    url: "https://blog.google/technology/ai/",
+    publisher: "Google",
+  },
+  {
+    id: "deepseek-news",
+    name: "DeepSeek News",
+    url: "https://www.deepseek.com/",
+    publisher: "DeepSeek",
+  },
+  {
+    id: "lmarena",
+    name: "Chatbot Arena Leaderboard",
+    url: "https://chat.lmsys.org/?leaderboard",
+    publisher: "LMSYS",
+  },
+  {
+    id: "swe-bench",
+    name: "SWE-bench",
+    url: "https://www.swebench.com/",
+    publisher: "Princeton NLP",
+  },
+  {
+    id: "artificial-analysis",
+    name: "Artificial Analysis (Independent)",
+    url: "https://artificialanalysis.ai/",
+    publisher: "Artificial Analysis",
+    updatedAt: "2026-02-16",
+  },
+  {
+    id: "livebench",
+    name: "LiveBench",
+    url: "https://livebench.ai/",
+    publisher: "LiveBench",
+  },
+  {
+    id: "meta-ai",
+    name: "Meta AI",
+    url: "https://ai.meta.com/",
+    publisher: "Meta",
+  },
+  {
+    id: "xai-news",
+    name: "xAI",
+    url: "https://x.ai/",
+    publisher: "xAI",
+  },
+  {
+    id: "mistral-news",
+    name: "Mistral AI",
+    url: "https://mistral.ai/news/",
+    publisher: "Mistral",
+  },
+  {
+    id: "cohere-news",
+    name: "Cohere",
+    url: "https://cohere.com/blog",
+    publisher: "Cohere",
+  },
+  {
+    id: "amazon-nova",
+    name: "Amazon Nova",
+    url: "https://aws.amazon.com/ai/generative-ai/nova/",
+    publisher: "Amazon",
+  },
+  {
+    id: "microsoft-ai",
+    name: "Microsoft AI",
+    url: "https://blogs.microsoft.com/ai/",
+    publisher: "Microsoft",
+  },
+  {
+    id: "databricks-ai",
+    name: "Databricks AI",
+    url: "https://www.databricks.com/blog",
+    publisher: "Databricks",
+  },
+  {
+    id: "ai21-news",
+    name: "AI21",
+    url: "https://www.ai21.com/blog",
+    publisher: "AI21",
+  },
+  {
+    id: "moonshot-news",
+    name: "Moonshot AI",
+    url: "https://www.moonshot.ai/",
+    publisher: "Moonshot AI",
+  },
+  {
+    id: "zhipu-news",
+    name: "Zhipu AI",
+    url: "https://www.zhipuai.cn/",
+    publisher: "Zhipu AI",
+  },
+  {
+    id: "bytedance-seed",
+    name: "ByteDance Seed",
+    url: "https://seed.bytedance.com/",
+    publisher: "ByteDance",
+  },
+];
