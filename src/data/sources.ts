@@ -111,10 +111,22 @@ export const sources: SourceRecord[] = [
     publisher: "Zhipu AI",
   },
   {
+    id: "z-ai-blog",
+    name: "Z.ai Blog",
+    url: "https://z.ai/blog",
+    publisher: "Zhipu AI",
+  },
+  {
     id: "bytedance-seed",
     name: "ByteDance Seed",
     url: "https://seed.bytedance.com/",
     publisher: "ByteDance",
+  },
+  {
+    id: "qwen-ai-blog",
+    name: "Qwen AI Blog",
+    url: "https://qwen.ai/blog",
+    publisher: "Alibaba",
   },
   {
     id: "yamanahlawat-llm-registry",

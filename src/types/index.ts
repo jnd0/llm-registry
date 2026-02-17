@@ -122,6 +122,9 @@ export interface Model {
   modelCardUrl?: string;
   modelUrl?: string;
 
+  // Variants: Child models (e.g., base, thinking, low/high effort)
+  variants?: Model[];
+
   // Benchmark Scores: Map<BenchmarkID, ScoreObject>
   scores: Record<string, {
     score: number | null;        // The raw value (0-100 or specific metric), allow null

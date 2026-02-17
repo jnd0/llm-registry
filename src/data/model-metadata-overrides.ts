@@ -25,6 +25,86 @@ export interface ModelMetadataOverride {
 }
 
 export const modelMetadataOverrides: Record<string, ModelMetadataOverride> = {
+  "o1": {
+    "apiSupport": {
+      "jsonMode": true,
+      "maxTokens": true,
+      "stream": true,
+      "systemPrompt": false,
+      "temperature": false,
+      "tools": true,
+      "topP": false,
+      "vision": true
+    },
+    "metadataAsOfDate": "2026-02-17",
+    "metadataSourceId": "openai-docs",
+    "modelUrl": "https://platform.openai.com/docs/models/o1",
+    "trainingCutoff": "2023-10"
+  },
+  "o1-mini": {
+    "apiSupport": {
+      "jsonMode": true,
+      "maxTokens": true,
+      "stream": true,
+      "systemPrompt": false,
+      "temperature": false,
+      "tools": true,
+      "topP": false,
+      "vision": false
+    },
+    "metadataAsOfDate": "2026-02-17",
+    "metadataSourceId": "openai-docs",
+    "modelUrl": "https://platform.openai.com/docs/models/o1",
+    "trainingCutoff": "2023-10"
+  },
+  "claude-3-5-haiku": {
+    "apiSupport": {
+      "jsonMode": true,
+      "stream": true,
+      "systemPrompt": true,
+      "tools": true,
+      "vision": false
+    },
+    "metadataAsOfDate": "2026-02-17",
+    "metadataSourceId": "anthropic-docs",
+    "modelUrl": "https://www.anthropic.com/claude/haiku",
+    "trainingCutoff": "2024-07"
+  },
+  "llama-3-3-70b": {
+    "metadataAsOfDate": "2026-02-17",
+    "metadataSourceId": "meta-docs",
+    "modelUrl": "https://llama.meta.com/",
+    "trainingCutoff": "2023-12"
+  },
+  "mistral-large-2": {
+    "metadataAsOfDate": "2026-02-17",
+    "metadataSourceId": "mistral-docs",
+    "modelUrl": "https://mistral.ai/news/mistral-large-2407/",
+    "trainingCutoff": "2024-07"
+  },
+  "qwen-2-5-max": {
+    "metadataAsOfDate": "2026-02-17",
+    "metadataSourceId": "qwen-docs",
+    "modelUrl": "https://qwenlm.github.io/blog/qwen2.5-max/",
+    "trainingCutoff": "2024-09"
+  },
+  "qwen-3-5-397b-a17b": {
+    "apiSupport": {
+      "jsonMode": true,
+      "maxTokens": true,
+      "stream": true,
+      "systemPrompt": true,
+      "temperature": true,
+      "tools": true,
+      "topP": true,
+      "vision": true
+    },
+    "metadataAsOfDate": "2026-02-17",
+    "metadataSourceId": "qwen-ai-blog",
+    "modelCardUrl": "https://qwen.ai/blog?id=qwen3.5",
+    "modelUrl": "https://huggingface.co/Qwen/Qwen3.5-397B-A17B",
+    "trainingCutoff": "2026-01"
+  },
   "amazon-nova-pro": {
     "apiSupport": {
       "jsonMode": true,
@@ -326,7 +406,7 @@ export const modelMetadataOverrides: Record<string, ModelMetadataOverride> = {
     "metadataAsOfDate": "2026-02-07",
     "metadataSourceId": "yamanahlawat-llm-registry",
     "metadataSourceUrl": "https://github.com/yamanahlawat/llm-registry",
-    "modelCardUrl": "https://github.com/deepseek-ai/DeepSeek-V3/blob/main/DeepSeek_V3.pdf",
+    "modelCardUrl": "https://arxiv.org/pdf/2412.19437.pdf",
     "modelUrl": "https://chat.deepseek.com",
     "specs": {
       "pricing": {
@@ -889,7 +969,7 @@ export const modelMetadataOverrides: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "yamanahlawat-llm-registry",
     "metadataSourceUrl": "https://github.com/yamanahlawat/llm-registry",
     "modelCardUrl": "https://docs.mistral.ai/models/ministral-3b-24-1",
-    "modelUrl": "https://mistral.ai/news/announcing-ministral-8b-ministral-3b/",
+    "modelUrl": "https://mistral.ai/news/ministral-8b-ministral-3b/",
     "trainingCutoff": "2024-10"
   },
   "o1-preview": {
@@ -1120,7 +1200,23 @@ export const modelMetadataOverrides: Record<string, ModelMetadataOverride> = {
       "topP": true,
       "vision": true
     },
-    "metadataAsOfDate": "2026-02-16",
+    "metadataAsOfDate": "2026-02-17",
+    "metadataSourceId": "qwen-docs",
+    "modelUrl": "https://qwen.readthedocs.io/en/v3.0",
+    "trainingCutoff": "2025-04"
+  },
+  "qwen3-vl-235b-a22b-thinking": {
+    "apiSupport": {
+      "jsonMode": true,
+      "maxTokens": true,
+      "stream": true,
+      "systemPrompt": true,
+      "temperature": true,
+      "tools": true,
+      "topP": true,
+      "vision": true
+    },
+    "metadataAsOfDate": "2026-02-17",
     "metadataSourceId": "qwen-docs",
     "modelUrl": "https://qwen.readthedocs.io/en/v3.0",
     "trainingCutoff": "2025-04"
@@ -1135,14 +1231,14 @@ export const modelMetadataOverrides: Record<string, ModelMetadataOverride> = {
   "claude-3-5-sonnet": {
     "metadataAsOfDate": "2026-02-16",
     "metadataSourceId": "anthropic-docs",
-    "modelCardUrl": "https://www-cdn.anthropic.com/fed9cc193064841f3016a5757a3e792e5971a8a2.pdf",
+    "modelCardUrl": "https://www.anthropic.com/news/claude-3-5-sonnet",
     "modelUrl": "https://www.anthropic.com/claude/sonnet",
     "trainingCutoff": "2024-04"
   },
   "gemini-1-5-pro": {
     "metadataAsOfDate": "2026-02-16",
     "metadataSourceId": "google-docs",
-    "modelCardUrl": "https://storage.googleapis.com/deepmind-media/gemini/gemini_1_5_report.pdf",
+    "modelCardUrl": "https://arxiv.org/pdf/2403.08295.pdf",
     "modelUrl": "https://deepmind.google/technologies/gemini/pro/",
     "trainingCutoff": "2023-11"
   },
@@ -1163,7 +1259,7 @@ export const modelMetadataOverrides: Record<string, ModelMetadataOverride> = {
   "command-r-plus-08-2024": {
     "metadataAsOfDate": "2026-02-16",
     "metadataSourceId": "cohere-docs",
-    "modelCardUrl": "https://cohere.com/research/papers/command-r-plus-technical-report.pdf",
+    "modelCardUrl": "https://cohere.com/blog/command-r-plus-microsoft-azure",
     "modelUrl": "https://docs.cohere.com/docs/command-r-plus",
     "specs": {
       "pricing": {
@@ -1193,10 +1289,10 @@ export const modelMetadataOverrides: Record<string, ModelMetadataOverride> = {
     "trainingCutoff": "2024-10"
   },
   "glm-5": {
-    "metadataAsOfDate": "2026-02-16",
-    "metadataSourceId": "zhipuai-docs",
+    "metadataAsOfDate": "2026-02-17",
+    "metadataSourceId": "z-ai-blog",
     "modelCardUrl": "https://arxiv.org/pdf/2406.17504.pdf",
-    "modelUrl": "https://www.zhipuai.cn/",
+    "modelUrl": "https://z.ai/blog/glm-5",
     "trainingCutoff": "2024-06"
   },
   "starcoder2-15b": {

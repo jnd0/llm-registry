@@ -28,7 +28,6 @@ const models = baseModels.map((model) => {
 });
 
 const benchmarkIds = benchmarks.map((benchmark) => benchmark.id);
-const modelIds = models.map((model) => model.id);
 const sourceIds = new Set(sources.map((source) => source.id));
 
 const errors = [];
@@ -48,15 +47,11 @@ if (duplicateBenchmarkIds.length > 0) {
   errors.push(`Duplicate benchmark IDs: ${duplicateBenchmarkIds.join(", ")}`);
 }
 
-const duplicateModelIds = findDuplicates(modelIds);
-if (duplicateModelIds.length > 0) {
-  errors.push(`Duplicate model IDs: ${duplicateModelIds.join(", ")}`);
-}
-
 const benchmarkMap = new Map(benchmarks.map((benchmark) => [benchmark.id, benchmark]));
 const usedBenchmarkIds = new Set();
 
-for (const model of models) {
+function validateModelRecursive(model) {
+  modelIds.push(model.id);
   for (const [benchmarkId, scoreEntry] of Object.entries(model.scores ?? {})) {
     usedBenchmarkIds.add(benchmarkId);
 
@@ -84,6 +79,22 @@ for (const model of models) {
       missingScoreProvenanceCount += 1;
     }
   }
+
+  if (model.variants) {
+    for (const variant of model.variants) {
+      validateModelRecursive(variant);
+    }
+  }
+}
+
+const modelIds = [];
+for (const model of models) {
+  validateModelRecursive(model);
+}
+
+const duplicateModelIds = findDuplicates(modelIds);
+if (duplicateModelIds.length > 0) {
+  errors.push(`Duplicate model IDs: ${duplicateModelIds.join(", ")}`);
 }
 
 for (const benchmark of benchmarks) {
@@ -122,8 +133,8 @@ if (missingBenchmarkNormalizationCount > 0) {
   warnings.push(`Benchmarks missing normalization metadata: ${missingBenchmarkNormalizationCount}`);
 }
 
-console.log(`Benchmarks: ${benchmarks.length}`);
-console.log(`Models: ${models.length}`);
+console.log(`Top-level Models: ${models.length}`);
+console.log(`Total Models (incl. variants): ${modelIds.length}`);
 console.log(`Sources: ${sources.length}`);
 console.log(`Used benchmark IDs: ${usedBenchmarkIds.size}`);
 

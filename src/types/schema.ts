@@ -64,36 +64,39 @@ export const modelPricingDimensionSchema = z.object({
   notes: z.string().optional(),
 });
 
-export const modelSchema = z.object({
-  id: z.string().min(1),
-  name: z.string().min(1),
-  provider: z.string().min(1),
-  releaseDate: z.string().min(1),
-  capabilities: z.array(z.enum(modelCapabilityValues)),
-  isOpenSource: z.boolean(),
-  specs: z.object({
-    contextWindow: z.number().nonnegative(),
-    parameters: z.string().min(1),
-    pricing: z.object({
-      input: z.number().nonnegative(),
-      output: z.number().nonnegative(),
-      cacheInput: z.number().nonnegative().optional(),
-      cacheOutput: z.number().nonnegative().optional(),
+export const modelSchema: z.ZodType<any> = z.lazy(() =>
+  z.object({
+    id: z.string().min(1),
+    name: z.string().min(1),
+    provider: z.string().min(1),
+    releaseDate: z.string().min(1),
+    capabilities: z.array(z.enum(modelCapabilityValues)),
+    isOpenSource: z.boolean(),
+    specs: z.object({
+      contextWindow: z.number().nonnegative(),
+      parameters: z.string().min(1),
+      pricing: z.object({
+        input: z.number().nonnegative(),
+        output: z.number().nonnegative(),
+        cacheInput: z.number().nonnegative().optional(),
+        cacheOutput: z.number().nonnegative().optional(),
+      }),
     }),
-  }),
-  providers: z.array(z.string().min(1)).optional(),
-  apiSupport: modelApiSupportSchema.optional(),
-  modalities: modelModalitiesSchema.optional(),
-  pricingDimensions: z.array(modelPricingDimensionSchema).optional(),
-  trainingCutoff: z.string().min(1).optional(),
-  metadataSourceId: z.string().min(1).optional(),
-  metadataSourceUrl: z.string().min(1).optional(),
-  metadataAsOfDate: z.string().min(1).optional(),
-  externalModelId: z.string().min(1).optional(),
-  modelCardUrl: z.string().min(1).optional(),
-  modelUrl: z.string().min(1).optional(),
-  scores: z.record(z.string(), scoreSchema),
-});
+    providers: z.array(z.string().min(1)).optional(),
+    apiSupport: modelApiSupportSchema.optional(),
+    modalities: modelModalitiesSchema.optional(),
+    pricingDimensions: z.array(modelPricingDimensionSchema).optional(),
+    trainingCutoff: z.string().min(1).optional(),
+    metadataSourceId: z.string().min(1).optional(),
+    metadataSourceUrl: z.string().min(1).optional(),
+    metadataAsOfDate: z.string().min(1).optional(),
+    externalModelId: z.string().min(1).optional(),
+    modelCardUrl: z.string().min(1).optional(),
+    modelUrl: z.string().min(1).optional(),
+    scores: z.record(z.string(), scoreSchema),
+    variants: z.array(z.lazy(() => modelSchema)).optional(),
+  })
+);
 
 export const benchmarkSchema = z.object({
   id: z.string().min(1),

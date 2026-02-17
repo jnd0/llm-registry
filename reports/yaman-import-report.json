@@ -1,0 +1,820 @@
+{
+  "source": {
+    "id": "yamanahlawat-llm-registry",
+    "url": "https://github.com/yamanahlawat/llm-registry",
+    "dataUrl": "https://raw.githubusercontent.com/yamanahlawat/llm-registry/main/src/llm_registry/data/models.json",
+    "snapshotDate": "2026-02-07",
+    "generatedAt": "2026-02-16T17:07:03.124Z",
+    "dryRun": false
+  },
+  "summary": {
+    "localModelCount": 65,
+    "externalModelCount": 141,
+    "mappedModelCount": 41,
+    "changedModelCount": 40,
+    "unchangedMappedModelCount": 1,
+    "unmatchedLocalCount": 24,
+    "ambiguousLocalCount": 0,
+    "unmatchedExternalCount": 113
+  },
+  "changed": [
+    {
+      "localId": "gpt-4o",
+      "externalId": "gpt-4o",
+      "matchType": "exact",
+      "fields": [
+        "apiSupport",
+        "providers",
+        "specs.pricing.cacheInput",
+        "trainingCutoff"
+      ]
+    },
+    {
+      "localId": "o1-preview",
+      "externalId": "o1",
+      "matchType": "manual",
+      "fields": [
+        "apiSupport",
+        "capabilities",
+        "specs.pricing.cacheInput",
+        "trainingCutoff"
+      ]
+    },
+    {
+      "localId": "gpt-5-2-pro",
+      "externalId": "gpt-5.2-pro",
+      "matchType": "manual",
+      "fields": [
+        "apiSupport",
+        "trainingCutoff"
+      ]
+    },
+    {
+      "localId": "gpt-5-2-xhigh",
+      "externalId": "gpt-5.2",
+      "matchType": "manual",
+      "fields": [
+        "apiSupport",
+        "specs.pricing.cacheInput",
+        "trainingCutoff"
+      ]
+    },
+    {
+      "localId": "gpt-5-1",
+      "externalId": "gpt-5.1",
+      "matchType": "manual",
+      "fields": [
+        "apiSupport",
+        "specs.pricing.cacheInput",
+        "trainingCutoff"
+      ]
+    },
+    {
+      "localId": "gpt-5-3-codex",
+      "externalId": "gpt-5-codex",
+      "matchType": "manual",
+      "fields": [
+        "apiSupport",
+        "capabilities",
+        "specs.pricing.cacheInput",
+        "trainingCutoff"
+      ]
+    },
+    {
+      "localId": "gpt-oss-120b",
+      "externalId": "gpt-oss-120b",
+      "matchType": "exact",
+      "fields": [
+        "apiSupport",
+        "trainingCutoff"
+      ]
+    },
+    {
+      "localId": "o3-pro",
+      "externalId": "o3",
+      "matchType": "manual",
+      "fields": [
+        "apiSupport",
+        "capabilities",
+        "specs.pricing.cacheInput",
+        "trainingCutoff"
+      ]
+    },
+    {
+      "localId": "o3",
+      "externalId": "o3",
+      "matchType": "exact",
+      "fields": [
+        "apiSupport",
+        "capabilities",
+        "specs.pricing.cacheInput",
+        "trainingCutoff"
+      ]
+    },
+    {
+      "localId": "o4-mini",
+      "externalId": "o4-mini",
+      "matchType": "exact",
+      "fields": [
+        "apiSupport",
+        "capabilities",
+        "specs.pricing.cacheInput",
+        "trainingCutoff"
+      ]
+    },
+    {
+      "localId": "gpt-5-2-high",
+      "externalId": "gpt-5.2",
+      "matchType": "manual",
+      "fields": [
+        "apiSupport",
+        "specs.pricing.cacheInput",
+        "trainingCutoff"
+      ]
+    },
+    {
+      "localId": "gpt-5-mini-high",
+      "externalId": "gpt-5-mini",
+      "matchType": "manual",
+      "fields": [
+        "apiSupport",
+        "capabilities",
+        "specs.pricing.cacheInput",
+        "trainingCutoff"
+      ]
+    },
+    {
+      "localId": "claude-opus-4-6",
+      "externalId": "claude-opus-4-6",
+      "matchType": "exact",
+      "fields": [
+        "apiSupport",
+        "specs.pricing.cacheInput",
+        "specs.pricing.cacheOutput",
+        "trainingCutoff"
+      ]
+    },
+    {
+      "localId": "claude-opus-4-5",
+      "externalId": "claude-opus-4-5",
+      "matchType": "exact",
+      "fields": [
+        "apiSupport",
+        "specs.pricing.cacheInput",
+        "specs.pricing.cacheOutput",
+        "trainingCutoff"
+      ]
+    },
+    {
+      "localId": "claude-sonnet-4-5",
+      "externalId": "claude-sonnet-4-5",
+      "matchType": "exact",
+      "fields": [
+        "apiSupport",
+        "specs.pricing.cacheInput",
+        "specs.pricing.cacheOutput",
+        "trainingCutoff"
+      ]
+    },
+    {
+      "localId": "claude-3-7-sonnet",
+      "externalId": "claude-3-7-sonnet-20250219",
+      "matchType": "manual",
+      "fields": [
+        "apiSupport",
+        "specs.pricing.cacheInput",
+        "specs.pricing.cacheOutput",
+        "trainingCutoff"
+      ]
+    },
+    {
+      "localId": "claude-sonnet-4-5-high",
+      "externalId": "claude-sonnet-4-5",
+      "matchType": "manual",
+      "fields": [
+        "apiSupport",
+        "specs.pricing.cacheInput",
+        "specs.pricing.cacheOutput",
+        "trainingCutoff"
+      ]
+    },
+    {
+      "localId": "claude-opus-4-5-high",
+      "externalId": "claude-opus-4-5",
+      "matchType": "manual",
+      "fields": [
+        "apiSupport",
+        "specs.pricing.cacheInput",
+        "specs.pricing.cacheOutput",
+        "trainingCutoff"
+      ]
+    },
+    {
+      "localId": "gemini-3-pro",
+      "externalId": "gemini-3-pro",
+      "matchType": "exact",
+      "fields": [
+        "apiSupport",
+        "specs.pricing.cacheInput",
+        "specs.pricing.cacheOutput",
+        "trainingCutoff"
+      ]
+    },
+    {
+      "localId": "gemini-3-deep-think",
+      "externalId": "gemini-3-pro",
+      "matchType": "manual",
+      "fields": [
+        "apiSupport",
+        "specs.pricing.cacheInput",
+        "specs.pricing.cacheOutput",
+        "trainingCutoff"
+      ]
+    },
+    {
+      "localId": "gemini-3-flash",
+      "externalId": "gemini-3-flash-preview",
+      "matchType": "manual",
+      "fields": [
+        "apiSupport",
+        "specs.pricing.cacheInput",
+        "specs.pricing.cacheOutput",
+        "trainingCutoff"
+      ]
+    },
+    {
+      "localId": "gemini-2-5-pro",
+      "externalId": "gemini-2.5-pro",
+      "matchType": "manual",
+      "fields": [
+        "apiSupport",
+        "specs.pricing.cacheInput",
+        "specs.pricing.cacheOutput",
+        "trainingCutoff"
+      ]
+    },
+    {
+      "localId": "gemini-2-0-flash",
+      "externalId": "gemini-2.0-flash",
+      "matchType": "manual",
+      "fields": [
+        "apiSupport",
+        "specs.pricing.cacheInput",
+        "specs.pricing.cacheOutput",
+        "trainingCutoff"
+      ]
+    },
+    {
+      "localId": "gemini-3-pro-high",
+      "externalId": "gemini-3-pro",
+      "matchType": "manual",
+      "fields": [
+        "apiSupport",
+        "specs.pricing.cacheInput",
+        "specs.pricing.cacheOutput",
+        "trainingCutoff"
+      ]
+    },
+    {
+      "localId": "gemini-3-flash-high",
+      "externalId": "gemini-3-flash-preview",
+      "matchType": "manual",
+      "fields": [
+        "apiSupport",
+        "specs.pricing.cacheInput",
+        "specs.pricing.cacheOutput",
+        "trainingCutoff"
+      ]
+    },
+    {
+      "localId": "llama-4-behemoth",
+      "externalId": "llama-4",
+      "matchType": "manual",
+      "fields": [
+        "apiSupport",
+        "providers",
+        "trainingCutoff"
+      ]
+    },
+    {
+      "localId": "llama-4-maverick",
+      "externalId": "llama-4",
+      "matchType": "manual",
+      "fields": [
+        "apiSupport",
+        "providers",
+        "trainingCutoff"
+      ]
+    },
+    {
+      "localId": "llama-4-scout",
+      "externalId": "llama-4",
+      "matchType": "manual",
+      "fields": [
+        "apiSupport",
+        "capabilities",
+        "providers",
+        "trainingCutoff"
+      ]
+    },
+    {
+      "localId": "deepseek-v3",
+      "externalId": "deepseek-v3.2",
+      "matchType": "manual",
+      "fields": [
+        "apiSupport",
+        "specs.pricing.cacheInput",
+        "trainingCutoff"
+      ]
+    },
+    {
+      "localId": "deepseek-r1",
+      "externalId": "deepseek-r1",
+      "matchType": "exact",
+      "fields": [
+        "apiSupport",
+        "specs.pricing.cacheInput",
+        "trainingCutoff"
+      ]
+    },
+    {
+      "localId": "deepseek-r1-zero",
+      "externalId": "deepseek-r1",
+      "matchType": "manual",
+      "fields": [
+        "apiSupport",
+        "specs.pricing.cacheInput",
+        "trainingCutoff"
+      ]
+    },
+    {
+      "localId": "deepseek-v3-2-speciale",
+      "externalId": "deepseek-v3.2",
+      "matchType": "manual",
+      "fields": [
+        "apiSupport",
+        "specs.pricing.cacheInput",
+        "trainingCutoff"
+      ]
+    },
+    {
+      "localId": "deepseek-r1-distill-llama-70b",
+      "externalId": "deepseek-r1",
+      "matchType": "manual",
+      "fields": [
+        "apiSupport",
+        "specs.pricing.cacheInput",
+        "trainingCutoff"
+      ]
+    },
+    {
+      "localId": "deepseek-r1-distill-qwen-32b",
+      "externalId": "deepseek-r1",
+      "matchType": "manual",
+      "fields": [
+        "apiSupport",
+        "specs.pricing.cacheInput",
+        "trainingCutoff"
+      ]
+    },
+    {
+      "localId": "phi-4",
+      "externalId": "phi-4",
+      "matchType": "exact",
+      "fields": [
+        "apiSupport",
+        "providers",
+        "specs.pricing.cacheInput",
+        "trainingCutoff"
+      ]
+    },
+    {
+      "localId": "ministral-3b",
+      "externalId": "ministral-3b-latest",
+      "matchType": "manual",
+      "fields": [
+        "apiSupport",
+        "trainingCutoff"
+      ]
+    },
+    {
+      "localId": "grok-4",
+      "externalId": "grok-4",
+      "matchType": "exact",
+      "fields": [
+        "apiSupport",
+        "trainingCutoff"
+      ]
+    },
+    {
+      "localId": "grok-4-1-fast",
+      "externalId": "grok-4-1-fast-non-reasoning",
+      "matchType": "manual",
+      "fields": [
+        "apiSupport",
+        "capabilities",
+        "trainingCutoff"
+      ]
+    },
+    {
+      "localId": "grok-3",
+      "externalId": "grok-3",
+      "matchType": "exact",
+      "fields": [
+        "apiSupport",
+        "trainingCutoff"
+      ]
+    },
+    {
+      "localId": "amazon-nova-pro",
+      "externalId": "nova-pro",
+      "matchType": "manual",
+      "fields": [
+        "apiSupport",
+        "trainingCutoff"
+      ]
+    }
+  ],
+  "mapped": [
+    {
+      "localId": "gpt-4o",
+      "externalId": "gpt-4o",
+      "matchType": "exact"
+    },
+    {
+      "localId": "o1-preview",
+      "externalId": "o1",
+      "matchType": "manual"
+    },
+    {
+      "localId": "gpt-5-2-pro",
+      "externalId": "gpt-5.2-pro",
+      "matchType": "manual"
+    },
+    {
+      "localId": "gpt-5-2-xhigh",
+      "externalId": "gpt-5.2",
+      "matchType": "manual"
+    },
+    {
+      "localId": "gpt-5-1",
+      "externalId": "gpt-5.1",
+      "matchType": "manual"
+    },
+    {
+      "localId": "gpt-5-3-codex",
+      "externalId": "gpt-5-codex",
+      "matchType": "manual"
+    },
+    {
+      "localId": "gpt-oss-120b",
+      "externalId": "gpt-oss-120b",
+      "matchType": "exact"
+    },
+    {
+      "localId": "o3-pro",
+      "externalId": "o3",
+      "matchType": "manual"
+    },
+    {
+      "localId": "o3",
+      "externalId": "o3",
+      "matchType": "exact"
+    },
+    {
+      "localId": "o4-mini",
+      "externalId": "o4-mini",
+      "matchType": "exact"
+    },
+    {
+      "localId": "gpt-5-2-high",
+      "externalId": "gpt-5.2",
+      "matchType": "manual"
+    },
+    {
+      "localId": "gpt-5-mini-high",
+      "externalId": "gpt-5-mini",
+      "matchType": "manual"
+    },
+    {
+      "localId": "claude-opus-4-6",
+      "externalId": "claude-opus-4-6",
+      "matchType": "exact"
+    },
+    {
+      "localId": "claude-opus-4-5",
+      "externalId": "claude-opus-4-5",
+      "matchType": "exact"
+    },
+    {
+      "localId": "claude-sonnet-4-5",
+      "externalId": "claude-sonnet-4-5",
+      "matchType": "exact"
+    },
+    {
+      "localId": "claude-3-7-sonnet",
+      "externalId": "claude-3-7-sonnet-20250219",
+      "matchType": "manual"
+    },
+    {
+      "localId": "claude-sonnet-4-5-high",
+      "externalId": "claude-sonnet-4-5",
+      "matchType": "manual"
+    },
+    {
+      "localId": "claude-opus-4-5-high",
+      "externalId": "claude-opus-4-5",
+      "matchType": "manual"
+    },
+    {
+      "localId": "gemini-3-pro",
+      "externalId": "gemini-3-pro",
+      "matchType": "exact"
+    },
+    {
+      "localId": "gemini-3-deep-think",
+      "externalId": "gemini-3-pro",
+      "matchType": "manual"
+    },
+    {
+      "localId": "gemini-3-flash",
+      "externalId": "gemini-3-flash-preview",
+      "matchType": "manual"
+    },
+    {
+      "localId": "gemini-2-5-pro",
+      "externalId": "gemini-2.5-pro",
+      "matchType": "manual"
+    },
+    {
+      "localId": "gemini-2-0-flash",
+      "externalId": "gemini-2.0-flash",
+      "matchType": "manual"
+    },
+    {
+      "localId": "gemini-3-pro-high",
+      "externalId": "gemini-3-pro",
+      "matchType": "manual"
+    },
+    {
+      "localId": "gemini-3-flash-high",
+      "externalId": "gemini-3-flash-preview",
+      "matchType": "manual"
+    },
+    {
+      "localId": "llama-4-behemoth",
+      "externalId": "llama-4",
+      "matchType": "manual"
+    },
+    {
+      "localId": "llama-4-maverick",
+      "externalId": "llama-4",
+      "matchType": "manual"
+    },
+    {
+      "localId": "llama-4-scout",
+      "externalId": "llama-4",
+      "matchType": "manual"
+    },
+    {
+      "localId": "deepseek-v3",
+      "externalId": "deepseek-v3.2",
+      "matchType": "manual"
+    },
+    {
+      "localId": "deepseek-r1",
+      "externalId": "deepseek-r1",
+      "matchType": "exact"
+    },
+    {
+      "localId": "deepseek-r1-zero",
+      "externalId": "deepseek-r1",
+      "matchType": "manual"
+    },
+    {
+      "localId": "deepseek-v3-2-speciale",
+      "externalId": "deepseek-v3.2",
+      "matchType": "manual"
+    },
+    {
+      "localId": "deepseek-r1-distill-llama-70b",
+      "externalId": "deepseek-r1",
+      "matchType": "manual"
+    },
+    {
+      "localId": "deepseek-r1-distill-qwen-32b",
+      "externalId": "deepseek-r1",
+      "matchType": "manual"
+    },
+    {
+      "localId": "kimi-k2-5",
+      "externalId": "kimi-k2-0905-preview",
+      "matchType": "manual"
+    },
+    {
+      "localId": "phi-4",
+      "externalId": "phi-4",
+      "matchType": "exact"
+    },
+    {
+      "localId": "ministral-3b",
+      "externalId": "ministral-3b-latest",
+      "matchType": "manual"
+    },
+    {
+      "localId": "grok-4",
+      "externalId": "grok-4",
+      "matchType": "exact"
+    },
+    {
+      "localId": "grok-4-1-fast",
+      "externalId": "grok-4-1-fast-non-reasoning",
+      "matchType": "manual"
+    },
+    {
+      "localId": "grok-3",
+      "externalId": "grok-3",
+      "matchType": "exact"
+    },
+    {
+      "localId": "amazon-nova-pro",
+      "externalId": "nova-pro",
+      "matchType": "manual"
+    }
+  ],
+  "unresolved": {
+    "unmatchedLocal": [
+      "gpt-4-5",
+      "claude-3-5-sonnet",
+      "gemini-1-5-pro",
+      "nano-banana-pro",
+      "llama-3-1-405b",
+      "deepseek-v3-1-terminus",
+      "command-r-plus-08-2024",
+      "command-a",
+      "jamba-2-large",
+      "minimax-m2-5",
+      "qwen3-vl-235b-a22b",
+      "glm-5",
+      "starcoder2-15b",
+      "dbrx-instruct",
+      "internlm3-8b",
+      "yi-1-5-34b",
+      "baichuan-m3",
+      "snowflake-arctic",
+      "seed-2-0-pro",
+      "seed-2-0-mini",
+      "seed-2-0-lite",
+      "deepseek-prover-v2",
+      "seed-1-5-prover",
+      "seed-1-8"
+    ],
+    "ambiguousLocal": [],
+    "unmatchedExternal": [
+      "o3-mini",
+      "gpt-4o-mini",
+      "gpt-4-turbo",
+      "gpt-4.1",
+      "gpt-4.1-mini",
+      "gpt-4.1-nano",
+      "gpt-5",
+      "gpt-5-nano",
+      "gpt-oss-20b",
+      "deepseek-r1-0528",
+      "phi-4-reasoning",
+      "phi-4-multimodal-instruct",
+      "mistral-nemo",
+      "llama-3.3",
+      "qwen2.5-coder",
+      "mistral-large-2",
+      "pixtral-large",
+      "mistral-medium-3",
+      "codestral-latest",
+      "mistral-small-v3.1",
+      "llama-3.1-70b",
+      "gemini-2.5-flash",
+      "gemini-2.0-flash-lite",
+      "gemma-2-27b",
+      "qwen-2.5-max",
+      "mistral-saba-latest",
+      "ministral-8b-latest",
+      "mistral-moderation-latest",
+      "mistral-ocr-latest",
+      "gemma3",
+      "qwen3",
+      "devstral",
+      "qwen2.5vl",
+      "grok-4-fast-reasoning",
+      "grok-4-fast-non-reasoning",
+      "grok-code-fast-1",
+      "grok-3-mini",
+      "grok-2-image-1212",
+      "grok-2",
+      "grok-1",
+      "nova-lite",
+      "nova-micro",
+      "qwq",
+      "gemma3n",
+      "magistral",
+      "magistral-small",
+      "magistral-medium",
+      "gemini-2.5-flash-lite",
+      "gemini-2.5-flash-image",
+      "gemini-3-pro-preview",
+      "mistral-large-3",
+      "grok-4-1-fast-reasoning",
+      "gpt-5-chat-latest",
+      "gpt-5-pro",
+      "gpt-5.1-codex-mini",
+      "gpt-image-1",
+      "gpt-image-1-mini",
+      "gpt-4o-transcribe",
+      "gpt-4o-mini-transcribe",
+      "gpt-4o-mini-tts",
+      "claude-opus-4-1",
+      "claude-opus-4-1-20250805",
+      "claude-opus-4-5-20251101",
+      "claude-sonnet-4-5-20250929",
+      "claude-haiku-4-5",
+      "claude-haiku-4-5-20251001",
+      "claude-sonnet-4-20250514",
+      "claude-opus-4-20250514",
+      "claude-3-5-haiku-20241022",
+      "claude-opus-4-6-20260205",
+      "kimi-latest",
+      "kimi-k2-0711-preview",
+      "kimi-k2-turbo-preview",
+      "kimi-k2-thinking",
+      "kimi-k2-thinking-turbo",
+      "gemini-2.5-flash-preview-09-2025",
+      "gemini-2.5-flash-lite-preview-09-2025",
+      "gemini-2.5-flash-native-audio-preview-12-2025",
+      "gemini-2.5-flash-preview-tts",
+      "gemini-2.5-pro-preview-tts",
+      "gemini-3-pro-image-preview",
+      "deepseek-chat",
+      "deepseek-reasoner",
+      "grok-2-1212",
+      "grok-2-vision-1212",
+      "grok-beta",
+      "grok-vision-beta",
+      "grok-4-0709",
+      "nova-2-lite",
+      "nova-2-sonic",
+      "nova-canvas",
+      "nova-premier",
+      "nova-reel",
+      "nova-sonic",
+      "qwen-flash",
+      "qwen-plus",
+      "qwen-plus-latest",
+      "qwen-turbo",
+      "qwen-turbo-latest",
+      "qwen3-coder-plus",
+      "qwen3-coder-flash",
+      "qwen3-max",
+      "qwen3-max-preview",
+      "qwq-plus",
+      "qwq-plus-latest",
+      "mistral-large-2512",
+      "mistral-medium-2508",
+      "mistral-small-2506",
+      "mistral-ocr-2512",
+      "voxtral-mini-2507",
+      "ministral-3b-2512",
+      "ministral-8b-2512",
+      "ministral-14b-2512"
+    ]
+  },
+  "manualMap": {
+    "amazon-nova-pro": "nova-pro",
+    "claude-3-7-sonnet": "claude-3-7-sonnet-20250219",
+    "claude-opus-4-5-high": "claude-opus-4-5",
+    "claude-sonnet-4-5-high": "claude-sonnet-4-5",
+    "deepseek-r1-distill-llama-70b": "deepseek-r1",
+    "deepseek-r1-distill-qwen-32b": "deepseek-r1",
+    "deepseek-r1-zero": "deepseek-r1",
+    "deepseek-v3": "deepseek-v3.2",
+    "deepseek-v3-2-speciale": "deepseek-v3.2",
+    "gemini-2-0-flash": "gemini-2.0-flash",
+    "gemini-2-5-pro": "gemini-2.5-pro",
+    "gemini-3-deep-think": "gemini-3-pro",
+    "gemini-3-flash": "gemini-3-flash-preview",
+    "gemini-3-flash-high": "gemini-3-flash-preview",
+    "gemini-3-pro-high": "gemini-3-pro",
+    "gpt-5-1": "gpt-5.1",
+    "gpt-5-2-high": "gpt-5.2",
+    "gpt-5-2-pro": "gpt-5.2-pro",
+    "gpt-5-2-xhigh": "gpt-5.2",
+    "gpt-5-3-codex": "gpt-5-codex",
+    "gpt-5-mini-high": "gpt-5-mini",
+    "grok-4-1-fast": "grok-4-1-fast-non-reasoning",
+    "kimi-k2-5": "kimi-k2-0905-preview",
+    "llama-4-behemoth": "llama-4",
+    "llama-4-maverick": "llama-4",
+    "llama-4-scout": "llama-4",
+    "ministral-3b": "ministral-3b-latest",
+    "o1-preview": "o1",
+    "o3-pro": "o3"
+  }
+}

@@ -47,6 +47,10 @@ const BENCHMARK_LINK_OVERRIDES: Record<string, string> = {
   "terminal-bench-hard": "https://www.tbench.ai/leaderboard/terminal-bench/2.0",
   "osworld-verified": "https://os-world.github.io/",
   "swe-bench-pro": "https://www.swebench.com/",
+  "lcr": "https://artificialanalysis.ai/evaluations/lcr",
+  "ifbench": "https://artificialanalysis.ai/evaluations/ifbench",
+  "aa-omniscience": "https://artificialanalysis.ai/evaluations/omniscience",
+  "critpt": "https://arxiv.org/abs/2501.00663",
 };
 
 function getBenchmarkLink(benchmark: Benchmark): string {
@@ -195,6 +199,15 @@ const rawBenchmarks: Benchmark[] = [
     description: "Humanity's Last Exam full evaluation with tool access enabled.",
     maxScore: 100,
     higherIsBetter: true,
+  },
+  {
+    id: "critpt",
+    name: "CritPt",
+    category: "Science",
+    description: "Complex Research using Integrated Thinking - Physics Test. Research-level physics reasoning.",
+    maxScore: 100,
+    higherIsBetter: true,
+    link: "https://arxiv.org/abs/2501.00663"
   },
   {
     id: "simpleqa",
@@ -365,11 +378,12 @@ const rawBenchmarks: Benchmark[] = [
   },
   {
     id: "lcr",
-    name: "LCR",
+    name: "AA-LCR",
     category: "Long Context",
-    description: "Long-context retrieval and reasoning benchmark.",
+    description: "Artificial Analysis Long Context Reasoning benchmark. Evaluates reasoning over long contexts.",
     maxScore: 100,
     higherIsBetter: true,
+    link: "https://artificialanalysis.ai/evaluations/lcr"
   },
   // --- MULTILINGUAL ---
   {
@@ -379,6 +393,15 @@ const rawBenchmarks: Benchmark[] = [
     description: "Massive Multilingual Language Understanding.",
     maxScore: 100,
     higherIsBetter: true,
+  },
+  {
+    id: "ifeval",
+    name: "IFEval",
+    category: "Instruction Following",
+    description: "Instruction Following Evaluation for Large Language Models. Measures ability to follow strict formatting and constraint requirements.",
+    maxScore: 100,
+    higherIsBetter: true,
+    link: "https://arxiv.org/abs/2311.07911"
   },
   // --- INSTRUCTION FOLLOWING ---
   {
@@ -393,9 +416,10 @@ const rawBenchmarks: Benchmark[] = [
     id: "ifbench",
     name: "IFBench",
     category: "Instruction Following",
-    description: "Instruction-following benchmark with constrained response checks.",
+    description: "Artificial Analysis IFBench. Evaluates precise instruction following with constraints.",
     maxScore: 100,
     higherIsBetter: true,
+    link: "https://artificialanalysis.ai/evaluations/ifbench"
   },
   {
     id: "verified-advancedif",
@@ -413,6 +437,16 @@ const rawBenchmarks: Benchmark[] = [
     description: "Factuality in long-form conceptual generations.",
     maxScore: 100,
     higherIsBetter: true,
+  },
+  {
+    id: "aa-omniscience",
+    name: "AA-Omniscience",
+    category: "Hallucination",
+    description: "Evaluates model omniscience and factual reliability across diverse domains.",
+    maxScore: 100,
+    minScore: -100,
+    higherIsBetter: true,
+    link: "https://artificialanalysis.ai/evaluations/omniscience"
   },
   {
     id: "aime-2025",
