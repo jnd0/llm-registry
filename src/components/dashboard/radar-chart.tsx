@@ -23,10 +23,11 @@ interface RadarComparisonProps {
 }
 
 const COLORS = [
-  "#0ea5e9",
-  "#f472b6",
-  "#10b981",
-  "#f59e0b",
+  "var(--chart-1)",
+  "var(--chart-2)",
+  "var(--chart-3)",
+  "var(--chart-4)",
+  "var(--chart-5)",
 ];
 
 interface RadarTooltipEntry {
@@ -44,22 +45,22 @@ interface RadarTooltipProps {
 const CustomTooltip = ({ active, payload, label }: RadarTooltipProps) => {
   if (active && payload && payload.length) {
     return (
-      <div className="bg-background/95 border border-white/10 p-4 shadow-xl backdrop-blur-md rounded-lg min-w-[200px]">
-        <p className="font-display font-bold text-sm text-foreground mb-3 uppercase tracking-wider border-b border-white/10 pb-2">
+      <div className="min-w-[200px] rounded-lg border border-border bg-popover p-4 text-popover-foreground shadow-lg">
+        <p className="mb-3 border-b border-border pb-2 font-display text-sm font-bold tracking-tight">
           {label}
         </p>
         {payload.map((entry, index) => (
-          <div key={index} className="flex items-center justify-between gap-4 mb-2 last:mb-0 group">
+          <div key={index} className="mb-2 flex items-center justify-between gap-4 last:mb-0">
             <div className="flex items-center gap-2">
               <div
-                className="w-2 h-2 rounded-full ring-2 ring-white/10 group-hover:ring-primary/50 transition-all"
+                className="h-2 w-2 rounded-full"
                 style={{ backgroundColor: entry.color }}
               />
-              <span className="font-mono text-xs text-muted-foreground uppercase tracking-wider">
+              <span className="font-mono text-xs tracking-[0.08em] text-muted-foreground">
                 {entry.name}
               </span>
             </div>
-            <span className="font-mono text-sm font-bold text-foreground tabular-nums group-hover:text-primary transition-colors">
+            <span className="font-mono text-sm font-bold tabular-nums text-foreground">
               {(entry.value ?? 0).toFixed(1)}
             </span>
           </div>
@@ -115,27 +116,25 @@ export function RadarComparison({ models, benchmarks, className }: RadarComparis
   if (models.length === 0 || categories.length === 0) return null;
 
   return (
-    <Card className={cn("bg-card/50 border-white/5 relative overflow-hidden group shadow-lg backdrop-blur-sm", className)}>
-      <div className="absolute inset-0 bg-gradient-to-tr from-primary/5 via-transparent to-secondary/5 opacity-50 pointer-events-none" />
-
-      <CardHeader className="relative z-10 border-b border-white/5 pb-4 space-y-1">
+    <Card className={cn("surface-card group relative overflow-hidden", className)}>
+      <CardHeader className="relative z-10 space-y-1 border-b border-border bg-card/70 pb-4">
         <div className="flex items-center justify-between">
           <div>
-            <CardTitle className="font-display text-lg tracking-tight text-foreground group-hover:text-primary transition-colors duration-300">
+            <CardTitle className="font-display text-lg tracking-tight text-foreground">
               Intelligence Profile
             </CardTitle>
-            <CardDescription className="text-xs font-mono tracking-widest text-muted-foreground uppercase mt-1">
-              MULTIVARIATE_ANALYSIS | CATEGORY-AVERAGED
+            <CardDescription className="mt-1 text-xs font-mono tracking-[0.12em] text-muted-foreground">
+              Multivariate Analysis · Category Averaged
             </CardDescription>
           </div>
-          <div className="w-2 h-2 rounded-full bg-primary shadow-[0_0_8px_var(--color-primary)] animate-pulse" />
+          <div className="h-2 w-2 rounded-full bg-primary" />
         </div>
       </CardHeader>
 
-      <CardContent className="h-[450px] relative z-10 pt-8 pb-4">
+      <CardContent className="relative z-10 h-[450px] pb-4 pt-8">
         <ResponsiveContainer width="100%" height="100%">
           <RadarChart cx="50%" cy="50%" outerRadius="75%" data={data}>
-            <PolarGrid stroke="rgba(255,255,255,0.05)" strokeDasharray="4 4" />
+            <PolarGrid stroke="var(--border)" strokeDasharray="3 3" />
             <PolarAngleAxis
               dataKey="subject"
               tick={{ fill: "var(--muted-foreground)", fontSize: 11, fontFamily: "var(--font-geist-mono)", fontWeight: 500 }}
@@ -151,10 +150,10 @@ export function RadarComparison({ models, benchmarks, className }: RadarComparis
                 stroke={COLORS[index % COLORS.length]}
                 strokeWidth={2.5}
                 fill={COLORS[index % COLORS.length]}
-                fillOpacity={0.15}
+                fillOpacity={0.14}
                 dot={{ r: 0, fill: COLORS[index % COLORS.length], strokeWidth: 0 }}
-                activeDot={{ r: 6, strokeWidth: 2, stroke: "#fff", fill: COLORS[index % COLORS.length] }}
-                className="hover:opacity-100 transition-opacity duration-300 mix-blend-screen"
+                activeDot={{ r: 6, strokeWidth: 2, stroke: "var(--card)", fill: COLORS[index % COLORS.length] }}
+                className="transition-opacity duration-300 hover:opacity-100"
               />
             ))}
             <Legend

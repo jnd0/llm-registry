@@ -1,178 +1,190 @@
 import { DataTable } from "@/components/dashboard/leaderboard";
-import { models } from "@/data/models";
-import { benchmarks } from "@/data/benchmarks";
+import { benchmarks, models } from "@/lib/registry-data";
 import { changelog } from "@/data/changelog";
+import type { Metadata } from "next";
 import { Button } from "@/components/ui/button";
 import { Suspense } from "react";
 import Link from "next/link";
 import { benchmarkCategories, categoryToSlug, slugToCategory } from "@/lib/categories";
+import { getHomeMetrics } from "@/lib/home-metrics";
+import { parseLeaderboardQueryParams, queryLeaderboardModels } from "@/lib/leaderboard-query";
+import { cn } from "@/lib/utils";
+import { getProviderTheme } from "@/lib/provider-identity";
 
 interface HomePageProps {
-  searchParams: Promise<{ category?: string }>;
+  searchParams: Promise<{
+    category?: string;
+    q?: string;
+    sort?: string;
+    dir?: string;
+    page?: string;
+    pageSize?: string;
+  }>;
 }
+
+export const metadata: Metadata = {
+  title: "Leaderboard",
+  description: "Explore LLM benchmark leaderboards by category with normalized scoring and provenance.",
+  alternates: {
+    canonical: "/",
+  },
+};
 
 export default async function Home({ searchParams }: HomePageProps) {
   const params = await searchParams;
   const activeCategory = slugToCategory(params?.category);
   const activeCategorySlug = activeCategory ? categoryToSlug(activeCategory) : null;
-  const bestByBenchmark = (benchmarkId: string) => {
-    return models
-      .filter((model) => model.scores[benchmarkId]?.score !== null && model.scores[benchmarkId]?.score !== undefined)
-      .sort((a, b) => (b.scores[benchmarkId]?.score ?? -1) - (a.scores[benchmarkId]?.score ?? -1))[0];
-  };
-
-  const bestCodingModel = bestByBenchmark("swe-bench-verified") ?? bestByBenchmark("human-eval");
-  const bestReasoningModel = bestByBenchmark("gpqa-diamond");
-  const bestVisionModel = bestByBenchmark("mmmu") ?? bestByBenchmark("mmmu-vision");
-  const bestValueModel = models
-    .filter((model) => (model.scores["mmlu"]?.score ?? 0) > 0 && model.specs.pricing.input > 0)
-    .sort((a, b) => {
-      const scoreA = (a.scores["mmlu"]?.score ?? 0) / a.specs.pricing.input;
-      const scoreB = (b.scores["mmlu"]?.score ?? 0) / b.specs.pricing.input;
-      return scoreB - scoreA;
-    })[0];
-
-  const quickHighlights = [
-    {
-      label: "Best Coding",
-      model: bestCodingModel,
-      benchmark: bestCodingModel?.scores["swe-bench-verified"] ? "SWE-bench Verified" : "HumanEval",
-      value:
-        bestCodingModel?.scores["swe-bench-verified"]?.score ??
-        bestCodingModel?.scores["human-eval"]?.score ??
-        null,
-    },
-    {
-      label: "Best Reasoning",
-      model: bestReasoningModel,
-      benchmark: "GPQA Diamond",
-      value: bestReasoningModel?.scores["gpqa-diamond"]?.score ?? null,
-    },
-    {
-      label: "Best Vision",
-      model: bestVisionModel,
-      benchmark: bestVisionModel?.scores["mmmu"] ? "MMMU" : "MMMU Vision",
-      value: bestVisionModel?.scores["mmmu"]?.score ?? bestVisionModel?.scores["mmmu-vision"]?.score ?? null,
-    },
-    {
-      label: "Best Value",
-      model: bestValueModel,
-      benchmark: "MMLU per $ input",
-      value: bestValueModel ? (bestValueModel.scores["mmlu"]?.score ?? 0) / bestValueModel.specs.pricing.input : null,
-      format: "ratio",
-    },
-  ];
-
-  const benchmarkIds = new Set(benchmarks.map((benchmark) => benchmark.id));
-  const usedBenchmarkIds = new Set<string>();
-  let totalScores = 0;
-  let latestScoreDate = "";
-
-  models.forEach((model) => {
-    Object.entries(model.scores).forEach(([benchmarkId, entry]) => {
-      totalScores += 1;
-      if (benchmarkIds.has(benchmarkId)) usedBenchmarkIds.add(benchmarkId);
-      if (entry.asOfDate && entry.asOfDate > latestScoreDate) latestScoreDate = entry.asOfDate;
-    });
-  });
+  const queryParams = parseLeaderboardQueryParams(params, benchmarks, { activeCategory });
+  const leaderboard = queryLeaderboardModels(models, benchmarks, queryParams);
+  const { latestScoreDate, mappedBenchmarks, quickHighlights, totalScores } = getHomeMetrics(models, benchmarks);
 
   const latestRelease = changelog[0];
-  const mappedBenchmarks = `${usedBenchmarkIds.size}/${benchmarks.length}`;
+  const latestArrival = [...models].sort((a, b) => b.releaseDate.localeCompare(a.releaseDate))[0];
+  const latestArrivalTheme = latestArrival ? getProviderTheme(latestArrival.provider) : null;
 
   return (
-    <div className="space-y-8 animate-in fade-in duration-500">
-      <div className="flex items-end justify-between border-b border-white/5 pb-6">
-        <div>
-            <h1 className="text-3xl font-display font-bold tracking-tight text-foreground">Global Index</h1>
-            <p className="text-sm font-mono text-muted-foreground uppercase tracking-widest mt-2 flex items-center gap-3">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                Live Ranking // {models.length} Systems Tracked
+    <div className="animate-in fade-in duration-500 space-y-5">
+      <section className="surface-panel relative overflow-hidden rounded-2xl px-5 py-6 sm:px-7 sm:py-7">
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_-28%,color-mix(in_oklab,var(--primary)_12%,transparent),transparent_40%)] dark:bg-[radial-gradient(circle_at_18%_-28%,color-mix(in_oklab,var(--primary)_22%,transparent),transparent_40%)]" />
+        <div className="relative grid gap-6 lg:grid-cols-[minmax(0,1.35fr)_minmax(0,0.65fr)] lg:items-end">
+          <div className="space-y-4">
+            <p className="label-eyebrow">Registry / Benchmarks / Live Leaderboard</p>
+            <h1 className="text-4xl font-display font-bold tracking-[-0.03em] text-foreground sm:text-[4.1rem] sm:leading-[0.95]">
+              Global Benchmark Leaderboard
+            </h1>
+            <p className="max-w-4xl text-base text-muted-foreground sm:text-[1.6rem] sm:leading-[1.33]">
+              Tracking provenance, performance, and compliance across verified models.
             </p>
-            <div className="mt-4 flex flex-wrap gap-2">
+            <p className="flex items-center gap-2 font-mono text-sm tracking-wide text-muted-foreground">
+              <span className="h-2 w-2 rounded-full bg-emerald-500" />
+              Last updated: <span className="font-semibold text-foreground">{latestScoreDate || "Unknown"}</span>
+            </p>
+          </div>
+
+          <div className="space-y-3">
+            <div className="flex flex-wrap gap-2">
               <Link
                 href="/"
-                className={`px-3 py-1.5 rounded-md text-[10px] font-mono uppercase tracking-wider border transition-colors ${!activeCategory ? "border-primary/35 bg-primary/10 text-primary" : "border-white/10 text-muted-foreground hover:text-foreground hover:bg-white/5"}`}
+                className={cn(
+                  "chip-pill rounded-full px-4 py-2 text-sm font-medium",
+                  !activeCategory
+                    ? "border-primary/50 bg-primary text-primary-foreground"
+                    : "text-muted-foreground hover:text-foreground"
+                )}
               >
-                All Categories
+                All Models
               </Link>
-              {benchmarkCategories.map((category) => {
+              {benchmarkCategories.slice(0, 5).map((category) => {
                 const slug = categoryToSlug(category);
                 const isActive = activeCategory === category;
                 return (
                   <Link
                     key={category}
                     href={`/?category=${slug}`}
-                    className={`px-3 py-1.5 rounded-md text-[10px] font-mono uppercase tracking-wider border transition-colors ${isActive ? "border-primary/35 bg-primary/10 text-primary" : "border-white/10 text-muted-foreground hover:text-foreground hover:bg-white/5"}`}
+                    className={cn(
+                      "chip-pill rounded-full px-4 py-2 text-sm font-medium",
+                      isActive
+                        ? "border-primary/50 bg-primary text-primary-foreground"
+                        : "text-muted-foreground hover:text-foreground"
+                    )}
                   >
                     {category}
                   </Link>
                 );
               })}
             </div>
-        </div>
-        <div className="hidden sm:flex items-center gap-4">
-            <Button asChild variant="outline" size="sm" className="h-10 px-6 border-white/10 hover:bg-white/5 text-[10px] font-mono uppercase tracking-wider rounded-md">
-                <Link href="/about">Documentation</Link>
-            </Button>
-             {activeCategory && (
-                <Button asChild variant="outline" size="sm" className="h-10 px-6 border-white/10 hover:bg-white/5 text-[10px] font-mono uppercase tracking-wider rounded-md">
-                    <Link href={`/leaderboard/${activeCategorySlug}`}>Open Category Page</Link>
-                </Button>
-             )}
-             <Button asChild size="sm" className="h-10 px-6 bg-primary text-primary-foreground hover:bg-primary/90 text-[10px] font-mono uppercase tracking-wider shadow-[0_0_15px_-5px_var(--color-primary)] rounded-md">
-                 <Link href={activeCategorySlug ? `/compare?category=${activeCategorySlug}` : "/compare"}>Open Compare</Link>
-             </Button>
-        </div>
-      </div>
 
-      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-        {quickHighlights.map((item) => (
-          <div key={item.label} className="rounded-lg border border-white/10 bg-card/30 p-4">
-            <p className="text-[10px] font-mono uppercase tracking-widest text-muted-foreground">{item.label}</p>
-            <p className="mt-2 text-base font-semibold text-foreground truncate">{item.model?.name ?? "TBD"}</p>
-            <p className="mt-1 text-[11px] text-muted-foreground">{item.benchmark}</p>
-            <p className="mt-3 text-lg font-display font-bold text-primary">
-              {item.value === null
-                ? "--"
-                : item.format === "ratio"
-                ? `${item.value.toFixed(1)}x`
-                : `${item.value.toFixed(1)}`}
-            </p>
-          </div>
-        ))}
-      </div>
-
-      <div className="grid gap-4 lg:grid-cols-3">
-        <div className="rounded-lg border border-emerald-500/20 bg-emerald-500/5 p-4">
-          <p className="text-[10px] font-mono uppercase tracking-widest text-emerald-300">Data Quality</p>
-          <p className="mt-2 text-base font-semibold text-foreground">Strict Validation: Passing</p>
-          <p className="mt-1 text-[11px] text-muted-foreground">Mapped benchmark IDs: {mappedBenchmarks}</p>
-          <p className="mt-1 text-[11px] text-muted-foreground">Total score records: {totalScores}</p>
-        </div>
-
-        <div className="rounded-lg border border-white/10 bg-card/30 p-4">
-          <p className="text-[10px] font-mono uppercase tracking-widest text-muted-foreground">Latest Update</p>
-          <p className="mt-2 text-base font-semibold text-foreground">{latestRelease?.title ?? "Registry update"}</p>
-          <p className="mt-1 text-[11px] text-muted-foreground">Version {latestRelease?.version ?? "n/a"} | {latestRelease?.date ?? "Unknown"}</p>
-          <p className="mt-1 text-[11px] text-muted-foreground">Latest score date: {latestScoreDate || "Unknown"}</p>
-        </div>
-
-        <div className="rounded-lg border border-white/10 bg-card/30 p-4">
-          <p className="text-[10px] font-mono uppercase tracking-widest text-muted-foreground">Research Workflow</p>
-          <p className="mt-2 text-base font-semibold text-foreground">Use compare + methodology together</p>
-          <div className="mt-3 flex gap-2">
-            <Button asChild size="sm" variant="outline" className="h-8 text-[10px] font-mono uppercase tracking-wider">
-              <Link href="/compare">Compare Models</Link>
-            </Button>
-            <Button asChild size="sm" variant="outline" className="h-8 text-[10px] font-mono uppercase tracking-wider">
-              <Link href="/about">Read Methodology</Link>
-            </Button>
+            <div className="grid gap-2 sm:grid-cols-2">
+              <Button asChild variant="outline" size="sm" className="h-10 px-4 text-sm font-medium">
+                <Link href="/api/v1/scores">Export Snapshot</Link>
+              </Button>
+              <Button asChild variant="outline" size="sm" className="h-10 px-4 text-sm font-medium">
+                <Link href="/about">History</Link>
+              </Button>
+              <Button asChild size="sm" className="h-10 px-4 text-sm font-semibold shadow-[0_12px_28px_-20px_var(--color-primary)] sm:col-span-2">
+                <Link href={activeCategorySlug ? `/compare?category=${activeCategorySlug}` : "/compare"}>Open Compare</Link>
+              </Button>
+            </div>
           </div>
         </div>
-      </div>
-      
-      <Suspense fallback={<div className="h-96 flex items-center justify-center font-mono text-muted-foreground animate-pulse">Initializing Database...</div>}>
-        <DataTable data={models} benchmarks={benchmarks} activeCategory={activeCategory} activeCategorySlug={activeCategorySlug} />
+      </section>
+
+      <section className="grid gap-4 xl:grid-cols-[0.95fr_1.95fr_1fr]">
+        <article className="surface-card relative rounded-2xl p-5">
+          <p className="label-eyebrow">Registry Stats</p>
+          <p className="mt-4 font-display text-6xl font-bold leading-none tracking-[-0.03em] text-foreground">{models.length}</p>
+          <p className="mt-1 text-2xl text-muted-foreground">verified</p>
+          <p className="mt-2 text-sm text-muted-foreground">Active foundation models tracking live.</p>
+          <div className="mt-9 border-t border-border pt-4 font-mono text-sm tracking-wide text-muted-foreground">
+            <span className="text-primary">{totalScores}</span> scores logged
+          </div>
+        </article>
+
+        <article className="surface-card rounded-2xl p-5">
+          <div className="mb-3 flex items-center justify-between">
+            <p className="label-eyebrow">Top Performers By Category</p>
+            <Link href="/" className="text-sm font-medium text-primary hover:underline">View All</Link>
+          </div>
+          <div className="grid gap-3 md:grid-cols-2">
+            {quickHighlights.slice(0, 4).map((item) => (
+              <div key={item.label} className="rounded-xl border border-border bg-muted/45 p-3 dark:bg-muted/20">
+                <p className="font-mono text-xs uppercase tracking-[0.1em] text-muted-foreground">{item.label}</p>
+                <p className="mt-2 truncate text-2xl font-semibold tracking-tight text-foreground">{item.model?.name ?? "TBD"}</p>
+                <p className="mt-1 font-mono text-sm text-primary">
+                  {item.value === null
+                    ? "--"
+                    : item.format === "ratio"
+                      ? `${item.value.toFixed(1)}x`
+                      : `${item.value.toFixed(1)} pts`}
+                </p>
+              </div>
+            ))}
+          </div>
+        </article>
+
+        <article className="rounded-2xl border border-slate-700/70 bg-[linear-gradient(155deg,#030914_12%,#061226_45%,#0b0b13_100%)] p-5 text-slate-100 shadow-[0_10px_40px_-24px_rgba(3,105,161,0.6)]">
+          <p className="font-mono text-xs uppercase tracking-[0.12em] text-slate-400">Latest Arrival</p>
+          <span className="mt-4 inline-flex rounded-full border border-slate-500/60 bg-slate-900/70 px-2.5 py-1 text-[11px] font-medium uppercase tracking-[0.08em] text-slate-200">
+            New
+          </span>
+          <p className="mt-4 text-4xl font-display font-bold tracking-[-0.03em] text-white">{latestArrival?.name ?? "Model"}</p>
+          <p className="mt-2 text-sm text-slate-300">{latestArrival?.provider ?? "Unknown provider"}&apos;s latest entry with benchmark-ready provenance.</p>
+          {latestArrival && latestArrivalTheme && (
+            <div className="mt-3">
+              <span className={cn("rounded-sm px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.14em]", latestArrivalTheme.border, latestArrivalTheme.bg, latestArrivalTheme.text)}>
+                {latestArrival.provider}
+              </span>
+            </div>
+          )}
+          <div className="mt-8 flex items-center justify-between border-t border-slate-700/70 pt-3 font-mono text-xs text-slate-300">
+            <span>Added {latestArrival?.releaseDate ?? "Unknown"}</span>
+            {latestArrival ? <Link href={`/model/${latestArrival.id}`} className="font-medium text-white hover:underline">View Details</Link> : <span>View Details</span>}
+          </div>
+        </article>
+      </section>
+
+      <section className="surface-card rounded-xl px-4 py-3">
+        <div className="flex flex-wrap items-center gap-2 text-xs font-mono tracking-wide text-muted-foreground">
+          <span className="chip-pill px-2 py-1">Mapped IDs {mappedBenchmarks}</span>
+          <span className="chip-pill px-2 py-1">Scores {totalScores}</span>
+          <span className="chip-pill px-2 py-1">Version {latestRelease?.version ?? "n/a"}</span>
+        </div>
+      </section>
+
+      <Suspense fallback={<div className="surface-card flex h-96 items-center justify-center rounded-xl font-mono text-sm uppercase tracking-[0.12em] text-muted-foreground">Loading Leaderboard…</div>}>
+        <DataTable
+          data={leaderboard.rows}
+          benchmarks={benchmarks}
+          activeCategory={activeCategory}
+          activeCategorySlug={activeCategorySlug}
+          totalRows={leaderboard.total}
+          currentPage={leaderboard.page}
+          totalPages={leaderboard.totalPages}
+          pageSize={leaderboard.pageSize}
+          sortBy={leaderboard.sortBy}
+          sortDir={leaderboard.sortDir}
+          searchQuery={leaderboard.query}
+        />
       </Suspense>
     </div>
   );

@@ -1,52 +1,59 @@
-import { benchmarks } from "@/data/benchmarks";
-import { models } from "@/data/models";
-import { sources } from "@/data/sources";
+import { benchmarks, models, sources } from "@/lib/registry-data";
 import { changelog } from "@/data/changelog";
+import type { Metadata } from "next";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 const categories = Array.from(new Set(benchmarks.map((benchmark) => benchmark.category)));
 
+export const metadata: Metadata = {
+  title: "Methodology",
+  description: "Read data policy, normalization rules, attribution, and confidence caveats used in LLM Registry rankings.",
+  alternates: {
+    canonical: "/about",
+  },
+};
+
 export default function AboutPage() {
   return (
     <div className="space-y-8 pb-20">
-      <div className="border-b border-white/5 pb-6">
-        <h1 className="text-3xl font-display font-bold tracking-tight">Methodology</h1>
-        <p className="text-sm font-mono text-muted-foreground uppercase tracking-widest mt-2">
-          Data policy, normalization, and ranking logic
+      <section className="surface-panel rounded-2xl px-5 py-6 sm:px-7 sm:py-7">
+        <h1 className="text-3xl font-display font-bold tracking-tight sm:text-4xl">Methodology</h1>
+        <p className="mt-2 max-w-2xl text-sm text-muted-foreground sm:text-base">
+          Data policy, normalization rules, provenance labeling, and ranking logic used across the registry.
         </p>
-      </div>
+      </section>
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-        <Card className="bg-card/40 border-white/10">
+        <Card className="surface-card">
           <CardHeader>
-            <CardTitle className="text-xs font-mono uppercase tracking-widest text-muted-foreground">Models</CardTitle>
+            <CardTitle className="label-eyebrow">Models</CardTitle>
           </CardHeader>
           <CardContent>
             <p className="text-4xl font-display font-bold">{models.length}</p>
           </CardContent>
         </Card>
 
-        <Card className="bg-card/40 border-white/10">
+        <Card className="surface-card">
           <CardHeader>
-            <CardTitle className="text-xs font-mono uppercase tracking-widest text-muted-foreground">Benchmarks</CardTitle>
+            <CardTitle className="label-eyebrow">Benchmarks</CardTitle>
           </CardHeader>
           <CardContent>
             <p className="text-4xl font-display font-bold">{benchmarks.length}</p>
           </CardContent>
         </Card>
 
-        <Card className="bg-card/40 border-white/10">
+        <Card className="surface-card">
           <CardHeader>
-            <CardTitle className="text-xs font-mono uppercase tracking-widest text-muted-foreground">Categories</CardTitle>
+            <CardTitle className="label-eyebrow">Categories</CardTitle>
           </CardHeader>
           <CardContent>
             <p className="text-4xl font-display font-bold">{categories.length}</p>
           </CardContent>
         </Card>
 
-        <Card className="bg-card/40 border-white/10">
+        <Card className="surface-card">
           <CardHeader>
-            <CardTitle className="text-xs font-mono uppercase tracking-widest text-muted-foreground">Sources</CardTitle>
+            <CardTitle className="label-eyebrow">Sources</CardTitle>
           </CardHeader>
           <CardContent>
             <p className="text-4xl font-display font-bold">{sources.length}</p>
@@ -54,7 +61,7 @@ export default function AboutPage() {
         </Card>
       </div>
 
-      <Card className="bg-card/40 border-white/10">
+      <Card className="surface-card">
         <CardHeader>
           <CardTitle>How scores are normalized</CardTitle>
         </CardHeader>
@@ -67,7 +74,7 @@ export default function AboutPage() {
         </CardContent>
       </Card>
 
-      <Card className="bg-card/40 border-white/10">
+      <Card className="surface-card">
         <CardHeader>
           <CardTitle>Ranking formula</CardTitle>
         </CardHeader>
@@ -80,7 +87,7 @@ export default function AboutPage() {
         </CardContent>
       </Card>
 
-      <Card className="bg-card/40 border-white/10">
+      <Card className="surface-card">
         <CardHeader>
           <CardTitle>Coverage and confidence</CardTitle>
         </CardHeader>
@@ -92,7 +99,7 @@ export default function AboutPage() {
         </CardContent>
       </Card>
 
-      <Card className="bg-card/40 border-white/10">
+      <Card className="surface-card">
         <CardHeader>
           <CardTitle>Verification tiers</CardTitle>
         </CardHeader>
@@ -104,18 +111,30 @@ export default function AboutPage() {
         </CardContent>
       </Card>
 
-      <Card className="bg-card/40 border-white/10">
+      <Card className="surface-card">
         <CardHeader>
           <CardTitle>Third-party attribution</CardTitle>
         </CardHeader>
         <CardContent className="space-y-2 text-sm text-muted-foreground">
           <p>- Scores imported from Artificial Analysis are marked with `*` in benchmark views.</p>
           <p>- Artificial Analysis data attribution: <a href="https://artificialanalysis.ai/" target="_blank" rel="noreferrer" className="text-primary hover:underline">artificialanalysis.ai</a>.</p>
+          <p>- A one-off model metadata enrichment (pricing/capabilities/context) was sourced from <a href="https://github.com/yamanahlawat/llm-registry" target="_blank" rel="noreferrer" className="text-primary hover:underline">yamanahlawat/llm-registry</a>.</p>
+          <p>- Metadata imports do not overwrite benchmark scores or benchmark-level provenance.</p>
           <p>- Current snapshot date for imported independent scores: 2026-02-16.</p>
         </CardContent>
       </Card>
 
-      <Card className="bg-card/40 border-white/10">
+      <Card className="surface-card">
+        <CardHeader>
+          <CardTitle>Data Quality & Provenance</CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-2 text-sm text-muted-foreground">
+          <p>- Verification: Official scores from provider announcements (Anthropic, Mistral, AWS) are marked as verified: true.</p>
+          <p>- Estimates: Scores derived from third-party evaluations (Artificial Analysis, LMSYS) or related benchmark variants are added with verified: false and attributed to the respective source.</p>
+        </CardContent>
+      </Card>
+
+      <Card className="surface-card">
         <CardHeader>
           <CardTitle>Known caveats</CardTitle>
         </CardHeader>
@@ -127,7 +146,7 @@ export default function AboutPage() {
         </CardContent>
       </Card>
 
-      <Card className="bg-card/40 border-white/10">
+      <Card className="surface-card">
         <CardHeader>
           <CardTitle>Data standards</CardTitle>
         </CardHeader>
@@ -139,14 +158,14 @@ export default function AboutPage() {
         </CardContent>
       </Card>
 
-      <Card className="bg-card/40 border-white/10">
+      <Card className="surface-card">
         <CardHeader>
           <CardTitle>Recent registry changes</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4 text-sm text-muted-foreground">
           {changelog.map((entry) => (
-            <div key={`${entry.version}-${entry.date}`} className="rounded-md border border-white/10 bg-background/40 p-4">
-              <p className="text-xs font-mono uppercase tracking-wider text-primary">v{entry.version} - {entry.date}</p>
+            <div key={`${entry.version}-${entry.date}`} className="rounded-md border border-white/12 bg-background/40 p-4">
+              <p className="text-xs font-mono tracking-[0.1em] text-primary">v{entry.version} · {entry.date}</p>
               <p className="mt-1 font-semibold text-foreground">{entry.title}</p>
               <div className="mt-2 space-y-1">
                 {entry.notes.map((note) => (

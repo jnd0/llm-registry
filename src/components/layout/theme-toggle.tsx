@@ -60,22 +60,22 @@ export function ThemeToggle() {
         <Button
           variant="outline"
           size="icon"
-          className="h-9 w-9 border-white/10 bg-background/50"
+          className="h-10 w-10 rounded-xl border-border bg-card"
           aria-label="Toggle theme"
         >
           {theme === "dark" ? <Moon className="h-4 w-4" /> : theme === "light" ? <Sun className="h-4 w-4" /> : <Monitor className="h-4 w-4" />}
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="bg-card border-white/10">
-        <DropdownMenuItem onClick={() => setThemePreference("light")} className="font-mono text-xs cursor-pointer">
+      <DropdownMenuContent align="end" className="border-border bg-card">
+        <DropdownMenuItem onClick={() => setThemePreference("light")} className="cursor-pointer text-sm">
           <Sun className="mr-2 h-4 w-4" />
           Light
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setThemePreference("dark")} className="font-mono text-xs cursor-pointer">
+        <DropdownMenuItem onClick={() => setThemePreference("dark")} className="cursor-pointer text-sm">
           <Moon className="mr-2 h-4 w-4" />
           Dark
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setThemePreference("system")} className="font-mono text-xs cursor-pointer">
+        <DropdownMenuItem onClick={() => setThemePreference("system")} className="cursor-pointer text-sm">
           <Monitor className="mr-2 h-4 w-4" />
           System
         </DropdownMenuItem>

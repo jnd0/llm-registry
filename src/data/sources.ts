@@ -116,4 +116,11 @@ export const sources: SourceRecord[] = [
     url: "https://seed.bytedance.com/",
     publisher: "ByteDance",
   },
+  {
+    id: "yamanahlawat-llm-registry",
+    name: "yamanahlawat/llm-registry",
+    url: "https://github.com/yamanahlawat/llm-registry",
+    publisher: "GitHub Community Registry",
+    updatedAt: "2026-02-07",
+  },
 ];

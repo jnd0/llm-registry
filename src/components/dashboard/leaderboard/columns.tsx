@@ -12,6 +12,8 @@ import {
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { sources } from "@/data/sources";
+import { normalizeScore } from "@/lib/stats";
+import { getProviderTheme } from "@/lib/provider-identity";
 
 const sourceMap = new Map(sources.map((source) => [source.id, source]));
 
@@ -28,21 +30,17 @@ export interface ModelComputedMetrics {
   categoryAverages: Record<string, number | null>;
 }
 
-// Helper for dynamic score coloring
-function getScoreColor(score: number, maxScore: number) {
-  // If score is ELO (typically > 1000)
-  if (maxScore > 100) {
-    if (score >= 1350) return "text-primary font-bold drop-shadow-[0_0_8px_rgba(var(--primary),0.3)]";
-    if (score >= 1250) return "text-emerald-400 font-medium";
-    if (score >= 1150) return "text-amber-400/90";
-    return "text-muted-foreground";
+function getScorePillClass(normalizedScore: number) {
+  if (normalizedScore >= 85) {
+    return "border-emerald-500/25 bg-emerald-500/14 text-emerald-700 dark:text-emerald-300";
   }
-
-  // Percentage-based scoring
-  if (score >= 90) return "text-primary font-bold drop-shadow-[0_0_8px_rgba(var(--primary),0.3)]";
-  if (score >= 80) return "text-emerald-400 font-medium";
-  if (score >= 70) return "text-amber-400/90";
-  return "text-muted-foreground";
+  if (normalizedScore >= 70) {
+    return "border-blue-500/25 bg-blue-500/14 text-blue-700 dark:text-blue-300";
+  }
+  if (normalizedScore >= 50) {
+    return "border-amber-500/25 bg-amber-500/14 text-amber-700 dark:text-amber-300";
+  }
+  return "border-rose-500/25 bg-rose-500/14 text-rose-700 dark:text-rose-300";
 }
 
 export function createColumns(
@@ -63,31 +61,38 @@ export function createColumns(
     header: ({ column }) => (
       <Tooltip delayDuration={200}>
         <TooltipTrigger asChild>
-          <Button
-            variant="ghost"
-            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-            className="px-0 hover:bg-transparent text-[10px] font-bold font-mono uppercase tracking-widest text-primary w-full justify-start h-10 group/header"
-          >
-            <span className="border-b border-primary/30 pb-0.5">
-              {category} AVG
+            <Button
+              variant="ghost"
+              onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+              className="group/header h-11 min-h-11 w-full justify-start px-0 font-mono text-xs font-semibold tracking-[0.06em] text-primary/90 hover:bg-transparent hover:text-primary"
+            >
+              <span className="border-b border-primary/30 pb-0.5">
+                {category} AVG
             </span>
             <ArrowUpDown className="ml-1 h-3 w-3 opacity-0 group-hover/header:opacity-50 transition-opacity" />
           </Button>
         </TooltipTrigger>
-        <TooltipContent className="bg-zinc-950 border-primary/30 text-zinc-200 p-2 rounded-none">
-          <p className="text-[10px] font-mono uppercase tracking-widest">Aggregate performance across all {category} evaluations.</p>
+        <TooltipContent className="border-border bg-popover p-2 text-popover-foreground shadow-lg">
+          <p className="text-xs font-mono tracking-wide">Aggregate performance across all {category} evaluations.</p>
         </TooltipContent>
       </Tooltip>
     ),
     cell: ({ getValue }) => {
       const val = getValue() as number;
-      if (val === -1) return <div className="text-muted-foreground/20 text-xs font-mono select-none pl-2">--.-</div>;
-      
-      const colorClass = getScoreColor(val, 100);
+      if (val === -1) {
+        return <div className="select-none pl-2 font-mono text-sm text-muted-foreground/30">--.-</div>;
+      }
+
       return (
-        <div className="font-mono text-sm font-bold tabular-nums pl-2 py-4">
-          <span className={cn(colorClass)}>{val.toFixed(1)}</span>
-          <span className="text-[10px] text-muted-foreground/30 ml-1">%</span>
+        <div className="pl-2">
+          <span
+            className={cn(
+              "inline-flex min-w-[84px] items-center justify-center rounded-md border px-2.5 py-1 font-mono text-sm font-semibold tabular-nums",
+              getScorePillClass(val)
+            )}
+          >
+            {val.toFixed(1)}%
+          </span>
         </div>
       );
     },
@@ -103,63 +108,75 @@ export function createColumns(
             <span className="sr-only">Compare</span>
             <div className="w-4 h-4 border border-muted-foreground/30 rounded-sm mx-auto" />
           </TooltipTrigger>
-          <TooltipContent className="bg-zinc-950 border-primary/30 text-zinc-200 p-2 rounded-none">
-            <p className="text-[10px] font-mono uppercase tracking-widest">Select up to 3 systems for head-to-head analysis.</p>
+          <TooltipContent className="border-border bg-popover p-2 text-popover-foreground shadow-lg">
+            <p className="text-xs font-mono tracking-wide">Select up to 3 systems for head-to-head analysis.</p>
           </TooltipContent>
         </Tooltip>
       ),
       cell: ({ row }) => (
         <div className="flex justify-center pl-4">
-           <div className="relative flex items-center group/checkbox">
-             <input
-              type="checkbox"
-              aria-label={`Toggle compare for ${row.original.name}`}
-              className="peer appearance-none w-5 h-5 border border-white/20 rounded bg-transparent checked:bg-primary checked:border-primary transition-all cursor-pointer focus:ring-2 focus:ring-primary/20 hover:border-primary/50"
-               checked={isCompared(row.original.id)}
-               onChange={() => toggleCompare(row.original.id)}
-             />
-            <Check className="w-3.5 h-3.5 text-primary-foreground absolute left-0.5 top-0.5 opacity-0 peer-checked:opacity-100 transition-opacity pointer-events-none" strokeWidth={3} />
-           </div>
+            <label className="group/checkbox relative flex h-11 w-11 cursor-pointer items-center justify-center">
+              <input
+                type="checkbox"
+                aria-label={`Toggle compare for ${row.original.name}`}
+                className="peer h-5 w-5 cursor-pointer appearance-none rounded border border-border bg-transparent transition-all hover:border-primary/60 checked:border-primary checked:bg-primary focus:ring-2 focus:ring-primary/20"
+                checked={isCompared(row.original.id)}
+                onChange={() => toggleCompare(row.original.id)}
+              />
+              <Check className="pointer-events-none absolute h-3.5 w-3.5 text-primary-foreground opacity-0 transition-opacity peer-checked:opacity-100" strokeWidth={3} />
+            </label>
         </div>
       ),
       enableSorting: false,
       enableHiding: false,
-      size: 50,
+      size: 64,
     },
     {
       accessorKey: "name",
       header: () => (
         <Tooltip delayDuration={200}>
-          <TooltipTrigger className="text-xs font-bold font-mono uppercase tracking-wider text-muted-foreground text-left cursor-help">
+          <TooltipTrigger className="cursor-help text-left font-mono text-xs font-semibold tracking-[0.1em] text-muted-foreground">
             Model System
           </TooltipTrigger>
-          <TooltipContent className="bg-zinc-950 border-primary/30 text-zinc-200 p-2 rounded-none">
-            <p className="text-[10px] font-mono uppercase tracking-widest">Neural architecture ID and provider details.</p>
+          <TooltipContent className="border-border bg-popover p-2 text-popover-foreground shadow-lg">
+            <p className="text-xs font-mono tracking-wide">Neural architecture ID and provider details.</p>
           </TooltipContent>
         </Tooltip>
       ),
-      cell: ({ row }) => (
-        <div className="flex flex-col min-w-[200px] py-2 group/name">
-          <Link
-            href={`/model/${row.original.id}`}
-            className="font-display font-bold text-foreground text-base hover:text-primary tracking-tight transition-colors flex items-center gap-2 group-hover/name:translate-x-1 duration-200"
-          >
-            {row.original.name}
-            <ChevronDown className="w-3 h-3 opacity-0 group-hover/name:opacity-100 -rotate-90 transition-all text-primary/50" />
-          </Link>
-          <div className="flex items-center gap-2 mt-2">
-            <span className="text-[10px] text-muted-foreground uppercase tracking-wider font-mono bg-white/5 px-2 py-0.5 rounded-sm border border-white/5 group-hover/name:border-white/10 transition-colors">
-              {row.original.provider}
-            </span>
-            {row.original.isOpenSource && (
-              <span className="text-[10px] text-emerald-500/90 uppercase tracking-wider font-mono bg-emerald-500/10 px-2 py-0.5 rounded-sm flex items-center gap-1.5 border border-emerald-500/20 shadow-[0_0_8px_-2px_rgba(16,185,129,0.3)]">
-                <div className="w-1 h-1 rounded-full bg-emerald-500 animate-pulse" />
-                Open Weights
+      cell: ({ row }) => {
+        const providerTheme = getProviderTheme(row.original.provider);
+
+        return (
+          <div className="group/name flex min-w-[220px] flex-col py-2">
+            <Link
+              href={`/model/${row.original.id}`}
+               className="flex items-center gap-2 font-display text-base font-bold tracking-[-0.03em] text-foreground transition-colors duration-200 hover:text-primary"
+            >
+              {row.original.name}
+              <ChevronDown className="h-3 w-3 -rotate-90 text-primary/50 opacity-0 transition-all group-hover/name:opacity-100" />
+            </Link>
+            <div className="mt-2 flex items-center gap-2">
+              <span
+                className={cn(
+                  "rounded-sm px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.14em] transition-colors",
+                  providerTheme.border,
+                  providerTheme.bg,
+                  providerTheme.text
+                )}
+              >
+                {row.original.provider}
               </span>
-            )}
+              {row.original.isOpenSource && (
+                <span className="flex items-center gap-1.5 rounded-sm border border-emerald-500/20 bg-emerald-500/10 px-2 py-0.5 font-mono text-[10px] tracking-[0.08em] text-emerald-700 dark:text-emerald-400">
+                  <div className="h-1 w-1 rounded-full bg-emerald-600 dark:bg-emerald-400" />
+                  Open Weights
+                </span>
+              )}
+            </div>
           </div>
-        </div>
-      ),
+        );
+      },
+      size: 296,
     },
     {
       accessorKey: "releaseDate",
@@ -168,7 +185,7 @@ export function createColumns(
             <Button
               variant="ghost"
               onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-              className="px-0 hover:bg-transparent text-xs font-mono text-muted-foreground uppercase tracking-wider h-10 hover:text-foreground transition-colors group/header"
+               className="group/header h-11 min-h-11 px-0 font-mono text-xs tracking-[0.1em] text-muted-foreground transition-colors hover:bg-transparent hover:text-foreground"
             >
               Release
               <ArrowUpDown className="ml-1 h-3 w-3 opacity-30 group-hover/header:opacity-100 transition-opacity" />
@@ -176,9 +193,9 @@ export function createColumns(
           );
         },
       cell: ({ row }) => (
-          <span className="text-xs font-mono text-muted-foreground tabular-nums opacity-80 group-hover/row:opacity-100 transition-opacity">
-              {row.original.releaseDate}
-          </span>
+           <span className="text-sm font-mono text-muted-foreground tabular-nums opacity-80 group-hover/row:opacity-100 transition-opacity">
+               {row.original.releaseDate}
+           </span>
       ),
     },
     {
@@ -186,11 +203,11 @@ export function createColumns(
       accessorFn: (row) => row.specs.contextWindow,
       header: () => (
         <Tooltip delayDuration={200}>
-          <TooltipTrigger className="text-xs font-bold font-mono uppercase tracking-wider text-muted-foreground text-left cursor-help">
+          <TooltipTrigger className="cursor-help text-left font-mono text-xs font-semibold tracking-[0.1em] text-muted-foreground">
             Ctx Window
           </TooltipTrigger>
-          <TooltipContent className="bg-zinc-950 border-primary/30 text-zinc-200 p-2 rounded-none">
-            <p className="text-[10px] font-mono uppercase tracking-widest">Maximum sequence length supported by the model (Tokens).</p>
+          <TooltipContent className="border-border bg-popover p-2 text-popover-foreground shadow-lg">
+            <p className="text-xs font-mono tracking-wide">Maximum sequence length supported by the model (tokens).</p>
           </TooltipContent>
         </Tooltip>
       ),
@@ -198,7 +215,7 @@ export function createColumns(
         const val = row.original.specs.contextWindow;
         const displayVal = val >= 1000000 ? `${(val / 1000000).toFixed(0)}M` : `${(val / 1000).toFixed(0)}k`;
         return (
-          <div className="font-mono text-xs text-foreground/90 tabular-nums bg-white/5 px-2.5 py-1 rounded-md w-fit border border-white/5 group-hover/row:border-white/10 transition-colors">
+          <div className="w-fit rounded-md border border-border bg-muted px-2.5 py-1 font-mono text-sm tabular-nums text-foreground/90 transition-colors group-hover/row:border-primary/25">
             {displayVal}
           </div>
         );
@@ -213,33 +230,43 @@ export function createColumns(
             <Button
               variant="ghost"
               onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-              className="px-0 hover:bg-transparent text-xs font-bold font-mono uppercase tracking-wider text-muted-foreground w-full justify-start h-10 group/header hover:text-foreground transition-colors"
+              className="group/header h-11 min-h-11 w-full justify-start px-0 font-mono text-xs font-semibold tracking-[0.1em] text-muted-foreground transition-colors hover:bg-transparent hover:text-foreground"
             >
               Coverage
               <ArrowUpDown className="ml-1.5 h-3 w-3 opacity-0 group-hover/header:opacity-50 transition-opacity text-primary" />
             </Button>
           </TooltipTrigger>
-          <TooltipContent className="bg-zinc-950 border-primary/30 text-zinc-200 p-2 rounded-none">
-            <p className="text-[10px] font-mono uppercase tracking-widest">Benchmark coverage across the full registry.</p>
+          <TooltipContent className="border-border bg-popover p-2 text-popover-foreground shadow-lg">
+            <p className="text-xs font-mono tracking-wide">Benchmark coverage across the full registry.</p>
           </TooltipContent>
         </Tooltip>
       ),
-      cell: ({ getValue }) => {
-        const value = getValue() as number;
-        const tone = value >= 60 ? "text-emerald-400" : value >= 30 ? "text-amber-400" : "text-rose-400";
-        return (
-          <div className="font-mono text-xs tabular-nums pl-2">
-            <span className={cn("font-bold", tone)}>{value.toFixed(1)}</span>
-            <span className="text-muted-foreground/50 ml-1">%</span>
+    cell: ({ getValue }) => {
+      const value = getValue() as number;
+      return (
+          <div className="pl-2">
+            <span
+              className={cn(
+                "inline-flex min-w-[84px] items-center justify-center rounded-md border px-2.5 py-1 font-mono text-sm font-semibold tabular-nums",
+                getScorePillClass(value)
+              )}
+            >
+              {value.toFixed(1)}%
+            </span>
           </div>
         );
       },
       enableHiding: true,
+      size: 124,
     },
     ...categoryAverageColumns,
     ...benchmarks.map((benchmark) => ({
       id: benchmark.id,
-      accessorFn: (row: Model) => row.scores[benchmark.id]?.score ?? -1,
+      accessorFn: (row: Model) => {
+        const rawScore = row.scores[benchmark.id]?.score;
+        if (rawScore === null || rawScore === undefined) return -1;
+        return normalizeScore(rawScore, benchmark);
+      },
       header: ({ column }: HeaderContext<Model, unknown>) => {
         const shortName = benchmark.id === "swe-bench-verified" ? "SWE" : 
                          benchmark.id === "lmarena-elo" ? "ELO" :
@@ -253,7 +280,7 @@ export function createColumns(
             variant="ghost"
             onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
             title={`${benchmark.name} - ${benchmark.description}`}
-            className="px-0 hover:bg-transparent text-xs font-bold font-mono uppercase tracking-wider text-muted-foreground w-full justify-start h-10 group/header hover:text-foreground transition-colors"
+            className="group/header h-11 min-h-11 w-full justify-start px-0 font-mono text-xs font-semibold tracking-[0.1em] text-muted-foreground transition-colors hover:bg-transparent hover:text-foreground"
           >
             <span className="group-hover/header:text-foreground transition-colors border-b border-transparent group-hover/header:border-primary/50 pb-0.5">
               {shortName}
@@ -267,7 +294,7 @@ export function createColumns(
         const score = scoreEntry?.score;
         if (score === null || score === undefined)
           return (
-            <div className="text-muted-foreground/20 text-xs font-mono select-none pl-2">--.-</div>
+            <div className="select-none pl-2 font-mono text-sm text-muted-foreground/25">--.-</div>
           );
 
         const source = scoreEntry?.sourceId ? sourceMap.get(scoreEntry.sourceId) : undefined;
@@ -275,37 +302,22 @@ export function createColumns(
         const sourceLabel = source?.name ?? "Source";
         const verificationLabel = getVerificationLabel(scoreEntry?.verificationLevel, scoreEntry?.verified);
         const isArtificialAnalysis = scoreEntry?.sourceId === "artificial-analysis";
+        const normalizedScore = normalizeScore(score, benchmark);
 
-        const colorClass = getScoreColor(score, benchmark.maxScore);
-        
-        // Mini bar calculation
-        let width = 0;
-        if (benchmark.maxScore === 100) {
-            width = Math.max(0, Math.min(100, (score - 40) * 1.6)); 
-        } else {
-            // Scale ELO or other non-100 benchmarks
-            const min = benchmark.id === "lmarena-elo" ? 1000 : 0;
-            width = Math.max(0, Math.min(100, ((score - min) / (benchmark.maxScore - min)) * 100));
-        }
+        const displayScore = `${score.toFixed(benchmark.maxScore > 100 ? 0 : 1)}${isArtificialAnalysis ? "*" : ""}`;
 
         return (
-          <div className="relative group/cell w-full h-10 flex items-center pr-6">
-              {/* Background Bar (visualizing score) */}
-              <div className="absolute inset-y-2 left-0 bg-white/5 rounded overflow-hidden w-full max-w-[100px] h-6 opacity-0 group-hover/row:opacity-100 transition-opacity duration-300">
-                  <div className={cn("h-full opacity-10 transition-all duration-500 ease-out", colorClass.replace('text-', 'bg-'))} style={{ width: `${width}%` }} />
-              </div>
-              
-               <span className={cn("font-mono text-sm relative z-10 tabular-nums pl-2 transition-all group-hover/cell:scale-105 origin-left", colorClass)}>
-                  {score.toFixed(benchmark.maxScore > 100 ? 0 : 1)}{isArtificialAnalysis ? "*" : ""}
-               </span>
-              
-               <div
-                 className="ml-2 px-1.5 py-0.5 rounded border border-white/10 text-[9px] font-mono uppercase tracking-wider text-muted-foreground/80"
-                 title={`${verificationLabel} | ${sourceLabel} | ${scoreEntry?.asOfDate ?? row.original.releaseDate}${sourceUrl ? ` | ${sourceUrl}` : ""}`}
-               >
-                 {verificationLabel.slice(0, 3)}
-               </div>
-            </div>
+          <div className="pl-2">
+            <span
+              className={cn(
+                "inline-flex min-w-[84px] items-center justify-center rounded-md border px-2.5 py-1 font-mono text-sm font-semibold tabular-nums",
+                getScorePillClass(normalizedScore)
+              )}
+              title={`${verificationLabel} | ${sourceLabel} | ${scoreEntry?.asOfDate ?? "unknown date"}${sourceUrl ? ` | ${sourceUrl}` : ""} | normalized ${normalizedScore.toFixed(1)}`}
+            >
+              {displayScore}
+            </span>
+          </div>
          );
       },
     })),

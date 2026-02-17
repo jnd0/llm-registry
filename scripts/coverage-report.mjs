@@ -3,14 +3,27 @@ import { fileURLToPath } from "url";
 import { createRequire } from "module";
 
 const require = createRequire(import.meta.url);
-const { loadExportedArray } = require("./load-ts-data.cjs");
+const { loadExportedArray, loadExportedValue } = require("./load-ts-data.cjs");
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const root = path.resolve(__dirname, "..");
 
 const benchmarks = loadExportedArray(path.join(root, "src/data/benchmarks.ts"), "benchmarks");
-const models = loadExportedArray(path.join(root, "src/data/models.ts"), "models");
+const baseModels = loadExportedArray(path.join(root, "src/data/models.ts"), "models");
+const aaScoreOverrides = loadExportedValue(path.join(root, "src/data/aa-overrides.ts"), "aaScoreOverrides");
+
+const models = baseModels.map((model) => {
+  const patch = aaScoreOverrides[model.id];
+  if (!patch) return model;
+  return {
+    ...model,
+    scores: {
+      ...(model.scores ?? {}),
+      ...patch,
+    },
+  };
+});
 
 const categories = Array.from(new Set(benchmarks.map((benchmark) => benchmark.category)));
 

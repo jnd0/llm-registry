@@ -34,6 +34,50 @@ export type ModelCapability =
   | "video"
   | "reasoning";
 
+export type ModelModality =
+  | "text"
+  | "image"
+  | "audio"
+  | "video"
+  | "other";
+
+export type PricingDirection =
+  | "input"
+  | "output"
+  | "cache_input"
+  | "cache_output";
+
+export type PricingUnit =
+  | "per_1m_tokens"
+  | "per_image"
+  | "per_minute"
+  | "per_request";
+
+export interface ModelApiSupport {
+  stream?: boolean;
+  tools?: boolean;
+  vision?: boolean;
+  jsonMode?: boolean;
+  systemPrompt?: boolean;
+  maxTokens?: boolean;
+  temperature?: boolean;
+  topP?: boolean;
+}
+
+export interface ModelModalities {
+  input: ModelModality[];
+  output: ModelModality[];
+}
+
+export interface ModelPricingDimension {
+  name: string;
+  modality: ModelModality;
+  direction: PricingDirection;
+  unit: PricingUnit;
+  priceUsd: number;
+  notes?: string;
+}
+
 export type ScoreVerification =
   | "third_party"
   | "provider"
@@ -61,8 +105,22 @@ export interface Model {
     pricing: {
       input: number;             // USD per 1M tokens
       output: number;            // USD per 1M tokens
+      cacheInput?: number;
+      cacheOutput?: number;
     };
   };
+
+  providers?: string[];
+  apiSupport?: ModelApiSupport;
+  modalities?: ModelModalities;
+  pricingDimensions?: ModelPricingDimension[];
+  trainingCutoff?: string;
+  metadataSourceId?: string;
+  metadataSourceUrl?: string;
+  metadataAsOfDate?: string;
+  externalModelId?: string;
+  modelCardUrl?: string;
+  modelUrl?: string;
 
   // Benchmark Scores: Map<BenchmarkID, ScoreObject>
   scores: Record<string, {

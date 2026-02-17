@@ -2,17 +2,12 @@
 
 import * as React from "react";
 import {
-  ColumnFiltersState,
   SortingState,
   VisibilityState,
   flexRender,
   getCoreRowModel,
-  getFilteredRowModel,
-  getPaginationRowModel,
-  getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { useVirtualizer } from "@tanstack/react-virtual";
 import { GripVertical } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
@@ -23,24 +18,121 @@ import { LeaderboardToolbar } from "./toolbar";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { normalizeScore } from "@/lib/stats";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import type { LeaderboardSortDirection } from "@/lib/leaderboard-query";
 
 interface DataTableProps {
   data: Model[];
   benchmarks: Benchmark[];
   activeCategory?: string | null;
   activeCategorySlug?: string | null;
+  totalRows: number;
+  currentPage: number;
+  totalPages: number;
+  pageSize: number;
+  sortBy: string;
+  sortDir: LeaderboardSortDirection;
+  searchQuery: string;
 }
 
-export function DataTable({ data, benchmarks, activeCategory = null, activeCategorySlug = null }: DataTableProps) {
-  const [sorting, setSorting] = React.useState<SortingState>([
-    { id: "mmlu", desc: true },
-  ]);
-  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
+function areStringArraysEqual(a: string[], b: string[]) {
+  if (a === b) return true;
+  if (a.length !== b.length) return false;
+  for (let i = 0; i < a.length; i += 1) {
+    if (a[i] !== b[i]) return false;
+  }
+  return true;
+}
+
+function areVisibilityStatesEqual(a: VisibilityState, b: VisibilityState) {
+  const keys = new Set([...Object.keys(a), ...Object.keys(b)]);
+  for (const key of keys) {
+    if (Boolean(a[key]) !== Boolean(b[key])) return false;
+  }
+  return true;
+}
+
+export function DataTable({
+  data,
+  benchmarks,
+  activeCategory = null,
+  activeCategorySlug = null,
+  totalRows,
+  currentPage,
+  totalPages,
+  pageSize,
+  sortBy,
+  sortDir,
+  searchQuery,
+}: DataTableProps) {
+  const benchmarkWindowSize = 24;
+
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  const [sorting, setSorting] = React.useState<SortingState>(() =>
+    sortBy ? [{ id: sortBy, desc: sortDir === "desc" }] : []
+  );
   const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
   const [columnOrder, setColumnOrder] = React.useState<string[]>([]);
   const [draggedColumn, setDraggedColumn] = React.useState<string | null>(null);
   const [summaryView, setSummaryView] = React.useState(() => !activeCategory);
+  const [benchmarkWindowPage, setBenchmarkWindowPage] = React.useState(0);
+  const [queuedParamUpdates, setQueuedParamUpdates] = React.useState<Record<string, string | null> | null>(null);
+
+  const setColumnOrderSafely = React.useCallback((nextOrder: string[]) => {
+    setColumnOrder((prev) => (areStringArraysEqual(prev, nextOrder) ? prev : nextOrder));
+  }, []);
+
+  const setColumnVisibilitySafely = React.useCallback((nextVisibility: VisibilityState) => {
+    setColumnVisibility((prev) => (areVisibilityStatesEqual(prev, nextVisibility) ? prev : nextVisibility));
+  }, []);
+
+  const enqueueSearchParamUpdates = React.useCallback((updates: Record<string, string | null>) => {
+    setQueuedParamUpdates((prev) => ({ ...(prev ?? {}), ...updates }));
+  }, []);
+
+  const updateSearchParamState = React.useCallback(
+    (updates: Record<string, string | null>) => {
+      const nextParams = new URLSearchParams(searchParams.toString());
+
+      Object.entries(updates).forEach(([key, value]) => {
+        if (value === null || value === "") {
+          nextParams.delete(key);
+        } else {
+          nextParams.set(key, value);
+        }
+      });
+
+      const currentQuery = searchParams.toString();
+      const query = nextParams.toString();
+      if (query === currentQuery) return;
+      router.replace(query ? `${pathname}?${query}` : pathname, { scroll: false });
+    },
+    [pathname, router, searchParams]
+  );
+
+  React.useEffect(() => {
+    if (!queuedParamUpdates) return;
+    updateSearchParamState(queuedParamUpdates);
+    setQueuedParamUpdates(null);
+  }, [queuedParamUpdates, updateSearchParamState]);
+
+  const setSortingSafely = React.useCallback((nextId: string, desc = true, syncUrl = true) => {
+    const current = sorting[0];
+    if (current?.id === nextId && current.desc === desc) return;
+
+    setSorting([{ id: nextId, desc }]);
+    if (syncUrl) {
+      enqueueSearchParamUpdates({
+        sort: nextId,
+        dir: desc ? "desc" : "asc",
+        page: "1",
+      });
+    }
+  }, [enqueueSearchParamUpdates, sorting]);
 
   const categories = React.useMemo(
     () => Array.from(new Set(benchmarks.map((benchmark) => benchmark.category))),
@@ -63,10 +155,36 @@ export function DataTable({ data, benchmarks, activeCategory = null, activeCateg
     [categories]
   );
 
+  const summaryAvgColumnIds = React.useMemo(() => {
+    const preferred = [
+      "avg-knowledge",
+      "avg-coding",
+      "avg-math",
+      "avg-reasoning",
+      "avg-multimodal",
+    ];
+    const preferredAvailable = preferred.filter((columnId) => avgColumnIds.includes(columnId));
+    const fallback = avgColumnIds.filter((columnId) => !preferredAvailable.includes(columnId));
+    return [...preferredAvailable, ...fallback].slice(0, 5);
+  }, [avgColumnIds]);
+
   const groupedBenchmarkIds = React.useMemo(
     () => categories.flatMap((category) => (categoryBenchmarksMap.get(category) ?? []).map((benchmark) => benchmark.id)),
     [categories, categoryBenchmarksMap]
   );
+
+  const canUseBenchmarkWindow = !summaryView && !activeCategory;
+
+  const benchmarkWindowTotalPages = React.useMemo(
+    () => Math.max(1, Math.ceil(groupedBenchmarkIds.length / benchmarkWindowSize)),
+    [groupedBenchmarkIds.length]
+  );
+
+  const benchmarkWindowIds = React.useMemo(() => {
+    if (!canUseBenchmarkWindow) return groupedBenchmarkIds;
+    const start = benchmarkWindowPage * benchmarkWindowSize;
+    return groupedBenchmarkIds.slice(start, start + benchmarkWindowSize);
+  }, [benchmarkWindowPage, canUseBenchmarkWindow, groupedBenchmarkIds]);
 
   const coreColumnIds = React.useMemo(() => ["select", "name", "releaseDate", "context", "coverage"], []);
 
@@ -166,43 +284,118 @@ export function DataTable({ data, benchmarks, activeCategory = null, activeCateg
     return latest || null;
   }, [data]);
 
+  const defaultSortId = React.useMemo(() => {
+    if (activeCategory) {
+      const avgColumnId = `avg-${activeCategory.toLowerCase().replace(/\s+/g, "-")}`;
+      if (allColumnIds.includes(avgColumnId)) return avgColumnId;
+      const categoryBenchmarkIds = (categoryBenchmarksMap.get(activeCategory) ?? []).map((benchmark) => benchmark.id);
+      return categoryBenchmarkIds[0] ?? "coverage";
+    }
+
+    if (summaryView) {
+      return summaryAvgColumnIds[0] ?? "coverage";
+    }
+
+    return benchmarkWindowIds.includes("mmlu") ? "mmlu" : benchmarkWindowIds[0] ?? "coverage";
+  }, [activeCategory, allColumnIds, benchmarkWindowIds, categoryBenchmarksMap, summaryAvgColumnIds, summaryView]);
+
+  const activeSort = sorting[0];
+
+  React.useEffect(() => {
+    if (!sortBy) return;
+    const nextDesc = sortDir === "desc";
+    setSorting((prev) => {
+      const current = prev[0];
+      if (current?.id === sortBy && current.desc === nextDesc) return prev;
+      return [{ id: sortBy, desc: nextDesc }];
+    });
+  }, [sortBy, sortDir]);
+
+  const currentSortLabel = React.useMemo(() => {
+    if (!activeSort?.id) return "Not sorted";
+    if (activeSort.id === "coverage") return "Coverage";
+    if (activeSort.id === "releaseDate") return "Release date";
+    if (activeSort.id === "context") return "Context window";
+    if (activeSort.id.startsWith("avg-")) {
+      const categoryName = activeSort.id
+        .replace("avg-", "")
+        .split("-")
+        .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+        .join(" ");
+      return `${categoryName} average`;
+    }
+
+    return benchmarkById.get(activeSort.id)?.name ?? activeSort.id;
+  }, [activeSort?.id, benchmarkById]);
+
+  const handleSortingChange = React.useCallback(
+    (updater: SortingState | ((old: SortingState) => SortingState)) => {
+      const next = typeof updater === "function" ? updater(sorting) : updater;
+      setSorting(next);
+
+      const nextEntry = next[0];
+      if (nextEntry?.id) {
+        enqueueSearchParamUpdates({
+          sort: nextEntry.id,
+          dir: nextEntry.desc ? "desc" : "asc",
+          page: "1",
+        });
+      }
+    },
+    [enqueueSearchParamUpdates, sorting]
+  );
+
+  // TanStack Table returns mutable helpers by design; this hook is intended usage here.
+  // eslint-disable-next-line react-hooks/incompatible-library
   const table = useReactTable({
     data,
     columns,
-    onSortingChange: setSorting,
-    onColumnFiltersChange: setColumnFilters,
+    onSortingChange: handleSortingChange,
     getCoreRowModel: getCoreRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
-    getSortedRowModel: getSortedRowModel(),
-    getFilteredRowModel: getFilteredRowModel(),
+    manualSorting: true,
     onColumnVisibilityChange: setColumnVisibility,
     onRowSelectionChange: setRowSelection,
     onColumnOrderChange: setColumnOrder,
-    initialState: {
-      pagination: {
-        pageSize: 25,
-      },
-    },
     state: {
       sorting,
-      columnFilters,
       columnVisibility,
       rowSelection,
       columnOrder,
     },
   });
 
-  const tableContainerRef = React.useRef<HTMLDivElement | null>(null);
   const desktopRows = table.getRowModel().rows;
+  const selectColumnWidth = table.getColumn("select")?.getSize() ?? 64;
+  const nameColumnWidth = table.getColumn("name")?.getSize() ?? 296;
 
-  const rowVirtualizer = useVirtualizer({
-    count: desktopRows.length,
-    getScrollElement: () => tableContainerRef.current,
-    estimateSize: () => 64,
-    overscan: 8,
-  });
+  const getStickyColumnStyle = React.useCallback(
+    (columnId: string): React.CSSProperties | undefined => {
+      if (columnId === "select") {
+        return {
+          left: 0,
+          backgroundColor: "var(--card)",
+          boxShadow: "inset -1px 0 0 var(--border)",
+          width: selectColumnWidth,
+          minWidth: selectColumnWidth,
+          maxWidth: selectColumnWidth,
+        };
+      }
 
-  const virtualRows = rowVirtualizer.getVirtualItems();
+      if (columnId === "name") {
+        return {
+          left: selectColumnWidth,
+          backgroundColor: "var(--card)",
+          boxShadow: "inset -1px 0 0 var(--border)",
+          width: nameColumnWidth,
+          minWidth: nameColumnWidth,
+          maxWidth: nameColumnWidth,
+        };
+      }
+
+      return undefined;
+    },
+    [nameColumnWidth, selectColumnWidth]
+  );
 
   // Initialize column order from localStorage or defaults
   React.useEffect(() => {
@@ -213,7 +406,10 @@ export function DataTable({ data, benchmarks, activeCategory = null, activeCateg
     const savedOrder = localStorage.getItem("columnOrder");
     if (savedOrder) {
       try {
-        setColumnOrder(JSON.parse(savedOrder));
+        const parsed = JSON.parse(savedOrder);
+        if (Array.isArray(parsed)) {
+          setColumnOrderSafely(parsed);
+        }
         return;
       } catch (e) {
         console.error("Failed to parse saved column order", e);
@@ -221,9 +417,21 @@ export function DataTable({ data, benchmarks, activeCategory = null, activeCateg
     }
 
     if (benchmarks.length > 0) {
-      setColumnOrder(defaultColumnOrder);
+      setColumnOrderSafely(defaultColumnOrder);
     }
-  }, [activeCategory, benchmarks.length, defaultColumnOrder]);
+  }, [activeCategory, benchmarks.length, defaultColumnOrder, setColumnOrderSafely]);
+
+  React.useEffect(() => {
+    if (sorting.length > 0) return;
+    setSortingSafely(defaultSortId, true, false);
+  }, [defaultSortId, setSortingSafely, sorting.length]);
+
+  React.useEffect(() => {
+    const maxPage = Math.max(0, benchmarkWindowTotalPages - 1);
+    if (benchmarkWindowPage > maxPage) {
+      setBenchmarkWindowPage(maxPage);
+    }
+  }, [benchmarkWindowPage, benchmarkWindowTotalPages]);
 
   // Persist column order
   React.useEffect(() => {
@@ -254,28 +462,44 @@ export function DataTable({ data, benchmarks, activeCategory = null, activeCateg
     newOrder.splice(draggedIdx, 1);
     newOrder.splice(targetIdx, 0, draggedColumn);
 
-    setColumnOrder(newOrder);
+    setColumnOrderSafely(newOrder);
     setDraggedColumn(null);
   };
 
   // Handle Summary View toggle
   React.useEffect(() => {
+    if (activeCategory) return;
+
     if (summaryView) {
-      const essentialColumns = [...coreColumnIds, ...avgColumnIds];
+      const essentialColumns = [...coreColumnIds, ...summaryAvgColumnIds];
       
       const newVisibility: VisibilityState = {};
       allColumnIds.forEach((columnId) => {
         newVisibility[columnId] = essentialColumns.includes(columnId);
       });
-      setColumnVisibility(newVisibility);
+      setColumnVisibilitySafely(newVisibility);
+
+      const currentSortId = sorting[0]?.id;
+      const sortStillVisible = currentSortId ? newVisibility[currentSortId] !== false : false;
+      if (!sortStillVisible) {
+        setSortingSafely(defaultSortId, true, false);
+      }
     } else {
+      const visibleBenchmarkIds = canUseBenchmarkWindow ? benchmarkWindowIds : groupedBenchmarkIds;
+
       const newVisibility: VisibilityState = {};
       allColumnIds.forEach((columnId) => {
-        newVisibility[columnId] = !columnId.startsWith("avg-");
+        newVisibility[columnId] = coreColumnIds.includes(columnId) || visibleBenchmarkIds.includes(columnId);
       });
-      setColumnVisibility(newVisibility);
+      setColumnVisibilitySafely(newVisibility);
+
+      const currentSortId = sorting[0]?.id;
+      const sortStillVisible = currentSortId ? newVisibility[currentSortId] !== false : false;
+      if (!sortStillVisible) {
+        setSortingSafely(defaultSortId, true, false);
+      }
     }
-  }, [allColumnIds, avgColumnIds, coreColumnIds, summaryView]);
+  }, [activeCategory, allColumnIds, benchmarkWindowIds, canUseBenchmarkWindow, coreColumnIds, defaultSortId, groupedBenchmarkIds, setColumnVisibilitySafely, setSortingSafely, sorting, summaryAvgColumnIds, summaryView]);
 
   React.useEffect(() => {
     if (!activeCategory) return;
@@ -291,18 +515,19 @@ export function DataTable({ data, benchmarks, activeCategory = null, activeCateg
     allColumnIds.forEach((columnId) => {
       newVisibility[columnId] = visible.has(columnId);
     });
-    setColumnVisibility(newVisibility);
+    setColumnVisibilitySafely(newVisibility);
 
     const sortingId = allColumnIds.includes(avgColumnId)
       ? avgColumnId
       : categoryBenchmarkIds[0] ?? "mmlu";
 
-    setSorting([{ id: sortingId, desc: true }]);
-    setColumnOrder([...coreColumnIds, avgColumnId, ...categoryBenchmarkIds]);
-  }, [activeCategory, allColumnIds, categoryBenchmarksMap, coreColumnIds]);
+    setSortingSafely(sortingId, true, false);
+    setColumnOrderSafely([...coreColumnIds, avgColumnId, ...categoryBenchmarkIds]);
+  }, [activeCategory, allColumnIds, categoryBenchmarksMap, coreColumnIds, setColumnOrderSafely, setColumnVisibilitySafely, setSortingSafely]);
 
   const resetLayout = () => {
-    setColumnOrder(defaultColumnOrder);
+    setBenchmarkWindowPage(0);
+    setColumnOrderSafely(defaultColumnOrder);
     localStorage.removeItem("columnOrder");
     table.resetColumnVisibility();
   };
@@ -316,16 +541,19 @@ export function DataTable({ data, benchmarks, activeCategory = null, activeCateg
     };
 
     if (preset === "general") {
+      setBenchmarkWindowPage(0);
       setSummaryView(true);
-      const visible = new Set([...coreColumnIds, ...avgColumnIds]);
+      const visible = new Set([...coreColumnIds, ...summaryAvgColumnIds]);
       const newVisibility: VisibilityState = {};
       allColumnIds.forEach((columnId) => {
         newVisibility[columnId] = visible.has(columnId);
       });
-      setColumnVisibility(newVisibility);
+      setColumnVisibilitySafely(newVisibility);
+      setSortingSafely(summaryAvgColumnIds[0] ?? "coverage", true);
       return;
     }
 
+    setBenchmarkWindowPage(0);
     setSummaryView(false);
     const categories = categoryTargets[preset] ?? [];
     const targetBenchmarkIds = benchmarks
@@ -337,39 +565,71 @@ export function DataTable({ data, benchmarks, activeCategory = null, activeCateg
     allColumnIds.forEach((columnId) => {
       newVisibility[columnId] = visible.has(columnId);
     });
-    setColumnVisibility(newVisibility);
+    setColumnVisibilitySafely(newVisibility);
+
+    setSortingSafely(targetBenchmarkIds[0] ?? "coverage", true);
   };
 
+  const handleSearchQueryChange = React.useCallback(
+    (nextValue: string) => {
+      const normalized = nextValue.trim();
+      if (normalized === searchQuery) return;
+
+      enqueueSearchParamUpdates({
+        q: normalized || null,
+        page: "1",
+      });
+    },
+    [enqueueSearchParamUpdates, searchQuery]
+  );
+
+  const goToPage = React.useCallback(
+    (page: number) => {
+      const safePage = Math.max(1, Math.min(totalPages, page));
+      if (safePage === currentPage) return;
+      enqueueSearchParamUpdates({ page: String(safePage) });
+    },
+    [currentPage, enqueueSearchParamUpdates, totalPages]
+  );
+
+  const showBenchmarkWindowControls = canUseBenchmarkWindow && groupedBenchmarkIds.length > benchmarkWindowSize;
+  const benchmarkWindowStart = canUseBenchmarkWindow ? benchmarkWindowPage * benchmarkWindowSize + 1 : 1;
+  const benchmarkWindowEnd = canUseBenchmarkWindow
+    ? Math.min((benchmarkWindowPage + 1) * benchmarkWindowSize, groupedBenchmarkIds.length)
+    : groupedBenchmarkIds.length;
+
   return (
-    <div className="w-full space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-100 pb-20">
+    <div className="animate-in slide-in-from-bottom-4 fade-in delay-100 duration-700 space-y-6 pb-20 w-full">
       <LeaderboardToolbar 
         table={table} 
         compareIds={compareIds || []} 
         compareHref={compareHref}
+        searchQuery={searchQuery}
+        onSearchQueryChange={handleSearchQueryChange}
         resetLayout={resetLayout}
         summaryView={summaryView}
         setSummaryView={setSummaryView}
         applyPreset={applyPreset}
       />
 
-      <div className="md:hidden space-y-3">
+      <div className="space-y-3 md:hidden">
         {table.getRowModel().rows.length === 0 ? (
-          <div className="rounded-lg border border-white/10 bg-card/30 p-6 text-center text-xs font-mono uppercase tracking-widest text-muted-foreground">
-            No systems match criteria
+          <div className="surface-card rounded-lg p-6 text-center text-xs font-mono uppercase tracking-[0.14em] text-muted-foreground">
+            No systems match current filters
           </div>
         ) : (
           table.getRowModel().rows.map((row) => {
             const model = row.original;
 
             return (
-              <div key={row.id} className="rounded-lg border border-white/10 bg-card/35 p-4 shadow-sm">
+              <div key={row.id} className="surface-card rounded-lg p-4">
                 <div className="flex items-start justify-between gap-3">
                   <div>
-                    <Link href={`/model/${model.id}`} className="font-display text-base font-bold tracking-tight text-foreground hover:text-primary transition-colors">
+                    <Link href={`/model/${model.id}`} className="font-display text-base font-bold tracking-tight text-foreground transition-colors hover:text-primary">
                       {model.name}
                     </Link>
-                    <p className="mt-1 text-[11px] font-mono uppercase tracking-wider text-muted-foreground">
-                      {model.provider} | {model.releaseDate}
+                    <p className="mt-1 text-xs font-mono tracking-wide text-muted-foreground">
+                      {model.provider} · {model.releaseDate}
                     </p>
                   </div>
                   <button
@@ -377,10 +637,10 @@ export function DataTable({ data, benchmarks, activeCategory = null, activeCateg
                     aria-label={`Toggle compare for ${model.name}`}
                     onClick={() => toggleCompare(model.id)}
                     className={cn(
-                      "min-h-11 min-w-11 rounded-md border text-[10px] font-mono uppercase tracking-wider px-2",
+                      "min-h-11 min-w-11 rounded-md border px-2 text-xs font-semibold",
                       compareIds.includes(model.id)
                         ? "border-primary/40 bg-primary/10 text-primary"
-                        : "border-white/15 bg-background/40 text-muted-foreground"
+                        : "border-border bg-background text-muted-foreground"
                     )}
                   >
                     {compareIds.includes(model.id) ? "Added" : "Compare"}
@@ -394,8 +654,8 @@ export function DataTable({ data, benchmarks, activeCategory = null, activeCateg
 
                     const score = model.scores[benchmarkId]?.score;
                     return (
-                      <div key={benchmarkId} className="rounded-md border border-white/10 bg-background/40 px-2.5 py-2">
-                        <p className="text-[9px] font-mono uppercase tracking-wider text-muted-foreground truncate">{benchmark.name}</p>
+                      <div key={benchmarkId} className="data-module rounded-md px-2.5 py-2">
+                        <p className="truncate text-[11px] font-mono tracking-wide text-muted-foreground">{benchmark.name}</p>
                         <p className="mt-1 text-sm font-bold tabular-nums text-foreground">
                           {score === null || score === undefined
                             ? "--"
@@ -414,16 +674,13 @@ export function DataTable({ data, benchmarks, activeCategory = null, activeCateg
       </div>
       
       {/* The Table Container */}
-      <div
-        ref={tableContainerRef}
-        className="hidden md:block rounded-xl border border-white/5 bg-card/20 overflow-auto backdrop-blur-sm relative shadow-2xl max-h-[70vh]"
-      >
+      <div className="surface-panel relative hidden max-h-[70vh] overflow-auto rounded-xl md:block">
         <Table>
-          <TableHeader className="bg-card/60 sticky top-0 z-20 backdrop-blur-xl border-b border-white/5 shadow-sm">
+          <TableHeader className="sticky top-0 z-20 border-b border-border bg-card/95 backdrop-blur-sm">
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow
                 key={headerGroup.id}
-                className="border-white/5 hover:bg-transparent"
+                className="border-border/50 hover:bg-transparent"
               >
                 {headerGroup.headers.map((header) => {
                   const isDraggable = header.id !== "select";
@@ -431,14 +688,14 @@ export function DataTable({ data, benchmarks, activeCategory = null, activeCateg
                     <TableHead
                       key={header.id}
                       className={cn(
-                        "h-14 text-muted-foreground font-bold font-mono text-[10px] uppercase tracking-wider px-6 first:pl-8 transition-all duration-200 group/head",
+                        "group/head h-14 px-6 font-sans text-xs font-semibold uppercase tracking-[0.08em] text-muted-foreground first:pl-8 transition-all duration-200",
                         isDraggable && "cursor-grab active:cursor-grabbing",
                         draggedColumn === header.id && "opacity-20",
-                        draggedColumn && draggedColumn !== header.id && isDraggable && "hover:bg-primary/5 hover:border-l-2 hover:border-l-primary",
-                        header.id === "select" && "md:sticky md:left-0 z-40 bg-card/90",
-                        header.id === "name" && "md:sticky md:left-[70px] z-40 bg-card/90",
-                        header.id === "coverage" && "md:sticky md:left-[360px] z-40 bg-card/90"
+                        draggedColumn && draggedColumn !== header.id && isDraggable && "hover:bg-muted/60",
+                        header.id === "select" && "z-40 bg-card/95 backdrop-blur-sm md:sticky",
+                        header.id === "name" && "z-40 bg-card/95 backdrop-blur-sm md:sticky"
                       )}
+                      style={getStickyColumnStyle(header.id)}
                       draggable={isDraggable}
                       onDragStart={() => handleDragStart(header.id)}
                       onDragOver={handleDragOver}
@@ -447,7 +704,7 @@ export function DataTable({ data, benchmarks, activeCategory = null, activeCateg
                     >
                       <div className="flex items-center gap-2">
                         {isDraggable && (
-                          <GripVertical className="w-3 h-3 opacity-0 group-hover/head:opacity-30 -ml-2 transition-opacity" />
+                          <GripVertical className="-ml-2 h-3 w-3 opacity-0 transition-opacity group-hover/head:opacity-35" />
                         )}
                         {header.isPlaceholder
                           ? null
@@ -464,51 +721,27 @@ export function DataTable({ data, benchmarks, activeCategory = null, activeCateg
           </TableHeader>
           <TableBody>
             {desktopRows?.length ? (
-              <>
-                {virtualRows.length > 0 && virtualRows[0].start > 0 && (
-                  <TableRow>
-                    <TableCell colSpan={table.getVisibleLeafColumns().length} style={{ height: virtualRows[0].start }} />
-                  </TableRow>
-                )}
-
-                {virtualRows.map((virtualRow) => {
-                  const row = desktopRows[virtualRow.index];
-                  if (!row) return null;
-
-                  return (
-                    <TableRow
-                      key={row.id}
-                      data-state={row.getIsSelected() && "selected"}
-                      className="border-white/5 hover:bg-white/[0.02] transition-colors data-[state=selected]:bg-primary/5 group/row relative h-16"
-                    >
-                      {row.getVisibleCells().map((cell) => (
-                        <TableCell
-                          key={cell.id}
-                          className={cn(
-                            "py-4 px-6 first:pl-8 relative z-10 align-middle",
-                            cell.column.id === "select" && "md:sticky md:left-0 z-30 bg-card",
-                            cell.column.id === "name" && "md:sticky md:left-[70px] z-30 bg-card",
-                            cell.column.id === "coverage" && "md:sticky md:left-[360px] z-30 bg-card"
-                          )}
-                        >
-                          {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                        </TableCell>
-                      ))}
-                    </TableRow>
-                  );
-                })}
-
-                {virtualRows.length > 0 && (
-                  <TableRow>
+              desktopRows.map((row) => (
+                <TableRow
+                  key={row.id}
+                  data-state={row.getIsSelected() && "selected"}
+                  className="group/row relative h-16 border-border/55 transition-colors hover:bg-muted/40 data-[state=selected]:bg-muted/90"
+                >
+                  {row.getVisibleCells().map((cell) => (
                     <TableCell
-                      colSpan={table.getVisibleLeafColumns().length}
-                      style={{
-                        height: rowVirtualizer.getTotalSize() - virtualRows[virtualRows.length - 1].end,
-                      }}
-                    />
-                  </TableRow>
-                )}
-              </>
+                      key={cell.id}
+                      className={cn(
+                        "relative z-10 px-6 py-4 align-middle first:pl-8",
+                        cell.column.id === "select" && "z-40 bg-card md:sticky",
+                        cell.column.id === "name" && "z-40 bg-card md:sticky"
+                      )}
+                      style={getStickyColumnStyle(cell.column.id)}
+                    >
+                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              ))
             ) : (
               <TableRow>
                 <TableCell
@@ -523,42 +756,73 @@ export function DataTable({ data, benchmarks, activeCategory = null, activeCateg
         </Table>
       </div>
       
-      {/* Footer Stats - Subtler */}
-      <div className="flex items-center justify-between px-4 opacity-60 hover:opacity-90 transition-opacity gap-4 flex-wrap">
-        <div className="text-[10px] text-muted-foreground font-mono uppercase tracking-widest">
-            Showing {table.getRowModel().rows.length}/{data.length} Models | {benchmarks.length} Benchmarks
+      <div className="surface-card flex flex-wrap items-center justify-between gap-3 rounded-xl px-4 py-3">
+        <div className="text-xs font-mono tracking-wide text-muted-foreground">
+          Showing {table.getRowModel().rows.length}/{totalRows} models · {benchmarks.length} benchmarks
         </div>
-        <div className="flex items-center gap-2">
-          <span className="text-[10px] text-muted-foreground font-mono uppercase tracking-widest">
-            Page {table.getState().pagination.pageIndex + 1}/{table.getPageCount()}
+
+        <div className="flex flex-wrap items-center gap-2">
+          {showBenchmarkWindowControls && (
+            <>
+              <span className="chip-pill px-2 py-1 text-[11px] font-mono tracking-wide text-muted-foreground">
+                Benchmarks {benchmarkWindowStart}-{benchmarkWindowEnd}/{groupedBenchmarkIds.length}
+              </span>
+              <Button
+                variant="outline"
+                size="sm"
+                className="h-7 px-2 text-[11px]"
+                onClick={() => setBenchmarkWindowPage((prev) => Math.max(prev - 1, 0))}
+                disabled={benchmarkWindowPage === 0}
+              >
+                Prev Cols
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                className="h-7 px-2 text-[11px]"
+                onClick={() => setBenchmarkWindowPage((prev) => Math.min(prev + 1, benchmarkWindowTotalPages - 1))}
+                disabled={benchmarkWindowPage >= benchmarkWindowTotalPages - 1}
+              >
+                Next Cols
+              </Button>
+            </>
+          )}
+          <span className="chip-pill px-2 py-1 text-[11px] font-mono tracking-wide text-muted-foreground">
+            Sorted: {currentSortLabel} ({activeSort ? (activeSort.desc ? "desc" : "asc") : "n/a"})
+          </span>
+          <span className="chip-pill px-2 py-1 text-[11px] font-mono tracking-wide text-muted-foreground">
+            Page {currentPage}/{totalPages}
+          </span>
+          <span className="chip-pill px-2 py-1 text-[11px] font-mono tracking-wide text-muted-foreground">
+            {pageSize} rows/page
           </span>
           <Button
             variant="outline"
             size="sm"
-            className="h-7 px-2 text-[10px] font-mono uppercase"
-            onClick={() => table.previousPage()}
-            disabled={!table.getCanPreviousPage()}
+            className="h-7 px-2 text-[11px]"
+            onClick={() => goToPage(currentPage - 1)}
+            disabled={currentPage <= 1}
           >
             Prev
           </Button>
           <Button
             variant="outline"
             size="sm"
-            className="h-7 px-2 text-[10px] font-mono uppercase"
-            onClick={() => table.nextPage()}
-            disabled={!table.getCanNextPage()}
+            className="h-7 px-2 text-[11px]"
+            onClick={() => goToPage(currentPage + 1)}
+            disabled={currentPage >= totalPages}
           >
             Next
           </Button>
-          <span className="text-[10px] text-muted-foreground font-mono uppercase tracking-widest">
-            Latest Score Date: {latestScoreDate ?? "Unknown"}
+          <span className="chip-pill px-2 py-1 text-[11px] font-mono tracking-wide text-muted-foreground">
+            Latest score date: {latestScoreDate ?? "Unknown"}
           </span>
         </div>
       </div>
 
       {compareIds.length > 0 && (
         <div className="fixed bottom-4 inset-x-4 z-50 md:hidden">
-          <Button asChild className="h-12 w-full font-mono text-xs uppercase tracking-widest shadow-xl">
+          <Button asChild className="h-12 w-full text-sm font-semibold shadow-xl">
             <Link href={compareHref}>
               Open Compare ({compareIds.length}/3)
             </Link>

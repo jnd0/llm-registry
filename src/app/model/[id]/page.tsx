@@ -1,13 +1,12 @@
-import { models } from "@/data/models";
-import { benchmarks } from "@/data/benchmarks";
-import { sources } from "@/data/sources";
+import { benchmarks, models, sources } from "@/lib/registry-data";
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { formatCurrency } from "@/lib/stats";
+import { formatCurrency, normalizeScore } from "@/lib/stats";
 import Link from "next/link";
 import { ArrowLeft, ExternalLink, Cpu, ShieldCheck, AlertTriangle, Layers, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { getProviderTheme } from "@/lib/provider-identity";
 
 const sourceMap = new Map(sources.map((source) => [source.id, source]));
 
@@ -38,6 +37,26 @@ export async function generateStaticParams() {
   }));
 }
 
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { id } = await params;
+  const model = models.find((entry) => entry.id === id);
+
+  if (!model) {
+    return {
+      title: "Model",
+      description: "Model details and benchmark performance.",
+    };
+  }
+
+  return {
+    title: model.name,
+    description: `${model.name} by ${model.provider}: pricing, specs, and benchmark-level provenance in LLM Registry.`,
+    alternates: {
+      canonical: `/model/${model.id}`,
+    },
+  };
+}
+
 export default async function ModelPage({ params }: PageProps) {
   const { id } = await params;
   const model = models.find((m) => m.id === id);
@@ -54,221 +73,303 @@ export default async function ModelPage({ params }: PageProps) {
     .sort()
     .at(-1);
 
+  const providerTheme = getProviderTheme(model.provider);
+
+  const moduleSpecs = [
+    {
+      id: "context",
+      label: "Context Window",
+      value:
+        model.specs.contextWindow >= 1000000
+          ? `${(model.specs.contextWindow / 1000000).toFixed(1)}M`
+          : `${(model.specs.contextWindow / 1000).toFixed(0)}k`,
+      footnote: "tokens",
+      icon: Layers,
+      accent: "text-primary",
+    },
+    {
+      id: "input",
+      label: "Input Cost",
+      value: formatCurrency(model.specs.pricing.input),
+      footnote: "per 1M tokens",
+      icon: Zap,
+      accent: "text-emerald-700 dark:text-emerald-300",
+    },
+    {
+      id: "output",
+      label: "Output Cost",
+      value: formatCurrency(model.specs.pricing.output),
+      footnote: "per 1M tokens",
+      icon: Zap,
+      accent: "text-emerald-700 dark:text-emerald-300",
+    },
+    {
+      id: "params",
+      label: "Parameters",
+      value: model.specs.parameters,
+      footnote: "model footprint",
+      icon: Cpu,
+      accent: "text-sky-700 dark:text-sky-300",
+    },
+  ] as const;
+
+  const compareCandidates = models
+    .filter((entry) => entry.id !== model.id)
+    .slice(0, 3);
+
+  const modalityTags = Array.from(
+    new Set([...(model.modalities?.input ?? []), ...(model.modalities?.output ?? []), ...model.capabilities])
+  ).slice(0, 4);
+
   return (
-    <div className="space-y-12 animate-in fade-in duration-700 pb-20">
-      {/* Breadcrumb / Back Link */}
-      <Link href="/" className="inline-flex items-center gap-2 text-xs font-mono text-muted-foreground hover:text-primary transition-colors group uppercase tracking-widest pl-1">
-        <ArrowLeft className="h-3 w-3 group-hover:-translate-x-1 transition-transform" /> 
-        System_Index
+    <div className="animate-in fade-in duration-700 space-y-7 pb-16">
+      <Link href="/" className="group inline-flex items-center gap-2 pl-1 text-sm font-mono tracking-[0.1em] text-muted-foreground transition-colors hover:text-primary">
+        <ArrowLeft className="h-3 w-3 transition-transform group-hover:-translate-x-1" />
+        Back to Leaderboard
       </Link>
 
-      {/* Hero Header */}
-      <div className="relative border-b border-border/50 pb-12 overflow-hidden">
-        {/* Abstract Background Decoration */}
-        <div className="absolute right-0 top-0 w-[500px] h-[500px] bg-primary/5 blur-[120px] rounded-full pointer-events-none -z-10 mix-blend-screen" />
-        
-        <div className="flex flex-col gap-8 md:flex-row md:items-start md:justify-between relative z-10">
-          <div className="space-y-4 max-w-2xl">
-            <div className="flex flex-wrap items-center gap-4 mb-2">
-               <Badge variant="outline" className="border-primary/20 bg-primary/5 text-primary font-mono text-[10px] px-2.5 py-1 uppercase tracking-[0.2em] rounded-md backdrop-blur-sm">
-                  {model.provider}
-               </Badge>
-               {model.isOpenSource && (
-                  <Badge variant="outline" className="border-emerald-500/20 bg-emerald-500/5 text-emerald-500 font-mono text-[10px] px-2.5 py-1 uppercase tracking-[0.2em] rounded-md backdrop-blur-sm">
-                      Open Weights
-                  </Badge>
-               )}
+      <p className="label-eyebrow">Home / Models / {model.name}</p>
+
+      <section className="surface-panel relative overflow-hidden rounded-2xl px-6 py-7 sm:px-8 sm:py-8">
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_86%_-18%,color-mix(in_oklab,var(--primary)_18%,transparent),transparent_50%)] dark:bg-[radial-gradient(circle_at_86%_-18%,color-mix(in_oklab,var(--primary)_30%,transparent),transparent_50%)]" />
+        <div className="flex flex-col gap-8 md:flex-row md:items-start md:justify-between">
+          <div className="max-w-3xl space-y-4">
+            <div className="mb-2 flex flex-wrap items-center gap-3">
+              <Badge
+                variant="outline"
+                className={`rounded-md px-2.5 py-1 font-mono text-[11px] uppercase tracking-[0.14em] ${providerTheme.border} ${providerTheme.bg} ${providerTheme.text}`}
+              >
+                {model.provider}
+              </Badge>
+              {model.isOpenSource && (
+                <Badge variant="outline" className="rounded-md border-emerald-500/20 bg-emerald-500/10 px-2.5 py-1 font-mono text-[11px] uppercase tracking-[0.14em] text-emerald-700 dark:text-emerald-400">
+                  Open Weights
+                </Badge>
+              )}
             </div>
-            
-            <h1 className="text-5xl md:text-7xl font-display font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-br from-foreground to-muted-foreground leading-[0.9]">
+
+            <h1 className="text-balance font-display text-5xl font-bold leading-[0.88] tracking-[-0.03em] text-foreground md:text-7xl">
               {model.name}
             </h1>
-            
-            <p className="text-muted-foreground font-mono text-sm tracking-wide border-l-2 border-primary/30 pl-4 py-1 max-w-lg leading-relaxed">
-              Released: <span className="text-foreground font-bold">{model.releaseDate}</span> | 
-              Architecture: <span className="text-foreground font-bold">{model.specs.parameters}</span>
+
+            <p className="max-w-2xl border-l border-primary/40 py-1 pl-4 font-mono text-xs uppercase tracking-[0.12em] text-muted-foreground">
+              Release {model.releaseDate} | Architecture {model.specs.parameters}
             </p>
-          </div>
-          
-          <div className="flex flex-col gap-3 min-w-[220px]">
-            {providerUrl && (
-              <Button asChild variant="outline" className="border-primary/20 text-primary hover:bg-primary/10 hover:border-primary/50 font-mono text-xs uppercase tracking-wider h-12 px-6 rounded-md transition-all shadow-[0_0_15px_-5px_var(--color-primary)]">
-                <a href={providerUrl} target="_blank" rel="noreferrer">
-                  Provider Source <ExternalLink className="ml-2 h-3 w-3" />
-                </a>
+
+            <div className="flex flex-wrap items-center gap-2 pt-1">
+              {providerUrl && (
+                <Button asChild variant="outline" className="h-10 rounded-md border-emerald-500/30 bg-emerald-500/8 px-4 text-sm font-medium text-emerald-700 shadow-none hover:bg-emerald-500/14 dark:text-emerald-300">
+                  <a href={providerUrl} target="_blank" rel="noreferrer">
+                    <ShieldCheck className="mr-1.5 h-4 w-4" />
+                    Verified Source
+                  </a>
+                </Button>
+              )}
+              <Button asChild variant="outline" className="h-10 rounded-md px-4 text-sm">
+                <Link href="/about">Watch</Link>
               </Button>
-            )}
-            <Button asChild variant="ghost" className="text-muted-foreground hover:text-foreground font-mono text-xs uppercase tracking-wider h-12 px-6 rounded-md transition-colors">
-              <Link href="/about">Methodology</Link>
-            </Button>
-            <p className="text-[10px] font-mono uppercase tracking-wider text-muted-foreground/80 text-right">
-              Latest score update: {latestAsOf ?? "Unknown"}
+              {model.modelUrl && (
+                <Button asChild variant="outline" className="h-10 rounded-md px-4 text-sm">
+                  <a href={model.modelUrl} target="_blank" rel="noreferrer">
+                    Official Page <ExternalLink className="ml-1.5 h-3.5 w-3.5" />
+                  </a>
+                </Button>
+              )}
+              <Button asChild className="h-10 rounded-md px-4 text-sm shadow-[0_14px_26px_-20px_var(--color-primary)]">
+                {model.modelCardUrl ? (
+                  <a href={model.modelCardUrl} target="_blank" rel="noreferrer">
+                    Model Card <ExternalLink className="ml-1.5 h-3.5 w-3.5" />
+                  </a>
+                ) : (
+                  <Link href="/about">
+                    Model Card <ExternalLink className="ml-1.5 h-3.5 w-3.5" />
+                  </Link>
+                )}
+              </Button>
+            </div>
+          </div>
+
+          <div className="data-module min-w-[220px] space-y-3 rounded-xl p-4">
+            <p className="font-mono text-[11px] uppercase tracking-[0.12em] text-muted-foreground/85">
+              Latest Score Update
+            </p>
+            <p className="font-mono text-sm text-foreground">
+              {latestAsOf ?? "Unknown"}
             </p>
           </div>
         </div>
-      </div>
+      </section>
 
-      {/* Technical Specifications Grid */}
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-        {/* Spec Card 1: Context */}
-        <Card className="bg-card/40 border-border/50 backdrop-blur-sm hover:bg-card/60 transition-colors group relative overflow-hidden">
-            <div className="absolute top-0 right-0 p-4 text-primary/10 group-hover:text-primary/20 transition-colors duration-500">
-                <Layers className="w-12 h-12 rotate-12 transform scale-125" />
-            </div>
-            <CardHeader className="pb-2 relative z-10">
-                <CardTitle className="text-[10px] font-mono uppercase tracking-[0.2em] text-muted-foreground">Context_Window</CardTitle>
-            </CardHeader>
-            <CardContent className="relative z-10">
-                <div className="text-4xl font-display font-bold text-foreground group-hover:text-primary transition-colors tracking-tight">
-                    {(model.specs.contextWindow / 1000).toFixed(0)}k
-                </div>
-                <p className="text-[10px] text-muted-foreground font-mono uppercase tracking-wider mt-2 opacity-70">Tokens</p>
-            </CardContent>
-            <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-primary/50 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
-        </Card>
-        
-        {/* Spec Card 2: Input Cost */}
-        <Card className="bg-card/40 border-border/50 backdrop-blur-sm hover:bg-card/60 transition-colors group relative overflow-hidden">
-            <div className="absolute top-0 right-0 p-4 text-emerald-500/10 group-hover:text-emerald-500/20 transition-colors duration-500">
-                <span className="font-display font-bold text-5xl">$</span>
-            </div>
-            <CardHeader className="pb-2 relative z-10">
-                <CardTitle className="text-[10px] font-mono uppercase tracking-[0.2em] text-muted-foreground">Input_Cost</CardTitle>
-            </CardHeader>
-            <CardContent className="relative z-10">
-                <div className="text-4xl font-display font-bold text-foreground group-hover:text-emerald-400 transition-colors tracking-tight">
-                    {formatCurrency(model.specs.pricing.input)}
-                </div>
-                <p className="text-[10px] text-muted-foreground font-mono uppercase tracking-wider mt-2 opacity-70">/ 1M Tokens</p>
-            </CardContent>
-            <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-emerald-500/50 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
-        </Card>
+      <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_320px]">
+        <div className="space-y-7">
+          <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+            {moduleSpecs.map((module) => {
+              const Icon = module.icon;
 
-        {/* Spec Card 3: Output Cost */}
-        <Card className="bg-card/40 border-border/50 backdrop-blur-sm hover:bg-card/60 transition-colors group relative overflow-hidden">
-             <div className="absolute top-0 right-0 p-4 text-emerald-500/10 group-hover:text-emerald-500/20 transition-colors duration-500">
-                <span className="font-display font-bold text-5xl">$</span>
-            </div>
-            <CardHeader className="pb-2 relative z-10">
-                <CardTitle className="text-[10px] font-mono uppercase tracking-[0.2em] text-muted-foreground">Output_Cost</CardTitle>
-            </CardHeader>
-            <CardContent className="relative z-10">
-                <div className="text-4xl font-display font-bold text-foreground group-hover:text-emerald-400 transition-colors tracking-tight">
-                    {formatCurrency(model.specs.pricing.output)}
-                </div>
-                <p className="text-[10px] text-muted-foreground font-mono uppercase tracking-wider mt-2 opacity-70">/ 1M Tokens</p>
-            </CardContent>
-            <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-emerald-500/50 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
-        </Card>
+              return (
+                <section key={module.id} className="data-module group relative overflow-hidden rounded-xl p-5">
+                  <div className="absolute right-3 top-3 text-muted/20 transition-colors group-hover:text-muted/30 dark:text-muted/10 dark:group-hover:text-muted/20">
+                    <Icon className="h-10 w-10" />
+                  </div>
 
-        {/* Spec Card 4: Params */}
-        <Card className="bg-card/40 border-border/50 backdrop-blur-sm hover:bg-card/60 transition-colors group relative overflow-hidden">
-            <div className="absolute top-0 right-0 p-4 text-purple-500/10 group-hover:text-purple-500/20 transition-colors duration-500">
-                <Cpu className="w-12 h-12 -rotate-12 transform scale-125" />
-            </div>
-            <CardHeader className="pb-2 relative z-10">
-                <CardTitle className="text-[10px] font-mono uppercase tracking-[0.2em] text-muted-foreground">Parameters</CardTitle>
-            </CardHeader>
-            <CardContent className="relative z-10">
-                <div className="text-3xl font-display font-bold text-foreground group-hover:text-purple-400 transition-colors tracking-tight leading-9 pt-1">
-                    {model.specs.parameters}
-                </div>
-                <p className="text-[10px] text-muted-foreground font-mono uppercase tracking-wider mt-2 opacity-70">Model Size</p>
-            </CardContent>
-            <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-purple-500/50 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
-        </Card>
-      </div>
+                  <p className="font-mono text-[11px] uppercase tracking-[0.12em] text-muted-foreground">
+                    {module.label}
+                  </p>
+                  <p className={`mt-3 text-4xl font-display font-bold tracking-[-0.03em] ${module.accent}`}>
+                    {module.value}
+                  </p>
+                  <p className="mt-2 font-mono text-[11px] uppercase tracking-[0.1em] text-muted-foreground/80">
+                    {module.footnote}
+                  </p>
+                </section>
+              );
+            })}
+          </div>
 
-      {/* Benchmark Analysis Section */}
-      <div className="space-y-8 pt-8">
-        <div className="flex items-center gap-4 border-b border-border/30 pb-4">
-            <div className="p-2 bg-primary/10 rounded-md">
-                <Zap className="w-5 h-5 text-primary" />
-            </div>
-            <div>
-                <h2 className="text-2xl font-display font-bold tracking-tight text-foreground">Diagnostic Report</h2>
-                <p className="text-xs font-mono text-muted-foreground uppercase tracking-widest mt-1">
-                    Performance Analysis // Verified Benchmarks
+          <div className="space-y-7 pt-1.5">
+            <div className="flex items-center gap-4 border-b border-border/30 pb-4">
+              <div className="rounded-md bg-primary/10 p-2">
+                <Zap className="h-5 w-5 text-primary" />
+              </div>
+              <div>
+                <h2 className="font-display text-2xl font-bold tracking-[-0.03em] text-foreground">Benchmark Provenance</h2>
+                <p className="mt-1 font-mono text-sm uppercase tracking-[0.1em] text-muted-foreground">
+                  Performance Analysis // Verified Benchmarks
                 </p>
+              </div>
             </div>
-        </div>
-        
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            {benchmarks.map((benchmark) => {
+
+            <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+              {benchmarks.map((benchmark) => {
                 const scoreData = model.scores[benchmark.id];
                 if (!scoreData || scoreData.score === null) return null;
 
-                // Color coding logic
-                const isHigh = scoreData.score >= 90;
-                const isMed = scoreData.score >= 80;
+                const scoreRatio = Math.max(0, Math.min(1, normalizeScore(scoreData.score, benchmark) / 100));
+                const isHigh = scoreRatio >= 0.85;
+                const isMed = scoreRatio >= 0.7;
 
                 const source = scoreData.sourceId ? sourceMap.get(scoreData.sourceId) : undefined;
                 const sourceUrl = scoreData.sourceUrl ?? source?.url ?? benchmark.link;
                 const sourceLabel = source?.name ?? getHostLabel(sourceUrl);
                 const verificationLabel = getVerificationLabel(scoreData.verificationLevel, scoreData.verified);
                 const isArtificialAnalysis = scoreData.sourceId === "artificial-analysis";
-                
-                const scoreColor = isHigh ? "text-primary" : isMed ? "text-emerald-400" : "text-amber-400";
-                const ringColor = isHigh ? "ring-primary/20" : isMed ? "ring-emerald-400/20" : "ring-amber-400/20";
+
+                const scoreColor = isHigh ? "text-foreground" : isMed ? "text-emerald-700 dark:text-emerald-400" : "text-amber-700 dark:text-amber-400";
+                const fillColor = isHigh ? "bg-foreground/85" : isMed ? "bg-foreground/65" : "bg-foreground/45";
 
                 return (
-                    <div key={benchmark.id} className="relative group bg-card/20 border border-white/5 hover:border-white/10 rounded-lg p-6 transition-all hover:bg-card/40 hover:-translate-y-1 duration-300">
-                        {/* Top Label */}
-                        <div className="flex justify-between items-start mb-6">
-                            <span className="text-xs font-bold font-mono uppercase tracking-wider text-muted-foreground group-hover:text-foreground transition-colors max-w-[70%]">
-                                {benchmark.name}
-                            </span>
-                            <Badge variant="secondary" className="text-[9px] font-mono uppercase bg-white/5 text-muted-foreground border-white/5 px-1.5 py-0.5 rounded tracking-wider">
-                                {benchmark.category}
-                            </Badge>
-                        </div>
-                        
-                        {/* Score Display */}
-                        <div className="flex items-end gap-3 mb-6 relative">
-                            <span className={`text-5xl font-display font-bold tracking-tighter ${scoreColor} drop-shadow-sm transition-all group-hover:scale-105 origin-left`}>
-                                {scoreData.score}{isArtificialAnalysis ? "*" : ""}
-                            </span>
-                            <span className="text-[10px] font-mono text-muted-foreground uppercase tracking-wider mb-1.5 opacity-50">/ {benchmark.maxScore}</span>
-                            
-                            {/* Decorative Ring */}
-                            <div className={`absolute -inset-4 rounded-full border-2 ${ringColor} opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500 -z-10`} />
-                        </div>
-                        
-                        {/* Verification Status */}
-                        <div className="space-y-2 pt-4 border-t border-white/5">
-                            {scoreData.verified ? (
-                                <div className="flex items-center gap-1.5 text-[10px] font-mono uppercase tracking-widest text-emerald-500/90 font-bold">
-                                    <ShieldCheck className="w-3 h-3" />
-                                    <span>{verificationLabel}</span>
-                                </div>
-                            ) : (
-                                <div className="flex items-center gap-1.5 text-[10px] font-mono uppercase tracking-widest text-amber-500/80 font-bold">
-                                    <AlertTriangle className="w-3 h-3" />
-                                    <span>{verificationLabel}</span>
-                                </div>
-                            )}
-                            <div className="flex items-center justify-between gap-2 text-[10px] font-mono text-muted-foreground uppercase tracking-wider">
-                              <span>{scoreData.asOfDate ?? model.releaseDate}</span>
-                              {sourceUrl ? (
-                                <a href={sourceUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-primary hover:underline">
-                                  {sourceLabel} <ExternalLink className="w-3 h-3" />
-                                </a>
-                              ) : (
-                                <span>{sourceLabel}</span>
-                              )}
-                            </div>
-                        </div>
-                        
-                        {/* Tooltip Description on Hover */}
-                        <div className="absolute inset-0 bg-background/95 backdrop-blur-sm p-6 flex items-center justify-center text-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-20 rounded-lg border border-primary/20">
-                            <p className="text-xs text-muted-foreground font-mono leading-relaxed max-w-[200px]">
-                                {benchmark.description}
-                            </p>
-                        </div>
+                  <article key={benchmark.id} className="data-module group relative rounded-lg p-5 transition-transform duration-300 hover:-translate-y-0.5">
+                    <div className="mb-5 flex items-start justify-between gap-3">
+                      <span className="max-w-[72%] font-mono text-sm font-semibold tracking-[0.06em] text-muted-foreground transition-colors group-hover:text-foreground">
+                        {benchmark.name}
+                      </span>
+                      <Badge variant="secondary" className="rounded border-border bg-secondary px-1.5 py-0.5 font-mono text-[11px] tracking-[0.06em] text-muted-foreground">
+                        {benchmark.category}
+                      </Badge>
                     </div>
-                )
-            })}
+
+                    <div className="mb-4 flex items-end gap-3">
+                      <span className={`origin-left font-display text-5xl font-bold tracking-[-0.03em] transition-transform group-hover:scale-105 ${scoreColor}`}>
+                        {scoreData.score}
+                        {isArtificialAnalysis ? "*" : ""}
+                      </span>
+                      <span className="mb-1.5 font-mono text-[11px] tracking-[0.06em] text-muted-foreground/55">/ {benchmark.maxScore}</span>
+                    </div>
+
+                    <div className="mb-5 h-2 overflow-hidden rounded-full border border-border bg-muted">
+                      <div className={`h-full ${fillColor}`} style={{ width: `${Math.max(4, scoreRatio * 100)}%` }} />
+                    </div>
+
+                    <div className="space-y-2 border-t border-border/60 pt-4">
+                      {scoreData.verified ? (
+                        <div className="flex items-center gap-1.5 font-mono text-[11px] font-bold uppercase tracking-[0.1em] text-emerald-700 dark:text-emerald-300">
+                          <ShieldCheck className="h-3 w-3" />
+                          <span>{verificationLabel}</span>
+                        </div>
+                      ) : (
+                        <div className="flex items-center gap-1.5 font-mono text-[11px] font-bold uppercase tracking-[0.1em] text-amber-700 dark:text-amber-300">
+                          <AlertTriangle className="h-3 w-3" />
+                          <span>{verificationLabel}</span>
+                        </div>
+                      )}
+
+                      <div className="flex items-center justify-between gap-2 font-mono text-[11px] uppercase tracking-[0.1em] text-muted-foreground">
+                        <span>{scoreData.asOfDate ?? "Unknown"}</span>
+                        {sourceUrl ? (
+                          <a href={sourceUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-primary hover:underline">
+                            {sourceLabel} <ExternalLink className="h-3 w-3" />
+                          </a>
+                        ) : (
+                          <span>{sourceLabel}</span>
+                        )}
+                      </div>
+                    </div>
+
+                    <p className="mt-3 line-clamp-3 text-xs leading-relaxed text-muted-foreground">
+                      {benchmark.description}
+                    </p>
+                  </article>
+                );
+              })}
+            </div>
+          </div>
         </div>
+
+        <aside className="space-y-3 lg:pt-1">
+          <section className="surface-card sticky top-20 rounded-2xl p-5">
+            <h3 className="font-display text-3xl font-bold tracking-tight text-foreground">Metadata</h3>
+            <div className="mt-4 space-y-3 border-t border-border pt-4 text-sm">
+              <div>
+                <p className="label-eyebrow">License</p>
+                <p className="mt-1 font-medium text-foreground">{model.isOpenSource ? "Open Weights" : "Proprietary"}</p>
+              </div>
+              <div>
+                <p className="label-eyebrow">Context Window</p>
+                <p className="mt-1 font-medium text-foreground">{model.specs.contextWindow.toLocaleString()} tokens</p>
+              </div>
+              <div>
+                <p className="label-eyebrow">Input Pricing</p>
+                <p className="mt-1 font-medium text-foreground">{formatCurrency(model.specs.pricing.input)} / 1M tokens</p>
+              </div>
+              <div>
+                <p className="label-eyebrow">Output Pricing</p>
+                <p className="mt-1 font-medium text-foreground">{formatCurrency(model.specs.pricing.output)} / 1M tokens</p>
+              </div>
+              <div>
+                <p className="label-eyebrow">Modality</p>
+                <div className="mt-2 flex flex-wrap gap-2">
+                  {modalityTags.length > 0 ? (
+                    modalityTags.map((tag) => (
+                      <span key={tag} className="chip-pill rounded-md px-2 py-1 text-[11px] font-mono uppercase tracking-[0.08em] text-muted-foreground">
+                        {tag}
+                      </span>
+                    ))
+                  ) : (
+                    <span className="text-sm text-muted-foreground">Not specified</span>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            <Button variant="outline" className="mt-5 h-10 w-full">Report Inaccuracy</Button>
+          </section>
+
+          <section className="surface-card rounded-2xl p-5">
+            <h4 className="font-display text-xl font-semibold tracking-tight text-foreground">Compare With</h4>
+            <div className="mt-3 space-y-2">
+              {compareCandidates.map((candidate) => (
+                <Link
+                  key={candidate.id}
+                  href={`/compare?models=${encodeURIComponent(model.id)},${encodeURIComponent(candidate.id)}`}
+                  className="flex items-center justify-between rounded-lg border border-border bg-card px-3 py-2 text-sm text-foreground transition-colors hover:border-primary/35 hover:bg-primary/5"
+                >
+                  <span>{candidate.name}</span>
+                  <ExternalLink className="h-4 w-4 text-muted-foreground" />
+                </Link>
+              ))}
+            </div>
+          </section>
+        </aside>
       </div>
     </div>
   );

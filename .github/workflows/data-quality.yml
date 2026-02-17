@@ -21,10 +21,19 @@ jobs:
           cache: npm
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Test
+        run: npm run test
 
       - name: Validate data registry
         run: npm run validate:data:strict
+
+      - name: Coverage report
+        run: npm run report:coverage
 
       - name: Build
         run: npm run build

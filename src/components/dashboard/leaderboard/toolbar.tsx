@@ -21,6 +21,8 @@ interface LeaderboardToolbarProps {
   table: Table<Model>;
   compareIds: string[];
   compareHref: string;
+  searchQuery: string;
+  onSearchQueryChange: (value: string) => void;
   resetLayout: () => void;
   summaryView: boolean;
   setSummaryView: (value: boolean) => void;
@@ -31,92 +33,89 @@ export function LeaderboardToolbar({
   table, 
   compareIds, 
   compareHref,
+  searchQuery,
+  onSearchQueryChange,
   resetLayout,
   summaryView,
   setSummaryView,
   applyPreset
 }: LeaderboardToolbarProps) {
-  const [searchValue, setSearchValue] = useState(
-    (table.getColumn("name")?.getFilterValue() as string) ?? ""
-  );
+  const [searchValue, setSearchValue] = useState(searchQuery);
+
+  useEffect(() => {
+    setSearchValue(searchQuery);
+  }, [searchQuery]);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
-      table.getColumn("name")?.setFilterValue(searchValue);
-    }, 150);
+      onSearchQueryChange(searchValue);
+    }, 250);
 
     return () => clearTimeout(timeout);
-  }, [searchValue, table]);
+  }, [onSearchQueryChange, searchValue]);
 
   return (
-    <div className="flex flex-col sm:flex-row items-center justify-between gap-6 bg-card/40 p-6 rounded-xl border border-white/5 backdrop-blur-sm shadow-xl relative overflow-hidden group">
-        {/* Subtle Gradient Accent */}
-        <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-primary/20 to-transparent opacity-50" />
-        
-        <div className="relative w-full sm:w-auto group/search">
-            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground group-focus-within/search:text-primary transition-colors" />
+    <div className="surface-panel rounded-xl border-border/70 bg-card p-4 sm:p-5">
+      <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+        <div className="flex w-full flex-col gap-3 md:flex-row md:items-center md:gap-2 lg:w-auto">
+          <div className="group/search relative min-w-0 flex-1 md:w-[300px] lg:w-[340px]">
+            <Search className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground transition-colors group-focus-within/search:text-primary" aria-hidden="true" />
             <Input
-            placeholder="Search model ecosystem..."
-            value={searchValue}
-            onChange={(event) => setSearchValue(event.target.value)}
-            className="pl-10 w-full sm:w-[320px] font-mono text-xs h-11 bg-background/50 border-white/10 focus-visible:ring-primary/20 focus-visible:border-primary/50 transition-all rounded-lg shadow-inner hover:bg-background/80"
+              placeholder="Search models…"
+              aria-label="Search models"
+              value={searchValue}
+              onChange={(event) => setSearchValue(event.target.value)}
+              className="h-11 w-full rounded-xl border-border bg-background pl-10 text-[15px]"
             />
-        </div>
+          </div>
 
-        <div className="flex items-center gap-4 w-full sm:w-auto">
-          {compareIds.length > 0 && (
-            <Link href={compareHref} className="flex-1 sm:flex-none">
-              <Button
-                variant="default"
-                size="sm"
-                className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-mono font-bold text-xs h-11 px-8 rounded-lg tracking-wide uppercase shadow-[0_0_20px_-5px_var(--color-primary)] hover:shadow-[0_0_30px_-5px_var(--color-primary)] transition-all animate-in zoom-in-95 duration-200"
-              >
-                Launch Comparison ({compareIds.length})
-              </Button>
-            </Link>
-          )}
-          
           <Button
             variant="outline"
             size="sm"
             onClick={() => setSummaryView(!summaryView)}
             className={cn(
-              "font-mono text-[10px] h-11 px-6 border-white/10 bg-background/50 rounded-lg uppercase tracking-[0.15em] transition-all shadow-sm",
-              summaryView ? "text-primary border-primary/30 bg-primary/5" : "text-muted-foreground hover:text-foreground"
+              "h-11 min-w-[150px] rounded-xl px-4 text-sm font-medium",
+              summaryView ? "border-primary/35 bg-primary/12 text-primary" : "border-border bg-card text-muted-foreground hover:text-foreground"
             )}
           >
-            {summaryView ? (
-              <LayoutGrid className="mr-2 h-3 w-3" />
-            ) : (
-              <List className="mr-2 h-3 w-3" />
-            )}
-            {summaryView ? "Summary Mode" : "Full View"}
+            {summaryView ? <LayoutGrid className="h-3.5 w-3.5" aria-hidden="true" /> : <List className="h-3.5 w-3.5" aria-hidden="true" />}
+            {summaryView ? "Summary View" : "Benchmark View"}
           </Button>
-          
+        </div>
+
+        <div className="flex w-full flex-wrap items-center gap-2 lg:w-auto lg:justify-end">
+          {compareIds.length > 0 && (
+            <Link href={compareHref} className="w-full sm:w-auto">
+              <Button
+                variant="default"
+                size="sm"
+                className="h-10 w-full rounded-lg px-4 text-sm font-semibold shadow-[0_14px_28px_-20px_var(--color-primary)] sm:w-auto"
+              >
+                Compare ({compareIds.length}/3)
+              </Button>
+            </Link>
+          )}
+
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button
-                variant="outline"
-                size="sm"
-                className="font-mono text-[10px] h-11 px-6 border-white/10 bg-background/50 hover:bg-white/5 rounded-lg uppercase tracking-[0.15em] text-muted-foreground hover:text-foreground transition-all shadow-sm"
-              >
+              <Button variant="outline" size="sm" className="h-11 rounded-xl px-4 text-sm font-medium text-muted-foreground hover:text-foreground">
                 View Preset
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="bg-card border-white/10 rounded-lg p-2 shadow-2xl min-w-[220px]">
-              <DropdownMenuItem onClick={() => applyPreset("general")} className="font-mono text-xs rounded-md focus:bg-primary/10 focus:text-primary cursor-pointer py-2">
+            <DropdownMenuContent align="end" className="min-w-[210px] rounded-lg border-border bg-card p-2">
+              <DropdownMenuItem onClick={() => applyPreset("general")} className="cursor-pointer rounded-md py-2 text-sm">
                 General Research
               </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => applyPreset("coding")} className="font-mono text-xs rounded-md focus:bg-primary/10 focus:text-primary cursor-pointer py-2">
+              <DropdownMenuItem onClick={() => applyPreset("coding")} className="cursor-pointer rounded-md py-2 text-sm">
                 Coding Focus
               </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => applyPreset("agentic")} className="font-mono text-xs rounded-md focus:bg-primary/10 focus:text-primary cursor-pointer py-2">
+              <DropdownMenuItem onClick={() => applyPreset("agentic")} className="cursor-pointer rounded-md py-2 text-sm">
                 Agentic Focus
               </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => applyPreset("vision")} className="font-mono text-xs rounded-md focus:bg-primary/10 focus:text-primary cursor-pointer py-2">
+              <DropdownMenuItem onClick={() => applyPreset("vision")} className="cursor-pointer rounded-md py-2 text-sm">
                 Vision Focus
               </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => applyPreset("video")} className="font-mono text-xs rounded-md focus:bg-primary/10 focus:text-primary cursor-pointer py-2">
+              <DropdownMenuItem onClick={() => applyPreset("video")} className="cursor-pointer rounded-md py-2 text-sm">
                 Video Focus
               </DropdownMenuItem>
             </DropdownMenuContent>
@@ -127,13 +126,13 @@ export function LeaderboardToolbar({
               <Button
                 variant="outline"
                 size="sm"
-                className="font-mono text-[10px] h-11 px-6 border-white/10 bg-background/50 hover:bg-white/5 rounded-lg uppercase tracking-[0.15em] text-muted-foreground hover:text-foreground transition-all ml-auto shadow-sm"
+                className="h-11 rounded-xl px-4 text-sm font-medium text-muted-foreground hover:text-foreground"
               >
-                <Filter className="mr-2 h-3 w-3" />
-                Configure View
+                <Filter className="mr-1 h-3.5 w-3.5" aria-hidden="true" />
+                Columns
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="bg-card border-white/10 rounded-lg p-2 shadow-2xl min-w-[200px] max-h-[400px] overflow-y-auto custom-scrollbar">
+            <DropdownMenuContent align="end" className="max-h-[400px] min-w-[220px] overflow-y-auto rounded-lg border-border bg-card p-2">
               {table
                 .getAllColumns()
                 .filter((column) => {
@@ -219,7 +218,7 @@ export function LeaderboardToolbar({
                   return (
                     <DropdownMenuCheckboxItem
                       key={column.id}
-                      className="font-mono text-xs rounded-md focus:bg-primary/10 focus:text-primary data-[state=checked]:text-primary cursor-pointer py-2 mb-0.5"
+                      className="mb-0.5 cursor-pointer rounded-md py-2 text-sm data-[state=checked]:text-primary"
                       checked={column.getIsVisible()}
                       onCheckedChange={(value) =>
                         column.toggleVisibility(!!value)
@@ -229,17 +228,18 @@ export function LeaderboardToolbar({
                     </DropdownMenuCheckboxItem>
                   );
                 })}
-              <DropdownMenuSeparator className="bg-white/5" />
-              <DropdownMenuItem 
+              <DropdownMenuSeparator className="bg-border" />
+              <DropdownMenuItem
                 onClick={resetLayout}
-                className="font-mono text-[10px] uppercase tracking-wider text-primary focus:bg-primary/10 focus:text-primary cursor-pointer py-2.5"
+                className="cursor-pointer py-2.5 text-sm text-primary focus:bg-primary/10 focus:text-primary"
               >
-                <RotateCcw className="mr-2 h-3 w-3" />
-                Reset Layout
+                <RotateCcw className="mr-2 h-3.5 w-3.5" aria-hidden="true" />
+                Reset layout
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
       </div>
+    </div>
   );
 }

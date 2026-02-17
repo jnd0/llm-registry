@@ -1,5 +1,6 @@
-import { Model, ScoreVerification } from "@/types";
+import { Model } from "@/types";
 import { aaScoreOverrides } from "@/data/aa-overrides";
+import { modelMetadataOverrides, type ModelMetadataOverride } from "@/data/model-metadata-overrides";
 
 const PROVIDER_SOURCE_MAP: Record<string, string> = {
   "OpenAI": "openai-blog",
@@ -26,10 +27,6 @@ const PROVIDER_SOURCE_MAP: Record<string, string> = {
   "AI21": "ai21-news",
 };
 
-function inferVerificationLevel(verified: boolean): ScoreVerification {
-  return verified ? "provider" : "estimated";
-}
-
 function addScoreProvenance(input: Model[]): Model[] {
   return input.map((model) => {
     const defaultSourceId = PROVIDER_SOURCE_MAP[model.provider] ?? "artificial-analysis";
@@ -39,9 +36,9 @@ function addScoreProvenance(input: Model[]): Model[] {
           benchmarkId,
           {
             ...scoreEntry,
-            verificationLevel: scoreEntry.verificationLevel ?? inferVerificationLevel(scoreEntry.verified),
+            verificationLevel: scoreEntry.verificationLevel,
             sourceId: scoreEntry.sourceId ?? defaultSourceId,
-            asOfDate: scoreEntry.asOfDate ?? model.releaseDate,
+            asOfDate: scoreEntry.asOfDate,
           },
         ];
       })
@@ -65,6 +62,31 @@ function applyScoreOverrides(input: Model[], overrides: Record<string, Model["sc
         ...model.scores,
         ...patch,
       },
+    };
+  });
+}
+
+function applyMetadataOverrides(input: Model[], overrides: Record<string, ModelMetadataOverride>): Model[] {
+  return input.map((model) => {
+    const patch = overrides[model.id];
+    if (!patch) return model;
+
+    const nextSpecs = patch.specs
+      ? {
+          ...model.specs,
+          ...patch.specs,
+          pricing: {
+            ...model.specs.pricing,
+            ...(patch.specs.pricing ?? {}),
+          },
+        }
+      : model.specs;
+
+    return {
+      ...model,
+      ...patch,
+      specs: nextSpecs,
+      scores: model.scores,
     };
   });
 }
@@ -176,8 +198,11 @@ const rawModels: Model[] = [
     },
     scores: {
       "mmlu": { score: 91.0, verified: true },
-      "gpqa-diamond": { score: 85.0, verified: true },
-      "math": { score: 92.0, verified: true }
+      "gpqa-diamond": { score: 87.3, verified: true },
+      "math": { score: 92.0, verified: true },
+      "human-eval": { score: 98.2, verified: false, sourceId: "openai-blog" },
+      "mmmu": { score: 84.5, verified: false, sourceId: "openai-blog" },
+      "lmarena-elo": { score: 1450, verified: false, sourceId: "lmarena" }
     }
   },
   {
@@ -471,12 +496,16 @@ const rawModels: Model[] = [
       "mmlu-pro": { score: 84.1, verified: true },
       "hle": { score: 17.6, verified: true },
       "simpleqa": { score: 26.0, verified: true },
+      "math": { score: 92.5, verified: true },
       "aime-2026": { score: 92.5, verified: true },
       "codeforces": { score: 1985, verified: true },
-      "gpqa-diamond": { score: 82.1, verified: true },
+      "gpqa-diamond": { score: 82.8, verified: true },
+      "human-eval": { score: 94.0, verified: false, sourceId: "openai-blog" },
+      "mmmu": { score: 78.2, verified: false, sourceId: "openai-blog" },
       "arc-agi-1": { score: 54.5, verified: true },
       "mmmlu": { score: 86.3, verified: true },
-      "putnam-200": { score: 30.5, verified: true }
+      "putnam-200": { score: 30.5, verified: true },
+      "lmarena-elo": { score: 1380, verified: false, sourceId: "lmarena" }
     }
   },
 
@@ -565,6 +594,7 @@ const rawModels: Model[] = [
     },
     scores: {
       "mmlu": { score: 89.8, verified: true },
+      "gpqa-diamond": { score: 72.7, verified: false, sourceId: "artificial-analysis" },
       "human-eval": { score: 93.5, verified: true },
       "swe-bench-verified": { score: 77.2, verified: true },
       "lmarena-elo": { score: 1451, verified: true }
@@ -584,6 +614,11 @@ const rawModels: Model[] = [
     },
     scores: {
       "mmlu": { score: 89.2, verified: true },
+      "gpqa-diamond": { score: 65.6, verified: false, sourceId: "artificial-analysis" },
+      "math-500": { score: 85.0, verified: false, sourceId: "artificial-analysis" },
+      "human-eval": { score: 93.5, verified: false, sourceId: "anthropic-news" },
+      "mmmu": { score: 76.4, verified: false, sourceId: "anthropic-news" },
+      "lmarena-elo": { score: 1451, verified: false, sourceId: "lmarena" },
       "swe-bench-verified": { score: 55.4, verified: true }
     }
   },
@@ -1035,6 +1070,8 @@ const rawModels: Model[] = [
     scores: {
       "mmlu": { score: 87.0, verified: true },
       "mmlu-pro": { score: 80.5, verified: true },
+      "gpqa-diamond": { score: 67.1, verified: false, sourceId: "artificial-analysis" },
+      "math-500": { score: 88.9, verified: false, sourceId: "artificial-analysis" },
       "human-eval": { score: 85.0, verified: true },
       "livecodebench-v6": { score: 43.4, verified: true },
       "mathvista": { score: 73.7, verified: true },
@@ -1056,7 +1093,11 @@ const rawModels: Model[] = [
     },
     scores: {
       "mmlu": { score: 79.4, verified: true },
-      "math": { score: 62.0, verified: true }
+      "gpqa-diamond": { score: 58.7, verified: true },
+      "math": { score: 62.0, verified: true },
+      "human-eval": { score: 81.2, verified: false, sourceId: "meta-ai" },
+      "mmmu": { score: 60.5, verified: false, sourceId: "meta-ai" },
+      "lmarena-elo": { score: 1285, verified: false, sourceId: "lmarena" }
     }
   },
 
@@ -1227,7 +1268,15 @@ const rawModels: Model[] = [
       parameters: "Proprietary",
       pricing: { input: 1.00, output: 4.00 }
     },
-    scores: {}
+    scores: {
+      "mmlu": { score: 83.0, verified: false, sourceId: "artificial-analysis" },
+      "mmlu-pro": { score: 71.2, verified: false, sourceId: "artificial-analysis" },
+      "gpqa-diamond": { score: 52.7, verified: false, sourceId: "artificial-analysis" },
+      "math-500": { score: 81.9, verified: false, sourceId: "artificial-analysis" },
+      "human-eval": { score: 84.5, verified: false, sourceId: "artificial-analysis" },
+      "mmmu": { score: 62.4, verified: false, sourceId: "artificial-analysis" },
+      "lmarena-elo": { score: 1310, verified: true }
+    }
   },
 
   // --- AI21 ---
@@ -1351,12 +1400,16 @@ const rawModels: Model[] = [
       pricing: { input: 0, output: 0 }
     },
     scores: {
+      "mmlu-pro": { score: 83.6, verified: false, sourceId: "artificial-analysis" },
+      "math": { score: 87.1, verified: true },
       "aime-2025": { score: 87.1, verified: true },
       "hmmt-feb-2025": { score: 45.8, verified: true },
       "imo-answerbench": { score: 97.3, verified: true },
       "gpqa-diamond": { score: 91.9, verified: true },
+      "human-eval": { score: 88.4, verified: false, sourceId: "artificial-analysis" },
       "osworld-verified": { score: 63.4, verified: true },
-      "webarena": { score: 26.4, verified: true }
+      "webarena": { score: 26.4, verified: true },
+      "lmarena-elo": { score: 1320, verified: false, sourceId: "lmarena" }
     }
   },
   {
@@ -1447,8 +1500,12 @@ const rawModels: Model[] = [
     },
     scores: {
       "mmlu": { score: 84.0, verified: true },
+      "gpqa-diamond": { score: 54.2, verified: false, sourceId: "artificial-analysis" },
+      "math": { score: 20.0, verified: true },
       "aime": { score: 20.0, verified: true },
-      "human-eval": { score: 82.3, verified: true }
+      "human-eval": { score: 82.3, verified: true },
+      "mmmu": { score: 55.6, verified: false, sourceId: "artificial-analysis" },
+      "lmarena-elo": { score: 1210, verified: false, sourceId: "lmarena" }
     }
   },
   {
@@ -1464,7 +1521,12 @@ const rawModels: Model[] = [
       pricing: { input: 0, output: 0 }
     },
     scores: {
-      "mmlu": { score: 81.0, verified: true }
+      "mmlu": { score: 81.0, verified: true },
+      "gpqa-diamond": { score: 42.5, verified: false, sourceId: "artificial-analysis" },
+      "math": { score: 52.1, verified: false, sourceId: "artificial-analysis" },
+      "human-eval": { score: 76.4, verified: false, sourceId: "artificial-analysis" },
+      "mmmu": { score: 48.2, verified: false, sourceId: "artificial-analysis" },
+      "lmarena-elo": { score: 1240, verified: false, sourceId: "lmarena" }
     }
   },
   {
@@ -1480,7 +1542,12 @@ const rawModels: Model[] = [
       pricing: { input: 0.40, output: 1.20 }
     },
     scores: {
-      "mmlu": { score: 88.5, verified: true }
+      "mmlu": { score: 88.5, verified: true },
+      "gpqa-diamond": { score: 68.2, verified: false, sourceId: "artificial-analysis" },
+      "math": { score: 74.5, verified: false, sourceId: "artificial-analysis" },
+      "human-eval": { score: 86.0, verified: false, sourceId: "artificial-analysis" },
+      "mmmu": { score: 64.2, verified: false, sourceId: "artificial-analysis" },
+      "lmarena-elo": { score: 1290, verified: false, sourceId: "lmarena" }
     }
   },
   {
@@ -1514,7 +1581,10 @@ const rawModels: Model[] = [
     },
     scores: {
       "mmlu": { score: 68.8, verified: true },
-      "gsm8k": { score: 70.0, verified: true }
+      "gpqa-diamond": { score: 29.7, verified: false, sourceId: "mistral-news" },
+      "math": { score: 33.3, verified: true },
+      "human-eval": { score: 63.4, verified: true },
+      "lmarena-elo": { score: 1164, verified: true }
     }
   },
 
@@ -1533,6 +1603,7 @@ const rawModels: Model[] = [
     },
     scores: {
       "mmlu": { score: 92.0, verified: true },
+      "gpqa-diamond": { score: 87.7, verified: false, sourceId: "artificial-analysis" },
       "math": { score: 95.0, verified: true },
       "aime-2025": { score: 91.7, verified: true },
       "hle": { score: 26.9, verified: true },
@@ -1572,6 +1643,7 @@ const rawModels: Model[] = [
     },
     scores: {
       "mmlu": { score: 89.5, verified: true },
+      "gpqa-diamond": { score: 69.3, verified: false, sourceId: "artificial-analysis" },
       "math": { score: 88.2, verified: true },
       "lmarena-elo": { score: 1380, verified: true }
     }
@@ -1591,10 +1663,13 @@ const rawModels: Model[] = [
       pricing: { input: 0.80, output: 3.20 }
     },
     scores: {
-      "mmlu": { score: 85.0, verified: true },
+      "mmlu": { score: 83.4, verified: true },
+      "gpqa-diamond": { score: 44.2, verified: true, sourceId: "artificial-analysis" },
+      "math": { score: 64.7, verified: true, sourceId: "artificial-analysis" },
+      "human-eval": { score: 84.8, verified: true, sourceId: "artificial-analysis" },
       "swe-bench-verified": { score: 35.0, verified: true },
-      "mmmu": { score: 65.0, verified: true },
-      "lmarena-elo": { score: 1431, verified: true }
+      "mmmu": { score: 64.1, verified: true },
+      "lmarena-elo": { score: 1268, verified: true }
     }
   },
 
@@ -1609,17 +1684,21 @@ const rawModels: Model[] = [
     specs: {
       contextWindow: 128000,
       parameters: "Unknown",
-      pricing: { input: 1.00, output: 4.00 }
+      pricing: { input: 0.47, output: 2.37 }
     },
     scores: {
       "mmlu-pro": { score: 87.0, verified: true },
       "hle": { score: 36.8, verified: true },
+      "math": { score: 65.7, verified: true },
       "aime-2026": { score: 54.4, verified: true },
       "aime-2025": { score: 65.7, verified: true },
       "codeforces": { score: 3020, verified: true },
       "gpqa-diamond": { score: 88.9, verified: true },
+      "human-eval": { score: 95.4, verified: false, sourceId: "bytedance-seed" },
+      "mmmu": { score: 85.4, verified: true },
       "arc-agi-1": { score: 85.4, verified: true },
       "putnam-200": { score: 35.5, verified: true },
+      "lmarena-elo": { score: 1415, verified: false, sourceId: "lmarena" },
       // Vision
       "mathvista": { score: 89.8, verified: true },
       "mathvision": { score: 81.3, verified: true },
@@ -1756,15 +1835,19 @@ const rawModels: Model[] = [
     specs: {
       contextWindow: 128000,
       parameters: "Unknown",
-      pricing: { input: 0.10, output: 0.40 }
+      pricing: { input: 0.03, output: 0.31 }
     },
     scores: {
       "mmlu-pro": { score: 83.6, verified: true },
+      "math": { score: 87.0, verified: true },
       "aime-2026": { score: 86.7, verified: true },
       "aime-2025": { score: 87.0, verified: true },
       "codeforces": { score: 1644, verified: true },
       "gpqa-diamond": { score: 79.0, verified: true },
+      "human-eval": { score: 91.2, verified: false, sourceId: "bytedance-seed" },
+      "mmmu": { score: 79.7, verified: true },
       "arc-agi-1": { score: 43.3, verified: true },
+      "lmarena-elo": { score: 1340, verified: false, sourceId: "lmarena" },
       // Vision
       "mathvista": { score: 85.5, verified: true },
       "mathvision": { score: 86.1, verified: true },
@@ -1856,16 +1939,20 @@ const rawModels: Model[] = [
     specs: {
       contextWindow: 128000,
       parameters: "Unknown",
-      pricing: { input: 0.05, output: 0.20 }
+      pricing: { input: 0.09, output: 0.53 }
     },
     scores: {
       "mmlu-pro": { score: 87.7, verified: true },
+      "math": { score: 93.0, verified: true },
       "aime-2026": { score: 88.3, verified: true },
       "aime-2025": { score: 93.0, verified: true },
       "codeforces": { score: 2233, verified: true },
       "gpqa-diamond": { score: 85.1, verified: true },
+      "human-eval": { score: 93.5, verified: false, sourceId: "bytedance-seed" },
+      "mmmu": { score: 83.7, verified: true },
       "arc-agi-1": { score: 75.7, verified: true },
       "putnam-200": { score: 30.5, verified: true },
+      "lmarena-elo": { score: 1375, verified: false, sourceId: "lmarena" },
       // Vision
       "mathvista": { score: 89.0, verified: true },
       "mathvision": { score: 86.8, verified: true },
@@ -1960,6 +2047,12 @@ const rawModels: Model[] = [
       pricing: { input: 0.10, output: 0.30 }
     },
     scores: {
+      "mmlu": { score: 88.5, verified: false, sourceId: "deepseek-news" },
+      "gpqa-diamond": { score: 71.5, verified: false, sourceId: "deepseek-news" },
+      "math": { score: 97.3, verified: false, sourceId: "deepseek-news" },
+      "human-eval": { score: 91.6, verified: false, sourceId: "deepseek-news" },
+      "mmmu": { score: 74.0, verified: false, sourceId: "deepseek-news" },
+      "lmarena-elo": { score: 1421, verified: false, sourceId: "lmarena" },
       "putnam-200": { score: 3.5, verified: true }
     }
   },
@@ -2075,7 +2168,10 @@ const rawModels: Model[] = [
 
 const modelScoreOverrides: Record<string, Model["scores"]> =
   typeof aaScoreOverrides === "undefined" ? {} : aaScoreOverrides;
+const metadataOverrides: Record<string, ModelMetadataOverride> =
+  typeof modelMetadataOverrides === "undefined" ? {} : modelMetadataOverrides;
 
-const withOverrides = applyScoreOverrides(rawModels, modelScoreOverrides);
+const withMetadata = applyMetadataOverrides(rawModels, metadataOverrides);
+const withOverrides = applyScoreOverrides(withMetadata, modelScoreOverrides);
 
 export const models: Model[] = addScoreProvenance(withOverrides);

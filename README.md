@@ -12,11 +12,14 @@ The Source of Truth for LLM Benchmarks. Compare top models like **DeepSeek V3**,
 
 ## Stack
 
-- **Framework**: Next.js 15 (App Router)
+- **Framework**: Next.js 16 (App Router)
 - **Styling**: Tailwind CSS v4 + Shadcn UI
 - **Data**: TypeScript-based local "database" (for speed & type safety)
+- **Schema Validation**: Zod runtime guards for registry data integrity
 - **State**: `nuqs` (URL-driven state management)
 - **Charts**: Recharts
+
+Leaderboard filtering/sorting/pagination is URL-driven and server-applied, so the client only hydrates the current page slice instead of the full registry dataset.
 
 ## Getting Started
 

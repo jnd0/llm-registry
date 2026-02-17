@@ -1,24 +1,56 @@
 import { Benchmark } from "@/types";
 
-const DEFAULT_BENCHMARK_LINK = "https://artificialanalysis.ai/";
+const DEFAULT_BENCHMARK_LINK = "https://artificialanalysis.ai/evaluations";
 
 const BENCHMARK_LINK_OVERRIDES: Record<string, string> = {
   "mmlu": "https://arxiv.org/abs/2009.03300",
+  "mmlu-pro": "https://arxiv.org/abs/2406.01574",
   "math": "https://arxiv.org/abs/2103.03874",
   "human-eval": "https://arxiv.org/abs/2107.03374",
   "swe-bench-verified": "https://www.swebench.com/",
   "mmmu": "https://mmmu-benchmark.github.io/",
+  "mmmu-pro": "https://mmmu-benchmark.github.io/",
+  "mmmu-val": "https://mmmu-benchmark.github.io/",
+  "mmmu-vision": "https://mmmu-benchmark.github.io/",
+  "mmmlu": "https://arxiv.org/abs/2402.03300",
+  "mathvista": "https://mathvista.github.io/",
+  "mathvista-mini": "https://mathvista.github.io/",
   "livebench": "https://livebench.ai/",
+  "livecodebench-v6": "https://livecodebench.github.io/",
   "bigcodebench": "https://github.com/bigcode-project/bigcodebench",
   "gsm8k": "https://github.com/openai/grade-school-math",
+  "aime": "https://artofproblemsolving.com/wiki/index.php/AIME",
+  "aime-2025": "https://artofproblemsolving.com/wiki/index.php/AIME",
+  "aime-2026": "https://artofproblemsolving.com/wiki/index.php/AIME",
+  "gpqa-diamond": "https://arxiv.org/abs/2311.12022",
+  "arc-agi-1": "https://arcprize.org/",
+  "arc-agi-2": "https://arcprize.org/",
+  "arc-agi-1-image": "https://arcprize.org/",
+  "arc-agi-2-image": "https://arcprize.org/",
+  "hle": "https://www.humanityslastexam.com/",
+  "hle-full": "https://www.humanityslastexam.com/",
+  "hle-full-tools": "https://www.humanityslastexam.com/",
+  "hle-text": "https://www.humanityslastexam.com/",
+  "hle-verified": "https://www.humanityslastexam.com/",
+  "hle-vl": "https://www.humanityslastexam.com/",
+  "codeforces": "https://codeforces.com/",
   "lmarena-elo": "https://chat.lmsys.org/?leaderboard",
+  "webarena": "https://webarena.dev/",
   "agentbench": "https://github.com/THUDM/AgentBench",
+  "tau-bench": "https://github.com/sierra-research/tau-bench",
+  "tau-bench-telecom": "https://github.com/sierra-research/tau-bench",
+  "docvqa": "https://rrc.cvc.uab.es/?ch=17",
+  "ocrbench": "https://ocrbench.github.io/",
+  "ocrbench-v2": "https://ocrbench.github.io/",
+  "videomme": "https://video-mme.github.io/",
   "terminal-bench": "https://www.tbench.ai/leaderboard/terminal-bench/2.0",
+  "terminal-bench-hard": "https://www.tbench.ai/leaderboard/terminal-bench/2.0",
   "osworld-verified": "https://os-world.github.io/",
+  "swe-bench-pro": "https://www.swebench.com/",
 };
 
 function getBenchmarkLink(benchmark: Benchmark): string {
-  return benchmark.link ?? BENCHMARK_LINK_OVERRIDES[benchmark.id] ?? DEFAULT_BENCHMARK_LINK;
+  return benchmark.link ?? BENCHMARK_LINK_OVERRIDES[benchmark.id] ?? `${DEFAULT_BENCHMARK_LINK}#${benchmark.id}`;
 }
 
 const rawBenchmarks: Benchmark[] = [

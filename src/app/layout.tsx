@@ -3,6 +3,7 @@ import { Geist, Geist_Mono, Space_Grotesk } from "next/font/google";
 import { Navbar } from "@/components/layout/navbar";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { siteName, siteUrl } from "@/lib/site";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -21,8 +22,34 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: "LLM Registry | The Global Benchmark Index",
-  description: "Interactive comparison of top LLMs (DeepSeek, Claude, GPT-4o) across trusted benchmarks.",
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: `${siteName} | The Global Benchmark Index`,
+    template: `%s | ${siteName}`,
+  },
+  description: "Source-of-truth registry for LLM benchmark performance with provenance, category rankings, and comparison workflows.",
+  applicationName: siteName,
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    title: `${siteName} | The Global Benchmark Index`,
+    description:
+      "Source-of-truth registry for LLM benchmark performance with provenance, category rankings, and comparison workflows.",
+    url: siteUrl,
+    siteName,
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${siteName} | The Global Benchmark Index`,
+    description:
+      "Source-of-truth registry for LLM benchmark performance with provenance, category rankings, and comparison workflows.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 const themeScript = `
@@ -51,13 +78,24 @@ export default function RootLayout({
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${spaceGrotesk.variable} antialiased min-h-screen bg-background text-foreground selection:bg-primary/20 selection:text-primary`}
+        className={`${geistSans.variable} ${geistMono.variable} ${spaceGrotesk.variable} min-h-screen overflow-x-hidden bg-background font-sans text-foreground antialiased selection:bg-primary/20 selection:text-primary`}
       >
         <TooltipProvider>
           <NuqsAdapter>
             <div className="relative flex min-h-screen flex-col">
+              <a
+                href="#main-content"
+                className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[70] focus:rounded-md focus:bg-primary focus:px-3 focus:py-2 focus:text-sm focus:font-medium focus:text-primary-foreground"
+              >
+                Skip to content
+              </a>
+
+              <div className="pointer-events-none absolute inset-0 -z-10 bg-grid-pattern opacity-55 dark:opacity-0" />
+
               <Navbar />
-              <main className="flex-1 container px-4 sm:px-8 py-8 md:py-12">{children}</main>
+              <main id="main-content" className="container relative z-10 flex-1 px-4 py-8 sm:px-8 md:py-12">
+                {children}
+              </main>
             </div>
           </NuqsAdapter>
         </TooltipProvider>
