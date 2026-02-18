@@ -82,6 +82,7 @@ export function CompareView({ modelOptions, initialSelectedModels, benchmarks }:
   const [showSummary, setShowSummary] = useState(true);
   const [onlySharedBenchmarks, setOnlySharedBenchmarks] = useState(true);
   const [copied, setCopied] = useState(false);
+  const [popoverOpen, setPopoverOpen] = useState(false);
   const [modelCache, setModelCache] = useState<Record<string, Model>>(() =>
     Object.fromEntries(initialSelectedModels.map((model) => [model.id, model]))
   );
@@ -308,6 +309,7 @@ export function CompareView({ modelOptions, initialSelectedModels, benchmarks }:
     if (compareIds.includes(id)) return;
     if (compareIds.length >= 3) return; 
     setCompareIds((prev) => [...(prev || []), id]);
+    setPopoverOpen(false);
   };
 
   const getModelCardMeta = (model: Model) => {
@@ -444,7 +446,7 @@ export function CompareView({ modelOptions, initialSelectedModels, benchmarks }:
             {copied ? "Copied" : "Share"}
           </Button>
 
-          <Popover>
+          <Popover open={popoverOpen} onOpenChange={setPopoverOpen}>
             <PopoverTrigger asChild>
               <Button
                 size="sm"
@@ -540,12 +542,17 @@ export function CompareView({ modelOptions, initialSelectedModels, benchmarks }:
         })}
 
         {Array.from({ length: Math.max(0, 3 - selectedModels.length) }).map((_, idx) => (
-          <div key={`empty-${idx}`} className="flex min-h-[200px] flex-col items-center justify-center rounded-2xl border border-dashed border-border/60 bg-muted/5 p-6 text-muted-foreground/40 group cursor-pointer hover:bg-muted/10 transition-all">
+          <button
+            key={`empty-${idx}`}
+            type="button"
+            onClick={() => setPopoverOpen(true)}
+            className="flex min-h-[200px] flex-col items-center justify-center rounded-2xl border border-dashed border-border/60 bg-muted/5 p-6 text-muted-foreground/40 group cursor-pointer hover:bg-muted/10 hover:border-primary/30 transition-all"
+          >
             <div className="flex h-10 w-10 items-center justify-center rounded-full bg-muted/20 mb-4 group-hover:scale-110 transition-transform">
               <Plus className="h-5 w-5" />
             </div>
             <p className="text-[10px] font-bold uppercase tracking-[0.2em]">Add Slot 0{selectedModels.length + idx + 1}</p>
-          </div>
+          </button>
         ))}
       </section>
 
