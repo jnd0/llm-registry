@@ -150,9 +150,14 @@ export function createColumns(
           <div className="group/name flex min-w-[220px] flex-col py-2">
             <Link
               href={`/model/${row.original.id}`}
-               className="flex items-center gap-2 font-display text-base font-bold tracking-[-0.03em] text-foreground transition-colors duration-200 hover:text-primary"
+               className="flex items-center gap-2 font-display text-base font-bold tracking-tight text-foreground transition-colors duration-200 hover:text-primary"
             >
               {row.original.name}
+              {row.original.variants && row.original.variants.length > 0 && (
+                <span className="flex h-4 items-center rounded-full bg-primary/10 px-1.5 font-mono text-[9px] font-bold uppercase tracking-wider text-primary">
+                  {row.original.variants.length} Variants
+                </span>
+              )}
               <ChevronDown className="h-3 w-3 -rotate-90 text-primary/50 opacity-0 transition-all group-hover/name:opacity-100" />
             </Link>
             <div className="mt-2 flex items-center gap-2">

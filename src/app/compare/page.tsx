@@ -1,5 +1,5 @@
 import { CompareView } from "@/components/dashboard/compare-view";
-import { benchmarks, models } from "@/lib/registry-data";
+import { benchmarks, flattenedModels, models } from "@/lib/registry-data";
 import type { Metadata } from "next";
 import { Suspense } from "react";
 
@@ -26,22 +26,37 @@ export default async function ComparePage({ searchParams }: ComparePageProps) {
     )
   ).slice(0, 3);
 
-  const initialSelectedModels = models.filter((model) => selectedIds.includes(model.id));
-  const modelOptions = models.map((model) => ({
+  const initialSelectedModels = flattenedModels.filter((model) => selectedIds.includes(model.id));
+  const modelOptions = flattenedModels.map((model) => ({
     id: model.id,
     name: model.name,
     provider: model.provider,
   }));
 
   return (
-    <div className="py-2 sm:py-4">
-      <Suspense fallback={<div className="surface-card rounded-xl px-6 py-10 text-sm text-muted-foreground">Loading comparison…</div>}>
-        <CompareView
-          benchmarks={benchmarks}
-          modelOptions={modelOptions}
-          initialSelectedModels={initialSelectedModels}
-        />
-      </Suspense>
+    <div className="animate-in fade-in duration-700 space-y-8 pb-16">
+      <section className="relative overflow-hidden rounded-2xl border border-border bg-card/50 px-6 py-8 sm:px-10 sm:py-12">
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_100%_100%,color-mix(in_oklab,var(--primary)_8%,transparent),transparent_50%)]" />
+        <div className="relative max-w-3xl space-y-4">
+          <p className="label-eyebrow text-muted-foreground/70">Registry / Benchmarks / Analysis</p>
+          <h1 className="text-balance font-display text-4xl font-bold tracking-tight text-foreground sm:text-5xl lg:text-6xl">
+            Model Comparison
+          </h1>
+          <p className="max-w-2xl text-lg text-muted-foreground sm:text-xl">
+            Compare up to three foundation models side by side across category averages and benchmark-level performance deltas.
+          </p>
+        </div>
+      </section>
+
+      <div className="py-2 sm:py-4">
+        <Suspense fallback={<div className="surface-card rounded-xl px-6 py-10 text-sm font-mono uppercase tracking-widest text-muted-foreground">Loading comparison…</div>}>
+          <CompareView
+            benchmarks={benchmarks}
+            modelOptions={modelOptions}
+            initialSelectedModels={initialSelectedModels}
+          />
+        </Suspense>
+      </div>
     </div>
   );
 }

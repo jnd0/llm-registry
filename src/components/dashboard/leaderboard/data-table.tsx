@@ -8,7 +8,7 @@ import {
   getCoreRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { GripVertical } from "lucide-react";
+import { GripVertical, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Model, Benchmark } from "@/types";
@@ -373,8 +373,6 @@ export function DataTable({
       if (columnId === "select") {
         return {
           left: 0,
-          backgroundColor: "var(--card)",
-          boxShadow: "inset -1px 0 0 var(--border)",
           width: selectColumnWidth,
           minWidth: selectColumnWidth,
           maxWidth: selectColumnWidth,
@@ -384,8 +382,6 @@ export function DataTable({
       if (columnId === "name") {
         return {
           left: selectColumnWidth,
-          backgroundColor: "var(--card)",
-          boxShadow: "inset -1px 0 0 var(--border)",
           width: nameColumnWidth,
           minWidth: nameColumnWidth,
           maxWidth: nameColumnWidth,
@@ -674,13 +670,13 @@ export function DataTable({
       </div>
       
       {/* The Table Container */}
-      <div className="surface-panel relative hidden max-h-[70vh] overflow-auto rounded-xl md:block">
+      <div className="relative hidden max-h-[70vh] overflow-auto rounded-2xl border border-border bg-card md:block shadow-sm">
         <Table>
-          <TableHeader className="sticky top-0 z-20 border-b border-border bg-card/95 backdrop-blur-sm">
+          <TableHeader className="sticky top-0 z-20 border-b border-border bg-card">
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow
                 key={headerGroup.id}
-                className="border-border/50 hover:bg-transparent"
+                className="border-border/40 hover:bg-transparent h-12"
               >
                 {headerGroup.headers.map((header) => {
                   const isDraggable = header.id !== "select";
@@ -688,12 +684,12 @@ export function DataTable({
                     <TableHead
                       key={header.id}
                       className={cn(
-                        "group/head h-14 px-6 font-sans text-xs font-semibold uppercase tracking-[0.08em] text-muted-foreground first:pl-8 transition-all duration-200",
+                        "group/head h-12 px-5 font-mono text-[10px] font-bold uppercase tracking-[0.15em] text-muted-foreground/60 transition-all duration-200",
                         isDraggable && "cursor-grab active:cursor-grabbing",
                         draggedColumn === header.id && "opacity-20",
-                        draggedColumn && draggedColumn !== header.id && isDraggable && "hover:bg-muted/60",
-                        header.id === "select" && "z-40 bg-card/95 backdrop-blur-sm md:sticky",
-                        header.id === "name" && "z-40 bg-card/95 backdrop-blur-sm md:sticky"
+                        draggedColumn && draggedColumn !== header.id && isDraggable && "hover:bg-muted/40",
+                        header.id === "select" && "z-40 bg-card md:sticky",
+                        header.id === "name" && "z-40 bg-card md:sticky border-r border-border shadow-[4px_0_8px_-4px_rgba(0,0,0,0.1)]"
                       )}
                       style={getStickyColumnStyle(header.id)}
                       draggable={isDraggable}
@@ -702,9 +698,9 @@ export function DataTable({
                       onDrop={() => handleDrop(header.id)}
                       onDragEnd={() => setDraggedColumn(null)}
                     >
-                      <div className="flex items-center gap-2">
+                      <div className="flex items-center gap-1.5">
                         {isDraggable && (
-                          <GripVertical className="-ml-2 h-3 w-3 opacity-0 transition-opacity group-hover/head:opacity-35" />
+                          <GripVertical className="-ml-1 h-3 w-3 opacity-0 transition-opacity group-hover/head:opacity-30" />
                         )}
                         {header.isPlaceholder
                           ? null
@@ -725,15 +721,15 @@ export function DataTable({
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
-                  className="group/row relative h-16 border-border/55 transition-colors hover:bg-muted/40 data-[state=selected]:bg-muted/90"
+                  className="group/row relative h-14 border-border/30 transition-colors hover:bg-muted/30 data-[state=selected]:bg-muted/60"
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell
                       key={cell.id}
                       className={cn(
-                        "relative z-10 px-6 py-4 align-middle first:pl-8",
+                        "relative z-10 px-5 py-3 align-middle transition-colors",
                         cell.column.id === "select" && "z-40 bg-card md:sticky",
-                        cell.column.id === "name" && "z-40 bg-card md:sticky"
+                        cell.column.id === "name" && "z-40 bg-card md:sticky border-r border-border shadow-[4px_0_8px_-4px_rgba(0,0,0,0.1)]"
                       )}
                       style={getStickyColumnStyle(cell.column.id)}
                     >
@@ -746,7 +742,7 @@ export function DataTable({
               <TableRow>
                 <TableCell
                   colSpan={columns.length}
-                  className="h-48 text-center font-mono text-muted-foreground uppercase tracking-widest text-xs"
+                  className="h-48 text-center font-mono text-muted-foreground/40 uppercase tracking-[0.2em] text-[10px]"
                 >
                   No systems match criteria
                 </TableCell>
@@ -756,67 +752,35 @@ export function DataTable({
         </Table>
       </div>
       
-      <div className="surface-card flex flex-wrap items-center justify-between gap-3 rounded-xl px-4 py-3">
-        <div className="text-xs font-mono tracking-wide text-muted-foreground">
-          Showing {table.getRowModel().rows.length}/{totalRows} models · {benchmarks.length} benchmarks
+      <div className="flex flex-wrap items-center justify-between gap-4 px-2 py-2">
+        <div className="flex items-center gap-4 text-[10px] font-bold uppercase tracking-widest text-muted-foreground/50">
+          <span>{totalRows} Models Registered</span>
+          <span className="h-1 w-1 rounded-full bg-border" />
+          <span>{benchmarks.length} Benchmarks Active</span>
         </div>
 
-        <div className="flex flex-wrap items-center gap-2">
-          {showBenchmarkWindowControls && (
-            <>
-              <span className="chip-pill px-2 py-1 text-[11px] font-mono tracking-wide text-muted-foreground">
-                Benchmarks {benchmarkWindowStart}-{benchmarkWindowEnd}/{groupedBenchmarkIds.length}
-              </span>
-              <Button
-                variant="outline"
-                size="sm"
-                className="h-7 px-2 text-[11px]"
-                onClick={() => setBenchmarkWindowPage((prev) => Math.max(prev - 1, 0))}
-                disabled={benchmarkWindowPage === 0}
-              >
-                Prev Cols
-              </Button>
-              <Button
-                variant="outline"
-                size="sm"
-                className="h-7 px-2 text-[11px]"
-                onClick={() => setBenchmarkWindowPage((prev) => Math.min(prev + 1, benchmarkWindowTotalPages - 1))}
-                disabled={benchmarkWindowPage >= benchmarkWindowTotalPages - 1}
-              >
-                Next Cols
-              </Button>
-            </>
-          )}
-          <span className="chip-pill px-2 py-1 text-[11px] font-mono tracking-wide text-muted-foreground">
-            Sorted: {currentSortLabel} ({activeSort ? (activeSort.desc ? "desc" : "asc") : "n/a"})
-          </span>
-          <span className="chip-pill px-2 py-1 text-[11px] font-mono tracking-wide text-muted-foreground">
-            Page {currentPage}/{totalPages}
-          </span>
-          <span className="chip-pill px-2 py-1 text-[11px] font-mono tracking-wide text-muted-foreground">
-            {pageSize} rows/page
-          </span>
+        <div className="flex items-center gap-1.5">
+          <div className="mr-4 flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest text-muted-foreground/50">
+            <span>Page {currentPage} of {totalPages}</span>
+          </div>
           <Button
-            variant="outline"
+            variant="ghost"
             size="sm"
-            className="h-7 px-2 text-[11px]"
+            className="h-8 w-8 rounded-full p-0 hover:bg-muted"
             onClick={() => goToPage(currentPage - 1)}
             disabled={currentPage <= 1}
           >
-            Prev
+            <ChevronDown className="h-4 w-4 rotate-90" />
           </Button>
           <Button
-            variant="outline"
+            variant="ghost"
             size="sm"
-            className="h-7 px-2 text-[11px]"
+            className="h-8 w-8 rounded-full p-0 hover:bg-muted"
             onClick={() => goToPage(currentPage + 1)}
             disabled={currentPage >= totalPages}
           >
-            Next
+            <ChevronDown className="h-4 w-4 -rotate-90" />
           </Button>
-          <span className="chip-pill px-2 py-1 text-[11px] font-mono tracking-wide text-muted-foreground">
-            Latest score date: {latestScoreDate ?? "Unknown"}
-          </span>
         </div>
       </div>
 

@@ -35,34 +35,28 @@ export function Navbar() {
   };
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/80 bg-background/90 backdrop-blur-md">
-      <div className="container flex h-[72px] items-center justify-between gap-3">
-        <div className="flex min-w-0 items-center gap-3 lg:gap-5">
-          <Link href="/" className="group flex items-center gap-3">
-            <div className="relative flex h-10 w-10 items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-[0_12px_24px_-18px_var(--color-primary)]">
-              <Terminal className="h-4 w-4" aria-hidden="true" />
+    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/80 backdrop-blur-md">
+      <div className="container flex h-14 items-center justify-between gap-3 px-4">
+        <div className="flex items-center gap-8">
+          <Link href="/" className="group flex items-center gap-2.5">
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground shadow-sm group-hover:shadow-primary/20 transition-all">
+              <Terminal className="h-3.5 w-3.5" aria-hidden="true" />
             </div>
-            <div className="min-w-0">
-              <span className="block truncate font-display text-[1.55rem] font-bold tracking-[-0.03em] text-foreground transition-colors group-hover:text-primary">
-                LLM Registry
-              </span>
-              <span className="hidden text-[10px] font-mono uppercase tracking-[0.12em] text-muted-foreground md:block">
-                Benchmark Source
-              </span>
-            </div>
+            <span className="font-display text-lg font-bold tracking-tight text-foreground transition-colors group-hover:text-primary">
+              Registry
+            </span>
           </Link>
 
-          <nav className="hidden rounded-xl border border-border bg-muted/30 p-1 md:flex md:items-center md:gap-0.5 dark:bg-card/55">
+          <nav className="hidden md:flex md:items-center md:gap-1">
             {navItems.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                aria-label={item.label}
                 className={cn(
-                  "rounded-lg px-4 py-2 text-sm font-medium text-muted-foreground transition-colors",
+                  "rounded-full px-4 py-1.5 text-xs font-bold uppercase tracking-widest transition-colors",
                   isActive(item.href)
-                    ? "bg-card text-foreground shadow-sm"
-                    : "hover:text-foreground"
+                    ? "bg-primary/10 text-primary"
+                    : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
                 )}
               >
                 {item.label}
@@ -71,78 +65,53 @@ export function Navbar() {
           </nav>
         </div>
 
-        <div className="flex items-center gap-2 sm:gap-3">
-          <label className="relative hidden min-w-[240px] items-center lg:flex xl:min-w-[390px]">
-            <Search className="pointer-events-none absolute left-3.5 h-4 w-4 text-muted-foreground" aria-hidden="true" />
+        <div className="flex items-center gap-3">
+          <label className="relative hidden items-center lg:flex">
+            <Search className="pointer-events-none absolute left-3 h-3.5 w-3.5 text-muted-foreground/40" aria-hidden="true" />
             <input
               type="search"
               aria-label="Search models"
-              placeholder="Search models, orgs..."
-              className="h-10 w-full rounded-xl border border-border bg-card pl-10 pr-14 text-[15px] text-muted-foreground"
+              placeholder="Search registry..."
+              className="h-8 w-48 rounded-full border border-border/60 bg-muted/20 pl-9 text-xs text-muted-foreground focus:w-64 focus:bg-background focus:ring-1 focus:ring-primary/20 transition-all"
             />
-            <span className="pointer-events-none absolute right-3 rounded-md border border-border bg-background px-1.5 py-0.5 font-mono text-[10px] text-muted-foreground">
-              Ctrl K
-            </span>
           </label>
 
-          <Button asChild className="hidden h-10 rounded-xl bg-foreground px-4 text-sm font-semibold text-background hover:bg-foreground/90 sm:inline-flex">
-            <Link href="/about">Sign In</Link>
-          </Button>
-
-          <div className="hidden sm:block">
+          <div className="flex items-center gap-1.5 border-l border-border/40 pl-3">
             <ThemeToggle />
+            <Link
+              href="https://github.com/jnd0/llm-registry"
+              target="_blank"
+              rel="noreferrer"
+              className="flex h-8 w-8 items-center justify-center rounded-full text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
+            >
+              <Github className="h-4 w-4" aria-hidden="true" />
+            </Link>
           </div>
-
-          <Link
-            href="https://github.com/jnd0/llm-registry"
-            target="_blank"
-            rel="noreferrer"
-            aria-label="Open GitHub repository"
-            className="hidden h-10 w-10 items-center justify-center rounded-xl border border-border bg-card text-muted-foreground transition-colors hover:text-foreground xl:inline-flex"
-          >
-            <Github className="h-4 w-4" aria-hidden="true" />
-          </Link>
 
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button
-                variant="outline"
+                variant="ghost"
                 size="icon"
-                className="h-10 w-10 rounded-xl border-border bg-card md:hidden"
-                aria-label="Open navigation menu"
+                className="h-8 w-8 md:hidden"
               >
                 <Menu className="h-4 w-4" aria-hidden="true" />
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="min-w-[240px] rounded-xl border-border bg-card p-2 md:hidden">
+            <DropdownMenuContent align="end" className="min-w-[200px] rounded-xl border-border bg-card p-1.5 shadow-xl md:hidden">
               {navItems.map((item) => (
                 <DropdownMenuItem key={item.href} asChild>
                   <Link
                     href={item.href}
                     className={cn(
-                      "rounded-md py-2 text-sm font-medium",
-                      isActive(item.href) ? "bg-primary/10 text-primary" : "text-foreground"
+                      "rounded-lg py-2 text-xs font-bold uppercase tracking-widest",
+                      isActive(item.href) ? "bg-primary/5 text-primary" : "text-foreground"
                     )}
                   >
                     {item.label}
                   </Link>
                 </DropdownMenuItem>
               ))}
-              <DropdownMenuItem asChild>
-                <Link href="/about" className="rounded-md py-2 text-sm font-medium">
-                  Sign In
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <Link
-                  href="https://github.com/jnd0/llm-registry"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="rounded-md py-2 text-sm font-medium"
-                >
-                  GitHub
-                </Link>
-              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>

@@ -371,93 +371,137 @@ export function CompareView({ modelOptions, initialSelectedModels, benchmarks }:
   };
 
   return (
-    <div className="animate-in fade-in duration-700 ease-out space-y-6 md:space-y-7">
-      <section className="surface-panel relative overflow-hidden rounded-2xl px-5 py-6 sm:px-7 sm:py-7">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_84%_-10%,color-mix(in_oklab,var(--primary)_16%,transparent),transparent_48%)] dark:bg-[radial-gradient(circle_at_84%_-10%,color-mix(in_oklab,var(--primary)_28%,transparent),transparent_48%)]" />
-        <div className="relative flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-          <div className="space-y-3">
-            <p className="label-eyebrow">Registry / Benchmarks / Comparison Tool</p>
-            <h1 className="text-balance text-4xl font-display font-bold tracking-[-0.03em] text-foreground md:text-6xl">
-              Model Comparison
-            </h1>
-            <p className="max-w-3xl text-sm text-muted-foreground md:text-base md:leading-normal">
-              Analyzing performance deltas across reasoning, coding, and knowledge retention benchmarks.
-            </p>
-          </div>
-
-          <div className="flex flex-wrap items-center gap-3">
+    <div className="animate-in fade-in duration-700 ease-out space-y-8">
+      <div className="flex flex-wrap items-center justify-between gap-4 px-1">
+        <div className="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1">
+          <div className="flex items-center gap-1.5 bg-muted/30 p-1 rounded-full border border-border/40">
             <Button
-              variant="outline"
-              onClick={handleShareView}
-              className="h-11 rounded-lg border-border bg-card px-5 text-sm text-muted-foreground hover:text-foreground"
+              variant="ghost"
+              size="sm"
+              onClick={() => setShowSummary(true)}
+              className={cn(
+                "h-7 rounded-full px-3 text-[11px] font-bold uppercase tracking-wider transition-all",
+                showSummary ? "bg-background text-primary shadow-sm" : "text-muted-foreground hover:text-foreground"
+              )}
             >
-              <Share2 className="mr-2 h-4 w-4" aria-hidden="true" />
-              {copied ? "Copied" : "Share View"}
+              Summary
             </Button>
-
-            <Popover>
-              <PopoverTrigger asChild>
-                <Button
-                  className="h-11 rounded-lg px-5 text-sm shadow-[0_14px_28px_-20px_var(--color-primary)]"
-                >
-                  <Plus className="mr-1.5 h-4 w-4" aria-hidden="true" />
-                  Add Model
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent className="w-[300px] overflow-hidden rounded-lg border-border bg-background p-0 shadow-2xl" align="end">
-                <Command className="bg-transparent text-foreground font-mono">
-                  <CommandInput placeholder="Search models..." className="h-11 border-b border-border text-sm" />
-                  <CommandList className="max-h-[320px] overflow-y-auto">
-                    <CommandEmpty className="p-6 text-center text-xs text-muted-foreground">No models found</CommandEmpty>
-                    <CommandGroup heading="Available Models" className="p-2 text-[11px] tracking-[0.1em] text-muted-foreground/70">
-                      {selectableModels.map((model) => {
-                        const providerTheme = getProviderTheme(model.provider);
-
-                        return (
-                          <CommandItem
-                            key={model.id}
-                            value={`${model.name} ${model.provider}`}
-                            onSelect={() => addModel(model.id)}
-                            disabled={compareIds.includes(model.id) || compareIds.length >= 3}
-                            className="mb-1 cursor-pointer rounded-md px-3 py-2.5 text-sm transition-colors aria-selected:bg-primary/10 aria-selected:text-primary"
-                          >
-                            <div className="flex w-full items-center justify-between gap-3">
-                              <div className="min-w-0">
-                                <span className="block truncate">{model.name}</span>
-                                <span className={cn("block truncate text-xs", providerTheme.text)}>{model.provider}</span>
-                              </div>
-                              {compareIds.includes(model.id) && (
-                                <span className="rounded bg-primary/20 px-1.5 py-0.5 text-[11px] text-primary">Added</span>
-                              )}
-                              {!compareIds.includes(model.id) && compareIds.length >= 3 && (
-                                <span className="rounded bg-muted px-1.5 py-0.5 text-[11px] text-muted-foreground">Max</span>
-                              )}
-                            </div>
-                          </CommandItem>
-                        );
-                      })}
-                    </CommandGroup>
-                  </CommandList>
-                </Command>
-              </PopoverContent>
-            </Popover>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setShowSummary(false)}
+              className={cn(
+                "h-7 rounded-full px-3 text-[11px] font-bold uppercase tracking-wider transition-all",
+                !showSummary ? "bg-background text-primary shadow-sm" : "text-muted-foreground hover:text-foreground"
+              )}
+            >
+              Detailed
+            </Button>
           </div>
-        </div>
-      </section>
 
-      <section className="grid gap-3 lg:grid-cols-3">
+          {!showSummary && (
+            <div className="h-4 w-px bg-border/40 mx-2" />
+          )}
+
+          {!showSummary && (
+            <div className="flex items-center gap-2">
+              <select
+                value={categorySlug}
+                onChange={(event) => setCategorySlug(event.target.value)}
+                className="h-9 rounded-full border border-border/60 bg-muted/20 px-4 text-[11px] font-bold uppercase tracking-wider text-muted-foreground focus:bg-background transition-all outline-none"
+              >
+                <option value={ALL_CATEGORY_SLUG}>All Categories</option>
+                {categories.map((category) => (
+                  <option key={category} value={categoryToSlug(category)}>
+                    {category}
+                  </option>
+                ))}
+              </select>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setOnlySharedBenchmarks((prev) => !prev)}
+                className={cn(
+                  "h-9 rounded-full border-border/60 px-4 text-[11px] font-bold uppercase tracking-wider transition-all",
+                  onlySharedBenchmarks ? "bg-primary/5 text-primary border-primary/20" : "text-muted-foreground hover:text-foreground"
+                )}
+              >
+                {onlySharedBenchmarks ? "Shared Only" : "All Results"}
+              </Button>
+            </div>
+          )}
+        </div>
+
+        <div className="flex items-center gap-2">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={handleShareView}
+            className="h-9 rounded-full border-border/60 px-4 text-[11px] font-bold uppercase tracking-wider text-muted-foreground hover:text-foreground transition-all"
+          >
+            <Share2 className="mr-2 h-3.5 w-3.5" />
+            {copied ? "Copied" : "Share"}
+          </Button>
+
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button
+                size="sm"
+                className="h-9 rounded-full px-5 text-[11px] font-bold uppercase tracking-wider shadow-lg shadow-primary/20"
+              >
+                <Plus className="mr-1.5 h-3.5 w-3.5" />
+                Add Model
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-[300px] overflow-hidden rounded-2xl border-border bg-card p-0 shadow-2xl" align="end">
+              <Command className="bg-transparent font-mono">
+                <CommandInput placeholder="Search models..." className="h-11 border-b border-border/50 text-xs" />
+                <CommandList className="max-h-[320px] overflow-y-auto no-scrollbar">
+                  <CommandEmpty className="p-6 text-center text-[10px] uppercase tracking-widest text-muted-foreground">No models found</CommandEmpty>
+                  <CommandGroup heading="Available Registry" className="p-2 text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground/50">
+                    {selectableModels.map((model) => {
+                      const providerTheme = getProviderTheme(model.provider);
+                      return (
+                        <CommandItem
+                          key={model.id}
+                          value={`${model.name} ${model.provider}`}
+                          onSelect={() => addModel(model.id)}
+                          disabled={compareIds.includes(model.id) || compareIds.length >= 3}
+                          className="mb-1 cursor-pointer rounded-xl px-3 py-2.5 transition-colors aria-selected:bg-primary/5 aria-selected:text-primary"
+                        >
+                          <div className="flex w-full items-center justify-between gap-3">
+                            <div className="min-w-0">
+                              <span className="block truncate text-sm font-bold tracking-tight">{model.name}</span>
+                              <span className={cn("block truncate text-[10px] font-bold uppercase tracking-wider opacity-70", providerTheme.text)}>{model.provider}</span>
+                            </div>
+                            {compareIds.includes(model.id) && (
+                              <span className="rounded-full bg-primary/10 px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider text-primary">Added</span>
+                            )}
+                          </div>
+                        </CommandItem>
+                      );
+                    })}
+                  </CommandGroup>
+                </CommandList>
+              </Command>
+            </PopoverContent>
+          </Popover>
+        </div>
+      </div>
+
+      <section className="grid gap-4 lg:grid-cols-3">
         {selectedModels.map((model, idx) => {
           const providerTheme = getProviderTheme(model.provider);
           const cardMeta = getModelCardMeta(model);
 
           return (
-            <article key={model.id} className="surface-card rounded-2xl p-4">
+            <article key={model.id} className="relative overflow-hidden rounded-2xl border border-border bg-card/50 p-6 transition-all hover:border-primary/30">
               <div className="flex items-start justify-between gap-3">
-                <div className="min-w-0">
-                  <p className="truncate text-[1.75rem] font-display font-bold tracking-tight text-foreground">{model.name}</p>
-                  <div className="mt-1 flex items-center gap-2">
-                    <span className="font-mono text-[11px] text-primary/70">#{idx + 1}</span>
-                    <span className={cn("rounded-sm px-1.5 py-0.5 font-mono text-[10px] uppercase tracking-[0.1em]", providerTheme.border, providerTheme.bg, providerTheme.text)}>
+                <div className="min-w-0 space-y-1">
+                  <p className="font-mono text-[10px] font-bold text-primary uppercase tracking-widest">Model 0{idx + 1}</p>
+                  <h3 className="truncate text-2xl font-display font-bold tracking-tight text-foreground">{model.name}</h3>
+                  <div className="pt-1">
+                    <span className={cn("rounded-full px-2 py-0.5 font-mono text-[9px] font-bold uppercase tracking-widest", providerTheme.border, providerTheme.bg, providerTheme.text)}>
                       {model.provider}
                     </span>
                   </div>
@@ -466,281 +510,173 @@ export function CompareView({ modelOptions, initialSelectedModels, benchmarks }:
                 <Button
                   variant="ghost"
                   size="icon"
-                  className="h-8 w-8 rounded-full p-0 hover:bg-destructive/10 hover:text-destructive"
+                  className="h-8 w-8 rounded-full hover:bg-destructive/5 hover:text-destructive transition-colors"
                   onClick={() => removeModel(model.id)}
-                  aria-label={`Remove ${model.name} from comparison`}
                 >
-                  <X className="h-4 w-4" aria-hidden="true" />
+                  <X className="h-3.5 w-3.5" />
                 </Button>
               </div>
 
-              <div className="mt-3 flex items-end gap-2">
-                <span className="font-display text-5xl font-bold tracking-[-0.03em] text-foreground">{cardMeta.confidence.toFixed(1)}%</span>
-                <span className="pb-1 font-mono text-sm tracking-wide text-primary">CONFIDENCE</span>
+              <div className="mt-8 flex items-baseline gap-2">
+                <span className="font-display text-5xl font-bold tracking-tight text-foreground">{cardMeta.confidence.toFixed(1)}%</span>
+                <span className="font-mono text-[10px] font-bold uppercase tracking-widest text-muted-foreground/50">Confidence</span>
               </div>
 
-              <div className="mt-3 flex items-center justify-between text-sm font-mono">
-                <span className={cn("inline-flex items-center gap-1.5", cardMeta.tone)}>
-                  <span className={cn("h-1.5 w-1.5 rounded-full", cardMeta.dot)} />
-                  {cardMeta.label}
-                </span>
-                <span className="text-muted-foreground">{model.releaseDate}</span>
+              <div className="mt-6 space-y-3">
+                <div className="flex items-center justify-between text-[10px] font-bold uppercase tracking-widest">
+                  <span className={cn("flex items-center gap-1.5", cardMeta.tone)}>
+                    <span className={cn("h-1.5 w-1.5 rounded-full", cardMeta.dot)} />
+                    {cardMeta.label}
+                  </span>
+                  <span className="text-muted-foreground/60">{model.releaseDate}</span>
+                </div>
+                <div className="h-1 w-full overflow-hidden rounded-full bg-muted/50">
+                  <div className="h-full bg-primary transition-all duration-1000" style={{ width: `${Math.max(8, cardMeta.confidence)}%` }} />
+                </div>
               </div>
-
-              <div className="mt-2.5 h-2 overflow-hidden rounded-full bg-muted">
-                <div className="h-full bg-primary" style={{ width: `${Math.max(8, cardMeta.confidence)}%` }} />
-              </div>
-
-              <p className="mt-2.5 font-mono text-[11px] uppercase tracking-[0.1em] text-muted-foreground">
-                Hash · {`sha256:${model.id.slice(0, 6)}...${model.id.slice(-3)}`}
-              </p>
             </article>
           );
         })}
 
         {Array.from({ length: Math.max(0, 3 - selectedModels.length) }).map((_, idx) => (
-          <div key={`empty-${idx}`} className="surface-card flex min-h-[216px] flex-col items-center justify-center rounded-2xl border-dashed text-muted-foreground/70">
-            {idx === 0 ? <FlaskConical className="mb-3 h-9 w-9" aria-hidden="true" /> : <Minimize2 className="mb-3 h-9 w-9" aria-hidden="true" />}
-            <p className="font-mono text-sm tracking-[0.1em]">Add Model to Compare</p>
+          <div key={`empty-${idx}`} className="flex min-h-[200px] flex-col items-center justify-center rounded-2xl border border-dashed border-border/60 bg-muted/5 p-6 text-muted-foreground/40 group cursor-pointer hover:bg-muted/10 transition-all">
+            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-muted/20 mb-4 group-hover:scale-110 transition-transform">
+              <Plus className="h-5 w-5" />
+            </div>
+            <p className="text-[10px] font-bold uppercase tracking-[0.2em]">Add Slot 0{selectedModels.length + idx + 1}</p>
           </div>
         ))}
       </section>
 
       {selectedModels.length > 0 && (
-        <div className="animate-in slide-in-from-bottom-8 fade-in fill-mode-forwards grid gap-5 duration-700 md:grid-cols-1 lg:grid-cols-2">
-          {/* Chart */}
+        <div className="grid gap-6 lg:grid-cols-2">
           {selectedModels.length >= 2 ? (
-            <RadarComparison models={selectedModels} benchmarks={radarBenchmarks} className="h-full min-h-[500px]" />
+            <div className="rounded-2xl border border-border bg-card overflow-hidden h-[500px]">
+              <RadarComparison models={selectedModels} benchmarks={radarBenchmarks} className="h-full w-full" />
+            </div>
           ) : (
-            <Card className="surface-card flex h-full min-h-[500px] items-center justify-center">
-              <span className="text-sm font-mono tracking-[0.1em] text-muted-foreground">
-                Select 2+ models to render radar
-              </span>
-            </Card>
+            <div className="flex h-[500px] items-center justify-center rounded-2xl border border-dashed border-border/60 bg-muted/5 text-[10px] font-bold uppercase tracking-widest text-muted-foreground/40">
+              Select 2+ models for radar analysis
+            </div>
           )}
 
-          {/* Diff Table */}
-          <Card className="surface-card relative flex h-full flex-col overflow-hidden rounded-xl">
-            <CardHeader className="border-b border-border bg-card/35 pb-4">
-              <div className="flex items-center justify-between">
-                <div>
-                    <CardTitle className="flex items-center gap-2 font-display text-xl tracking-tight text-foreground">
-                        <BarChart3 className="h-5 w-5 text-primary" aria-hidden="true" />
-                        {showSummary ? "Capability Variance" : "Performance Delta"}
-                    </CardTitle>
-                    <CardDescription className="mt-1 text-sm font-mono tracking-[0.1em] text-muted-foreground">
-                        {showSummary ? "Category Normalized Averages" : "Benchmark-by-Benchmark Comparison"}
-                    </CardDescription>
-                </div>
-                <div className="flex items-center gap-3">
-                    <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => setShowSummary(!showSummary)}
-                        className={cn("h-8 px-3 text-xs font-medium", showSummary && "border-primary/30 bg-primary/10 text-primary")}
-                        title={showSummary ? "Switch to Detailed Benchmarks" : "Switch to Category Averages"}
-                    >
-                        {showSummary ? <LayoutGrid className="h-3.5 w-3.5" aria-hidden="true" /> : <List className="h-3.5 w-3.5" aria-hidden="true" />}
-                        {showSummary ? "Summary" : "Detailed"}
-                    </Button>
-                    <div className="flex gap-1 ml-2">
-                        <div className="h-1 w-1 rounded-full bg-primary/30" />
-                        <div className="h-1 w-1 rounded-full bg-primary/55" />
-                        <div className="h-1 w-1 rounded-full bg-primary/80" />
-                    </div>
-                </div>
-              </div>
-            </CardHeader>
+          <div className="flex flex-col rounded-2xl border border-border bg-card overflow-hidden">
+            <div className="border-b border-border/50 bg-muted/10 px-6 py-5">
+              <h3 className="font-display text-xl font-bold tracking-tight text-foreground">
+                {showSummary ? "Capability Variance" : "Performance Delta"}
+              </h3>
+              <p className="mt-1 font-mono text-[10px] font-bold uppercase tracking-widest text-muted-foreground/50">
+                {showSummary ? "Category Normalized Averages" : "Benchmark Comparison"}
+              </p>
+            </div>
             
-            <CardContent className="flex-1 px-5 pb-5 pt-5">
-              {!showSummary && (
-                <div className="mb-5 flex flex-wrap items-center gap-3">
-                  <select
-                    value={categorySlug}
-                    onChange={(event) => setCategorySlug(event.target.value)}
-                    aria-label="Filter benchmark category"
-                    className="h-9 rounded-md border border-border bg-background px-3 text-sm text-foreground"
-                  >
-                    <option value={ALL_CATEGORY_SLUG}>All Categories</option>
-                    {categories.map((category) => (
-                      <option key={category} value={categoryToSlug(category)}>
-                        {category}
-                      </option>
-                    ))}
-                  </select>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => setOnlySharedBenchmarks((prev) => !prev)}
-                    className={cn(
-                      "h-9 border-border px-3 text-xs font-medium",
-                      onlySharedBenchmarks && "border-primary/30 text-primary bg-primary/5"
-                    )}
-                  >
-                    {onlySharedBenchmarks ? "Shared Only" : "Include Partial"}
-                  </Button>
-                  {benchmarkAvailabilitySummary && (
-                    <span className="chip-pill px-2 py-1 text-[11px] font-mono tracking-wide text-muted-foreground">
-                      Shared {benchmarkAvailabilitySummary.shared} · Partial {benchmarkAvailabilitySummary.partial} · Empty {benchmarkAvailabilitySummary.empty}
-                    </span>
-                  )}
-                </div>
-              )}
-
-              <div className="space-y-6">
+            <div className="flex-1 p-6 overflow-y-auto no-scrollbar max-h-[400px]">
+              <div className="space-y-8">
                 {showSummary ? (
                   categoryAverages.map((cat) => (
-                    <div key={cat.id} className="group space-y-2.5">
-                      <Tooltip delayDuration={200}>
-                        <TooltipTrigger asChild>
-                          <div className="mb-2 flex cursor-help items-end justify-between border-b border-border pb-2 text-sm font-mono">
-                              <span className="font-semibold tracking-[0.08em] text-primary transition-colors group-hover:text-primary">{cat.name} Avg</span>
-                              <span className="text-[11px] text-muted-foreground/65">Max 100%</span>
-                           </div>
-                        </TooltipTrigger>
-                        <TooltipContent className="max-w-[240px] border-border bg-card p-3 text-card-foreground shadow-sm">
-                          <div className="space-y-1.5">
-                            <p className="text-xs font-semibold text-primary">{cat.name} Capability</p>
-                            <p className="text-[11px] font-mono leading-relaxed opacity-85">
-                              {cat.description}
-                            </p>
-                          </div>
-                        </TooltipContent>
-                      </Tooltip>
+                    <div key={cat.id} className="space-y-4">
+                      <div className="flex items-end justify-between border-b border-border/40 pb-2">
+                        <span className="text-[11px] font-bold uppercase tracking-widest text-primary">{cat.name} Avg</span>
+                        <span className="font-mono text-[10px] font-bold text-muted-foreground/40 uppercase tracking-widest">Scale 100%</span>
+                      </div>
                       
-                      <div className="space-y-1.5">
-                          {cat.scores.map((scoreObj, idx) => {
-                              const score = scoreObj.average;
-                              if (score === null) return null;
-                              const width = `${Math.min(score, 100)}%`;
-                              
-                              const seriesColors = getSeriesColorClasses(idx);
+                      <div className="space-y-3">
+                        {cat.scores.map((scoreObj, idx) => {
+                          const score = scoreObj.average;
+                          if (score === null) return null;
+                          const width = `${Math.min(score, 100)}%`;
+                          const seriesColors = getSeriesColorClasses(idx);
                                
-                              return (
-                                  <div key={scoreObj.modelId} className="relative flex items-center gap-3 text-sm font-mono">
-                                      <span className="w-24 truncate text-muted-foreground">{scoreObj.modelName}</span>
-                                      <div className="flex-1 h-2 bg-secondary/50 rounded-full overflow-hidden relative">
-                                          <div 
-                                              className={cn("h-full rounded-full relative transition-all duration-1000 ease-out", seriesColors.bar)} 
-                                              style={{ width }} 
-                                          >
-                                               <div className="absolute bottom-0 right-0 top-0 w-2 bg-white/15" />
-                                          </div>
-                                      </div>
-                                       <span className={cn("w-10 text-right font-bold tabular-nums", seriesColors.text)}>
-                                          {score.toFixed(1)}%
-                                      </span>
-                                  </div>
-                              )
-                          })}
+                          return (
+                            <div key={scoreObj.modelId} className="space-y-1.5">
+                              <div className="flex items-center justify-between text-[10px] font-bold uppercase tracking-wider">
+                                <span className="text-muted-foreground truncate max-w-[120px]">{scoreObj.modelName}</span>
+                                <span className={cn("tabular-nums", seriesColors.text)}>{score.toFixed(1)}%</span>
+                              </div>
+                              <div className="h-1.5 w-full bg-muted/50 rounded-full overflow-hidden">
+                                <div 
+                                  className={cn("h-full transition-all duration-1000 ease-out", seriesColors.bar)} 
+                                  style={{ width }} 
+                                />
+                              </div>
+                            </div>
+                          )
+                        })}
                       </div>
                     </div>
                   ))
                 ) : (
                   detailedBenchmarks.length === 0 ? (
-                    <div className="text-sm font-mono uppercase tracking-[0.1em] text-muted-foreground">
-                      No benchmarks match current filters.
+                    <div className="flex h-full items-center justify-center text-[10px] font-bold uppercase tracking-widest text-muted-foreground/40 py-20">
+                      No data matches current filters
                     </div>
                   ) : detailedBenchmarks.map((benchmark) => (
-                    <div key={benchmark.id} className="group space-y-2.5">
-                      <Tooltip delayDuration={200}>
-                        <TooltipTrigger asChild>
-                           <div className="mb-2 flex cursor-help items-end justify-between border-b border-border pb-2 text-sm font-mono">
-                                <span className="font-semibold tracking-[0.08em] text-muted-foreground transition-colors group-hover:text-foreground">{benchmark.name}</span>
-                                <span className="text-[11px] text-muted-foreground/65">Delta {benchmarkDeltas[benchmark.id]?.toFixed(1) ?? "0.0"}</span>
-                            </div>
-                        </TooltipTrigger>
-                        <TooltipContent className="max-w-[240px] border-border bg-card p-3 text-card-foreground shadow-sm">
-                          <div className="space-y-1.5">
-                            <p className="text-xs font-semibold text-primary">{benchmark.name}</p>
-                            <p className="text-[11px] font-mono leading-relaxed opacity-85">
-                              {benchmark.description}
-                            </p>
-                          </div>
-                        </TooltipContent>
-                      </Tooltip>
+                    <div key={benchmark.id} className="space-y-4">
+                      <div className="flex items-end justify-between border-b border-border/40 pb-2">
+                        <span className="text-[11px] font-bold uppercase tracking-widest text-foreground">{benchmark.name}</span>
+                        <span className="font-mono text-[10px] font-bold text-muted-foreground/40 uppercase tracking-widest">Delta {benchmarkDeltas[benchmark.id]?.toFixed(1) ?? "0.0"}</span>
+                      </div>
                       
-                      <div className="space-y-1.5">
-                            {selectedModels.map((model, idx) => {
-                              const scoreEntry = model.scores[benchmark.id];
-                              const score = scoreEntry?.score;
-                              if (score === null || score === undefined) {
-                                return (
-                                  <div key={model.id} className="relative flex items-center gap-4 text-sm font-mono opacity-50">
-                                    <span className="w-24 truncate text-muted-foreground font-medium">{model.name}</span>
-                                    <div className="flex-1 h-2 bg-secondary/40 rounded-full" />
-                                    <span className="w-10 text-right font-bold tabular-nums text-muted-foreground">--</span>
-                                  </div>
-                                );
-                              }
+                      <div className="space-y-4">
+                        {selectedModels.map((model, idx) => {
+                          const scoreEntry = model.scores[benchmark.id];
+                          const score = scoreEntry?.score;
+                          const seriesColors = getSeriesColorClasses(idx);
 
-                              const width = `${Math.min(normalizeScore(score, benchmark), 100)}%`;
-                              const source = scoreEntry?.sourceId ? sourceMap.get(scoreEntry.sourceId) : undefined;
-                              const sourceUrl = scoreEntry?.sourceUrl ?? source?.url ?? benchmark.link;
-                              const sourceLabel = source?.name ?? getHostLabel(sourceUrl);
-                              const verificationLabel = getVerificationLabel(scoreEntry?.verificationLevel, scoreEntry?.verified);
-                              const isArtificialAnalysis = scoreEntry?.sourceId === "artificial-analysis";
-                              
-                              // Using our refined chart palette
-                              const seriesColors = getSeriesColorClasses(idx);
-                              
-                              return (
-                                  <div key={model.id} className="relative flex items-center gap-4 text-sm font-mono">
-                                      <div className="w-24">
-                                        <span className="truncate text-muted-foreground font-medium block">{model.name}</span>
-                                        <span className="block truncate text-[11px] text-muted-foreground/75">{verificationLabel}</span>
-                                      </div>
-                                      <div className="flex-1 h-2 bg-secondary/50 rounded-full overflow-hidden relative">
-                                          <div 
-                                              className={cn("h-full rounded-full relative transition-all duration-1000 ease-out", seriesColors.bar)} 
-                                              style={{ width }} 
-                                          >
-                                               <div className="absolute bottom-0 right-0 top-0 w-2 bg-white/15" />
-                                          </div>
-                                      </div>
-                                      <div className="w-16 text-right">
-                                        <span className={cn("font-bold tabular-nums", seriesColors.text)}>
-                                          {score.toFixed(1)}{isArtificialAnalysis ? "*" : ""}
-                                        </span>
-                                        <span className="block truncate text-[11px] text-muted-foreground/75">
-                                          {scoreEntry?.asOfDate ?? "Unknown"}
-                                        </span>
-                                        {sourceUrl && (
-                                          <a
-                                            href={sourceUrl}
-                                            target="_blank"
-                                            rel="noreferrer"
-                                            className="inline-flex items-center gap-1 text-[11px] font-mono text-primary/90 hover:underline"
-                                          >
-                                            {sourceLabel} <ExternalLink className="h-3 w-3" />
-                                          </a>
-                                        )}
-                                      </div>
-                                   </div>
-                                )
-                           })}
+                          if (score === null || score === undefined) {
+                            return (
+                              <div key={model.id} className="flex items-center justify-between opacity-30">
+                                <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground truncate max-w-[120px]">{model.name}</span>
+                                <span className="text-[10px] font-mono font-bold text-muted-foreground">--.-</span>
+                              </div>
+                            );
+                          }
+
+                          const width = `${Math.min(normalizeScore(score, benchmark), 100)}%`;
+                          return (
+                            <div key={model.id} className="space-y-1.5">
+                              <div className="flex items-center justify-between text-[10px] font-bold uppercase tracking-wider">
+                                <div className="flex items-center gap-2 truncate max-w-[180px]">
+                                  <span className="text-muted-foreground truncate">{model.name}</span>
+                                  <span className="text-muted-foreground/40 px-1 border border-border/40 rounded text-[8px]">
+                                    {scoreEntry.verificationLevel === 'third_party' ? '3rd' : 'Prov'}
+                                  </span>
+                                </div>
+                                <span className={cn("tabular-nums", seriesColors.text)}>
+                                  {score.toFixed(1)}{scoreEntry.sourceId === "artificial-analysis" ? "*" : ""}
+                                </span>
+                              </div>
+                              <div className="h-1.5 w-full bg-muted/50 rounded-full overflow-hidden">
+                                <div 
+                                  className={cn("h-full transition-all duration-1000 ease-out", seriesColors.bar)} 
+                                  style={{ width }} 
+                                />
+                              </div>
+                            </div>
+                          )
+                        })}
                       </div>
                     </div>
                   ))
                 )}
               </div>
-            </CardContent>
-          </Card>
+            </div>
+          </div>
         </div>
       )}
 
       {selectedModels.length > 0 && (
-        <div className="fixed inset-x-4 bottom-4 z-40 rounded-lg border border-border bg-background px-3 py-2 shadow-sm md:hidden">
-          <div className="flex items-center justify-between gap-3">
-            <span className="text-xs font-mono tracking-wide text-muted-foreground">
-              {selectedModels.length} model{selectedModels.length > 1 ? "s" : ""} selected
+        <div className="fixed inset-x-4 bottom-4 z-40 rounded-full border border-border/40 bg-card/80 backdrop-blur-md px-4 py-2 shadow-2xl md:hidden">
+          <div className="flex items-center justify-between gap-6">
+            <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
+              {selectedModels.length} Models
             </span>
             <div className="flex items-center gap-2">
               <Button
-                variant="outline"
+                variant="ghost"
                 size="sm"
                 onClick={() => setShowSummary((prev) => !prev)}
-                className="h-8 px-2 text-xs"
+                className="h-7 rounded-full px-3 text-[10px] font-bold uppercase tracking-wider"
               >
                 {showSummary ? "Detailed" : "Summary"}
               </Button>
@@ -748,7 +684,7 @@ export function CompareView({ modelOptions, initialSelectedModels, benchmarks }:
                 variant="ghost"
                 size="sm"
                 onClick={clearModels}
-                className="h-8 px-2 text-xs text-muted-foreground"
+                className="h-7 rounded-full px-3 text-[10px] font-bold uppercase tracking-wider text-destructive"
               >
                 Clear
               </Button>

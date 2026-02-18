@@ -1,4 +1,4 @@
-import { benchmarks, models, sources } from "@/lib/registry-data";
+import { benchmarks, findModel, findParentModel, models, sources } from "@/lib/registry-data";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Badge } from "@/components/ui/badge";
@@ -7,6 +7,7 @@ import Link from "next/link";
 import { ArrowLeft, ExternalLink, Cpu, ShieldCheck, AlertTriangle, Layers, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { getProviderTheme } from "@/lib/provider-identity";
+import { ModelFamilyCompare } from "@/components/dashboard/model-compare-selector";
 
 const sourceMap = new Map(sources.map((source) => [source.id, source]));
 
@@ -28,7 +29,7 @@ function getVerificationLabel(level?: string, verified?: boolean) {
 }
 
 interface PageProps {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }
 
 export async function generateStaticParams() {
@@ -39,7 +40,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { id } = await params;
-  const model = models.find((entry) => entry.id === id);
+  const model = findModel(id);
 
   if (!model) {
     return {
@@ -59,9 +60,19 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function ModelPage({ params }: PageProps) {
   const { id } = await params;
-  const model = models.find((m) => m.id === id);
+  const model = findModel(id);
 
   if (!model) return notFound();
+
+  const parentModel = findParentModel(model.id);
+  const siblings = parentModel?.variants?.filter((v) => v.id !== model.id) ?? [];
+
+  const familyBase = parentModel ?? model;
+  const familyVariants = familyBase.variants ?? [];
+  const fullFamily = [
+    { id: familyBase.id, name: familyBase.name },
+    ...familyVariants.map(v => ({ id: v.id, name: v.name }))
+  ];
 
   const scoreEntries = Object.values(model.scores);
   const providerSourceId = scoreEntries.find((entry) => entry.sourceId)?.sourceId;
@@ -130,70 +141,68 @@ export default async function ModelPage({ params }: PageProps) {
 
       <p className="label-eyebrow">Home / Models / {model.name}</p>
 
-      <section className="surface-panel relative overflow-hidden rounded-2xl px-6 py-7 sm:px-8 sm:py-8">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_86%_-18%,color-mix(in_oklab,var(--primary)_18%,transparent),transparent_50%)] dark:bg-[radial-gradient(circle_at_86%_-18%,color-mix(in_oklab,var(--primary)_30%,transparent),transparent_50%)]" />
+      <section className="relative overflow-hidden rounded-2xl border border-border bg-card/50 px-6 py-8 sm:px-10 sm:py-10">
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_100%_0%,color-mix(in_oklab,var(--primary)_10%,transparent),transparent_50%)]" />
         <div className="flex flex-col gap-8 md:flex-row md:items-start md:justify-between">
-          <div className="max-w-3xl space-y-4">
-            <div className="mb-2 flex flex-wrap items-center gap-3">
+          <div className="max-w-3xl space-y-5">
+            <div className="flex flex-wrap items-center gap-2">
               <Badge
                 variant="outline"
-                className={`rounded-md px-2.5 py-1 font-mono text-[11px] uppercase tracking-[0.14em] ${providerTheme.border} ${providerTheme.bg} ${providerTheme.text}`}
+                className={`rounded-full px-3 py-0.5 font-bold text-[10px] uppercase tracking-widest ${providerTheme.border} ${providerTheme.bg} ${providerTheme.text}`}
               >
                 {model.provider}
               </Badge>
               {model.isOpenSource && (
-                <Badge variant="outline" className="rounded-md border-emerald-500/20 bg-emerald-500/10 px-2.5 py-1 font-mono text-[11px] uppercase tracking-[0.14em] text-emerald-700 dark:text-emerald-400">
+                <Badge variant="outline" className="rounded-full border-emerald-500/20 bg-emerald-500/10 px-3 py-0.5 font-bold text-[10px] uppercase tracking-widest text-emerald-700 dark:text-emerald-400">
                   Open Weights
                 </Badge>
               )}
             </div>
 
-            <h1 className="text-balance font-display text-5xl font-bold leading-[0.88] tracking-[-0.03em] text-foreground md:text-7xl">
+            <h1 className="text-balance font-display text-4xl font-bold leading-tight tracking-tight text-foreground sm:text-5xl lg:text-6xl">
               {model.name}
             </h1>
 
-            <p className="max-w-2xl border-l border-primary/40 py-1 pl-4 font-mono text-xs uppercase tracking-[0.12em] text-muted-foreground">
-              Release {model.releaseDate} | Architecture {model.specs.parameters}
+            <p className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground/60">
+              Released {model.releaseDate} · {model.specs.parameters} Architecture
             </p>
 
-            <div className="flex flex-wrap items-center gap-2 pt-1">
+            <div className="flex flex-wrap items-center gap-2 pt-2">
+              <ModelFamilyCompare currentModelId={model.id} family={fullFamily} />
               {providerUrl && (
-                <Button asChild variant="outline" className="h-10 rounded-md border-emerald-500/30 bg-emerald-500/8 px-4 text-sm font-medium text-emerald-700 shadow-none hover:bg-emerald-500/14 dark:text-emerald-300">
+                <Button asChild variant="outline" size="sm" className="h-9 rounded-full border-emerald-500/30 bg-emerald-500/5 px-4 text-[11px] font-bold uppercase tracking-wider text-emerald-700 hover:bg-emerald-500/10 dark:text-emerald-300">
                   <a href={providerUrl} target="_blank" rel="noreferrer">
-                    <ShieldCheck className="mr-1.5 h-4 w-4" />
-                    Verified Source
+                    <ShieldCheck className="mr-2 h-3.5 w-3.5" />
+                    Verified
                   </a>
                 </Button>
               )}
-              <Button asChild variant="outline" className="h-10 rounded-md px-4 text-sm">
-                <Link href="/about">Watch</Link>
-              </Button>
               {model.modelUrl && (
-                <Button asChild variant="outline" className="h-10 rounded-md px-4 text-sm">
+                <Button asChild variant="outline" size="sm" className="h-9 rounded-full px-4 text-[11px] font-bold uppercase tracking-wider">
                   <a href={model.modelUrl} target="_blank" rel="noreferrer">
-                    Official Page <ExternalLink className="ml-1.5 h-3.5 w-3.5" />
+                    Official
                   </a>
                 </Button>
               )}
-              <Button asChild className="h-10 rounded-md px-4 text-sm shadow-[0_14px_26px_-20px_var(--color-primary)]">
+              <Button asChild size="sm" className="h-9 rounded-full px-5 text-[11px] font-bold uppercase tracking-wider shadow-lg shadow-primary/20">
                 {model.modelCardUrl ? (
                   <a href={model.modelCardUrl} target="_blank" rel="noreferrer">
-                    Model Card <ExternalLink className="ml-1.5 h-3.5 w-3.5" />
+                    Model Card
                   </a>
                 ) : (
                   <Link href="/about">
-                    Model Card <ExternalLink className="ml-1.5 h-3.5 w-3.5" />
+                    Model Card
                   </Link>
                 )}
               </Button>
             </div>
           </div>
 
-          <div className="data-module min-w-[220px] space-y-3 rounded-xl p-4">
-            <p className="font-mono text-[11px] uppercase tracking-[0.12em] text-muted-foreground/85">
-              Latest Score Update
+          <div className="rounded-2xl border border-border bg-muted/30 p-5 min-w-[200px]">
+            <p className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground/60">
+              Latest Data
             </p>
-            <p className="font-mono text-sm text-foreground">
+            <p className="mt-3 font-mono text-sm font-bold text-foreground">
               {latestAsOf ?? "Unknown"}
             </p>
           </div>
@@ -215,7 +224,7 @@ export default async function ModelPage({ params }: PageProps) {
                   <p className="font-mono text-[11px] uppercase tracking-[0.12em] text-muted-foreground">
                     {module.label}
                   </p>
-                  <p className={`mt-3 text-4xl font-display font-bold tracking-[-0.03em] ${module.accent}`}>
+                  <p className={`mt-3 text-4xl font-display text-5xl font-bold tracking-[-0.03em] ${module.accent}`}>
                     {module.value}
                   </p>
                   <p className="mt-2 font-mono text-[11px] uppercase tracking-[0.1em] text-muted-foreground/80">
@@ -225,6 +234,135 @@ export default async function ModelPage({ params }: PageProps) {
               );
             })}
           </div>
+
+          {parentModel && (
+            <section className="space-y-6">
+              <div className="flex items-center justify-between border-b border-border/40 pb-4">
+                <div className="flex items-center gap-3">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10">
+                    <Layers className="h-4 w-4 text-primary" />
+                  </div>
+                  <h2 className="font-display text-2xl font-bold tracking-tight text-foreground">Base Model</h2>
+                </div>
+              </div>
+              <Link
+                href={`/model/${parentModel.id}`}
+                className="group relative flex items-center justify-between overflow-hidden rounded-2xl border border-border/50 bg-card/30 p-5 transition-all hover:border-primary/40 hover:bg-muted/30"
+              >
+                <div className="space-y-1.5">
+                  <h3 className="font-display text-lg font-bold text-foreground group-hover:text-primary transition-colors">
+                    {parentModel.name}
+                  </h3>
+                  <p className="font-mono text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60">
+                    Primary Model Identifier
+                  </p>
+                </div>
+                <div className="flex items-center gap-3">
+                  <span className="font-mono text-[10px] font-bold uppercase tracking-widest text-primary/60 opacity-0 transition-opacity group-hover:opacity-100">
+                    View Primary
+                  </span>
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-muted/50 transition-all group-hover:bg-primary group-hover:text-primary-foreground">
+                    <ArrowLeft className="h-4 w-4 rotate-180" />
+                  </div>
+                </div>
+              </Link>
+            </section>
+          )}
+
+          {model.variants && model.variants.length > 0 && (
+            <section className="space-y-6">
+              <div className="flex items-center justify-between border-b border-border/40 pb-4">
+                <div className="flex items-center gap-3">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-sky-500/10">
+                    <Layers className="h-4 w-4 text-sky-600 dark:text-sky-400" />
+                  </div>
+                  <h2 className="font-display text-2xl font-bold tracking-tight text-foreground">Model Variants</h2>
+                </div>
+                <div className="flex items-center gap-3">
+                  <Button asChild variant="ghost" size="sm" className="h-7 rounded-full px-3 text-[10px] font-bold uppercase tracking-wider text-primary hover:bg-primary/5">
+                    <Link href={`/compare?models=${[model.id, ...model.variants.map(v => v.id)].join(",")}`}>
+                      Compare All
+                    </Link>
+                  </Button>
+                  <p className="font-mono text-[10px] font-bold uppercase tracking-widest text-muted-foreground/50">
+                    {model.variants.length} Variants Available
+                  </p>
+                </div>
+              </div>
+              
+              <div className="grid gap-4 sm:grid-cols-2">
+                {model.variants.map((variant) => (
+                  <Link
+                    key={variant.id}
+                    href={`/model/${variant.id}`}
+                    className="group relative flex items-center justify-between overflow-hidden rounded-2xl border border-border/50 bg-card/30 p-5 transition-all hover:border-primary/40 hover:bg-muted/30"
+                  >
+                    <div className="space-y-1.5">
+                      <h3 className="font-display text-lg font-bold text-foreground group-hover:text-primary transition-colors">
+                        {variant.name}
+                      </h3>
+                      <div className="flex items-center gap-2">
+                        <span className="font-mono text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60">
+                          {variant.specs.parameters}
+                        </span>
+                        <span className="h-1 w-1 rounded-full bg-border" />
+                        <span className="font-mono text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60">
+                          {variant.releaseDate}
+                        </span>
+                      </div>
+                    </div>
+                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-muted/50 transition-all group-hover:bg-primary group-hover:text-primary-foreground">
+                      <ExternalLink className="h-4 w-4" />
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {siblings.length > 0 && (
+            <section className="space-y-6">
+              <div className="flex items-center justify-between border-b border-border/40 pb-4">
+                <div className="flex items-center gap-3">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-amber-500/10">
+                    <Layers className="h-4 w-4 text-amber-600 dark:text-amber-400" />
+                  </div>
+                  <h2 className="font-display text-2xl font-bold tracking-tight text-foreground">Related Variants</h2>
+                </div>
+                {parentModel && (
+                  <Button asChild variant="ghost" size="sm" className="h-7 rounded-full px-3 text-[10px] font-bold uppercase tracking-wider text-primary hover:bg-primary/5">
+                    <Link href={`/compare?models=${[parentModel.id, ...parentModel.variants!.map(v => v.id)].join(",")}`}>
+                      Compare Family
+                    </Link>
+                  </Button>
+                )}
+              </div>
+              
+              <div className="grid gap-4 sm:grid-cols-2">
+                {siblings.map((sibling) => (
+                  <Link
+                    key={sibling.id}
+                    href={`/model/${sibling.id}`}
+                    className="group relative flex items-center justify-between overflow-hidden rounded-2xl border border-border/50 bg-card/30 p-5 transition-all hover:border-primary/40 hover:bg-muted/30"
+                  >
+                    <div className="space-y-1.5">
+                      <h3 className="font-display text-lg font-bold text-foreground group-hover:text-primary transition-colors">
+                        {sibling.name}
+                      </h3>
+                      <div className="flex items-center gap-2">
+                        <span className="font-mono text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60">
+                          {sibling.specs.parameters}
+                        </span>
+                      </div>
+                    </div>
+                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-muted/50 transition-all group-hover:bg-primary group-hover:text-primary-foreground">
+                      <ExternalLink className="h-4 w-4" />
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </section>
+          )}
 
           <div className="space-y-7 pt-1.5">
             <div className="flex items-center gap-4 border-b border-border/30 pb-4">

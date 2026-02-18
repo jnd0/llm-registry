@@ -1,6 +1,6 @@
 import { NextRequest } from "next/server";
 import { apiAttribution, getLatestScoreDate, jsonWithCache } from "@/lib/api";
-import { models } from "@/lib/registry-data";
+import { findModel } from "@/lib/registry-data";
 
 interface RouteContext {
   params: Promise<{ id: string }>;
@@ -8,7 +8,7 @@ interface RouteContext {
 
 export async function GET(request: NextRequest, context: RouteContext) {
   const { id } = await context.params;
-  const model = models.find((entry) => entry.id === id);
+  const model = findModel(id);
 
   if (!model) {
     return jsonWithCache(

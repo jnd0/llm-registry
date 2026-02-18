@@ -234,6 +234,14 @@
     background: color-mix(in oklab, var(--primary) 8%, var(--card) 92%);
   }
 
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
 }
 
 @media (prefers-reduced-motion: reduce) {

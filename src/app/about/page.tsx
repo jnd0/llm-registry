@@ -15,167 +15,130 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <div className="space-y-8 pb-20">
-      <section className="surface-panel rounded-2xl px-5 py-6 sm:px-7 sm:py-7">
-        <h1 className="text-3xl font-display font-bold tracking-tight sm:text-4xl">Methodology</h1>
-        <p className="mt-2 max-w-2xl text-sm text-muted-foreground sm:text-base">
-          Data policy, normalization rules, provenance labeling, and ranking logic used across the registry.
-        </p>
+    <div className="animate-in fade-in duration-700 space-y-10 pb-20">
+      <section className="relative overflow-hidden rounded-2xl border border-border bg-card/50 px-6 py-8 sm:px-10 sm:py-12">
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_0%_0%,color-mix(in_oklab,var(--primary)_8%,transparent),transparent_50%)]" />
+        <div className="relative max-w-3xl space-y-4">
+          <p className="label-eyebrow text-muted-foreground/70">Registry / Methodology</p>
+          <h1 className="text-balance font-display text-4xl font-bold tracking-tight text-foreground sm:text-5xl lg:text-6xl">
+            Registry Standards
+          </h1>
+          <p className="max-w-2xl text-lg text-muted-foreground sm:text-xl">
+            Data policy, normalization rules, and provenance labeling used across the global benchmark registry.
+          </p>
+        </div>
       </section>
 
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-        <Card className="surface-card">
-          <CardHeader>
-            <CardTitle className="label-eyebrow">Models</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-4xl font-display font-bold">{models.length}</p>
-          </CardContent>
-        </Card>
+      <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {[
+          { label: "Verified Models", value: models.length },
+          { label: "Active Benchmarks", value: benchmarks.length },
+          { label: "Evaluation Categories", value: categories.length },
+          { label: "Verified Sources", value: sources.length },
+        ].map((stat) => (
+          <article key={stat.label} className="relative overflow-hidden rounded-2xl border border-border bg-card/50 p-6">
+            <p className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground/60">{stat.label}</p>
+            <p className="mt-4 font-display text-4xl font-bold tracking-tight text-foreground">{stat.value}</p>
+          </article>
+        ))}
+      </section>
 
-        <Card className="surface-card">
-          <CardHeader>
-            <CardTitle className="label-eyebrow">Benchmarks</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-4xl font-display font-bold">{benchmarks.length}</p>
-          </CardContent>
-        </Card>
+      <div className="grid gap-12 lg:grid-cols-[1fr_2fr]">
+        <aside className="space-y-6">
+          <div className="sticky top-24 space-y-8">
+            <section className="space-y-4">
+              <h2 className="font-display text-xl font-bold tracking-tight text-foreground">Score Normalization</h2>
+              <div className="space-y-4 border-l border-border/60 pl-4 py-1">
+                <div className="space-y-1">
+                  <p className="font-mono text-[10px] font-bold uppercase tracking-wider text-primary">Max Scaling</p>
+                  <p className="text-sm text-muted-foreground leading-relaxed">Score / MaxScore * 100. Standard for bounded metrics.</p>
+                </div>
+                <div className="space-y-1">
+                  <p className="font-mono text-[10px] font-bold uppercase tracking-wider text-primary">Min-Max Scaling</p>
+                  <p className="text-sm text-muted-foreground leading-relaxed">(Score - Min) / (Max - Min) * 100. Used for ELO and shifted scales.</p>
+                </div>
+                <div className="space-y-1">
+                  <p className="font-mono text-[10px] font-bold uppercase tracking-wider text-primary">Inversion</p>
+                  <p className="text-sm text-muted-foreground leading-relaxed">Lower-is-better metrics are mathematically inverted to maintain 100 as the peak.</p>
+                </div>
+              </div>
+            </section>
 
-        <Card className="surface-card">
-          <CardHeader>
-            <CardTitle className="label-eyebrow">Categories</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-4xl font-display font-bold">{categories.length}</p>
-          </CardContent>
-        </Card>
-
-        <Card className="surface-card">
-          <CardHeader>
-            <CardTitle className="label-eyebrow">Sources</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-4xl font-display font-bold">{sources.length}</p>
-          </CardContent>
-        </Card>
-      </div>
-
-      <Card className="surface-card">
-        <CardHeader>
-          <CardTitle>How scores are normalized</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-3 text-sm text-muted-foreground">
-          <p>- `max`: `score / maxScore * 100`</p>
-          <p>- `minmax`: `(score - minScore) / (maxScore - minScore) * 100`</p>
-          <p>- `elo`: min-max scaling with ELO bounds (default min is 1000)</p>
-          <p>- lower-is-better metrics are inverted to keep 100 = best</p>
-          <p>- category averages are computed from available normalized benchmark scores</p>
-        </CardContent>
-      </Card>
-
-      <Card className="surface-card">
-        <CardHeader>
-          <CardTitle>Ranking formula</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-3 text-sm text-muted-foreground">
-          <p>- Benchmark score: normalize each raw benchmark result to a 0-100 scale.</p>
-          <p>- Category score: average all normalized scores the model has in that category.</p>
-          <p>- Coverage: `available benchmark scores / total benchmarks` in the registry.</p>
-          <p>- Leaderboard sorting is benchmark-specific or category average-based depending on active view.</p>
-          <p>- We avoid hidden weighting; category averages are transparent and inspectable.</p>
-        </CardContent>
-      </Card>
-
-      <Card className="surface-card">
-        <CardHeader>
-          <CardTitle>Coverage and confidence</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-2 text-sm text-muted-foreground">
-          <p>- Higher coverage means stronger comparability across the registry.</p>
-          <p>- Low coverage models can rank highly on narrow slices but have lower confidence overall.</p>
-          <p>- Use the Coverage column to contextualize any top-line rank.</p>
-          <p>- Compare mode includes shared-only filtering for apples-to-apples analysis.</p>
-        </CardContent>
-      </Card>
-
-      <Card className="surface-card">
-        <CardHeader>
-          <CardTitle>Verification tiers</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-2 text-sm text-muted-foreground">
-          <p>- `third_party`: independently evaluated leaderboard or external audit.</p>
-          <p>- `provider`: reported by the model provider.</p>
-          <p>- `community`: community-run benchmark result.</p>
-          <p>- `estimated`: inferred or approximate value pending verification.</p>
-        </CardContent>
-      </Card>
-
-      <Card className="surface-card">
-        <CardHeader>
-          <CardTitle>Third-party attribution</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-2 text-sm text-muted-foreground">
-          <p>- Scores imported from Artificial Analysis are marked with `*` in benchmark views.</p>
-          <p>- Artificial Analysis data attribution: <a href="https://artificialanalysis.ai/" target="_blank" rel="noreferrer" className="text-primary hover:underline">artificialanalysis.ai</a>.</p>
-          <p>- A one-off model metadata enrichment (pricing/capabilities/context) was sourced from <a href="https://github.com/yamanahlawat/llm-registry" target="_blank" rel="noreferrer" className="text-primary hover:underline">yamanahlawat/llm-registry</a>.</p>
-          <p>- Metadata imports do not overwrite benchmark scores or benchmark-level provenance.</p>
-          <p>- Current snapshot date for imported independent scores: 2026-02-16.</p>
-        </CardContent>
-      </Card>
-
-      <Card className="surface-card">
-        <CardHeader>
-          <CardTitle>Data Quality & Provenance</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-2 text-sm text-muted-foreground">
-          <p>- Verification: Official scores from provider announcements (Anthropic, Mistral, AWS) are marked as verified: true.</p>
-          <p>- Estimates: Scores derived from third-party evaluations (Artificial Analysis, LMSYS) or related benchmark variants are added with verified: false and attributed to the respective source.</p>
-        </CardContent>
-      </Card>
-
-      <Card className="surface-card">
-        <CardHeader>
-          <CardTitle>Known caveats</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-2 text-sm text-muted-foreground">
-          <p>- Benchmark freshness varies; always check each score&apos;s as-of date.</p>
-          <p>- Some benchmarks measure narrow capabilities and should not be used alone.</p>
-          <p>- Provider-reported scores may not be directly reproducible without external replication.</p>
-          <p>- A small set of tracked benchmarks may be listed without populated scores yet.</p>
-        </CardContent>
-      </Card>
-
-      <Card className="surface-card">
-        <CardHeader>
-          <CardTitle>Data standards</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-2 text-sm text-muted-foreground">
-          <p>- Every benchmark must have a unique ID and category</p>
-          <p>- Every model score key must map to a benchmark ID</p>
-          <p>- Score values must stay in benchmark bounds</p>
-          <p>- Validation scripts enforce schema and data consistency before release</p>
-        </CardContent>
-      </Card>
-
-      <Card className="surface-card">
-        <CardHeader>
-          <CardTitle>Recent registry changes</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4 text-sm text-muted-foreground">
-          {changelog.map((entry) => (
-            <div key={`${entry.version}-${entry.date}`} className="rounded-md border border-white/12 bg-background/40 p-4">
-              <p className="text-xs font-mono tracking-[0.1em] text-primary">v{entry.version} · {entry.date}</p>
-              <p className="mt-1 font-semibold text-foreground">{entry.title}</p>
-              <div className="mt-2 space-y-1">
-                {entry.notes.map((note) => (
-                  <p key={note}>- {note}</p>
+            <section className="space-y-4">
+              <h2 className="font-display text-xl font-bold tracking-tight text-foreground">Verification Tiers</h2>
+              <div className="grid gap-2">
+                {[
+                  { id: "third_party", label: "Third-party", desc: "Independent audits and leaderboards." },
+                  { id: "provider", label: "Provider", desc: "Official scores from model developers." },
+                  { id: "community", label: "Community", desc: "Open evaluations and collective results." },
+                  { id: "estimated", label: "Estimated", desc: "Inferred values pending formal release." },
+                ].map((tier) => (
+                  <div key={tier.id} className="rounded-xl border border-border/40 bg-muted/20 p-3">
+                    <p className="font-mono text-[10px] font-bold uppercase tracking-widest text-foreground">{tier.label}</p>
+                    <p className="mt-1 text-xs text-muted-foreground">{tier.desc}</p>
+                  </div>
                 ))}
               </div>
+            </section>
+          </div>
+        </aside>
+
+        <main className="space-y-16">
+          <section className="space-y-6">
+            <h2 className="font-display text-3xl font-bold tracking-tight text-foreground">Provenance & Attribution</h2>
+            <div className="prose prose-sm prose-slate dark:prose-invert max-w-none space-y-6 text-muted-foreground">
+              <p className="text-base leading-relaxed">
+                We prioritize transparency in every score. Every data point in the registry is tagged with a <span className="text-foreground font-medium underline decoration-primary/30">Source ID</span> and a <span className="text-foreground font-medium underline decoration-primary/30">Verification Level</span>.
+              </p>
+              <div className="rounded-2xl border border-border bg-card p-6 space-y-4">
+                <h3 className="font-display text-lg font-bold text-foreground">Data Attribution</h3>
+                <ul className="grid gap-4 sm:grid-cols-2 list-none p-0 m-0">
+                  <li className="m-0 border-l-2 border-primary/20 pl-4 py-1">
+                    <p className="font-bold text-foreground text-xs uppercase tracking-widest">Artificial Analysis</p>
+                    <p className="text-xs mt-1">Scores marked with <code className="text-primary font-bold">*</code> are imported from <a href="https://artificialanalysis.ai/" className="hover:text-primary transition-colors underline">artificialanalysis.ai</a>.</p>
+                  </li>
+                  <li className="m-0 border-l-2 border-primary/20 pl-4 py-1">
+                    <li className="m-0 p-0 list-none">
+                      <p className="font-bold text-foreground text-xs uppercase tracking-widest">Metadata Source</p>
+                      <p className="text-xs mt-1">Foundational metadata sourced from <a href="https://github.com/yamanahlawat/llm-registry" className="hover:text-primary transition-colors underline">yamanahlawat/llm-registry</a>.</p>
+                    </li>
+                  </li>
+                </ul>
+              </div>
             </div>
-          ))}
-        </CardContent>
-      </Card>
+          </section>
+
+          <section className="space-y-8">
+            <div className="flex items-center justify-between border-b border-border pb-4">
+              <h2 className="font-display text-3xl font-bold tracking-tight text-foreground">Registry Changelog</h2>
+              <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground/50">History of Updates</span>
+            </div>
+            <div className="space-y-8">
+              {changelog.map((entry) => (
+                <article key={`${entry.version}-${entry.date}`} className="relative group">
+                  <div className="absolute -left-3 top-0 bottom-0 w-px bg-border group-hover:bg-primary/30 transition-colors" />
+                  <div className="pl-6 space-y-3">
+                    <div className="flex items-baseline gap-3">
+                      <p className="font-mono text-xs font-bold tracking-widest text-primary uppercase">v{entry.version}</p>
+                      <span className="h-1 w-1 rounded-full bg-border" />
+                      <p className="font-mono text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60">{entry.date}</p>
+                    </div>
+                    <h3 className="font-display text-xl font-bold text-foreground leading-tight group-hover:text-primary transition-colors">{entry.title}</h3>
+                    <div className="space-y-1.5 pt-1">
+                      {entry.notes.map((note) => (
+                        <p key={note} className="text-sm text-muted-foreground flex items-start gap-2">
+                          <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-primary/40" />
+                          {note}
+                        </p>
+                      ))}
+                    </div>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </section>
+        </main>
+      </div>
     </div>
   );
 }
