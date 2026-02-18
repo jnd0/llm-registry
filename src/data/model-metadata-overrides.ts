@@ -1236,9 +1236,9 @@ export const modelMetadataOverrides: Record<string, ModelMetadataOverride> = {
     "trainingCutoff": "2024-04"
   },
   "gemini-1-5-pro": {
-    "metadataAsOfDate": "2026-02-16",
+    "metadataAsOfDate": "2026-02-18",
     "metadataSourceId": "google-docs",
-    "modelCardUrl": "https://arxiv.org/pdf/2403.08295.pdf",
+    "modelCardUrl": "https://arxiv.org/pdf/2403.05530",
     "modelUrl": "https://deepmind.google/technologies/gemini/pro/",
     "trainingCutoff": "2023-11"
   },
@@ -1277,9 +1277,9 @@ export const modelMetadataOverrides: Record<string, ModelMetadataOverride> = {
     "trainingCutoff": "2024-03"
   },
   "kimi-k2-5": {
-    "metadataAsOfDate": "2026-02-16",
+    "metadataAsOfDate": "2026-02-18",
     "metadataSourceId": "moonshot-docs",
-    "modelCardUrl": "https://arxiv.org/pdf/2410.19395.pdf",
+    "modelCardUrl": "https://arxiv.org/pdf/2602.02276",
     "modelUrl": "https://www.moonshot.ai/",
     "specs": {
       "pricing": {
@@ -1289,9 +1289,9 @@ export const modelMetadataOverrides: Record<string, ModelMetadataOverride> = {
     "trainingCutoff": "2024-10"
   },
   "glm-5": {
-    "metadataAsOfDate": "2026-02-17",
+    "metadataAsOfDate": "2026-02-18",
     "metadataSourceId": "z-ai-blog",
-    "modelCardUrl": "https://arxiv.org/pdf/2406.17504.pdf",
+    "modelCardUrl": "https://arxiv.org/pdf/2602.15763",
     "modelUrl": "https://z.ai/blog/glm-5",
     "trainingCutoff": "2024-06"
   },

@@ -8,6 +8,13 @@ export const sources: SourceRecord[] = [
     publisher: "OpenAI",
   },
   {
+    id: "openai-gpt52-announce",
+    name: "Introducing GPT-5.2",
+    url: "https://openai.com/index/introducing-gpt-5-2/",
+    publisher: "OpenAI",
+    updatedAt: "2025-12-11",
+  },
+  {
     id: "anthropic-news",
     name: "Anthropic News",
     url: "https://www.anthropic.com/news",
@@ -20,6 +27,13 @@ export const sources: SourceRecord[] = [
     publisher: "Google",
   },
   {
+    id: "google-gemini3-announce",
+    name: "Gemini 3 Pro Announcement",
+    url: "https://blog.google/technology/ai/google-gemini-3-pro/",
+    publisher: "Google DeepMind",
+    updatedAt: "2025-11-18",
+  },
+  {
     id: "deepseek-news",
     name: "DeepSeek News",
     url: "https://www.deepseek.com/",
@@ -30,6 +44,13 @@ export const sources: SourceRecord[] = [
     name: "Chatbot Arena Leaderboard",
     url: "https://chat.lmsys.org/?leaderboard",
     publisher: "LMSYS",
+  },
+  {
+    id: "llm-stats",
+    name: "LLM Stats",
+    url: "https://llm-stats.com/",
+    publisher: "LLM Stats",
+    updatedAt: "2026-02-18",
   },
   {
     id: "swe-bench",
@@ -117,6 +138,13 @@ export const sources: SourceRecord[] = [
     publisher: "Zhipu AI",
   },
   {
+    id: "glm5-paper",
+    name: "GLM-5 Paper (arXiv)",
+    url: "https://arxiv.org/abs/2602.15763",
+    publisher: "Zhipu AI / Tsinghua University",
+    updatedAt: "2026-02-17",
+  },
+  {
     id: "bytedance-seed",
     name: "ByteDance Seed",
     url: "https://seed.bytedance.com/",
@@ -134,5 +162,11 @@ export const sources: SourceRecord[] = [
     url: "https://github.com/yamanahlawat/llm-registry",
     publisher: "GitHub Community Registry",
     updatedAt: "2026-02-07",
+  },
+  {
+    id: "bigcode-project",
+    name: "BigCode Project",
+    url: "https://github.com/bigcode-project",
+    publisher: "BigCode",
   },
 ];
