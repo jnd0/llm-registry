@@ -596,6 +596,11 @@ export function DataTable({
 
   return (
     <div className="animate-in slide-in-from-bottom-4 fade-in delay-100 duration-700 space-y-6 pb-20 w-full">
+      <div className="sr-only" aria-live="polite" aria-atomic="true">
+        {searchQuery
+          ? `Found ${totalRows} ${totalRows === 1 ? 'model' : 'models'} matching "${searchQuery}"`
+          : `${totalRows} models in registry`}
+      </div>
       <LeaderboardToolbar 
         table={table} 
         compareIds={compareIds || []} 
@@ -671,6 +676,8 @@ export function DataTable({
       
       {/* The Table Container */}
       <div className="relative hidden max-h-[70vh] overflow-auto rounded-2xl border border-border bg-card md:block shadow-sm">
+        <div className="pointer-events-none absolute inset-y-0 left-0 z-30 w-8 bg-gradient-to-r from-card to-transparent opacity-0 transition-opacity group-hover/table:opacity-100" />
+        <div className="pointer-events-none absolute inset-y-0 right-0 z-30 w-8 bg-gradient-to-l from-card to-transparent" />
         <Table>
           <TableHeader className="sticky top-0 z-20 border-b border-border bg-card">
             {table.getHeaderGroups().map((headerGroup) => (

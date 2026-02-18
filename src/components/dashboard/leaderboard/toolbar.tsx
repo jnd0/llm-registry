@@ -1,7 +1,7 @@
 "use client";
 
 import { Table } from "@tanstack/react-table";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Search, Filter, RotateCcw, LayoutGrid, List } from "lucide-react";
@@ -41,18 +41,32 @@ export function LeaderboardToolbar({
   applyPreset
 }: LeaderboardToolbarProps) {
   const [searchValue, setSearchValue] = useState(searchQuery);
+  const [debounceTimer, setDebounceTimer] = useState<NodeJS.Timeout | null>(null);
 
-  useEffect(() => {
-    setSearchValue(searchQuery);
-  }, [searchQuery]);
-
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      onSearchQueryChange(searchValue);
+  const handleSearchChange = (value: string) => {
+    setSearchValue(value);
+    
+    if (debounceTimer) {
+      clearTimeout(debounceTimer);
+    }
+    
+    const timer = setTimeout(() => {
+      onSearchQueryChange(value);
     }, 250);
+    
+    setDebounceTimer(timer);
+  };
 
-    return () => clearTimeout(timeout);
-  }, [onSearchQueryChange, searchValue]);
+  const handleInputFocus = () => {
+    if (debounceTimer) {
+      clearTimeout(debounceTimer);
+      setDebounceTimer(null);
+    }
+  };
+
+  const handleInputBlur = () => {
+    onSearchQueryChange(searchValue);
+  };
 
   return (
     <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between px-1">
@@ -64,7 +78,9 @@ export function LeaderboardToolbar({
             aria-label="Search models"
             autoComplete="off"
             value={searchValue}
-            onChange={(event) => setSearchValue(event.target.value)}
+            onChange={(event) => handleSearchChange(event.target.value)}
+            onFocus={handleInputFocus}
+            onBlur={handleInputBlur}
             className="h-9 w-full rounded-full border-border/60 bg-muted/20 pl-9 text-xs transition-all focus:bg-background focus:ring-1 focus:ring-primary/20"
           />
         </div>

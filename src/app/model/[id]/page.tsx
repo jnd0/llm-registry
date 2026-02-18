@@ -489,7 +489,13 @@ export default async function ModelPage({ params }: PageProps) {
               </div>
             </div>
 
-            <Button variant="outline" className="mt-5 h-10 w-full">Report Inaccuracy</Button>
+            <Button asChild variant="outline" className="mt-5 h-10 w-full">
+              <a 
+                href={`mailto:registry@example.com?subject=Report%20Inaccuracy%3A%20${encodeURIComponent(model.name)}&body=${encodeURIComponent(`Model: ${model.name}\nProvider: ${model.provider}\n\nPlease describe the inaccuracy:\n`)}`}
+              >
+                Report Inaccuracy
+              </a>
+            </Button>
           </section>
 
           <section className="surface-card rounded-2xl p-5">
