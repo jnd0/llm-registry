@@ -10,7 +10,6 @@ import {
 } from "@/components/ui/popover";
 import { Layers, ArrowRight } from "lucide-react";
 import Link from "next/link";
-import { Model } from "@/types";
 import { cn } from "@/lib/utils";
 
 interface ModelFamilyCompareProps {

@@ -3,8 +3,8 @@
 import { useQueryState, parseAsArrayOf, parseAsString } from "nuqs";
 import { Model, Benchmark } from "@/types";
 import { Button } from "@/components/ui/button";
-import { X, Plus, Minimize2, BarChart3, LayoutGrid, List, ExternalLink, Share2, FlaskConical } from "lucide-react";
-import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/components/ui/card";
+import { X, Plus, Share2 } from "lucide-react";
+import { Card } from "@/components/ui/card";
 import {
   Command,
   CommandEmpty,
@@ -18,15 +18,9 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 import { useState, useMemo, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { normalizeScore } from "@/lib/stats";
-import { sources } from "@/data/sources";
 import { ALL_CATEGORY_SLUG, categoryToSlug, slugToCategory } from "@/lib/categories";
 import dynamic from "next/dynamic";
 import { getProviderTheme } from "@/lib/provider-identity";
@@ -42,25 +36,6 @@ const RadarComparison = dynamic(
     ),
   }
 );
-
-const sourceMap = new Map(sources.map((source) => [source.id, source]));
-
-function getHostLabel(url?: string) {
-  if (!url) return "Unknown";
-  try {
-    return new URL(url).hostname.replace(/^www\./, "");
-  } catch {
-    return "Unknown";
-  }
-}
-
-function getVerificationLabel(level?: string, verified?: boolean) {
-  if (level === "third_party") return "Third-party";
-  if (level === "provider") return "Provider";
-  if (level === "community") return "Community";
-  if (level === "estimated") return "Estimated";
-  return verified ? "Verified" : "Unverified";
-}
 
 function getSeriesColorClasses(idx: number) {
   if (idx === 0) return { bar: "bg-chart-1", text: "text-chart-1" };
@@ -217,40 +192,6 @@ export function CompareView({ modelOptions, initialSelectedModels, benchmarks }:
         return a.category.localeCompare(b.category);
       });
   }, [benchmarkCategoryFilter, benchmarks, onlySharedBenchmarks, selectedModels, showSummary]);
-
-  const benchmarkAvailabilitySummary = useMemo(() => {
-    if (showSummary) return null;
-
-    const filtered = benchmarks.filter(
-      (benchmark) => benchmarkCategoryFilter === ALL_CATEGORY_SLUG || benchmark.category === benchmarkCategoryFilter
-    );
-
-    let shared = 0;
-    let partial = 0;
-    let empty = 0;
-
-    filtered.forEach((benchmark) => {
-      const availableCount = selectedModels.filter((model) => {
-        const score = model.scores[benchmark.id]?.score;
-        return score !== null && score !== undefined;
-      }).length;
-
-      if (availableCount === 0) {
-        empty += 1;
-      } else if (selectedModels.length <= 1 || availableCount === selectedModels.length) {
-        shared += 1;
-      } else {
-        partial += 1;
-      }
-    });
-
-    return {
-      total: filtered.length,
-      shared,
-      partial,
-      empty,
-    };
-  }, [benchmarkCategoryFilter, benchmarks, selectedModels, showSummary]);
 
   const benchmarkDeltas = useMemo(() => {
     if (showSummary) return {};
@@ -458,7 +399,7 @@ export function CompareView({ modelOptions, initialSelectedModels, benchmarks }:
             </PopoverTrigger>
             <PopoverContent className="w-[300px] overflow-hidden rounded-2xl border-border bg-card p-0 shadow-2xl" align="end">
               <Command className="bg-transparent font-mono">
-                <CommandInput placeholder="Search models..." className="h-11 border-b border-border/50 text-xs" />
+                <CommandInput placeholder="Search models…" className="h-11 border-b border-border/50 text-xs" />
                 <CommandList className="max-h-[320px] overflow-y-auto no-scrollbar">
                   <CommandEmpty className="p-6 text-center text-[10px] uppercase tracking-widest text-muted-foreground">No models found</CommandEmpty>
                   <CommandGroup heading="Available Registry" className="p-2 text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground/50">

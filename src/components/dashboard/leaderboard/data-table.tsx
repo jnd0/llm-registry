@@ -29,7 +29,6 @@ interface DataTableProps {
   totalRows: number;
   currentPage: number;
   totalPages: number;
-  pageSize: number;
   sortBy: string;
   sortDir: LeaderboardSortDirection;
   searchQuery: string;
@@ -60,7 +59,6 @@ export function DataTable({
   totalRows,
   currentPage,
   totalPages,
-  pageSize,
   sortBy,
   sortDir,
   searchQuery,
@@ -272,18 +270,6 @@ export function DataTable({
     return `${base}&category=${encodeURIComponent(activeCategorySlug)}`;
   }, [compareIds, activeCategorySlug]);
 
-  const latestScoreDate = React.useMemo(() => {
-    let latest = "";
-    data.forEach((model) => {
-      Object.values(model.scores).forEach((entry) => {
-        if (entry.asOfDate && entry.asOfDate > latest) {
-          latest = entry.asOfDate;
-        }
-      });
-    });
-    return latest || null;
-  }, [data]);
-
   const defaultSortId = React.useMemo(() => {
     if (activeCategory) {
       const avgColumnId = `avg-${activeCategory.toLowerCase().replace(/\s+/g, "-")}`;
@@ -299,8 +285,6 @@ export function DataTable({
     return benchmarkWindowIds.includes("mmlu") ? "mmlu" : benchmarkWindowIds[0] ?? "coverage";
   }, [activeCategory, allColumnIds, benchmarkWindowIds, categoryBenchmarksMap, summaryAvgColumnIds, summaryView]);
 
-  const activeSort = sorting[0];
-
   React.useEffect(() => {
     if (!sortBy) return;
     const nextDesc = sortDir === "desc";
@@ -310,23 +294,6 @@ export function DataTable({
       return [{ id: sortBy, desc: nextDesc }];
     });
   }, [sortBy, sortDir]);
-
-  const currentSortLabel = React.useMemo(() => {
-    if (!activeSort?.id) return "Not sorted";
-    if (activeSort.id === "coverage") return "Coverage";
-    if (activeSort.id === "releaseDate") return "Release date";
-    if (activeSort.id === "context") return "Context window";
-    if (activeSort.id.startsWith("avg-")) {
-      const categoryName = activeSort.id
-        .replace("avg-", "")
-        .split("-")
-        .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
-        .join(" ");
-      return `${categoryName} average`;
-    }
-
-    return benchmarkById.get(activeSort.id)?.name ?? activeSort.id;
-  }, [activeSort?.id, benchmarkById]);
 
   const handleSortingChange = React.useCallback(
     (updater: SortingState | ((old: SortingState) => SortingState)) => {
@@ -587,12 +554,6 @@ export function DataTable({
     },
     [currentPage, enqueueSearchParamUpdates, totalPages]
   );
-
-  const showBenchmarkWindowControls = canUseBenchmarkWindow && groupedBenchmarkIds.length > benchmarkWindowSize;
-  const benchmarkWindowStart = canUseBenchmarkWindow ? benchmarkWindowPage * benchmarkWindowSize + 1 : 1;
-  const benchmarkWindowEnd = canUseBenchmarkWindow
-    ? Math.min((benchmarkWindowPage + 1) * benchmarkWindowSize, groupedBenchmarkIds.length)
-    : groupedBenchmarkIds.length;
 
   return (
     <div className="animate-in slide-in-from-bottom-4 fade-in delay-100 duration-700 space-y-6 pb-20 w-full">

@@ -99,7 +99,6 @@ export default async function CategoryLeaderboardPage({ params, searchParams }: 
           totalRows={leaderboard.total}
           currentPage={leaderboard.page}
           totalPages={leaderboard.totalPages}
-          pageSize={leaderboard.pageSize}
           sortBy={leaderboard.sortBy}
           sortDir={leaderboard.sortDir}
           searchQuery={leaderboard.query}

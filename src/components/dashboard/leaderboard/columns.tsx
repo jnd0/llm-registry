@@ -315,15 +315,15 @@ export function createColumns(
           <div className="pl-2">
             <span
               className={cn(
-                "inline-flex min-w-[84px] items-center justify-center rounded-md border px-2.5 py-1 font-mono text-sm font-semibold tabular-nums",
+                "inline-flex min-w-[84px] max-w-[120px] items-center justify-center rounded-md border px-2.5 py-1 font-mono text-sm font-semibold tabular-nums",
                 getScorePillClass(normalizedScore)
               )}
               title={`${verificationLabel} | ${sourceLabel} | ${scoreEntry?.asOfDate ?? "unknown date"}${sourceUrl ? ` | ${sourceUrl}` : ""} | normalized ${normalizedScore.toFixed(1)}`}
             >
-              {displayScore}
+              <span className="truncate">{displayScore}</span>
             </span>
           </div>
-         );
+          );
       },
     })),
   ];

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Space_Grotesk } from "next/font/google";
 import { Navbar } from "@/components/layout/navbar";
+import { Footer } from "@/components/layout/footer";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { siteName, siteUrl } from "@/lib/site";
@@ -39,6 +40,14 @@ export const metadata: Metadata = {
     url: siteUrl,
     siteName,
     type: "website",
+    images: [
+      {
+        url: `${siteUrl}/og-image.png`,
+        width: 1200,
+        height: 630,
+        alt: `${siteName} - Global LLM Benchmark Index`,
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
@@ -108,6 +117,7 @@ export default function RootLayout({
               <main id="main-content" className="container relative z-10 flex-1 px-4 py-8 sm:px-8 md:py-12">
                 {children}
               </main>
+              <Footer />
             </div>
           </NuqsAdapter>
         </TooltipProvider>

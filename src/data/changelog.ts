@@ -7,6 +7,20 @@ export interface ChangelogEntry {
 
 export const changelog: ChangelogEntry[] = [
   {
+    version: "1.4.0",
+    date: "2026-02-18",
+    title: "Accessibility and UX Polish",
+    notes: [
+      "Fixed search input race condition that caused characters to be lost during rapid typing.",
+      "Made empty compare slots clickable to open model selector directly.",
+      "Added aria-live regions for screen reader announcements on search results.",
+      "Added theme-color meta tag for consistent mobile browser theming.",
+      "Added prefers-reduced-motion support for all animated progress bars.",
+      "Made Report Inaccuracy button functional with mailto link.",
+      "Cleaned up unused imports for improved bundle size.",
+    ],
+  },
+  {
     version: "1.3.0",
     date: "2026-02-15",
     title: "Trust and Mobile UX Upgrade",

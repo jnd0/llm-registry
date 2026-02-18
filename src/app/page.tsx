@@ -9,7 +9,6 @@ import { benchmarkCategories, categoryToSlug, slugToCategory } from "@/lib/categ
 import { getHomeMetrics } from "@/lib/home-metrics";
 import { parseLeaderboardQueryParams, queryLeaderboardModels } from "@/lib/leaderboard-query";
 import { cn } from "@/lib/utils";
-import { getProviderTheme } from "@/lib/provider-identity";
 import { ChevronDown } from "lucide-react";
 
 interface HomePageProps {
@@ -37,11 +36,10 @@ export default async function Home({ searchParams }: HomePageProps) {
   const activeCategorySlug = activeCategory ? categoryToSlug(activeCategory) : null;
   const queryParams = parseLeaderboardQueryParams(params, benchmarks, { activeCategory });
   const leaderboard = queryLeaderboardModels(models, benchmarks, queryParams);
-  const { latestScoreDate, mappedBenchmarks, quickHighlights, totalScores } = getHomeMetrics(models, benchmarks);
+  const { mappedBenchmarks, quickHighlights, totalScores } = getHomeMetrics(models, benchmarks);
 
   const latestRelease = changelog[0];
   const latestArrival = [...models].sort((a, b) => b.releaseDate.localeCompare(a.releaseDate))[0];
-  const latestArrivalTheme = latestArrival ? getProviderTheme(latestArrival.provider) : null;
 
   return (
     <div className="animate-in fade-in duration-500 space-y-5">
@@ -68,7 +66,7 @@ export default async function Home({ searchParams }: HomePageProps) {
                 <Link href="/api/v1/scores">Export</Link>
               </Button>
               <Button asChild variant="outline" size="sm" className="h-9 rounded-full px-4 text-xs font-semibold uppercase tracking-wider">
-                <Link href="/about">History</Link>
+                <Link href="/about">Methodology</Link>
               </Button>
               <Button asChild size="sm" className="h-9 rounded-full px-5 text-xs font-bold uppercase tracking-wider shadow-lg shadow-primary/20">
                 <Link href={activeCategorySlug ? `/compare?category=${activeCategorySlug}` : "/compare"}>Compare</Link>
@@ -81,36 +79,39 @@ export default async function Home({ searchParams }: HomePageProps) {
           <p className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground/50 px-1">
             Browse Category
           </p>
-          <div className="flex items-center gap-2 overflow-x-auto pb-4 no-scrollbar">
-            <Link
-              href="/"
-              className={cn(
-                "whitespace-nowrap rounded-full px-5 py-2 text-[11px] font-bold uppercase tracking-wider transition-all",
-                !activeCategory
-                  ? "bg-primary text-primary-foreground shadow-lg shadow-primary/20"
-                  : "bg-muted/40 text-muted-foreground hover:bg-muted hover:text-foreground"
-              )}
-            >
-              All Models
-            </Link>
-            {benchmarkCategories.map((category) => {
-              const slug = categoryToSlug(category);
-              const isActive = activeCategory === category;
-              return (
-                <Link
-                  key={category}
-                  href={`/?category=${slug}`}
-                  className={cn(
-                    "whitespace-nowrap rounded-full px-5 py-2 text-[11px] font-bold uppercase tracking-wider transition-all",
-                    isActive
-                      ? "bg-primary text-primary-foreground shadow-lg shadow-primary/20"
-                      : "bg-muted/40 text-muted-foreground hover:bg-muted hover:text-foreground"
-                  )}
-                >
-                  {category}
-                </Link>
-              );
-            })}
+          <div className="relative">
+            <div className="flex items-center gap-2 overflow-x-auto pb-4 no-scrollbar">
+              <Link
+                href="/"
+                className={cn(
+                  "whitespace-nowrap rounded-full px-5 py-2 text-[11px] font-bold uppercase tracking-wider transition-all",
+                  !activeCategory
+                    ? "bg-primary text-primary-foreground shadow-lg shadow-primary/20"
+                    : "bg-muted/40 text-muted-foreground hover:bg-muted hover:text-foreground"
+                )}
+              >
+                All Models
+              </Link>
+              {benchmarkCategories.map((category) => {
+                const slug = categoryToSlug(category);
+                const isActive = activeCategory === category;
+                return (
+                  <Link
+                    key={category}
+                    href={`/?category=${slug}`}
+                    className={cn(
+                      "whitespace-nowrap rounded-full px-5 py-2 text-[11px] font-bold uppercase tracking-wider transition-all",
+                      isActive
+                        ? "bg-primary text-primary-foreground shadow-lg shadow-primary/20"
+                        : "bg-muted/40 text-muted-foreground hover:bg-muted hover:text-foreground"
+                    )}
+                  >
+                    {category}
+                  </Link>
+                );
+              })}
+            </div>
+            <div className="pointer-events-none absolute inset-y-0 right-0 w-12 bg-gradient-to-l from-card/80 to-transparent" />
           </div>
         </div>
       </section>
@@ -199,7 +200,6 @@ export default async function Home({ searchParams }: HomePageProps) {
           totalRows={leaderboard.total}
           currentPage={leaderboard.page}
           totalPages={leaderboard.totalPages}
-          pageSize={leaderboard.pageSize}
           sortBy={leaderboard.sortBy}
           sortDir={leaderboard.sortDir}
           searchQuery={leaderboard.query}

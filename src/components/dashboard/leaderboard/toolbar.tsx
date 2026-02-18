@@ -4,7 +4,7 @@ import { Table } from "@tanstack/react-table";
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Search, Filter, RotateCcw, LayoutGrid, List } from "lucide-react";
+import { Search } from "lucide-react";
 import { cn } from "@/lib/utils";
 import {
   DropdownMenu,

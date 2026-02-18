@@ -64,6 +64,7 @@ export const modelPricingDimensionSchema = z.object({
   notes: z.string().optional(),
 });
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const modelSchema: z.ZodType<any> = z.lazy(() =>
   z.object({
     id: z.string().min(1),

@@ -1,5 +1,5 @@
 import { CompareView } from "@/components/dashboard/compare-view";
-import { benchmarks, flattenedModels, models } from "@/lib/registry-data";
+import { benchmarks, flattenedModels } from "@/lib/registry-data";
 import type { Metadata } from "next";
 import { Suspense } from "react";
 

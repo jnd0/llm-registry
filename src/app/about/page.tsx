@@ -1,7 +1,6 @@
 import { benchmarks, models, sources } from "@/lib/registry-data";
 import { changelog } from "@/data/changelog";
 import type { Metadata } from "next";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 const categories = Array.from(new Set(benchmarks.map((benchmark) => benchmark.category)));
 
