@@ -15,6 +15,7 @@ import { Benchmark, Model } from "@/types";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { normalizeScore } from "@/lib/stats";
+import { domainDefinitions, getBenchmarkIdsForDomain, type CapabilityDomain } from "@/lib/domains";
 
 interface RadarComparisonProps {
   models: Model[];
@@ -72,48 +73,46 @@ const CustomTooltip = ({ active, payload, label }: RadarTooltipProps) => {
 };
 
 export function RadarComparison({ models, benchmarks, className }: RadarComparisonProps) {
-  const categories = useMemo(
-    () => Array.from(new Set(benchmarks.map((benchmark) => benchmark.category))),
+  const benchmarkById = useMemo(
+    () => new Map(benchmarks.map((b) => [b.id, b])),
     [benchmarks]
   );
 
-  const categoryBenchmarksMap = useMemo(() => {
-    const map = new Map<string, Benchmark[]>();
-    categories.forEach((category) => {
-      map.set(
-        category,
-        benchmarks.filter((benchmark) => benchmark.category === category)
-      );
+  const data = useMemo(() => {
+    return domainDefinitions.map((domain) => {
+      const domainBenchmarkIds = getBenchmarkIdsForDomain(domain.id);
+      const point: Record<string, string | number> = { 
+        subject: domain.label, 
+        fullMark: 100 
+      };
+
+      models.forEach((model) => {
+        const normalizedScores: number[] = [];
+        
+        for (const benchmarkId of domainBenchmarkIds) {
+          const score = model.scores[benchmarkId]?.score;
+          if (score !== null && score !== undefined) {
+            const benchmark = benchmarkById.get(benchmarkId);
+            if (benchmark) {
+              normalizedScores.push(normalizeScore(score, benchmark));
+            }
+          }
+        }
+
+        if (normalizedScores.length === 0) {
+          point[model.id] = 0;
+          return;
+        }
+
+        const average = normalizedScores.reduce((acc, score) => acc + score, 0) / normalizedScores.length;
+        point[model.id] = Number(average.toFixed(1));
+      });
+
+      return point;
     });
-    return map;
-  }, [benchmarks, categories]);
+  }, [models, benchmarkById]);
 
-  const data = useMemo(() => categories.map((category) => {
-    const categoryBenchmarks = categoryBenchmarksMap.get(category) ?? [];
-    const point: Record<string, string | number> = { subject: category, fullMark: 100 };
-
-    models.forEach((model) => {
-      const normalizedScores = categoryBenchmarks
-        .map((benchmark) => {
-          const score = model.scores[benchmark.id]?.score;
-          if (score === null || score === undefined) return null;
-          return normalizeScore(score, benchmark);
-        })
-        .filter((score): score is number => score !== null);
-
-      if (normalizedScores.length === 0) {
-        point[model.id] = 0;
-        return;
-      }
-
-      const average = normalizedScores.reduce((acc, score) => acc + score, 0) / normalizedScores.length;
-      point[model.id] = Number(average.toFixed(1));
-    });
-
-    return point;
-  }), [categories, categoryBenchmarksMap, models]);
-
-  if (models.length === 0 || categories.length === 0) return null;
+  if (models.length === 0) return null;
 
   return (
     <Card className={cn("surface-card group relative overflow-hidden", className)}>
@@ -121,10 +120,10 @@ export function RadarComparison({ models, benchmarks, className }: RadarComparis
         <div className="flex items-center justify-between">
           <div>
             <CardTitle className="font-display text-lg tracking-tight text-foreground">
-              Intelligence Profile
+              Capability Profile
             </CardTitle>
             <CardDescription className="mt-1 text-xs font-mono tracking-[0.12em] text-muted-foreground">
-              Multivariate Analysis · Category Averaged
+              Performance Across 8 Capability Domains
             </CardDescription>
           </div>
           <div className="h-2 w-2 rounded-full bg-primary" />
@@ -133,11 +132,11 @@ export function RadarComparison({ models, benchmarks, className }: RadarComparis
 
       <CardContent className="relative z-10 h-[450px] pb-4 pt-8">
         <ResponsiveContainer width="100%" height="100%">
-          <RadarChart cx="50%" cy="50%" outerRadius="75%" data={data}>
+          <RadarChart cx="50%" cy="50%" outerRadius="70%" data={data}>
             <PolarGrid stroke="var(--border)" strokeDasharray="3 3" />
             <PolarAngleAxis
               dataKey="subject"
-              tick={{ fill: "var(--muted-foreground)", fontSize: 11, fontFamily: "var(--font-geist-mono)", fontWeight: 500 }}
+              tick={{ fill: "var(--muted-foreground)", fontSize: 10, fontFamily: "var(--font-geist-mono)", fontWeight: 500 }}
             />
             <PolarRadiusAxis angle={30} domain={[0, 100]} tick={false} axisLine={false} />
             <Tooltip content={<CustomTooltip />} cursor={{ stroke: "var(--primary)", strokeWidth: 1, strokeDasharray: "4 4" }} />
