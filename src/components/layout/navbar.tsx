@@ -25,6 +25,7 @@ export function Navbar() {
   const pathname = usePathname();
   const navItems = [
     { href: "/", label: "Leaderboard" },
+    { href: "/benchmarks", label: "Benchmarks" },
     { href: "/compare", label: "Compare" },
     { href: "/about", label: "Methodology" },
   ];
