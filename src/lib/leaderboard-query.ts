@@ -3,6 +3,7 @@ import { calculateCategoryScore, calculateCoverage, normalizeScore } from "@/lib
 import { Benchmark, BenchmarkCategory, Model } from "@/types";
 
 export type LeaderboardSortDirection = "asc" | "desc";
+export type LicenseFilter = "all" | "open" | "proprietary";
 
 export interface LeaderboardQueryParams {
   query: string;
@@ -10,6 +11,7 @@ export interface LeaderboardQueryParams {
   sortDir: LeaderboardSortDirection;
   page: number;
   pageSize: number;
+  license: LicenseFilter;
 }
 
 export interface LeaderboardQueryResult {
@@ -21,6 +23,7 @@ export interface LeaderboardQueryResult {
   sortBy: string;
   sortDir: LeaderboardSortDirection;
   query: string;
+  license: LicenseFilter;
 }
 
 interface LeaderboardQueryOptions {
@@ -78,6 +81,7 @@ export function parseLeaderboardQueryParams(
   const query = (readParam(searchParams, "q") ?? "").trim();
   const requestedSort = readParam(searchParams, "sort") ?? "";
   const requestedDir = readParam(searchParams, "dir");
+  const requestedLicense = readParam(searchParams, "license") ?? "all";
 
   const validSortIds = getValidSortIds(benchmarks);
   const fallbackSort = getDefaultSortBy(options.activeCategory ?? null);
@@ -86,6 +90,11 @@ export function parseLeaderboardQueryParams(
   const sortDir: LeaderboardSortDirection = requestedDir === "asc" ? "asc" : "desc";
   const page = parseIntParam(readParam(searchParams, "page"), 1, 1, 10_000);
   const pageSize = parseIntParam(readParam(searchParams, "pageSize"), 25, 5, 100);
+  
+  const license: LicenseFilter = 
+    requestedLicense === "open" || requestedLicense === "proprietary" 
+      ? requestedLicense 
+      : "all";
 
   return {
     query,
@@ -93,6 +102,7 @@ export function parseLeaderboardQueryParams(
     sortDir,
     page,
     pageSize,
+    license,
   };
 }
 
@@ -159,6 +169,13 @@ function matchesQuery(model: Model, query: string): boolean {
   return haystack.includes(query.toLowerCase());
 }
 
+function matchesLicense(model: Model, license: LicenseFilter): boolean {
+  if (license === "all") return true;
+  if (license === "open") return model.isOpenSource;
+  if (license === "proprietary") return !model.isOpenSource;
+  return true;
+}
+
 export function queryLeaderboardModels(
   models: Model[],
   benchmarks: Benchmark[],
@@ -166,7 +183,9 @@ export function queryLeaderboardModels(
 ): LeaderboardQueryResult {
   const directionFactor = params.sortDir === "asc" ? 1 : -1;
 
-  const filtered = models.filter((model) => matchesQuery(model, params.query));
+  const filtered = models.filter(
+    (model) => matchesQuery(model, params.query) && matchesLicense(model, params.license)
+  );
   const benchmarkById = new Map(benchmarks.map((benchmark) => [benchmark.id, benchmark]));
   const categoryForSort = params.sortBy.startsWith("avg-")
     ? slugToCategory(params.sortBy.replace(/^avg-/, ""))
@@ -221,5 +240,6 @@ export function queryLeaderboardModels(
     sortBy: params.sortBy,
     sortDir: params.sortDir,
     query: params.query,
+    license: params.license,
   };
 }

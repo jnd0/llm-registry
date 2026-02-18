@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import Link from "next/link";
 import { Model } from "@/types";
+import type { LicenseFilter } from "@/lib/leaderboard-query";
 
 interface LeaderboardToolbarProps {
   table: Table<Model>;
@@ -27,6 +28,8 @@ interface LeaderboardToolbarProps {
   summaryView: boolean;
   setSummaryView: (value: boolean) => void;
   applyPreset: (preset: "general" | "coding" | "agentic" | "vision" | "video") => void;
+  license: LicenseFilter;
+  onLicenseChange: (value: LicenseFilter) => void;
 }
 
 export function LeaderboardToolbar({ 
@@ -38,7 +41,9 @@ export function LeaderboardToolbar({
   resetLayout,
   summaryView,
   setSummaryView,
-  applyPreset
+  applyPreset,
+  license,
+  onLicenseChange,
 }: LeaderboardToolbarProps) {
   const [searchValue, setSearchValue] = useState(searchQuery);
   const [debounceTimer, setDebounceTimer] = useState<NodeJS.Timeout | null>(null);
@@ -107,6 +112,42 @@ export function LeaderboardToolbar({
             )}
           >
             Benchmarks
+          </Button>
+        </div>
+
+        <div className="flex items-center gap-1.5 bg-muted/30 p-1 rounded-full border border-border/40">
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => onLicenseChange("all")}
+            className={cn(
+              "h-7 rounded-full px-3 text-[11px] font-bold uppercase tracking-wider transition-all",
+              license === "all" ? "bg-background text-primary shadow-sm" : "text-muted-foreground hover:text-foreground"
+            )}
+          >
+            All
+          </Button>
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => onLicenseChange("open")}
+            className={cn(
+              "h-7 rounded-full px-3 text-[11px] font-bold uppercase tracking-wider transition-all",
+              license === "open" ? "bg-background text-primary shadow-sm" : "text-muted-foreground hover:text-foreground"
+            )}
+          >
+            Open
+          </Button>
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => onLicenseChange("proprietary")}
+            className={cn(
+              "h-7 rounded-full px-3 text-[11px] font-bold uppercase tracking-wider transition-all",
+              license === "proprietary" ? "bg-background text-primary shadow-sm" : "text-muted-foreground hover:text-foreground"
+            )}
+          >
+            Proprietary
           </Button>
         </div>
       </div>

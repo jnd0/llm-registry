@@ -10,6 +10,7 @@ import { getHomeMetrics } from "@/lib/home-metrics";
 import { parseLeaderboardQueryParams, queryLeaderboardModels } from "@/lib/leaderboard-query";
 import { cn } from "@/lib/utils";
 import { ChevronDown } from "lucide-react";
+import { NewModelsFeed } from "@/components/dashboard/new-models-feed";
 
 interface HomePageProps {
   searchParams: Promise<{
@@ -116,6 +117,8 @@ export default async function Home({ searchParams }: HomePageProps) {
         </div>
       </section>
 
+      <NewModelsFeed models={models} days={30} />
+
       <section className="grid gap-4 xl:grid-cols-[1fr_2fr_1fr]">
         <article className="relative overflow-hidden rounded-2xl border border-border bg-card/50 p-6">
           <p className="label-eyebrow text-muted-foreground/70">Total Registry</p>
@@ -203,6 +206,7 @@ export default async function Home({ searchParams }: HomePageProps) {
           sortBy={leaderboard.sortBy}
           sortDir={leaderboard.sortDir}
           searchQuery={leaderboard.query}
+          license={leaderboard.license}
         />
       </Suspense>
     </div>

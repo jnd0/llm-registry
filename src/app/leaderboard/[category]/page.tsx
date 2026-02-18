@@ -102,6 +102,7 @@ export default async function CategoryLeaderboardPage({ params, searchParams }: 
           sortBy={leaderboard.sortBy}
           sortDir={leaderboard.sortDir}
           searchQuery={leaderboard.query}
+          license={leaderboard.license}
         />
       </Suspense>
     </div>

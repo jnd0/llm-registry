@@ -78,6 +78,16 @@ export interface ModelPricingDimension {
   notes?: string;
 }
 
+export type ModelType = 
+  | "text"
+  | "image-generation"
+  | "image-understanding"
+  | "video-generation"
+  | "video-understanding"
+  | "audio-speech"
+  | "audio-understanding"
+  | "embedding";
+
 export type ScoreVerification =
   | "third_party"
   | "provider"
@@ -98,6 +108,7 @@ export interface Model {
   releaseDate: string;           // ISO 8601 (YYYY-MM-DD)
   capabilities: ModelCapability[];
   isOpenSource: boolean;         // True if weights are available (Llama, DeepSeek)
+  modelType?: ModelType;         // Primary modality (for future filtering)
   
   specs: {
     contextWindow: number;       // Tokens (e.g., 200000)

@@ -227,6 +227,56 @@ export function createColumns(
       }
     },
     {
+      id: "inputPrice",
+      accessorFn: (row) => row.specs.pricing.input,
+      header: () => (
+        <Tooltip delayDuration={200}>
+          <TooltipTrigger className="cursor-help text-left font-mono text-xs font-semibold tracking-[0.1em] text-muted-foreground">
+            Input $/M
+          </TooltipTrigger>
+          <TooltipContent className="border-border bg-popover p-2 text-popover-foreground shadow-lg">
+            <p className="text-xs font-mono tracking-wide">Input price per million tokens (USD).</p>
+          </TooltipContent>
+        </Tooltip>
+      ),
+      cell: ({ row }) => {
+        const val = row.original.specs.pricing.input;
+        const displayVal = val === 0 ? "Free" : `$${val.toFixed(2)}`;
+        return (
+          <div className="w-fit rounded-md border border-border bg-muted px-2.5 py-1 font-mono text-sm tabular-nums text-foreground/90 transition-colors group-hover/row:border-primary/25">
+            {displayVal}
+          </div>
+        );
+      },
+      enableHiding: true,
+      size: 100,
+    },
+    {
+      id: "outputPrice",
+      accessorFn: (row) => row.specs.pricing.output,
+      header: () => (
+        <Tooltip delayDuration={200}>
+          <TooltipTrigger className="cursor-help text-left font-mono text-xs font-semibold tracking-[0.1em] text-muted-foreground">
+            Output $/M
+          </TooltipTrigger>
+          <TooltipContent className="border-border bg-popover p-2 text-popover-foreground shadow-lg">
+            <p className="text-xs font-mono tracking-wide">Output price per million tokens (USD).</p>
+          </TooltipContent>
+        </Tooltip>
+      ),
+      cell: ({ row }) => {
+        const val = row.original.specs.pricing.output;
+        const displayVal = val === 0 ? "Free" : `$${val.toFixed(2)}`;
+        return (
+          <div className="w-fit rounded-md border border-border bg-muted px-2.5 py-1 font-mono text-sm tabular-nums text-foreground/90 transition-colors group-hover/row:border-primary/25">
+            {displayVal}
+          </div>
+        );
+      },
+      enableHiding: true,
+      size: 100,
+    },
+    {
       id: "coverage",
       accessorFn: (row) => metricsByModel.get(row.id)?.coverage ?? 0,
       header: ({ column }) => (

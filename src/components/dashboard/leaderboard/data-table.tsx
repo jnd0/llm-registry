@@ -19,7 +19,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { normalizeScore } from "@/lib/stats";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import type { LeaderboardSortDirection } from "@/lib/leaderboard-query";
+import type { LeaderboardSortDirection, LicenseFilter } from "@/lib/leaderboard-query";
 
 interface DataTableProps {
   data: Model[];
@@ -32,6 +32,7 @@ interface DataTableProps {
   sortBy: string;
   sortDir: LeaderboardSortDirection;
   searchQuery: string;
+  license: LicenseFilter;
 }
 
 function areStringArraysEqual(a: string[], b: string[]) {
@@ -62,6 +63,7 @@ export function DataTable({
   sortBy,
   sortDir,
   searchQuery,
+  license,
 }: DataTableProps) {
   const benchmarkWindowSize = 24;
 
@@ -72,7 +74,10 @@ export function DataTable({
   const [sorting, setSorting] = React.useState<SortingState>(() =>
     sortBy ? [{ id: sortBy, desc: sortDir === "desc" }] : []
   );
-  const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({});
+  const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>(() => ({
+    inputPrice: false,
+    outputPrice: false,
+  }));
   const [rowSelection, setRowSelection] = React.useState({});
   const [columnOrder, setColumnOrder] = React.useState<string[]>([]);
   const [draggedColumn, setDraggedColumn] = React.useState<string | null>(null);
@@ -546,6 +551,18 @@ export function DataTable({
     [enqueueSearchParamUpdates, searchQuery]
   );
 
+  const handleLicenseChange = React.useCallback(
+    (nextLicense: LicenseFilter) => {
+      if (nextLicense === license) return;
+
+      enqueueSearchParamUpdates({
+        license: nextLicense === "all" ? null : nextLicense,
+        page: "1",
+      });
+    },
+    [enqueueSearchParamUpdates, license]
+  );
+
   const goToPage = React.useCallback(
     (page: number) => {
       const safePage = Math.max(1, Math.min(totalPages, page));
@@ -572,6 +589,8 @@ export function DataTable({
         summaryView={summaryView}
         setSummaryView={setSummaryView}
         applyPreset={applyPreset}
+        license={license}
+        onLicenseChange={handleLicenseChange}
       />
 
       <div className="space-y-3 md:hidden">
