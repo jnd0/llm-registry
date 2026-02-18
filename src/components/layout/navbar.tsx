@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Terminal, Github, Menu, Search } from "lucide-react";
+import { Terminal, Github, Menu } from "lucide-react";
 import { usePathname } from "next/navigation";
 import dynamic from "next/dynamic";
 import {
@@ -66,16 +66,6 @@ export function Navbar() {
         </div>
 
         <div className="flex items-center gap-3">
-          <label className="relative hidden items-center lg:flex">
-            <Search className="pointer-events-none absolute left-3 h-3.5 w-3.5 text-muted-foreground/40" aria-hidden="true" />
-            <input
-              type="search"
-              aria-label="Search models"
-              placeholder="Search registry..."
-              className="h-8 w-48 rounded-full border border-border/60 bg-muted/20 pl-9 text-xs text-muted-foreground focus:w-64 focus:bg-background focus:ring-1 focus:ring-primary/20 transition-all"
-            />
-          </label>
-
           <div className="flex items-center gap-1.5 border-l border-border/40 pl-3">
             <ThemeToggle />
             <Link

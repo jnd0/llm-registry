@@ -60,8 +60,9 @@ export function LeaderboardToolbar({
         <div className="group/search relative min-w-0 flex-1 md:w-[280px] lg:w-[320px]">
           <Search className="absolute left-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-muted-foreground/60 transition-colors group-focus-within/search:text-primary" aria-hidden="true" />
           <Input
-            placeholder="Search registry..."
+            placeholder="Search registry…"
             aria-label="Search models"
+            autoComplete="off"
             value={searchValue}
             onChange={(event) => setSearchValue(event.target.value)}
             className="h-9 w-full rounded-full border-border/60 bg-muted/20 pl-9 text-xs transition-all focus:bg-background focus:ring-1 focus:ring-primary/20"

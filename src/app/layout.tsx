@@ -52,6 +52,16 @@ export const metadata: Metadata = {
   },
 };
 
+const themeColorScript = `
+  try {
+    const stored = localStorage.getItem("theme") || "system";
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    const dark = stored === "dark" || (stored === "system" && prefersDark);
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.setAttribute('content', dark ? '#0a0a12' : '#fafafa');
+  } catch {}
+`;
+
 const themeScript = `
 (() => {
   try {
@@ -75,7 +85,9 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        <meta name="theme-color" content="#0a0a12" />
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+        <script dangerouslySetInnerHTML={{ __html: themeColorScript }} />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${spaceGrotesk.variable} min-h-screen overflow-x-hidden bg-background font-sans text-foreground antialiased selection:bg-primary/20 selection:text-primary`}

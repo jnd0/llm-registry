@@ -98,10 +98,8 @@ export default function AboutPage() {
                     <p className="text-xs mt-1">Scores marked with <code className="text-primary font-bold">*</code> are imported from <a href="https://artificialanalysis.ai/" className="hover:text-primary transition-colors underline">artificialanalysis.ai</a>.</p>
                   </li>
                   <li className="m-0 border-l-2 border-primary/20 pl-4 py-1">
-                    <li className="m-0 p-0 list-none">
-                      <p className="font-bold text-foreground text-xs uppercase tracking-widest">Metadata Source</p>
-                      <p className="text-xs mt-1">Foundational metadata sourced from <a href="https://github.com/yamanahlawat/llm-registry" className="hover:text-primary transition-colors underline">yamanahlawat/llm-registry</a>.</p>
-                    </li>
+                    <p className="font-bold text-foreground text-xs uppercase tracking-widest">Metadata Source</p>
+                    <p className="text-xs mt-1">Foundational metadata sourced from <a href="https://github.com/yamanahlawat/llm-registry" className="hover:text-primary transition-colors underline">yamanahlawat/llm-registry</a>.</p>
                   </li>
                 </ul>
               </div>

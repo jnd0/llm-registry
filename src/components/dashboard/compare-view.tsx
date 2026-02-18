@@ -408,6 +408,7 @@ export function CompareView({ modelOptions, initialSelectedModels, benchmarks }:
               <select
                 value={categorySlug}
                 onChange={(event) => setCategorySlug(event.target.value)}
+                aria-label="Filter by category"
                 className="h-9 rounded-full border border-border/60 bg-muted/20 px-4 text-[11px] font-bold uppercase tracking-wider text-muted-foreground focus:bg-background transition-all outline-none"
               >
                 <option value={ALL_CATEGORY_SLUG}>All Categories</option>
@@ -469,11 +470,11 @@ export function CompareView({ modelOptions, initialSelectedModels, benchmarks }:
                           disabled={compareIds.includes(model.id) || compareIds.length >= 3}
                           className="mb-1 cursor-pointer rounded-xl px-3 py-2.5 transition-colors aria-selected:bg-primary/5 aria-selected:text-primary"
                         >
-                          <div className="flex w-full items-center justify-between gap-3">
-                            <div className="min-w-0">
-                              <span className="block truncate text-sm font-bold tracking-tight">{model.name}</span>
-                              <span className={cn("block truncate text-[10px] font-bold uppercase tracking-wider opacity-70", providerTheme.text)}>{model.provider}</span>
-                            </div>
+                           <div className="flex w-full items-center justify-between gap-3">
+                             <div className="min-w-0">
+                               <span className="block truncate text-sm font-bold tracking-tight" title={model.name}>{model.name}</span>
+                               <span className={cn("block truncate text-[10px] font-bold uppercase tracking-wider opacity-70", providerTheme.text)}>{model.provider}</span>
+                             </div>
                             {compareIds.includes(model.id) && (
                               <span className="rounded-full bg-primary/10 px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider text-primary">Added</span>
                             )}
@@ -499,7 +500,7 @@ export function CompareView({ modelOptions, initialSelectedModels, benchmarks }:
               <div className="flex items-start justify-between gap-3">
                 <div className="min-w-0 space-y-1">
                   <p className="font-mono text-[10px] font-bold text-primary uppercase tracking-widest">Model 0{idx + 1}</p>
-                  <h3 className="truncate text-2xl font-display font-bold tracking-tight text-foreground">{model.name}</h3>
+                  <h3 className="truncate text-2xl font-display font-bold tracking-tight text-foreground" title={model.name}>{model.name}</h3>
                   <div className="pt-1">
                     <span className={cn("rounded-full px-2 py-0.5 font-mono text-[9px] font-bold uppercase tracking-widest", providerTheme.border, providerTheme.bg, providerTheme.text)}>
                       {model.provider}
@@ -531,7 +532,7 @@ export function CompareView({ modelOptions, initialSelectedModels, benchmarks }:
                   <span className="text-muted-foreground/60">{model.releaseDate}</span>
                 </div>
                 <div className="h-1 w-full overflow-hidden rounded-full bg-muted/50">
-                  <div className="h-full bg-primary transition-all duration-1000" style={{ width: `${Math.max(8, cardMeta.confidence)}%` }} />
+                  <div className="h-full bg-primary duration-1000 ease-out motion-reduce:duration-0" style={{ width: `${Math.max(8, cardMeta.confidence)}%` }} />
                 </div>
               </div>
             </article>
@@ -595,8 +596,8 @@ export function CompareView({ modelOptions, initialSelectedModels, benchmarks }:
                               </div>
                               <div className="h-1.5 w-full bg-muted/50 rounded-full overflow-hidden">
                                 <div 
-                                  className={cn("h-full transition-all duration-1000 ease-out", seriesColors.bar)} 
-                                  style={{ width }} 
+                                  className={cn("h-full ease-out motion-reduce:duration-0", seriesColors.bar)} 
+                                  style={{ width, transitionDuration: '1000ms' }}
                                 />
                               </div>
                             </div>
@@ -626,7 +627,7 @@ export function CompareView({ modelOptions, initialSelectedModels, benchmarks }:
                           if (score === null || score === undefined) {
                             return (
                               <div key={model.id} className="flex items-center justify-between opacity-30">
-                                <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground truncate max-w-[120px]">{model.name}</span>
+                                <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground truncate max-w-[120px]" title={model.name}>{model.name}</span>
                                 <span className="text-[10px] font-mono font-bold text-muted-foreground">--.-</span>
                               </div>
                             );
@@ -636,7 +637,7 @@ export function CompareView({ modelOptions, initialSelectedModels, benchmarks }:
                           return (
                             <div key={model.id} className="space-y-1.5">
                               <div className="flex items-center justify-between text-[10px] font-bold uppercase tracking-wider">
-                                <div className="flex items-center gap-2 truncate max-w-[180px]">
+                                <div className="flex items-center gap-2 truncate max-w-[180px]" title={model.name}>
                                   <span className="text-muted-foreground truncate">{model.name}</span>
                                   <span className="text-muted-foreground/40 px-1 border border-border/40 rounded text-[8px]">
                                     {scoreEntry.verificationLevel === 'third_party' ? '3rd' : 'Prov'}
@@ -648,8 +649,8 @@ export function CompareView({ modelOptions, initialSelectedModels, benchmarks }:
                               </div>
                               <div className="h-1.5 w-full bg-muted/50 rounded-full overflow-hidden">
                                 <div 
-                                  className={cn("h-full transition-all duration-1000 ease-out", seriesColors.bar)} 
-                                  style={{ width }} 
+                                  className={cn("h-full ease-out motion-reduce:duration-0", seriesColors.bar)} 
+                                  style={{ width, transitionDuration: '1000ms' }}
                                 />
                               </div>
                             </div>
