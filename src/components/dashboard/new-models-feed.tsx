@@ -21,9 +21,9 @@ export function NewModelsFeed({ models, days = 30, minCount = 4 }: NewModelsFeed
   const newModels = recentModels.length >= minCount
     ? recentModels.slice(0, 6)
     : [
-        ...recentModels,
-        ...sortedByDate.filter((m) => !recentModels.includes(m)),
-      ].slice(0, minCount);
+      ...recentModels,
+      ...sortedByDate.filter((m) => !recentModels.includes(m)),
+    ].slice(0, minCount);
 
   const allWithinWindow = newModels.every((m) => m.releaseDate >= cutoffStr);
 
@@ -31,8 +31,8 @@ export function NewModelsFeed({ models, days = 30, minCount = 4 }: NewModelsFeed
     return null;
   }
 
-  const label = allWithinWindow 
-    ? `Last ${days} days` 
+  const label = allWithinWindow
+    ? `Last ${days} days`
     : `${recentModels.length} new · ${days} days`;
 
   return (
@@ -49,12 +49,12 @@ export function NewModelsFeed({ models, days = 30, minCount = 4 }: NewModelsFeed
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
         {newModels.map((model) => {
           const theme = getProviderTheme(model.provider);
-          
+
           return (
             <Link
               key={model.id}
               href={`/model/${model.id}`}
-              className="group surface-card rounded-xl border border-border/40 p-4 transition-all hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5"
+              className="group surface-card rounded-xl border border-border/40 p-4 transition-all hover:-translate-y-1 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5"
             >
               <div className="space-y-2">
                 <div className="flex items-start justify-between gap-2">
@@ -73,11 +73,11 @@ export function NewModelsFeed({ models, days = 30, minCount = 4 }: NewModelsFeed
                     </span>
                   )}
                 </div>
-                
+
                 <h3 className="font-display text-sm font-bold tracking-tight text-foreground line-clamp-2 group-hover:text-primary transition-colors">
                   {model.name}
                 </h3>
-                
+
                 <div className="flex items-center gap-2">
                   <span className="font-mono text-[10px] text-muted-foreground">
                     {model.releaseDate}

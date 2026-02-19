@@ -8,6 +8,7 @@ export function Footer() {
         <div className="flex flex-wrap items-center justify-between gap-4 text-xs text-muted-foreground">
           <p>© {new Date().getFullYear()} LLM Registry</p>
           <div className="flex items-center gap-4">
+            <a href="mailto:admin@llm-registry.com" className="transition-colors hover:text-foreground">Report Inaccuracies</a>
             <Link href="/about" className="transition-colors hover:text-foreground">Methodology</Link>
             <Link href="/api/v1" className="transition-colors hover:text-foreground">API</Link>
             <a href="https://github.com/yamanahlawat/llm-registry" target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 transition-colors hover:text-foreground">

@@ -319,7 +319,7 @@ export default async function ModelPage({ params }: PageProps) {
                   </p>
                 </div>
               </div>
-              
+
               <div className="grid gap-4 sm:grid-cols-2">
                 {model.variants.map((variant) => (
                   <Link
@@ -367,7 +367,7 @@ export default async function ModelPage({ params }: PageProps) {
                   </Button>
                 )}
               </div>
-              
+
               <div className="grid gap-4 sm:grid-cols-2">
                 {siblings.map((sibling) => (
                   <Link
@@ -462,7 +462,7 @@ export default async function ModelPage({ params }: PageProps) {
                       )}
 
                       <div className="flex items-center justify-between gap-2 font-mono text-[11px] uppercase tracking-[0.1em] text-muted-foreground">
-                        <span>{scoreData.asOfDate ?? "Unknown"}</span>
+                        <span>Last Verified: {scoreData.asOfDate ?? "Unknown Date"}</span>
                         {sourceUrl ? (
                           <a href={sourceUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-primary hover:underline">
                             {sourceLabel} <ExternalLink className="h-3 w-3" />
@@ -520,7 +520,7 @@ export default async function ModelPage({ params }: PageProps) {
             </div>
 
             <Button asChild variant="outline" className="mt-5 h-10 w-full">
-              <a 
+              <a
                 href={`mailto:registry@example.com?subject=Report%20Inaccuracy%3A%20${encodeURIComponent(model.name)}&body=${encodeURIComponent(`Model: ${model.name}\nProvider: ${model.provider}\n\nPlease describe the inaccuracy:\n`)}`}
               >
                 Report Inaccuracy

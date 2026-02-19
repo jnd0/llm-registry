@@ -7,7 +7,7 @@ export interface ChangelogEntry {
 
 export const changelog: ChangelogEntry[] = [
   {
-    version: "1.5.0",
+    version: "0.5.0",
     date: "2026-02-19",
     title: "Filters, Freshness, and API Enhancements",
     notes: [
@@ -25,7 +25,7 @@ export const changelog: ChangelogEntry[] = [
     ],
   },
   {
-    version: "1.4.0",
+    version: "0.4.0",
     date: "2026-02-18",
     title: "Accessibility and UX Polish",
     notes: [
@@ -39,7 +39,7 @@ export const changelog: ChangelogEntry[] = [
     ],
   },
   {
-    version: "1.3.0",
+    version: "0.3.0",
     date: "2026-02-15",
     title: "Trust and Mobile UX Upgrade",
     notes: [
@@ -49,7 +49,7 @@ export const changelog: ChangelogEntry[] = [
     ],
   },
   {
-    version: "1.2.0",
+    version: "0.2.0",
     date: "2026-02-14",
     title: "Methodology and Registry Guardrails",
     notes: [
@@ -59,7 +59,7 @@ export const changelog: ChangelogEntry[] = [
     ],
   },
   {
-    version: "1.1.0",
+    version: "0.1.0",
     date: "2026-02-13",
     title: "Comparison and Category Scoring",
     notes: [

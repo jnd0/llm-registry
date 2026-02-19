@@ -999,6 +999,35 @@ const rawModels: Model[] = [
     ]
   },
   {
+    id: "gemini-3.1-pro",
+    name: "Gemini 3.1 Pro",
+    provider: "Google DeepMind",
+    releaseDate: "2026-02-19",
+    capabilities: ["text", "code", "vision", "audio", "video", "reasoning"],
+    isOpenSource: false,
+    specs: {
+      contextWindow: 1000000,
+      parameters: "Unknown",
+      pricing: { input: 2.50, output: 15.00 }
+    },
+    scores: {
+      "gpqa-diamond": { score: 94.3, verified: true, sourceId: "google-gemini31-announce", asOfDate: "2026-02-19" },
+      "swe-bench-verified": { score: 80.6, verified: true, sourceId: "google-gemini31-announce", asOfDate: "2026-02-19" },
+      "swe-bench-pro": { score: 54.2, verified: true, sourceId: "google-gemini31-announce", asOfDate: "2026-02-19" },
+      "arc-agi-2": { score: 77.1, verified: true, sourceId: "google-gemini31-announce", asOfDate: "2026-02-19" },
+      "terminal-bench": { score: 68.5, verified: true, sourceId: "google-gemini31-announce", asOfDate: "2026-02-19" },
+      "mrcr-v2": { score: 84.9, verified: true, sourceId: "google-gemini31-announce", asOfDate: "2026-02-19" },
+      "mmmlu": { score: 92.6, verified: true, sourceId: "google-gemini31-announce", asOfDate: "2026-02-19" },
+      "mmmu-pro": { score: 80.5, verified: true, sourceId: "google-gemini31-announce", asOfDate: "2026-02-19" },
+      "browsecomp": { score: 85.9, verified: true, sourceId: "google-gemini31-announce", asOfDate: "2026-02-19" },
+      "tau-bench-retail": { score: 90.8, verified: true, sourceId: "google-gemini31-announce", asOfDate: "2026-02-19" },
+      "tau-bench-telecom": { score: 99.3, verified: true, sourceId: "google-gemini31-announce", asOfDate: "2026-02-19" },
+      "scicode": { score: 59, verified: true, sourceId: "google-gemini31-announce", asOfDate: "2026-02-19" },
+      "hle": { score: 44.4, verified: true, sourceId: "google-gemini31-announce", asOfDate: "2026-02-19" },
+      "livecodebench-pro": { score: 2887, verified: true, sourceId: "google-gemini31-announce", asOfDate: "2026-02-19" }
+    }
+  },
+  {
     id: "gemini-3-flash",
     name: "Gemini 3 Flash",
     provider: "Google DeepMind",

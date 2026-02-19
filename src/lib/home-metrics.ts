@@ -4,9 +4,10 @@ import { Benchmark, Model } from "@/types";
 interface QuickHighlight {
   label: string;
   model?: Model;
+  customText?: string;
   benchmark: string;
   value: number | null;
-  format?: "ratio";
+  format?: "ratio" | "points" | string;
 }
 
 export interface HomeMetrics {
@@ -55,26 +56,21 @@ export function getHomeMetrics(models: Model[], benchmarks: Benchmark[]): HomeMe
     }
   }
 
-  let bestValueModel: Model | undefined;
-  let bestValueRatio = -1;
-  for (const model of models) {
-    const mmluScore = model.scores.mmlu?.score;
-    const inputPrice = model.specs.pricing.input;
-    if (mmluScore === null || mmluScore === undefined || inputPrice <= 0) continue;
-
-    const ratio = mmluScore / inputPrice;
-    if (ratio > bestValueRatio) {
-      bestValueRatio = ratio;
-      bestValueModel = model;
-    }
-  }
-
   const bestCoding = bestByBenchmark.get("swe-bench-verified") ?? bestByBenchmark.get("human-eval");
   const bestReasoning = bestByBenchmark.get("gpqa-diamond");
   const bestVision = bestByBenchmark.get("mmmu") ?? bestByBenchmark.get("mmmu-vision");
 
+  const bestValue = bestByBenchmark.get("arena-hard");
+  const bestOpenWeights = bestByBenchmark.get("lmsys-chatbot-arena-leaderboard");
+
   const metrics: HomeMetrics = {
     quickHighlights: [
+      {
+        label: "Best Value",
+        model: bestValue?.model,
+        benchmark: bestByBenchmark.has("arena-hard") ? "Arena Hard" : "MMLU",
+        value: bestValue?.rawScore ?? null,
+      },
       {
         label: "Best Coding",
         model: bestCoding?.model,
@@ -82,23 +78,16 @@ export function getHomeMetrics(models: Model[], benchmarks: Benchmark[]): HomeMe
         value: bestCoding?.rawScore ?? null,
       },
       {
-        label: "Best Reasoning",
-        model: bestReasoning?.model,
-        benchmark: "GPQA Diamond",
-        value: bestReasoning?.rawScore ?? null,
+        label: "Best Open Weights",
+        model: bestOpenWeights?.model,
+        benchmark: bestByBenchmark.has("lmsys-chatbot-arena-leaderboard") ? "LMSYS Chatbot Arena" : "GPQA",
+        value: bestOpenWeights?.rawScore ?? null,
       },
       {
-        label: "Best Vision",
+        label: "Most Accessible",
         model: bestVision?.model,
-        benchmark: bestByBenchmark.has("mmmu") ? "MMMU" : "MMMU Vision",
+        benchmark: bestByBenchmark.has("mmmu") ? "MMMU" : "Math",
         value: bestVision?.rawScore ?? null,
-      },
-      {
-        label: "Best Value",
-        model: bestValueModel,
-        benchmark: "MMLU per $ input",
-        value: bestValueRatio >= 0 ? bestValueRatio : null,
-        format: "ratio",
       },
     ],
     mappedBenchmarks: `${usedBenchmarkIds.size}/${benchmarks.length}`,

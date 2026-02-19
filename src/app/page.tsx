@@ -8,9 +8,9 @@ import Link from "next/link";
 import { categoryToSlug, slugToCategory } from "@/lib/categories";
 import { getHomeMetrics } from "@/lib/home-metrics";
 import { parseLeaderboardQueryParams, queryLeaderboardModels } from "@/lib/leaderboard-query";
-import { ChevronDown } from "lucide-react";
-import { NewModelsFeed } from "@/components/dashboard/new-models-feed";
 import { DomainCards } from "@/components/dashboard/domain-cards";
+import { ErrorBoundary } from "@/components/ui/error-boundary";
+import { Skeleton } from "@/components/ui/skeleton";
 import { redirect } from "next/navigation";
 
 interface HomePageProps {
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
 
 export default async function Home({ searchParams }: HomePageProps) {
   const params = await searchParams;
-  
+
   // Redirect old /?category=... URLs to /leaderboard/[category]
   if (params?.category) {
     const category = slugToCategory(params.category);
@@ -62,18 +62,22 @@ export default async function Home({ searchParams }: HomePageProps) {
   const { mappedBenchmarks, quickHighlights, totalScores } = getHomeMetrics(models, benchmarks);
 
   const latestRelease = changelog[0];
-  const latestArrival = [...models].sort((a, b) => b.releaseDate.localeCompare(a.releaseDate))[0];
 
   return (
     <div className="animate-in fade-in duration-500 space-y-5">
+      <div className="rounded-xl border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-sm text-amber-700 dark:text-amber-400 flex items-center gap-3">
+        <span className="flex h-2 w-2 rounded-full bg-amber-500 animate-pulse shrink-0" />
+        <p><strong>Beta version 0.5.0:</strong> *Information might not be fully accurate. Please report any discrepancies.</p>
+      </div>
       <section className="relative overflow-hidden rounded-2xl border border-border bg-card/50 px-6 py-8 sm:px-10 sm:py-12">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_0%_0%,color-mix(in_oklab,var(--primary)_8%,transparent),transparent_50%)]" />
-        
+
         <div className="relative flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-3xl space-y-4">
             <div className="flex items-center gap-3">
               <span className="flex h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
               <p className="label-eyebrow">Registry / Live Benchmarks</p>
+              <span className="rounded-full bg-primary/20 border border-primary/30 px-2 py-0.5 text-[10px] font-bold uppercase tracking-widest text-primary">Beta</span>
             </div>
             <h1 className="text-balance font-display text-4xl font-bold tracking-tight text-foreground sm:text-5xl lg:text-6xl">
               Global LLM Leaderboard
@@ -99,96 +103,9 @@ export default async function Home({ searchParams }: HomePageProps) {
         </div>
       </section>
 
-      <NewModelsFeed models={models} days={30} />
-
-      <DomainCards />
-
-      <section className="grid gap-4 xl:grid-cols-[1fr_2fr_1fr]">
-        <article className="relative overflow-hidden rounded-2xl border border-border bg-card/50 p-6">
-          <p className="label-eyebrow text-muted-foreground/70">Total Registry</p>
-          <div className="mt-6 flex items-baseline gap-2">
-            <p className="font-display text-6xl font-bold tracking-tight text-foreground">{models.length}</p>
-            <p className="text-sm font-mono uppercase tracking-widest text-muted-foreground">Models</p>
-          </div>
-          <p className="mt-4 text-sm text-muted-foreground leading-relaxed">
-            Verified foundation models tracking live performance and provenance.
-          </p>
-          <div className="mt-8 flex items-center gap-2 border-t border-border/50 pt-4 font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
-            <span className="h-1.5 w-1.5 rounded-full bg-primary" />
-            <span>{totalScores.toLocaleString()} Scores Logged</span>
-          </div>
-        </article>
-
-        <article className="rounded-2xl border border-border bg-card/50 p-6">
-          <div className="mb-6 flex items-center justify-between">
-            <p className="label-eyebrow text-muted-foreground/70">Top Performers</p>
-            <Link href="/" className="text-xs font-bold uppercase tracking-widest text-primary hover:text-primary/80 transition-colors">View All</Link>
-          </div>
-          <div className="grid gap-4 md:grid-cols-2">
-            {quickHighlights.slice(0, 4).map((item) => (
-              item.model ? (
-                <Link
-                  key={item.label}
-                  href={`/model/${item.model.id}`}
-                  className="group relative overflow-hidden rounded-xl border border-border/50 bg-muted/30 p-4 transition-all hover:border-primary/30 hover:bg-muted/50"
-                >
-                  <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground/80">{item.label}</p>
-                  <p className="mt-2 truncate text-xl font-bold tracking-tight text-foreground group-hover:text-primary transition-colors">{item.model.name}</p>
-                  <div className="mt-3 flex items-center justify-between">
-                    <p className="font-mono text-sm font-bold text-primary">
-                      {item.value === null
-                        ? "--"
-                        : item.format === "ratio"
-                          ? `${item.value.toFixed(1)}x`
-                          : `${item.value.toFixed(1)} pts`}
-                    </p>
-                    <div className="h-1 w-12 rounded-full bg-muted-foreground/20 overflow-hidden">
-                      <div className="h-full bg-primary" style={{ width: '70%' }} />
-                    </div>
-                  </div>
-                </Link>
-              ) : (
-                <div
-                  key={item.label}
-                  className="relative overflow-hidden rounded-xl border border-border/50 bg-muted/30 p-4"
-                >
-                  <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground/80">{item.label}</p>
-                  <p className="mt-2 truncate text-xl font-bold tracking-tight text-muted-foreground">TBD</p>
-                  <div className="mt-3 flex items-center justify-between">
-                    <p className="font-mono text-sm font-bold text-muted-foreground">--</p>
-                    <div className="h-1 w-12 rounded-full bg-muted-foreground/20 overflow-hidden">
-                      <div className="h-full bg-muted" style={{ width: '0%' }} />
-                    </div>
-                  </div>
-                </div>
-              )
-            ))}
-          </div>
-        </article>
-
-        <article className="relative overflow-hidden rounded-2xl border border-slate-800 bg-[#020617] p-6 text-slate-100 shadow-2xl">
-          <div className="absolute -right-8 -top-8 h-32 w-32 rounded-full bg-primary/10 blur-3xl" />
-          <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-slate-500">Latest Arrival</p>
-          
-          <div className="mt-6">
-            <span className="rounded-full bg-primary/20 border border-primary/30 px-3 py-0.5 text-[10px] font-bold uppercase tracking-widest text-primary">
-              New
-            </span>
-            <p className="mt-4 text-3xl font-display font-bold tracking-tight text-white">{latestArrival?.name ?? "Model"}</p>
-            <p className="mt-2 text-sm text-slate-400 leading-relaxed">{latestArrival?.provider}&apos;s newest entry.</p>
-          </div>
-
-          <div className="mt-12 flex items-center justify-between border-t border-slate-800 pt-4">
-            <span className="font-mono text-[10px] uppercase tracking-widest text-slate-500">{latestArrival?.releaseDate}</span>
-            {latestArrival && (
-              <Link href={`/model/${latestArrival.id}`} className="group flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest text-white hover:text-primary transition-colors">
-                Details
-                <ChevronDown className="h-3 w-3 -rotate-90 group-hover:translate-x-0.5 transition-transform" />
-              </Link>
-            )}
-          </div>
-        </article>
-      </section>
+      <article className="mt-8">
+        <DomainCards />
+      </article>
 
       <section className="surface-card rounded-xl px-4 py-3">
         <div className="flex flex-wrap items-center gap-2 text-xs font-mono tracking-wide text-muted-foreground">
@@ -198,7 +115,22 @@ export default async function Home({ searchParams }: HomePageProps) {
         </div>
       </section>
 
-      <Suspense fallback={<div className="surface-card flex h-96 items-center justify-center rounded-xl font-mono text-sm uppercase tracking-[0.12em] text-muted-foreground">Loading Leaderboard…</div>}>
+      <Suspense fallback={
+        <div className="space-y-4 rounded-xl border border-border/40 bg-card/30 p-4">
+          <div className="flex items-center justify-between">
+            <Skeleton className="h-8 w-48" />
+            <Skeleton className="h-8 w-64" />
+          </div>
+          <div className="space-y-2">
+            <Skeleton className="h-10 w-full" />
+            <Skeleton className="h-16 w-full" />
+            <Skeleton className="h-16 w-full" />
+            <Skeleton className="h-16 w-full" />
+            <Skeleton className="h-16 w-full" />
+            <Skeleton className="h-16 w-full" />
+          </div>
+        </div>
+      }>
         <DataTable
           data={leaderboard.rows}
           benchmarks={benchmarks}

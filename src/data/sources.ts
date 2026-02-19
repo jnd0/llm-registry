@@ -34,6 +34,13 @@ export const sources: SourceRecord[] = [
     updatedAt: "2025-11-18",
   },
   {
+    id: "google-gemini31-announce",
+    name: "Gemini 3.1 Pro Announcement",
+    url: "https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-3-1-pro/",
+    publisher: "Google DeepMind",
+    updatedAt: "2026-02-19",
+  },
+  {
     id: "deepseek-news",
     name: "DeepSeek News",
     url: "https://www.deepseek.com/",

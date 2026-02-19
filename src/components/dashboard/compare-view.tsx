@@ -122,7 +122,7 @@ export function CompareView({ modelOptions, initialSelectedModels, benchmarks }:
     };
   }, [compareIds, modelCache]);
 
-  const categories = useMemo(() => 
+  const categories = useMemo(() =>
     Array.from(new Set(benchmarks.map(b => b.category))),
     [benchmarks]
   );
@@ -154,7 +154,7 @@ export function CompareView({ modelOptions, initialSelectedModels, benchmarks }:
             return normalizeScore(scoreObj.score, b);
           })
           .filter((s): s is number => s !== null);
-        
+
         return {
           modelId: model.id,
           modelName: model.name,
@@ -248,7 +248,7 @@ export function CompareView({ modelOptions, initialSelectedModels, benchmarks }:
 
   const addModel = (id: string) => {
     if (compareIds.includes(id)) return;
-    if (compareIds.length >= 3) return; 
+    if (compareIds.length >= 3) return;
     setCompareIds((prev) => [...(prev || []), id]);
     setPopoverOpen(false);
   };
@@ -413,11 +413,11 @@ export function CompareView({ modelOptions, initialSelectedModels, benchmarks }:
                           disabled={compareIds.includes(model.id) || compareIds.length >= 3}
                           className="mb-1 cursor-pointer rounded-xl px-3 py-2.5 transition-colors aria-selected:bg-primary/5 aria-selected:text-primary"
                         >
-                           <div className="flex w-full items-center justify-between gap-3">
-                             <div className="min-w-0">
-                               <span className="block truncate text-sm font-bold tracking-tight" title={model.name}>{model.name}</span>
-                               <span className={cn("block truncate text-[10px] font-bold uppercase tracking-wider opacity-70", providerTheme.text)}>{model.provider}</span>
-                             </div>
+                          <div className="flex w-full items-center justify-between gap-3">
+                            <div className="min-w-0">
+                              <span className="block truncate text-sm font-bold tracking-tight" title={model.name}>{model.name}</span>
+                              <span className={cn("block truncate text-[10px] font-bold uppercase tracking-wider opacity-70", providerTheme.text)}>{model.provider}</span>
+                            </div>
                             {compareIds.includes(model.id) && (
                               <span className="rounded-full bg-primary/10 px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider text-primary">Added</span>
                             )}
@@ -482,19 +482,45 @@ export function CompareView({ modelOptions, initialSelectedModels, benchmarks }:
           );
         })}
 
-        {Array.from({ length: Math.max(0, 3 - selectedModels.length) }).map((_, idx) => (
-          <button
-            key={`empty-${idx}`}
-            type="button"
-            onClick={() => setPopoverOpen(true)}
-            className="flex min-h-[200px] flex-col items-center justify-center rounded-2xl border border-dashed border-border/60 bg-muted/5 p-6 text-muted-foreground/40 group cursor-pointer hover:bg-muted/10 hover:border-primary/30 transition-all"
-          >
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-muted/20 mb-4 group-hover:scale-110 transition-transform">
-              <Plus className="h-5 w-5" />
+        {Array.from({ length: Math.max(0, 3 - selectedModels.length) }).map((_, idx) => {
+          const slotNum = selectedModels.length + idx + 1;
+          const suggestions = selectableModels.filter(m => !compareIds.includes(m.id)).slice(0, 3);
+
+          return (
+            <div
+              key={`empty-${idx}`}
+              className="flex min-h-[200px] flex-col rounded-2xl border border-dashed border-border/60 bg-muted/5 p-6"
+            >
+              <div className="flex items-center justify-between mb-4">
+                <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground/50">Slot 0{slotNum}</p>
+                <Button variant="ghost" size="sm" onClick={() => setPopoverOpen(true)} className="h-7 text-[10px] uppercase font-bold tracking-wider px-2 hover:bg-muted text-muted-foreground">
+                  <Plus className="mr-1 h-3 w-3" /> Search
+                </Button>
+              </div>
+              {suggestions.length > 0 ? (
+                <div className="space-y-2 mt-auto">
+                  <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground/40 mb-3">Suggested Comparisons</p>
+                  {suggestions.map(s => (
+                    <button
+                      key={s.id}
+                      onClick={() => addModel(s.id)}
+                      className="group flex w-full items-center justify-between rounded-lg border border-border/40 bg-card/50 p-2.5 text-left hover:border-primary/30 hover:bg-muted/50 transition-all"
+                    >
+                      <div className="min-w-0 flex-1 pr-2">
+                        <span className="block truncate text-xs font-bold text-foreground group-hover:text-primary transition-colors">{s.name}</span>
+                      </div>
+                      <Plus className="h-3.5 w-3.5 text-muted-foreground group-hover:text-primary transition-colors shrink-0" />
+                    </button>
+                  ))}
+                </div>
+              ) : (
+                <div className="flex flex-1 items-center justify-center">
+                  <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground/40">No suggestions available</p>
+                </div>
+              )}
             </div>
-            <p className="text-[10px] font-bold uppercase tracking-[0.2em]">Add Slot 0{selectedModels.length + idx + 1}</p>
-          </button>
-        ))}
+          );
+        })}
       </section>
 
       {selectedModels.length > 0 && (
@@ -518,7 +544,7 @@ export function CompareView({ modelOptions, initialSelectedModels, benchmarks }:
                 {showSummary ? "Category Normalized Averages" : "Benchmark Comparison"}
               </p>
             </div>
-            
+
             <div className="flex-1 p-6 overflow-y-auto no-scrollbar max-h-[400px]">
               <div className="space-y-8">
                 {showSummary ? (
@@ -528,14 +554,14 @@ export function CompareView({ modelOptions, initialSelectedModels, benchmarks }:
                         <span className="text-[11px] font-bold uppercase tracking-widest text-primary">{cat.name} Avg</span>
                         <span className="font-mono text-[10px] font-bold text-muted-foreground/40 uppercase tracking-widest">Scale 100%</span>
                       </div>
-                      
+
                       <div className="space-y-3">
                         {cat.scores.map((scoreObj, idx) => {
                           const score = scoreObj.average;
                           if (score === null) return null;
                           const width = `${Math.min(score, 100)}%`;
                           const seriesColors = getSeriesColorClasses(idx);
-                               
+
                           return (
                             <div key={scoreObj.modelId} className="space-y-1.5">
                               <div className="flex items-center justify-between text-[10px] font-bold uppercase tracking-wider">
@@ -543,8 +569,8 @@ export function CompareView({ modelOptions, initialSelectedModels, benchmarks }:
                                 <span className={cn("tabular-nums", seriesColors.text)}>{score.toFixed(1)}%</span>
                               </div>
                               <div className="h-1.5 w-full bg-muted/50 rounded-full overflow-hidden">
-                                <div 
-                                  className={cn("h-full ease-out motion-reduce:duration-0", seriesColors.bar)} 
+                                <div
+                                  className={cn("h-full ease-out motion-reduce:duration-0", seriesColors.bar)}
                                   style={{ width, transitionDuration: '1000ms' }}
                                 />
                               </div>
@@ -565,7 +591,7 @@ export function CompareView({ modelOptions, initialSelectedModels, benchmarks }:
                         <span className="text-[11px] font-bold uppercase tracking-widest text-foreground">{benchmark.name}</span>
                         <span className="font-mono text-[10px] font-bold text-muted-foreground/40 uppercase tracking-widest">Delta {benchmarkDeltas[benchmark.id]?.toFixed(1) ?? "0.0"}</span>
                       </div>
-                      
+
                       <div className="space-y-4">
                         {selectedModels.map((model, idx) => {
                           const scoreEntry = model.scores[benchmark.id];
@@ -596,8 +622,8 @@ export function CompareView({ modelOptions, initialSelectedModels, benchmarks }:
                                 </span>
                               </div>
                               <div className="h-1.5 w-full bg-muted/50 rounded-full overflow-hidden">
-                                <div 
-                                  className={cn("h-full ease-out motion-reduce:duration-0", seriesColors.bar)} 
+                                <div
+                                  className={cn("h-full ease-out motion-reduce:duration-0", seriesColors.bar)}
                                   style={{ width, transitionDuration: '1000ms' }}
                                 />
                               </div>

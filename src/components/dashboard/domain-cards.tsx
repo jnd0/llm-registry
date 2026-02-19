@@ -45,7 +45,7 @@ export function DomainCards({ className }: DomainCardsProps) {
     const avgScore = getAverageDomainScore(domain.id);
     const benchmarkCount = getBenchmarkIdsForDomain(domain.id).length;
     const Icon = domainIcons[domain.id];
-    
+
     return {
       ...domain,
       topModel,
@@ -62,8 +62,8 @@ export function DomainCards({ className }: DomainCardsProps) {
         <h2 className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground/50">
           Performance by Domain
         </h2>
-        <Link 
-          href="/about" 
+        <Link
+          href="/about"
           className="font-mono text-[10px] text-muted-foreground/40 hover:text-primary transition-colors"
         >
           About Domains
@@ -75,7 +75,7 @@ export function DomainCards({ className }: DomainCardsProps) {
           <Link
             key={domain.id}
             href={`/domain/${domainToSlug(domain.id)}`}
-            className="group surface-card rounded-xl border border-border/40 p-4 transition-all hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5"
+            className="group surface-card rounded-xl border border-border/40 p-4 transition-all hover:-translate-y-1 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5"
           >
             <div className={cn(
               "flex h-10 w-10 items-center justify-center rounded-lg border mb-3",
@@ -83,22 +83,22 @@ export function DomainCards({ className }: DomainCardsProps) {
             )}>
               <domain.Icon className="h-5 w-5" />
             </div>
-            
+
             <h3 className="font-display text-xs font-bold text-foreground group-hover:text-primary transition-colors line-clamp-1">
               {domain.label}
             </h3>
-            
+
             {domain.topModel && (
               <p className="mt-2 text-[10px] text-muted-foreground truncate" title={domain.topModel.modelName}>
                 Top: {domain.topModel.modelName}
               </p>
             )}
-            
+
             <div className="mt-2 flex items-baseline gap-1">
               <span className="font-mono text-lg font-bold text-foreground">
-                {domain.avgScore.toFixed(0)}
+                {domain.topModel ? domain.topModel.average.toFixed(0) : domain.avgScore.toFixed(0)}
               </span>
-              <span className="text-[10px] text-muted-foreground">avg</span>
+              <span className="text-[10px] text-muted-foreground">pts</span>
               <span className="text-[10px] text-muted-foreground/60 ml-1">· n={domain.benchmarkCount}</span>
             </div>
           </Link>

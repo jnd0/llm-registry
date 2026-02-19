@@ -36,8 +36,8 @@ interface ChartDataPoint {
   yPixel: number;
 }
 
-export function ExploreClient({ 
-  models, 
+export function ExploreClient({
+  models,
   benchmarkOptions,
 }: ExploreClientProps) {
   const [xAxis, setXAxis] = useState<XAxisOption>("price");
@@ -68,7 +68,7 @@ export function ExploreClient({
     return filteredModels
       .map((model) => {
         let xValue: number | null = null;
-        
+
         switch (xAxis) {
           case "price":
             xValue = model.specs.pricing.input + model.specs.pricing.output;
@@ -91,8 +91,8 @@ export function ExploreClient({
         if (yAxis === "coverage") {
           const scores = Object.values(model.scores);
           const validScores = scores.filter((s) => s.score !== null && s.score !== undefined);
-          yValue = validScores.length > 0 
-            ? (validScores.length / Object.keys(model.scores).length) * 100 
+          yValue = validScores.length > 0
+            ? (validScores.length / Object.keys(model.scores).length) * 100
             : null;
         } else {
           yValue = model.scores[yAxis]?.score ?? null;
@@ -114,10 +114,10 @@ export function ExploreClient({
 
     const xValues = baseChartData.map((d) => d.x);
     const yValues = baseChartData.map((d) => d.y);
-    
+
     let xMin: number;
     let xMax: number;
-    
+
     if (logScale && (xAxis === "price" || xAxis === "inputPrice" || xAxis === "outputPrice")) {
       xMin = Math.min(...xValues);
       xMax = Math.max(...xValues);
@@ -125,7 +125,7 @@ export function ExploreClient({
       xMin = Math.min(...xValues);
       xMax = Math.max(...xValues);
     }
-    
+
     const yMin = Math.min(...yValues);
     const yMax = Math.max(...yValues);
     const xRange = logScale && (xAxis === "price" || xAxis === "inputPrice" || xAxis === "outputPrice")
@@ -142,7 +142,7 @@ export function ExploreClient({
       const xNormalized = xLog
         ? (Math.log10(point.x) - Math.log10(xMin)) / xRange
         : (point.x - xMin) / xRange;
-      
+
       return {
         ...point,
         xPixel: xNormalized * (chartWidth - padding.left - padding.right),
@@ -168,8 +168,8 @@ export function ExploreClient({
         }
         return `$${value.toFixed(2)}`;
       case "contextWindow":
-        return value >= 1000000 
-          ? `${(value / 1000000).toFixed(1)}M` 
+        return value >= 1000000
+          ? `${(value / 1000000).toFixed(1)}M`
           : `${(value / 1000).toFixed(0)}k`;
       case "releaseDate":
         return new Date(value).toLocaleDateString();
@@ -184,7 +184,7 @@ export function ExploreClient({
 
   const getXTickValues = () => {
     if (chartData.data.length === 0) return [];
-    
+
     if (logScale && (xAxis === "price" || xAxis === "inputPrice" || xAxis === "outputPrice")) {
       const logMin = Math.log10(chartData.xMin);
       const logMax = Math.log10(chartData.xMax);
@@ -196,7 +196,7 @@ export function ExploreClient({
       }
       return ticks.slice(0, 6);
     }
-    
+
     return [0, 0.25, 0.5, 0.75, 1];
   };
 
@@ -230,7 +230,7 @@ export function ExploreClient({
         </div>
 
         {(xAxis === "price" || xAxis === "inputPrice" || xAxis === "outputPrice") && (
-          <label className="flex items-center gap-1.5 text-xs text-muted-foreground cursor-pointer">
+          <label className="flex h-8 items-center gap-1.5 text-xs text-muted-foreground cursor-pointer">
             <input
               type="checkbox"
               checked={logScale}
@@ -253,7 +253,7 @@ export function ExploreClient({
               </span>
               <ChevronDown className="h-3 w-3 ml-auto shrink-0" />
             </button>
-            
+
             {showBenchmarkDropdown && (
               <div className="absolute top-full left-0 mt-1 z-50 w-64 rounded-lg border border-border bg-popover shadow-lg">
                 <div className="p-2 border-b border-border">
@@ -422,7 +422,7 @@ export function ExploreClient({
 
                 {chartData.data.map((point) => {
                   const isHovered = hoveredPoint?.model.id === point.model.id;
-                  
+
                   return (
                     <g key={point.model.id}>
                       <circle
