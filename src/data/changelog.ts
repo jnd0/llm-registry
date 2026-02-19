@@ -7,6 +7,24 @@ export interface ChangelogEntry {
 
 export const changelog: ChangelogEntry[] = [
   {
+    version: "1.5.0",
+    date: "2026-02-19",
+    title: "Filters, Freshness, and API Enhancements",
+    notes: [
+      "Added source and verification level multi-select filters to leaderboard toolbar.",
+      "Added data freshness indicators: amber dot for aging (91-180d), red dot for stale (>180d).",
+      "Fixed URL params clobbering between chart and leaderboard on benchmark pages.",
+      "Fixed domain ranking calculation to use normalized scores for cross-benchmark comparability.",
+      "Added /api/v1/export endpoint with JSON and CSV format support for research workflows.",
+      "Added /api-docs page with live data counts and endpoint documentation.",
+      "Added domain detail pages showing top models and benchmark lists.",
+      "Added explore page with log scale toggle and searchable benchmark selector.",
+      "Added loading states for benchmark, model, explore, and benchmarks pages.",
+      "Added Open Graph metadata for model, benchmark, and domain pages.",
+      "Added mobile menu domain links and API navigation item.",
+    ],
+  },
+  {
     version: "1.4.0",
     date: "2026-02-18",
     title: "Accessibility and UX Polish",
