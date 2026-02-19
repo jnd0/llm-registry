@@ -5,22 +5,26 @@ import type { Metadata } from "next";
 import { Button } from "@/components/ui/button";
 import { Suspense } from "react";
 import Link from "next/link";
-import { benchmarkCategories, categoryToSlug, slugToCategory } from "@/lib/categories";
+import { categoryToSlug, slugToCategory } from "@/lib/categories";
 import { getHomeMetrics } from "@/lib/home-metrics";
 import { parseLeaderboardQueryParams, queryLeaderboardModels } from "@/lib/leaderboard-query";
-import { cn } from "@/lib/utils";
 import { ChevronDown } from "lucide-react";
 import { NewModelsFeed } from "@/components/dashboard/new-models-feed";
 import { DomainCards } from "@/components/dashboard/domain-cards";
+import { redirect } from "next/navigation";
 
 interface HomePageProps {
   searchParams: Promise<{
     category?: string;
+    domain?: string;
+    license?: string;
     q?: string;
     sort?: string;
     dir?: string;
     page?: string;
     pageSize?: string;
+    source?: string;
+    verification?: string;
   }>;
 }
 
@@ -34,9 +38,26 @@ export const metadata: Metadata = {
 
 export default async function Home({ searchParams }: HomePageProps) {
   const params = await searchParams;
-  const activeCategory = slugToCategory(params?.category);
-  const activeCategorySlug = activeCategory ? categoryToSlug(activeCategory) : null;
-  const queryParams = parseLeaderboardQueryParams(params, benchmarks, { activeCategory });
+  
+  // Redirect old /?category=... URLs to /leaderboard/[category]
+  if (params?.category) {
+    const category = slugToCategory(params.category);
+    if (category) {
+      const slug = categoryToSlug(category);
+      const remainingParams = new URLSearchParams();
+      if (params.q) remainingParams.set("q", params.q);
+      if (params.sort) remainingParams.set("sort", params.sort);
+      if (params.dir) remainingParams.set("dir", params.dir);
+      if (params.page) remainingParams.set("page", params.page);
+      if (params.pageSize) remainingParams.set("pageSize", params.pageSize);
+      if (params.domain) remainingParams.set("domain", params.domain);
+      if (params.license) remainingParams.set("license", params.license);
+      const queryString = remainingParams.toString();
+      redirect(`/leaderboard/${slug}${queryString ? `?${queryString}` : ""}`);
+    }
+  }
+
+  const queryParams = parseLeaderboardQueryParams(params, benchmarks);
   const leaderboard = queryLeaderboardModels(models, benchmarks, queryParams);
   const { mappedBenchmarks, quickHighlights, totalScores } = getHomeMetrics(models, benchmarks);
 
@@ -71,49 +92,9 @@ export default async function Home({ searchParams }: HomePageProps) {
                 <Link href="/about">Methodology</Link>
               </Button>
               <Button asChild size="sm" className="h-9 rounded-full px-5 text-xs font-bold uppercase tracking-wider shadow-lg shadow-primary/20">
-                <Link href={activeCategorySlug ? `/compare?category=${activeCategorySlug}` : "/compare"}>Compare</Link>
+                <Link href="/compare">Compare</Link>
               </Button>
             </div>
-          </div>
-        </div>
-
-        <div className="mt-10 flex flex-col gap-4">
-          <p className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground/50 px-1">
-            Browse Category
-          </p>
-          <div className="relative">
-            <div className="flex items-center gap-2 overflow-x-auto pb-4 no-scrollbar">
-              <Link
-                href="/"
-                className={cn(
-                  "whitespace-nowrap rounded-full px-5 py-2 text-[11px] font-bold uppercase tracking-wider transition-all",
-                  !activeCategory
-                    ? "bg-primary text-primary-foreground shadow-lg shadow-primary/20"
-                    : "bg-muted/40 text-muted-foreground hover:bg-muted hover:text-foreground"
-                )}
-              >
-                All Models
-              </Link>
-              {benchmarkCategories.map((category) => {
-                const slug = categoryToSlug(category);
-                const isActive = activeCategory === category;
-                return (
-                  <Link
-                    key={category}
-                    href={`/?category=${slug}`}
-                    className={cn(
-                      "whitespace-nowrap rounded-full px-5 py-2 text-[11px] font-bold uppercase tracking-wider transition-all",
-                      isActive
-                        ? "bg-primary text-primary-foreground shadow-lg shadow-primary/20"
-                        : "bg-muted/40 text-muted-foreground hover:bg-muted hover:text-foreground"
-                    )}
-                  >
-                    {category}
-                  </Link>
-                );
-              })}
-            </div>
-            <div className="pointer-events-none absolute inset-y-0 right-0 w-12 bg-gradient-to-l from-card/80 to-transparent" />
           </div>
         </div>
       </section>
@@ -145,22 +126,42 @@ export default async function Home({ searchParams }: HomePageProps) {
           </div>
           <div className="grid gap-4 md:grid-cols-2">
             {quickHighlights.slice(0, 4).map((item) => (
-              <div key={item.label} className="group relative overflow-hidden rounded-xl border border-border/50 bg-muted/30 p-4 transition-all hover:border-primary/30 hover:bg-muted/50">
-                <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground/80">{item.label}</p>
-                <p className="mt-2 truncate text-xl font-bold tracking-tight text-foreground group-hover:text-primary transition-colors">{item.model?.name ?? "TBD"}</p>
-                <div className="mt-3 flex items-center justify-between">
-                  <p className="font-mono text-sm font-bold text-primary">
-                    {item.value === null
-                      ? "--"
-                      : item.format === "ratio"
-                        ? `${item.value.toFixed(1)}x`
-                        : `${item.value.toFixed(1)} pts`}
-                  </p>
-                  <div className="h-1 w-12 rounded-full bg-muted-foreground/20 overflow-hidden">
-                    <div className="h-full bg-primary" style={{ width: '70%' }} />
+              item.model ? (
+                <Link
+                  key={item.label}
+                  href={`/model/${item.model.id}`}
+                  className="group relative overflow-hidden rounded-xl border border-border/50 bg-muted/30 p-4 transition-all hover:border-primary/30 hover:bg-muted/50"
+                >
+                  <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground/80">{item.label}</p>
+                  <p className="mt-2 truncate text-xl font-bold tracking-tight text-foreground group-hover:text-primary transition-colors">{item.model.name}</p>
+                  <div className="mt-3 flex items-center justify-between">
+                    <p className="font-mono text-sm font-bold text-primary">
+                      {item.value === null
+                        ? "--"
+                        : item.format === "ratio"
+                          ? `${item.value.toFixed(1)}x`
+                          : `${item.value.toFixed(1)} pts`}
+                    </p>
+                    <div className="h-1 w-12 rounded-full bg-muted-foreground/20 overflow-hidden">
+                      <div className="h-full bg-primary" style={{ width: '70%' }} />
+                    </div>
+                  </div>
+                </Link>
+              ) : (
+                <div
+                  key={item.label}
+                  className="relative overflow-hidden rounded-xl border border-border/50 bg-muted/30 p-4"
+                >
+                  <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground/80">{item.label}</p>
+                  <p className="mt-2 truncate text-xl font-bold tracking-tight text-muted-foreground">TBD</p>
+                  <div className="mt-3 flex items-center justify-between">
+                    <p className="font-mono text-sm font-bold text-muted-foreground">--</p>
+                    <div className="h-1 w-12 rounded-full bg-muted-foreground/20 overflow-hidden">
+                      <div className="h-full bg-muted" style={{ width: '0%' }} />
+                    </div>
                   </div>
                 </div>
-              </div>
+              )
             ))}
           </div>
         </article>
@@ -201,8 +202,8 @@ export default async function Home({ searchParams }: HomePageProps) {
         <DataTable
           data={leaderboard.rows}
           benchmarks={benchmarks}
-          activeCategory={activeCategory}
-          activeCategorySlug={activeCategorySlug}
+          activeCategory={null}
+          activeCategorySlug={null}
           totalRows={leaderboard.total}
           currentPage={leaderboard.page}
           totalPages={leaderboard.totalPages}
@@ -210,6 +211,9 @@ export default async function Home({ searchParams }: HomePageProps) {
           sortDir={leaderboard.sortDir}
           searchQuery={leaderboard.query}
           license={leaderboard.license}
+          domain={leaderboard.domain}
+          sourcesFilter={leaderboard.sources}
+          verificationFilter={leaderboard.verification}
         />
       </Suspense>
     </div>

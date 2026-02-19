@@ -15,6 +15,10 @@ interface CategoryPageProps {
     dir?: string;
     page?: string;
     pageSize?: string;
+    license?: string;
+    domain?: string;
+    source?: string;
+    verification?: string;
   }>;
 }
 
@@ -103,6 +107,9 @@ export default async function CategoryLeaderboardPage({ params, searchParams }: 
           sortDir={leaderboard.sortDir}
           searchQuery={leaderboard.query}
           license={leaderboard.license}
+          domain={leaderboard.domain}
+          sourcesFilter={leaderboard.sources}
+          verificationFilter={leaderboard.verification}
         />
       </Suspense>
     </div>

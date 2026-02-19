@@ -9,11 +9,14 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuLabel,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Benchmark, Model } from "@/types";
+import { domainDefinitions, domainToSlug } from "@/lib/domains";
 
 const ThemeToggle = dynamic(
   () => import("@/components/layout/theme-toggle").then((mod) => mod.ThemeToggle),
@@ -39,7 +42,9 @@ export function NavbarClient({ models, benchmarks }: NavbarClientProps) {
   const navItems = [
     { href: "/", label: "Leaderboard" },
     { href: "/benchmarks", label: "Benchmarks" },
+    { href: "/explore", label: "Explore" },
     { href: "/compare", label: "Compare" },
+    { href: "/api-docs", label: "API" },
     { href: "/about", label: "Methodology" },
   ];
 
@@ -52,7 +57,7 @@ export function NavbarClient({ models, benchmarks }: NavbarClientProps) {
     <>
       <CommandPalette open={commandOpen} onOpenChange={setCommandOpen} models={models} benchmarks={benchmarks} />
       <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/80 backdrop-blur-md">
-        <div className="container flex h-14 items-center justify-between gap-3 px-4">
+        <div className="container mx-auto flex h-14 items-center justify-between gap-3 px-4">
           <div className="flex items-center gap-8">
             <Link href="/" className="group flex items-center gap-2.5">
               <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground shadow-sm group-hover:shadow-primary/20 transition-all">
@@ -113,7 +118,7 @@ export function NavbarClient({ models, benchmarks }: NavbarClientProps) {
                   <Menu className="h-4 w-4" aria-hidden="true" />
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="min-w-[200px] rounded-xl border-border bg-card p-1.5 shadow-xl md:hidden">
+              <DropdownMenuContent align="end" className="min-w-[220px] rounded-xl border-border bg-card p-1.5 shadow-xl md:hidden">
                 {navItems.map((item) => (
                   <DropdownMenuItem key={item.href} asChild>
                     <Link
@@ -124,6 +129,20 @@ export function NavbarClient({ models, benchmarks }: NavbarClientProps) {
                       )}
                     >
                       {item.label}
+                    </Link>
+                  </DropdownMenuItem>
+                ))}
+                <DropdownMenuSeparator className="my-1 bg-border/60" />
+                <DropdownMenuLabel className="px-2 py-1.5 text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
+                  Domains
+                </DropdownMenuLabel>
+                {domainDefinitions.map((domain) => (
+                  <DropdownMenuItem key={domain.id} asChild>
+                    <Link
+                      href={`/domain/${domainToSlug(domain.id)}`}
+                      className="rounded-lg py-2 text-xs text-foreground"
+                    >
+                      {domain.label}
                     </Link>
                   </DropdownMenuItem>
                 ))}

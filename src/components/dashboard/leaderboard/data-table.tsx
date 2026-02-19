@@ -20,6 +20,8 @@ import { Button } from "@/components/ui/button";
 import { normalizeScore } from "@/lib/stats";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import type { LeaderboardSortDirection, LicenseFilter } from "@/lib/leaderboard-query";
+import type { CapabilityDomain } from "@/lib/domains";
+import { getBenchmarkIdsForDomain, domainDefinitions } from "@/lib/domains";
 
 interface DataTableProps {
   data: Model[];
@@ -33,6 +35,9 @@ interface DataTableProps {
   sortDir: LeaderboardSortDirection;
   searchQuery: string;
   license: LicenseFilter;
+  domain: CapabilityDomain | null;
+  sourcesFilter: string[];
+  verificationFilter: string[];
 }
 
 function areStringArraysEqual(a: string[], b: string[]) {
@@ -64,6 +69,9 @@ export function DataTable({
   sortDir,
   searchQuery,
   license,
+  domain,
+  sourcesFilter,
+  verificationFilter,
 }: DataTableProps) {
   const benchmarkWindowSize = 24;
 
@@ -190,21 +198,34 @@ export function DataTable({
   }, [benchmarkWindowPage, canUseBenchmarkWindow, groupedBenchmarkIds]);
 
   const coreColumnIds = React.useMemo(() => ["select", "name", "releaseDate", "context", "coverage"], []);
+  const priceColumnIds = React.useMemo(() => ["inputPrice", "outputPrice"], []);
 
   const allColumnIds = React.useMemo(
-    () => [...coreColumnIds, ...avgColumnIds, ...groupedBenchmarkIds],
-    [coreColumnIds, avgColumnIds, groupedBenchmarkIds]
+    () => [...coreColumnIds, ...priceColumnIds, ...avgColumnIds, ...groupedBenchmarkIds],
+    [coreColumnIds, priceColumnIds, avgColumnIds, groupedBenchmarkIds]
   );
 
   const defaultColumnOrder = React.useMemo(
-    () => [...coreColumnIds, ...avgColumnIds, ...groupedBenchmarkIds],
-    [coreColumnIds, avgColumnIds, groupedBenchmarkIds]
+    () => [...coreColumnIds, ...priceColumnIds, ...avgColumnIds, ...groupedBenchmarkIds],
+    [coreColumnIds, priceColumnIds, avgColumnIds, groupedBenchmarkIds]
   );
 
-  const mobileHighlightIds = React.useMemo(
-    () => ["mmlu", "gpqa-diamond", "swe-bench-verified", "lmarena-elo"],
-    []
-  );
+  const mobileHighlightIds = React.useMemo(() => {
+    const defaultHighlights = ["mmlu", "gpqa-diamond", "swe-bench-verified", "lmarena-elo"];
+    
+    if (!activeCategory) {
+      return defaultHighlights;
+    }
+
+    const categoryBenchmarks = categoryBenchmarksMap.get(activeCategory) ?? [];
+    const categoryIds = categoryBenchmarks.slice(0, 4).map((b) => b.id);
+    
+    if (categoryIds.length === 0) {
+      return defaultHighlights;
+    }
+
+    return categoryIds;
+  }, [activeCategory, categoryBenchmarksMap]);
 
   const benchmarkById = React.useMemo(
     () => new Map(benchmarks.map((benchmark) => [benchmark.id, benchmark])),
@@ -318,7 +339,6 @@ export function DataTable({
   );
 
   // TanStack Table returns mutable helpers by design; this hook is intended usage here.
-  // eslint-disable-next-line react-hooks/incompatible-library
   const table = useReactTable({
     data,
     columns,
@@ -437,6 +457,7 @@ export function DataTable({
   // Handle Summary View toggle
   React.useEffect(() => {
     if (activeCategory) return;
+    if (domain) return;
 
     if (summaryView) {
       const essentialColumns = [...coreColumnIds, ...summaryAvgColumnIds];
@@ -467,7 +488,7 @@ export function DataTable({
         setSortingSafely(defaultSortId, true, false);
       }
     }
-  }, [activeCategory, allColumnIds, benchmarkWindowIds, canUseBenchmarkWindow, coreColumnIds, defaultSortId, groupedBenchmarkIds, setColumnVisibilitySafely, setSortingSafely, sorting, summaryAvgColumnIds, summaryView]);
+  }, [activeCategory, domain, allColumnIds, benchmarkWindowIds, canUseBenchmarkWindow, coreColumnIds, defaultSortId, groupedBenchmarkIds, setColumnVisibilitySafely, setSortingSafely, sorting, summaryAvgColumnIds, summaryView]);
 
   React.useEffect(() => {
     if (!activeCategory) return;
@@ -493,49 +514,37 @@ export function DataTable({
     setColumnOrderSafely([...coreColumnIds, avgColumnId, ...categoryBenchmarkIds]);
   }, [activeCategory, allColumnIds, categoryBenchmarksMap, coreColumnIds, setColumnOrderSafely, setColumnVisibilitySafely, setSortingSafely]);
 
-  const resetLayout = () => {
-    setBenchmarkWindowPage(0);
-    setColumnOrderSafely(defaultColumnOrder);
-    localStorage.removeItem("columnOrder");
-    table.resetColumnVisibility();
-  };
+  React.useEffect(() => {
+    if (!domain) return;
+    if (activeCategory) return;
 
-  const applyPreset = (preset: "general" | "coding" | "agentic" | "vision" | "video") => {
-    const categoryTargets: Record<string, string[]> = {
-      coding: ["Coding"],
-      agentic: ["Agentic"],
-      vision: ["Vision"],
-      video: ["Video"],
-    };
+    const domainBenchmarkIds = getBenchmarkIdsForDomain(domain);
+    const domainDef = domainDefinitions.find((d) => d.id === domain);
+    const avgColumnIds = domainDef?.categories.map(
+      (cat) => `avg-${cat.toLowerCase().replace(/\s+/g, "-")}`
+    ) ?? [];
 
-    if (preset === "general") {
-      setBenchmarkWindowPage(0);
-      setSummaryView(true);
-      const visible = new Set([...coreColumnIds, ...summaryAvgColumnIds]);
-      const newVisibility: VisibilityState = {};
-      allColumnIds.forEach((columnId) => {
-        newVisibility[columnId] = visible.has(columnId);
-      });
-      setColumnVisibilitySafely(newVisibility);
-      setSortingSafely(summaryAvgColumnIds[0] ?? "coverage", true);
-      return;
-    }
-
-    setBenchmarkWindowPage(0);
     setSummaryView(false);
-    const categories = categoryTargets[preset] ?? [];
-    const targetBenchmarkIds = benchmarks
-      .filter((benchmark) => categories.includes(benchmark.category))
-      .map((benchmark) => benchmark.id);
 
-    const visible = new Set([...coreColumnIds, ...targetBenchmarkIds]);
+    const visible = new Set([...coreColumnIds, ...avgColumnIds, ...domainBenchmarkIds]);
     const newVisibility: VisibilityState = {};
     allColumnIds.forEach((columnId) => {
       newVisibility[columnId] = visible.has(columnId);
     });
     setColumnVisibilitySafely(newVisibility);
 
-    setSortingSafely(targetBenchmarkIds[0] ?? "coverage", true);
+    const sortingId = avgColumnIds.find((id) => allColumnIds.includes(id)) ?? 
+      domainBenchmarkIds[0] ?? "coverage";
+    setSortingSafely(sortingId, true, false);
+    setColumnOrderSafely([...coreColumnIds, ...avgColumnIds, ...domainBenchmarkIds]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [domain, activeCategory, allColumnIds, coreColumnIds]);
+
+  const resetLayout = () => {
+    setBenchmarkWindowPage(0);
+    setColumnOrderSafely(defaultColumnOrder);
+    localStorage.removeItem("columnOrder");
+    table.resetColumnVisibility();
   };
 
   const handleSearchQueryChange = React.useCallback(
@@ -563,6 +572,33 @@ export function DataTable({
     [enqueueSearchParamUpdates, license]
   );
 
+  const handleClearDomain = React.useCallback(() => {
+    enqueueSearchParamUpdates({
+      domain: null,
+      page: "1",
+    });
+  }, [enqueueSearchParamUpdates]);
+
+  const handleSourcesFilterChange = React.useCallback(
+    (nextSources: string[]) => {
+      enqueueSearchParamUpdates({
+        source: nextSources.length > 0 ? nextSources.join(",") : null,
+        page: "1",
+      });
+    },
+    [enqueueSearchParamUpdates]
+  );
+
+  const handleVerificationFilterChange = React.useCallback(
+    (nextVerification: string[]) => {
+      enqueueSearchParamUpdates({
+        verification: nextVerification.length > 0 ? nextVerification.join(",") : null,
+        page: "1",
+      });
+    },
+    [enqueueSearchParamUpdates]
+  );
+
   const goToPage = React.useCallback(
     (page: number) => {
       const safePage = Math.max(1, Math.min(totalPages, page));
@@ -588,9 +624,14 @@ export function DataTable({
         resetLayout={resetLayout}
         summaryView={summaryView}
         setSummaryView={setSummaryView}
-        applyPreset={applyPreset}
         license={license}
         onLicenseChange={handleLicenseChange}
+        domain={domain}
+        onClearDomain={handleClearDomain}
+        sourcesFilter={sourcesFilter}
+        onSourcesFilterChange={handleSourcesFilterChange}
+        verificationFilter={verificationFilter}
+        onVerificationFilterChange={handleVerificationFilterChange}
       />
 
       <div className="space-y-3 md:hidden">

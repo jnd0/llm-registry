@@ -11,15 +11,19 @@ type RegistryData = {
   models: typeof rawModels;
   sources: typeof rawSources;
   flattenedModels: Model[];
+  variantIds: Set<string>;
 };
 
 let cachedRegistryData: RegistryData | null = null;
 
-function flatten(input: Model[]): Model[] {
+function flatten(input: Model[], variantIds: Set<string>): Model[] {
   return input.reduce((acc, model) => {
     acc.push(model);
     if (model.variants) {
-      acc.push(...flatten(model.variants));
+      for (const variant of model.variants) {
+        variantIds.add(variant.id);
+      }
+      acc.push(...flatten(model.variants, variantIds));
     }
     return acc;
   }, [] as Model[]);
@@ -31,19 +35,21 @@ export function ensureRegistryDataValid(): RegistryData {
   const benchmarks = benchmarkArraySchema.parse(rawBenchmarks);
   const models = modelArraySchema.parse(rawModels);
   const sources = sourceArraySchema.parse(rawSources);
-  const flattenedModels = flatten(models);
+  const variantIds = new Set<string>();
+  const flattenedModels = flatten(models, variantIds);
 
   cachedRegistryData = {
     benchmarks,
     models,
     sources,
     flattenedModels,
+    variantIds,
   };
 
   return cachedRegistryData;
 }
 
-export const { benchmarks, models, sources, flattenedModels } = ensureRegistryDataValid();
+export const { benchmarks, models, sources, flattenedModels, variantIds } = ensureRegistryDataValid();
 
 export function findModel(id: string): Model | undefined {
   return flattenedModels.find((m) => m.id === id);

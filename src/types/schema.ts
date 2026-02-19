@@ -2,6 +2,7 @@ import { z } from "zod";
 
 const modelCapabilityValues = ["text", "code", "vision", "audio", "video", "reasoning"] as const;
 const modelModalityValues = ["text", "image", "audio", "video", "other"] as const;
+const modelTypeValues = ["text", "image-generation", "image-understanding", "video-generation", "video-understanding", "audio-speech", "audio-understanding", "embedding"] as const;
 const pricingDirectionValues = ["input", "output", "cache_input", "cache_output"] as const;
 const pricingUnitValues = ["per_1m_tokens", "per_image", "per_minute", "per_request"] as const;
 const scoreVerificationValues = ["third_party", "provider", "community", "estimated"] as const;
@@ -73,6 +74,7 @@ export const modelSchema: z.ZodType<any> = z.lazy(() =>
     releaseDate: z.string().min(1),
     capabilities: z.array(z.enum(modelCapabilityValues)),
     isOpenSource: z.boolean(),
+    modelType: z.enum(modelTypeValues).optional(),
     specs: z.object({
       contextWindow: z.number().nonnegative(),
       parameters: z.string().min(1),

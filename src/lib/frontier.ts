@@ -1,6 +1,10 @@
 import { Model } from "@/types";
-import { flattenedModels } from "@/lib/registry-data";
+import { flattenedModels, variantIds } from "@/lib/registry-data";
 import { getBenchmarkIdsForDomain, CapabilityDomain } from "./domains";
+import { benchmarks } from "@/data/benchmarks";
+import { normalizeScore } from "./stats";
+
+const benchmarkMap = new Map(benchmarks.map((b) => [b.id, b]));
 
 export interface FrontierDataPoint {
   modelId: string;
@@ -45,7 +49,7 @@ export function getFrontierData(
     const score = scoreEntry.score;
     if (score < minScore) continue;
 
-    const isVariant = model.id !== model.id.split("-").slice(0, -1).join("-");
+    const isVariant = variantIds.has(model.id);
     
     if (isVariant && !includeVariants) continue;
 
@@ -67,13 +71,20 @@ export function getFrontierData(
   points.sort((a, b) => new Date(a.releaseDate).getTime() - new Date(b.releaseDate).getTime());
 
   const limitedPoints = points.slice(-maxPoints);
-  const sortedByScore = [...limitedPoints].sort((a, b) => b.score - a.score);
+  
+  const benchmark = benchmarks.find((b) => b.id === benchmarkId);
+  const benchmarkName = benchmark?.name ?? benchmarkId;
+  const higherIsBetter = benchmark?.higherIsBetter ?? true;
+  
+  const sortedByScore = [...limitedPoints].sort((a, b) => 
+    higherIsBetter ? b.score - a.score : a.score - b.score
+  );
   const topScore = sortedByScore[0]?.score ?? 0;
   const topModelId = sortedByScore[0]?.modelId ?? "";
 
   return {
     benchmarkId,
-    benchmarkName: benchmarkId,
+    benchmarkName,
     points: limitedPoints,
     topScore,
     topModelId,
@@ -103,27 +114,30 @@ export function getDomainScoreForModel(
 ): { average: number; count: number; benchmarks: string[] } | null {
   const benchmarkIds = getBenchmarkIdsForDomain(domainId);
 
-  const scores: number[] = [];
-  const benchmarks: string[] = [];
+  const normalizedScores: number[] = [];
+  const benchmarksWithScores: string[] = [];
 
   for (const benchmarkId of benchmarkIds) {
     const scoreEntry = model.scores[benchmarkId];
     if (scoreEntry && scoreEntry.score !== null && scoreEntry.score !== undefined) {
-      scores.push(scoreEntry.score);
-      benchmarks.push(benchmarkId);
+      const benchmark = benchmarkMap.get(benchmarkId);
+      if (benchmark) {
+        normalizedScores.push(normalizeScore(scoreEntry.score, benchmark));
+        benchmarksWithScores.push(benchmarkId);
+      }
     }
   }
 
-  if (scores.length === 0) {
+  if (normalizedScores.length === 0) {
     return null;
   }
 
-  const average = scores.reduce((sum, s) => sum + s, 0) / scores.length;
+  const average = normalizedScores.reduce((sum, s) => sum + s, 0) / normalizedScores.length;
 
   return {
     average: Math.round(average * 10) / 10,
-    count: scores.length,
-    benchmarks,
+    count: normalizedScores.length,
+    benchmarks: benchmarksWithScores,
   };
 }
 

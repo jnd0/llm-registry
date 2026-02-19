@@ -6,21 +6,34 @@ import type { Model } from "@/types";
 interface NewModelsFeedProps {
   models: Model[];
   days?: number;
+  minCount?: number;
 }
 
-export function NewModelsFeed({ models, days = 30 }: NewModelsFeedProps) {
+export function NewModelsFeed({ models, days = 30, minCount = 4 }: NewModelsFeedProps) {
   const cutoffDate = new Date();
   cutoffDate.setDate(cutoffDate.getDate() - days);
   const cutoffStr = cutoffDate.toISOString().split("T")[0];
 
-  const newModels = models
-    .filter((model) => model.releaseDate >= cutoffStr)
-    .sort((a, b) => b.releaseDate.localeCompare(a.releaseDate))
-    .slice(0, 6);
+  const sortedByDate = [...models].sort((a, b) => b.releaseDate.localeCompare(a.releaseDate));
+
+  const recentModels = sortedByDate.filter((model) => model.releaseDate >= cutoffStr);
+
+  const newModels = recentModels.length >= minCount
+    ? recentModels.slice(0, 6)
+    : [
+        ...recentModels,
+        ...sortedByDate.filter((m) => !recentModels.includes(m)),
+      ].slice(0, minCount);
+
+  const allWithinWindow = newModels.every((m) => m.releaseDate >= cutoffStr);
 
   if (newModels.length === 0) {
     return null;
   }
+
+  const label = allWithinWindow 
+    ? `Last ${days} days` 
+    : `${recentModels.length} new · ${days} days`;
 
   return (
     <section className="space-y-3">
@@ -29,7 +42,7 @@ export function NewModelsFeed({ models, days = 30 }: NewModelsFeedProps) {
           New Models
         </h2>
         <span className="font-mono text-[10px] text-muted-foreground/40">
-          Last {days} days
+          {label}
         </span>
       </div>
 

@@ -114,7 +114,7 @@ export default function RootLayout({
               <div className="pointer-events-none absolute inset-0 -z-10 bg-grid-pattern opacity-55 dark:opacity-0" />
 
               <Navbar />
-              <main id="main-content" className="container relative z-10 flex-1 px-4 py-8 sm:px-8 md:py-12">
+              <main id="main-content" className="container relative z-10 flex-1 mx-auto px-4 py-8 sm:px-8 md:py-12">
                 {children}
               </main>
               <Footer />

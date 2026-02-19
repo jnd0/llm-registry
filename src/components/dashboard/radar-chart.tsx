@@ -15,7 +15,7 @@ import { Benchmark, Model } from "@/types";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { normalizeScore } from "@/lib/stats";
-import { domainDefinitions, getBenchmarkIdsForDomain, type CapabilityDomain } from "@/lib/domains";
+import { domainDefinitions, getBenchmarkIdsForDomain } from "@/lib/domains";
 
 interface RadarComparisonProps {
   models: Model[];

@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
-import { models } from "@/lib/registry-data";
+import { models, benchmarks } from "@/lib/registry-data";
 import { benchmarkCategories, categoryToSlug } from "@/lib/categories";
+import { domainDefinitions, domainToSlug } from "@/lib/domains";
 import { siteUrl } from "@/lib/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -20,10 +21,28 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     {
+      url: `${siteUrl}/benchmarks`,
+      lastModified: now,
+      changeFrequency: "daily",
+      priority: 0.8,
+    },
+    {
+      url: `${siteUrl}/explore`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.6,
+    },
+    {
       url: `${siteUrl}/about`,
       lastModified: now,
       changeFrequency: "weekly",
       priority: 0.6,
+    },
+    {
+      url: `${siteUrl}/api-docs`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.5,
     },
   ];
 
@@ -34,6 +53,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
+  const domainRoutes: MetadataRoute.Sitemap = domainDefinitions.map((domain) => ({
+    url: `${siteUrl}/domain/${domainToSlug(domain.id)}`,
+    lastModified: now,
+    changeFrequency: "weekly",
+    priority: 0.6,
+  }));
+
+  const benchmarkRoutes: MetadataRoute.Sitemap = benchmarks.map((benchmark) => ({
+    url: `${siteUrl}/benchmark/${benchmark.id}`,
+    lastModified: now,
+    changeFrequency: "weekly",
+    priority: 0.5,
+  }));
+
   const modelRoutes: MetadataRoute.Sitemap = models.map((model) => ({
     url: `${siteUrl}/model/${model.id}`,
     lastModified: new Date(model.releaseDate),
@@ -41,5 +74,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
-  return [...staticRoutes, ...categoryRoutes, ...modelRoutes];
+  return [...staticRoutes, ...categoryRoutes, ...domainRoutes, ...benchmarkRoutes, ...modelRoutes];
 }

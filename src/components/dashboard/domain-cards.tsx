@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { cn } from "@/lib/utils";
-import { domainDefinitions, type CapabilityDomain } from "@/lib/domains";
+import { domainDefinitions, getBenchmarkIdsForDomain, domainToSlug, type CapabilityDomain } from "@/lib/domains";
 import { getTopModelForDomain, getAverageDomainScore } from "@/lib/frontier";
 import {
   Brain,
@@ -43,12 +43,14 @@ export function DomainCards({ className }: DomainCardsProps) {
   const domains = domainDefinitions.map((domain) => {
     const topModel = getTopModelForDomain(domain.id);
     const avgScore = getAverageDomainScore(domain.id);
+    const benchmarkCount = getBenchmarkIdsForDomain(domain.id).length;
     const Icon = domainIcons[domain.id];
     
     return {
       ...domain,
       topModel,
       avgScore,
+      benchmarkCount,
       Icon,
       colorClass: domainColors[domain.id],
     };
@@ -72,7 +74,7 @@ export function DomainCards({ className }: DomainCardsProps) {
         {domains.map((domain) => (
           <Link
             key={domain.id}
-            href={`/?domain=${domain.id.toLowerCase().replace(/\s*&\s*/g, "-").replace(/\s+/g, "-")}`}
+            href={`/domain/${domainToSlug(domain.id)}`}
             className="group surface-card rounded-xl border border-border/40 p-4 transition-all hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5"
           >
             <div className={cn(
@@ -97,6 +99,7 @@ export function DomainCards({ className }: DomainCardsProps) {
                 {domain.avgScore.toFixed(0)}
               </span>
               <span className="text-[10px] text-muted-foreground">avg</span>
+              <span className="text-[10px] text-muted-foreground/60 ml-1">· n={domain.benchmarkCount}</span>
             </div>
           </Link>
         ))}

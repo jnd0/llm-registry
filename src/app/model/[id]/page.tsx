@@ -4,10 +4,12 @@ import { notFound } from "next/navigation";
 import { Badge } from "@/components/ui/badge";
 import { formatCurrency, normalizeScore } from "@/lib/stats";
 import Link from "next/link";
-import { ArrowLeft, ExternalLink, Cpu, ShieldCheck, AlertTriangle, Layers, Zap } from "lucide-react";
+import { ArrowLeft, ExternalLink, Cpu, ShieldCheck, AlertTriangle, Layers, Zap, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { getProviderTheme } from "@/lib/provider-identity";
 import { ModelFamilyCompare } from "@/components/dashboard/model-compare-selector";
+import { ShareButton } from "@/components/benchmark/share-button";
+import { siteUrl } from "@/lib/site";
 
 const sourceMap = new Map(sources.map((source) => [source.id, source]));
 
@@ -54,6 +56,25 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     description: `${model.name} by ${model.provider}: pricing, specs, and benchmark-level provenance in LLM Registry.`,
     alternates: {
       canonical: `/model/${model.id}`,
+    },
+    openGraph: {
+      title: `${model.name} by ${model.provider}`,
+      description: `${model.name} benchmark performance, pricing, and specs in LLM Registry.`,
+      url: `${siteUrl}/model/${model.id}`,
+      type: "article",
+      images: [
+        {
+          url: `${siteUrl}/og-image.png`,
+          width: 1200,
+          height: 630,
+          alt: `${model.name} - LLM Registry`,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${model.name} by ${model.provider}`,
+      description: `${model.name} benchmark performance, pricing, and specs in LLM Registry.`,
     },
   };
 }
@@ -133,15 +154,24 @@ export default async function ModelPage({ params }: PageProps) {
   ).slice(0, 4);
 
   return (
-    <div className="animate-in fade-in duration-700 space-y-7 pb-16">
-      <Link href="/" className="group inline-flex items-center gap-2 pl-1 text-sm font-mono tracking-[0.1em] text-muted-foreground transition-colors hover:text-primary">
-        <ArrowLeft className="h-3 w-3 transition-transform group-hover:-translate-x-1" />
-        Back to Leaderboard
-      </Link>
+    <div className="animate-in fade-in duration-700 space-y-4 pb-12">
+      <nav className="hidden sm:flex items-center gap-1 text-xs text-muted-foreground">
+        <Link href="/" className="hover:text-foreground transition-colors">
+          Leaderboard
+        </Link>
+        <ChevronRight className="h-3 w-3" />
+        <span className="text-foreground font-medium">{model.name}</span>
+      </nav>
 
-      <p className="label-eyebrow">Home / Models / {model.name}</p>
+      <div className="flex items-center justify-between gap-4">
+        <Link href="/" className="group inline-flex items-center gap-2 text-sm font-mono tracking-[0.1em] text-muted-foreground transition-colors hover:text-primary sm:hidden">
+          <ArrowLeft className="h-3 w-3 transition-transform group-hover:-translate-x-1" />
+          Back
+        </Link>
+        <ShareButton />
+      </div>
 
-      <section className="relative overflow-hidden rounded-2xl border border-border bg-card/50 px-6 py-8 sm:px-10 sm:py-10">
+      <section className="relative overflow-hidden rounded-2xl border border-border bg-card/50 px-5 py-6 sm:px-8 sm:py-8">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_100%_0%,color-mix(in_oklab,var(--primary)_10%,transparent),transparent_50%)]" />
         <div className="flex flex-col gap-8 md:flex-row md:items-start md:justify-between">
           <div className="max-w-3xl space-y-5">

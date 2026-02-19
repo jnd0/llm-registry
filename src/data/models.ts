@@ -2202,7 +2202,16 @@ const modelScoreOverrides: Record<string, Model["scores"]> =
 const metadataOverrides: Record<string, ModelMetadataOverride> =
   typeof modelMetadataOverrides === "undefined" ? {} : modelMetadataOverrides;
 
+function addDefaultModelType(input: Model[]): Model[] {
+  return input.map((model) => ({
+    ...model,
+    modelType: model.modelType ?? "text",
+    variants: model.variants ? addDefaultModelType(model.variants) : undefined,
+  }));
+}
+
 const withMetadata = applyMetadataOverrides(rawModels, metadataOverrides);
 const withOverrides = applyScoreOverrides(withMetadata, modelScoreOverrides);
+const withModelType = addDefaultModelType(withOverrides);
 
-export const models: Model[] = addScoreProvenance(withOverrides);
+export const models: Model[] = addScoreProvenance(withModelType);

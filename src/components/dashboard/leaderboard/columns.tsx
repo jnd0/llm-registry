@@ -14,6 +14,7 @@ import { cn } from "@/lib/utils";
 import { sources } from "@/data/sources";
 import { normalizeScore } from "@/lib/stats";
 import { getProviderTheme } from "@/lib/provider-identity";
+import { getFreshnessLevel, formatDaysAgo } from "@/lib/freshness";
 
 const sourceMap = new Map(sources.map((source) => [source.id, source]));
 
@@ -331,17 +332,24 @@ export function createColumns(
                          benchmark.id === "agentbench" ? "AGE" :
                          benchmark.id.toUpperCase().substring(0, 4);
         return (
-          <Button
-            variant="ghost"
-            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-            title={`${benchmark.name} - ${benchmark.description}`}
-            className="group/header h-11 min-h-11 w-full justify-start px-0 font-mono text-xs font-semibold tracking-[0.1em] text-muted-foreground transition-colors hover:bg-transparent hover:text-foreground"
-          >
-            <span className="group-hover/header:text-foreground transition-colors border-b border-transparent group-hover/header:border-primary/50 pb-0.5">
-              {shortName}
-            </span>
-            <ArrowUpDown className="ml-1.5 h-3 w-3 opacity-0 group-hover/header:opacity-50 transition-opacity text-primary" />
-          </Button>
+          <Tooltip delayDuration={200}>
+            <TooltipTrigger asChild>
+              <Button
+                variant="ghost"
+                onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+                className="group/header h-11 min-h-11 w-full justify-start px-0 font-mono text-xs font-semibold tracking-[0.1em] text-muted-foreground transition-colors hover:bg-transparent hover:text-foreground"
+              >
+                <span className="group-hover/header:text-foreground transition-colors border-b border-transparent group-hover/header:border-primary/50 pb-0.5">
+                  {shortName}
+                </span>
+                <ArrowUpDown className="ml-1.5 h-3 w-3 opacity-0 group-hover/header:opacity-50 transition-opacity text-primary" />
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent className="max-w-[280px] border-border bg-popover p-3 text-popover-foreground shadow-lg">
+              <p className="font-semibold text-sm">{benchmark.name}</p>
+              <p className="mt-1 text-xs text-muted-foreground leading-relaxed">{benchmark.description}</p>
+            </TooltipContent>
+          </Tooltip>
         );
       },
       cell: ({ row }: CellContext<Model, unknown>) => {
@@ -358,6 +366,8 @@ export function createColumns(
         const verificationLabel = getVerificationLabel(scoreEntry?.verificationLevel, scoreEntry?.verified);
         const isArtificialAnalysis = scoreEntry?.sourceId === "artificial-analysis";
         const normalizedScore = normalizeScore(score, benchmark);
+        const freshness = getFreshnessLevel(scoreEntry?.asOfDate);
+        const daysAgo = formatDaysAgo(scoreEntry?.asOfDate);
 
         const displayScore = `${score.toFixed(benchmark.maxScore > 100 ? 0 : 1)}${isArtificialAnalysis ? "*" : ""}`;
 
@@ -365,12 +375,18 @@ export function createColumns(
           <div className="pl-2">
             <span
               className={cn(
-                "inline-flex min-w-[84px] max-w-[120px] items-center justify-center rounded-md border px-2.5 py-1 font-mono text-sm font-semibold tabular-nums",
+                "inline-flex min-w-[84px] max-w-[120px] items-center justify-center gap-1 rounded-md border px-2.5 py-1 font-mono text-sm font-semibold tabular-nums",
                 getScorePillClass(normalizedScore)
               )}
               title={`${verificationLabel} | ${sourceLabel} | ${scoreEntry?.asOfDate ?? "unknown date"}${sourceUrl ? ` | ${sourceUrl}` : ""} | normalized ${normalizedScore.toFixed(1)}`}
             >
               <span className="truncate">{displayScore}</span>
+              {freshness === "stale" && (
+                <span className="shrink-0 h-1.5 w-1.5 rounded-full bg-red-500" title={`Stale: ${daysAgo}`} />
+              )}
+              {freshness === "aging" && (
+                <span className="shrink-0 h-1.5 w-1.5 rounded-full bg-amber-500" title={`Aging: ${daysAgo}`} />
+              )}
             </span>
           </div>
           );

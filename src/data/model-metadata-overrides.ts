@@ -2,6 +2,7 @@ import { Model } from "@/types";
 
 export interface ModelMetadataOverride {
   capabilities?: Model["capabilities"];
+  modelType?: Model["modelType"];
   providers?: string[];
   apiSupport?: Model["apiSupport"];
   modalities?: Model["modalities"];

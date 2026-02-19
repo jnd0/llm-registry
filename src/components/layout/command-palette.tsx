@@ -15,7 +15,7 @@ import {
   Globe,
 } from "lucide-react";
 import { Benchmark, Model } from "@/types";
-import { domainDefinitions, type CapabilityDomain } from "@/lib/domains";
+import { domainDefinitions, domainToSlug, type CapabilityDomain } from "@/lib/domains";
 
 const domainIcons: Record<CapabilityDomain, React.ElementType> = {
   "Intelligence": Brain,
@@ -153,7 +153,7 @@ export function CommandPalette({ open, onOpenChange, models, benchmarks }: Comma
                     <Command.Item
                       key={domain.id}
                       value={domain.label}
-                      onSelect={() => runCommand(() => router.push(`/?domain=${domain.id.toLowerCase().replace(/\s*&\s*/g, "-").replace(/\s+/g, "-")}`))}
+                      onSelect={() => runCommand(() => router.push(`/domain/${domainToSlug(domain.id)}`))}
                       className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-foreground cursor-pointer data-[selected=true]:bg-muted"
                     >
                       <Icon className="h-4 w-4 text-primary" />

@@ -1,6 +1,7 @@
 import { categoryToSlug, slugToCategory } from "@/lib/categories";
 import { calculateCategoryScore, calculateCoverage, normalizeScore } from "@/lib/stats";
 import { Benchmark, BenchmarkCategory, Model } from "@/types";
+import { slugToDomain, getBenchmarkIdsForDomain, type CapabilityDomain } from "./domains";
 
 export type LeaderboardSortDirection = "asc" | "desc";
 export type LicenseFilter = "all" | "open" | "proprietary";
@@ -12,6 +13,10 @@ export interface LeaderboardQueryParams {
   page: number;
   pageSize: number;
   license: LicenseFilter;
+  domain: CapabilityDomain | null;
+  category: BenchmarkCategory | null;
+  sources: string[];
+  verification: string[];
 }
 
 export interface LeaderboardQueryResult {
@@ -24,6 +29,10 @@ export interface LeaderboardQueryResult {
   sortDir: LeaderboardSortDirection;
   query: string;
   license: LicenseFilter;
+  domain: CapabilityDomain | null;
+  category: BenchmarkCategory | null;
+  sources: string[];
+  verification: string[];
 }
 
 interface LeaderboardQueryOptions {
@@ -82,6 +91,9 @@ export function parseLeaderboardQueryParams(
   const requestedSort = readParam(searchParams, "sort") ?? "";
   const requestedDir = readParam(searchParams, "dir");
   const requestedLicense = readParam(searchParams, "license") ?? "all";
+  const requestedDomain = readParam(searchParams, "domain") ?? "";
+  const requestedSources = readParam(searchParams, "source") ?? "";
+  const requestedVerification = readParam(searchParams, "verification") ?? "";
 
   const validSortIds = getValidSortIds(benchmarks);
   const fallbackSort = getDefaultSortBy(options.activeCategory ?? null);
@@ -96,6 +108,16 @@ export function parseLeaderboardQueryParams(
       ? requestedLicense 
       : "all";
 
+  const domain = slugToDomain(requestedDomain);
+
+  const sources = requestedSources
+    ? requestedSources.split(",").map((s) => s.trim()).filter(Boolean)
+    : [];
+
+  const verification = requestedVerification
+    ? requestedVerification.split(",").map((v) => v.trim()).filter(Boolean)
+    : [];
+
   return {
     query,
     sortBy,
@@ -103,6 +125,10 @@ export function parseLeaderboardQueryParams(
     page,
     pageSize,
     license,
+    domain,
+    category: options.activeCategory ?? null,
+    sources,
+    verification,
   };
 }
 
@@ -176,6 +202,43 @@ function matchesLicense(model: Model, license: LicenseFilter): boolean {
   return true;
 }
 
+function matchesDomain(model: Model, domain: CapabilityDomain | null): boolean {
+  if (!domain) return true;
+  const domainBenchmarkIds = getBenchmarkIdsForDomain(domain);
+  return domainBenchmarkIds.some((id) => {
+    const score = model.scores[id]?.score;
+    return score !== null && score !== undefined;
+  });
+}
+
+function matchesCategory(model: Model, category: BenchmarkCategory | null, benchmarks: Benchmark[]): boolean {
+  if (!category) return true;
+  const categoryBenchmarkIds = benchmarks
+    .filter((b) => b.category === category)
+    .map((b) => b.id);
+  return categoryBenchmarkIds.some((id) => {
+    const score = model.scores[id]?.score;
+    return score !== null && score !== undefined;
+  });
+}
+
+function matchesSources(model: Model, sources: string[]): boolean {
+  if (sources.length === 0) return true;
+  return Object.values(model.scores).some((scoreEntry) => {
+    if (!scoreEntry.sourceId) return false;
+    return sources.includes(scoreEntry.sourceId);
+  });
+}
+
+function matchesVerification(model: Model, verification: string[]): boolean {
+  if (verification.length === 0) return true;
+  return Object.values(model.scores).some((scoreEntry) => {
+    const level = scoreEntry.verificationLevel ?? (scoreEntry.verified ? "provider" : null);
+    if (!level) return false;
+    return verification.includes(level);
+  });
+}
+
 export function queryLeaderboardModels(
   models: Model[],
   benchmarks: Benchmark[],
@@ -184,7 +247,13 @@ export function queryLeaderboardModels(
   const directionFactor = params.sortDir === "asc" ? 1 : -1;
 
   const filtered = models.filter(
-    (model) => matchesQuery(model, params.query) && matchesLicense(model, params.license)
+    (model) => 
+      matchesQuery(model, params.query) && 
+      matchesLicense(model, params.license) && 
+      matchesDomain(model, params.domain) && 
+      matchesCategory(model, params.category, benchmarks) &&
+      matchesSources(model, params.sources) &&
+      matchesVerification(model, params.verification)
   );
   const benchmarkById = new Map(benchmarks.map((benchmark) => [benchmark.id, benchmark]));
   const categoryForSort = params.sortBy.startsWith("avg-")
@@ -241,5 +310,9 @@ export function queryLeaderboardModels(
     sortDir: params.sortDir,
     query: params.query,
     license: params.license,
+    domain: params.domain,
+    category: params.category,
+    sources: params.sources,
+    verification: params.verification,
   };
 }
