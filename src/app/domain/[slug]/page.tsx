@@ -7,6 +7,7 @@ import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { siteUrl } from "@/lib/site";
+import { BenchmarkExpandableList } from "@/components/dashboard/benchmark-expandable-list";
 
 interface DomainPageProps {
   params: Promise<{ slug: string }>;
@@ -178,22 +179,7 @@ export default async function DomainPage({ params }: DomainPageProps) {
             <h2 className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground mb-3">
               Benchmarks
             </h2>
-            <div className="space-y-2">
-              {benchmarks.slice(0, 10).map((benchmark) => (
-                <Link
-                  key={benchmark.id}
-                  href={`/benchmark/${benchmark.id}`}
-                  className="block text-sm font-medium text-foreground hover:text-primary transition-colors truncate"
-                >
-                  {benchmark.name}
-                </Link>
-              ))}
-              {benchmarks.length > 10 && (
-                <p className="text-xs text-muted-foreground pt-2">
-                  +{benchmarks.length - 10} more benchmarks
-                </p>
-              )}
-            </div>
+            <BenchmarkExpandableList benchmarks={benchmarks} />
           </section>
         </div>
       </div>
