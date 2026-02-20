@@ -8,7 +8,7 @@ import {
   getCoreRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { GripVertical, ChevronDown, X } from "lucide-react";
+import { GripVertical, ChevronDown, X, ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Model, Benchmark } from "@/types";
@@ -17,6 +17,13 @@ import { createColumns, ModelComputedMetrics } from "./columns";
 import { LeaderboardToolbar } from "./toolbar";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { normalizeScore } from "@/lib/stats";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import type { LeaderboardSortDirection, LicenseFilter } from "@/lib/leaderboard-query";
@@ -32,6 +39,7 @@ interface DataTableProps {
   totalRows: number;
   currentPage: number;
   totalPages: number;
+  pageSize: number;
   sortBy: string;
   sortDir: LeaderboardSortDirection;
   searchQuery: string;
@@ -66,6 +74,7 @@ export function DataTable({
   totalRows,
   currentPage,
   totalPages,
+  pageSize,
   sortBy,
   sortDir,
   searchQuery,
@@ -610,6 +619,20 @@ export function DataTable({
     [currentPage, enqueueSearchParamUpdates, totalPages]
   );
 
+  const handlePageSizeChange = React.useCallback(
+    (newPageSize: string) => {
+      const size = parseInt(newPageSize, 10);
+      if (size === pageSize) return;
+      enqueueSearchParamUpdates({
+        pageSize: String(size),
+        page: "1",
+      });
+    },
+    [enqueueSearchParamUpdates, pageSize]
+  );
+
+  const pageSizeOptions = [10, 25, 50, 100];
+
   return (
     <div className="animate-in slide-in-from-bottom-4 fade-in delay-100 duration-700 space-y-6 pb-20 w-full">
       <div className="sr-only" aria-live="polite" aria-atomic="true">
@@ -896,6 +919,28 @@ export function DataTable({
             </div>
 
             <div className="flex items-center gap-1.5">
+              {/* Page Size Selector */}
+              <div className="flex items-center gap-2 mr-4">
+                <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/50">Show</span>
+                <Select value={String(pageSize)} onValueChange={handlePageSizeChange}>
+                  <SelectTrigger className="h-7 w-[70px] rounded-full border-border/60 bg-muted/30 text-[10px] font-bold uppercase tracking-wider focus:ring-1 focus:ring-primary/20">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent align="end" className="rounded-xl border-border bg-card min-w-[80px]">
+                    {pageSizeOptions.map((size) => (
+                      <SelectItem 
+                        key={size} 
+                        value={String(size)}
+                        className="text-xs font-medium cursor-pointer rounded-lg focus:bg-primary/5"
+                      >
+                        {size}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/50">/ page</span>
+              </div>
+
               <div className="mr-4 flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest text-muted-foreground/50">
                 <span>Page {currentPage} of {totalPages}</span>
               </div>
@@ -906,7 +951,7 @@ export function DataTable({
                 onClick={() => goToPage(currentPage - 1)}
                 disabled={currentPage <= 1}
               >
-                <ChevronDown className="h-4 w-4 rotate-90" />
+                <ChevronLeft className="h-4 w-4" />
               </Button>
               <Button
                 variant="ghost"
@@ -915,7 +960,7 @@ export function DataTable({
                 onClick={() => goToPage(currentPage + 1)}
                 disabled={currentPage >= totalPages}
               >
-                <ChevronDown className="h-4 w-4 -rotate-90" />
+                <ChevronRight className="h-4 w-4" />
               </Button>
             </div>
           </div>
@@ -1028,6 +1073,28 @@ export function DataTable({
         </div>
 
         <div className="flex items-center gap-1.5">
+          {/* Page Size Selector */}
+          <div className="flex items-center gap-2 mr-4">
+            <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/50">Show</span>
+            <Select value={String(pageSize)} onValueChange={handlePageSizeChange}>
+              <SelectTrigger className="h-7 w-[70px] rounded-full border-border/60 bg-muted/30 text-[10px] font-bold uppercase tracking-wider focus:ring-1 focus:ring-primary/20">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent align="end" className="rounded-xl border-border bg-card min-w-[80px]">
+                {pageSizeOptions.map((size) => (
+                  <SelectItem 
+                    key={size} 
+                    value={String(size)}
+                    className="text-xs font-medium cursor-pointer rounded-lg focus:bg-primary/5"
+                  >
+                    {size}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/50">/ page</span>
+          </div>
+
           <div className="mr-4 flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest text-muted-foreground/50">
             <span>Page {currentPage} of {totalPages}</span>
           </div>
@@ -1038,7 +1105,7 @@ export function DataTable({
             onClick={() => goToPage(currentPage - 1)}
             disabled={currentPage <= 1}
           >
-            <ChevronDown className="h-4 w-4 rotate-90" />
+            <ChevronLeft className="h-4 w-4" />
           </Button>
           <Button
             variant="ghost"
@@ -1047,7 +1114,7 @@ export function DataTable({
             onClick={() => goToPage(currentPage + 1)}
             disabled={currentPage >= totalPages}
           >
-            <ChevronDown className="h-4 w-4 -rotate-90" />
+            <ChevronRight className="h-4 w-4" />
           </Button>
         </div>
       </div>

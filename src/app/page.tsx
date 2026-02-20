@@ -137,6 +137,7 @@ export default async function Home({ searchParams }: HomePageProps) {
           totalRows={leaderboard.total}
           currentPage={leaderboard.page}
           totalPages={leaderboard.totalPages}
+          pageSize={leaderboard.pageSize}
           sortBy={leaderboard.sortBy}
           sortDir={leaderboard.sortDir}
           searchQuery={leaderboard.query}
