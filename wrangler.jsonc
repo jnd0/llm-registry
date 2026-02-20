@@ -3,13 +3,5 @@
   "name": "llm-registry",
   "compatibility_date": "2026-02-20",
   "compatibility_flags": ["nodejs_compat_v2"],
-  "main": ".open-next/worker.js",
-  "assets": {
-    "binding": "ASSETS",
-    "directory": ".open-next/assets"
-  },
-  "observability": {
-    "enabled": true,
-    "head_sampling_rate": 1
-  }
+  "pages_build_output_dir": ".open-next/assets"
 }
