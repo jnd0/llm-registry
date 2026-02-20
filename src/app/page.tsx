@@ -1,6 +1,5 @@
 import { DataTable } from "@/components/dashboard/leaderboard";
 import { benchmarks, models } from "@/lib/registry-data";
-import { changelog } from "@/data/changelog";
 import type { Metadata } from "next";
 import { Button } from "@/components/ui/button";
 import { Suspense } from "react";
@@ -11,7 +10,8 @@ import { parseLeaderboardQueryParams, queryLeaderboardModels } from "@/lib/leade
 import { DomainCards } from "@/components/dashboard/domain-cards";
 import { Skeleton } from "@/components/ui/skeleton";
 import { redirect } from "next/navigation";
-import { ChevronDown } from "lucide-react";
+import { HomeStatsCard } from "@/components/dashboard/home-stats-card";
+import { LatestArrivalCard } from "@/components/dashboard/latest-arrival-card";
 
 interface HomePageProps {
   searchParams: Promise<{
@@ -59,9 +59,8 @@ export default async function Home({ searchParams }: HomePageProps) {
 
   const queryParams = parseLeaderboardQueryParams(params, benchmarks);
   const leaderboard = queryLeaderboardModels(models, benchmarks, queryParams);
-  const { mappedBenchmarks, quickHighlights, totalScores } = getHomeMetrics(models, benchmarks);
+  const { totalScores, latestScoreDate } = getHomeMetrics(models, benchmarks);
 
-  const latestRelease = changelog[0];
   const latestArrival = [...models].sort((a, b) => b.releaseDate.localeCompare(a.releaseDate))[0];
 
   return (
@@ -104,88 +103,19 @@ export default async function Home({ searchParams }: HomePageProps) {
         </div>
       </section>
 
-      <section className="grid gap-4 xl:grid-cols-[1fr_2fr_1fr]">
-        <article className="relative overflow-hidden rounded-2xl border border-border bg-card/50 p-6">
-          <p className="label-eyebrow text-muted-foreground/70">Total Registry</p>
-          <div className="mt-6 flex items-baseline gap-2">
-            <p className="font-display text-6xl font-bold tracking-tight text-foreground">{models.length}</p>
-            <p className="text-sm font-mono uppercase tracking-widest text-muted-foreground">Models</p>
-          </div>
-          <p className="mt-4 text-sm text-muted-foreground leading-relaxed">
-            Verified foundation models tracking live performance and provenance.
-          </p>
-          <div className="mt-8 flex items-center gap-2 border-t border-border/50 pt-4 font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
-            <span className="h-1.5 w-1.5 rounded-full bg-primary" />
-            <span>{totalScores.toLocaleString()} Scores Logged</span>
-          </div>
-        </article>
-
-        <article className="rounded-2xl border border-border bg-card/50 p-6">
-          <div className="mb-6 flex items-center justify-between">
-            <p className="label-eyebrow text-muted-foreground/70">Top Performers</p>
-            <Link href="/" className="text-xs font-bold uppercase tracking-widest text-primary hover:text-primary/80 transition-colors">View All</Link>
-          </div>
-          <div className="grid gap-4 md:grid-cols-2">
-            {quickHighlights.slice(0, 4).map((item) => (
-              <Link
-                key={item.label}
-                href={item.model ? `/model/${item.model.id}` : "/"}
-                className="group relative overflow-hidden rounded-xl border border-border/50 bg-muted/30 p-4 transition-all hover:-translate-y-1 hover:border-primary/30 hover:bg-muted/50 hover:shadow-lg hover:shadow-primary/5"
-              >
-                <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground/80">{item.label}</p>
-                <p className="mt-2 truncate text-xl font-bold tracking-tight text-foreground group-hover:text-primary transition-colors">{item.model?.name ?? "TBD"}</p>
-                <div className="mt-3 flex items-center justify-between">
-                  <p className="font-mono text-sm font-bold text-primary">
-                    {item.value === null
-                      ? "--"
-                      : item.format === "ratio"
-                        ? `${item.value.toFixed(1)}x`
-                        : `${item.value.toFixed(1)} pts`}
-                  </p>
-                  <div className="h-1 w-12 rounded-full bg-muted-foreground/20 overflow-hidden">
-                    <div className="h-full bg-primary" style={{ width: '70%' }} />
-                  </div>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </article>
-
-        <article className="relative overflow-hidden rounded-2xl border border-slate-800 bg-[#020617] p-6 text-slate-100 shadow-2xl">
-          <div className="absolute -right-8 -top-8 h-32 w-32 rounded-full bg-primary/10 blur-3xl" />
-          <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-slate-500">Latest Arrival</p>
-          
-          <div className="mt-6">
-            <span className="rounded-full bg-primary/20 border border-primary/30 px-3 py-0.5 text-[10px] font-bold uppercase tracking-widest text-primary">
-              New
-            </span>
-            <p className="mt-4 text-3xl font-display font-bold tracking-tight text-white">{latestArrival?.name ?? "Model"}</p>
-            <p className="mt-2 text-sm text-slate-400 leading-relaxed">{latestArrival?.provider}&apos;s newest entry.</p>
-          </div>
-
-          <div className="mt-12 flex items-center justify-between border-t border-slate-800 pt-4">
-            <span className="font-mono text-[10px] uppercase tracking-widest text-slate-500">{latestArrival?.releaseDate}</span>
-            {latestArrival && (
-              <Link href={`/model/${latestArrival.id}`} className="group flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest text-white hover:text-primary transition-colors">
-                Details
-                <ChevronDown className="h-3 w-3 -rotate-90 group-hover:translate-x-0.5 transition-transform" />
-              </Link>
-            )}
-          </div>
-        </article>
+      <section className="grid gap-5 lg:grid-cols-2">
+        <HomeStatsCard 
+          models={models} 
+          benchmarks={benchmarks} 
+          totalScores={totalScores}
+          latestScoreDate={latestScoreDate}
+        />
+        {latestArrival && <LatestArrivalCard model={latestArrival} />}
       </section>
 
-      <article className="mt-8">
+      <article className="mt-6">
         <DomainCards />
       </article>
-
-      <section className="surface-card rounded-xl px-4 py-3">
-        <div className="flex flex-wrap items-center gap-2 text-xs font-mono tracking-wide text-muted-foreground">
-          <span className="chip-pill px-2 py-1">Mapped IDs {mappedBenchmarks}</span>
-          <span className="chip-pill px-2 py-1">Scores {totalScores}</span>
-          <span className="chip-pill px-2 py-1">Version {latestRelease?.version ?? "n/a"}</span>
-        </div>
-      </section>
 
       <Suspense fallback={
         <div className="space-y-4 rounded-xl border border-border/40 bg-card/30 p-4">
