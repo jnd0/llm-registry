@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "build:cf": "opennextjs-cloudflare build && mkdir -p functions && cp .open-next/worker.js functions/_worker.js",
+    "build:cf": "opennextjs-cloudflare build && cp .open-next/worker.js .open-next/_worker.js",
     "start": "next start",
     "lint": "eslint",
     "test": "node --test 'tests/**/*.test.mjs'",
