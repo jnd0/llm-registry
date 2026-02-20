@@ -80,12 +80,20 @@ export default function BenchmarksPage() {
                     <span className="font-mono text-[10px] text-muted-foreground">
                       Unit: {benchmark.unit ?? "%"}
                     </span>
-                    {benchmark.link && (
-                      <span className="inline-flex items-center gap-1 text-[10px] text-primary opacity-0 group-hover:opacity-100 transition-opacity">
-                        View Paper
-                        <ExternalLink className="h-2.5 w-2.5" />
-                      </span>
-                    )}
+                    <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                      {benchmark.link && (
+                        <span className="inline-flex items-center gap-1 text-[10px] text-primary">
+                          Website
+                          <ExternalLink className="h-2.5 w-2.5" />
+                        </span>
+                      )}
+                      {benchmark.paperUrl && (
+                        <span className="inline-flex items-center gap-1 text-[10px] text-primary">
+                          Paper
+                          <ExternalLink className="h-2.5 w-2.5" />
+                        </span>
+                      )}
+                    </div>
                   </div>
                 </Link>
               ))}

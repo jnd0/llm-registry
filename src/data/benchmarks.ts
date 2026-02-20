@@ -74,7 +74,8 @@ const rawBenchmarks: Benchmark[] = [
     description: "Massive Multitask Language Understanding covers 57 subjects across STEM, the humanities, social sciences, and more.",
     maxScore: 100,
     higherIsBetter: true,
-    link: "https://arxiv.org/abs/2009.03300"
+    link: "https://paperswithcode.com/sota/multi-task-language-understanding-on-mmlu",
+    paperUrl: "https://arxiv.org/abs/2009.03300"
   },
   {
     id: "math",
@@ -83,7 +84,8 @@ const rawBenchmarks: Benchmark[] = [
     description: "Challenging competition mathematics problems (AIME/IMO level).",
     maxScore: 100,
     higherIsBetter: true,
-    link: "https://arxiv.org/abs/2103.03874"
+    link: "https://paperswithcode.com/sota/math-word-problem-solving-on-math",
+    paperUrl: "https://arxiv.org/abs/2103.03874"
   },
   {
     id: "human-eval",
@@ -92,7 +94,8 @@ const rawBenchmarks: Benchmark[] = [
     description: "Functional correctness of synthesized programs from docstrings.",
     maxScore: 100,
     higherIsBetter: true,
-    link: "https://arxiv.org/abs/2107.03374"
+    link: "https://paperswithcode.com/sota/code-generation-on-humaneval",
+    paperUrl: "https://arxiv.org/abs/2107.03374"
   },
   {
     id: "swe-bench-verified",
@@ -101,7 +104,8 @@ const rawBenchmarks: Benchmark[] = [
     description: "Resolving real-world GitHub issues. Verified subset ensures solvable issues.",
     maxScore: 100,
     higherIsBetter: true,
-    link: "https://www.swebench.com/"
+    link: "https://www.swebench.com/",
+    paperUrl: "https://arxiv.org/abs/2310.06770"
   },
   {
     id: "mmmu",
@@ -110,7 +114,8 @@ const rawBenchmarks: Benchmark[] = [
     description: "Multi-discipline Multimodal Understanding and Reasoning.",
     maxScore: 100,
     higherIsBetter: true,
-    link: "https://mmmu-benchmark.github.io/"
+    link: "https://mmmu-benchmark.github.io/",
+    paperUrl: "https://arxiv.org/abs/2311.16502"
   },
   {
     id: "livebench",
@@ -119,7 +124,8 @@ const rawBenchmarks: Benchmark[] = [
     description: "Contamination-free, continuously updated reasoning benchmark.",
     maxScore: 100,
     higherIsBetter: true,
-    link: "https://livebench.ai/"
+    link: "https://livebench.ai/#/",
+    paperUrl: "https://arxiv.org/abs/2406.19314"
   },
   {
     id: "bigcodebench",
@@ -128,7 +134,8 @@ const rawBenchmarks: Benchmark[] = [
     description: "Next-generation HumanEval with more diverse library calls and complex tasks.",
     maxScore: 100,
     higherIsBetter: true,
-    link: "https://github.com/bigcode-project/bigcodebench"
+    link: "https://github.com/bigcode-project/bigcodebench",
+    paperUrl: "https://arxiv.org/abs/2406.15877"
   },
   {
     id: "gsm8k",
@@ -137,7 +144,8 @@ const rawBenchmarks: Benchmark[] = [
     description: "Grade school math word problems requiring multi-step reasoning.",
     maxScore: 100,
     higherIsBetter: true,
-    link: "https://github.com/openai/grade-school-math"
+    link: "https://github.com/openai/grade-school-math",
+    paperUrl: "https://arxiv.org/abs/2110.14168"
   },
   {
     id: "aime",
@@ -174,7 +182,8 @@ const rawBenchmarks: Benchmark[] = [
     description: "Comprehensive framework to evaluate LLMs as agents across diverse environments.",
     maxScore: 100,
     higherIsBetter: true,
-    link: "https://github.com/THUDM/AgentBench"
+    link: "https://github.com/THUDM/AgentBench",
+    paperUrl: "https://arxiv.org/abs/2308.03688"
   },
   // --- SCIENCE ---
   {
@@ -184,6 +193,8 @@ const rawBenchmarks: Benchmark[] = [
     description: "A more robust and harder version of MMLU, focusing on complex reasoning and STEM subjects.",
     maxScore: 100,
     higherIsBetter: true,
+    link: "https://huggingface.co/spaces/TIGER-Lab/MMLU-Pro",
+    paperUrl: "https://arxiv.org/abs/2406.01574"
   },
   {
     id: "hle",
@@ -192,6 +203,8 @@ const rawBenchmarks: Benchmark[] = [
     description: "Humanity's Last Exam - Hard reasoning benchmark without tools.",
     maxScore: 100,
     higherIsBetter: true,
+    link: "https://agi.safe.ai/",
+    paperUrl: "https://arxiv.org/abs/2501.14249"
   },
   {
     id: "hle-full",
@@ -200,6 +213,8 @@ const rawBenchmarks: Benchmark[] = [
     description: "Humanity's Last Exam full evaluation without tools.",
     maxScore: 100,
     higherIsBetter: true,
+    link: "https://agi.safe.ai/",
+    paperUrl: "https://arxiv.org/abs/2501.14249"
   },
   {
     id: "hle-full-tools",
@@ -208,6 +223,8 @@ const rawBenchmarks: Benchmark[] = [
     description: "Humanity's Last Exam full evaluation with tool access enabled.",
     maxScore: 100,
     higherIsBetter: true,
+    link: "https://agi.safe.ai/",
+    paperUrl: "https://arxiv.org/abs/2501.14249"
   },
   {
     id: "critpt",
@@ -317,6 +334,8 @@ const rawBenchmarks: Benchmark[] = [
     description: "Contamination-free coding benchmark using recent problems.",
     maxScore: 100,
     higherIsBetter: true,
+    link: "https://livecodebench.github.io/",
+    paperUrl: "https://arxiv.org/abs/2403.07974"
   },
   {
     id: "livecodebench-pro",
@@ -368,6 +387,8 @@ const rawBenchmarks: Benchmark[] = [
     description: "Graduate-Level Google-Proof Q&A Benchmark.",
     maxScore: 100,
     higherIsBetter: true,
+    link: "https://gpqa-benchmark.github.io/",
+    paperUrl: "https://arxiv.org/abs/2311.12022"
   },
   {
     id: "phybench",
@@ -385,6 +406,8 @@ const rawBenchmarks: Benchmark[] = [
     description: "Abstraction and Reasoning Corpus - Level 1.",
     maxScore: 100,
     higherIsBetter: true,
+    link: "https://arcprize.org/",
+    paperUrl: "https://arxiv.org/abs/1911.01547"
   },
   // --- LONG CONTEXT ---
   {
@@ -420,6 +443,7 @@ const rawBenchmarks: Benchmark[] = [
     description: "Massive Multilingual Language Understanding.",
     maxScore: 100,
     higherIsBetter: true,
+    paperUrl: "https://arxiv.org/abs/2402.03300"
   },
   {
     id: "ifeval",
@@ -428,7 +452,8 @@ const rawBenchmarks: Benchmark[] = [
     description: "Instruction Following Evaluation for Large Language Models. Measures ability to follow strict formatting and constraint requirements.",
     maxScore: 100,
     higherIsBetter: true,
-    link: "https://arxiv.org/abs/2311.07911"
+    link: "https://huggingface.co/spaces/yejinxie/IFEval",
+    paperUrl: "https://arxiv.org/abs/2311.07911"
   },
   // --- INSTRUCTION FOLLOWING ---
   {
@@ -563,6 +588,8 @@ const rawBenchmarks: Benchmark[] = [
     description: "Mathematical reasoning in visual contexts.",
     maxScore: 100,
     higherIsBetter: true,
+    link: "https://mathvista.github.io/",
+    paperUrl: "https://arxiv.org/abs/2310.02255"
   },
   {
     id: "mathvista-mini",
@@ -627,6 +654,8 @@ const rawBenchmarks: Benchmark[] = [
     description: "Document visual question answering on scanned and digital documents.",
     maxScore: 100,
     higherIsBetter: true,
+    link: "https://rrc.cvc.uab.es/?ch=17",
+    paperUrl: "https://arxiv.org/abs/2007.00398"
   },
   {
     id: "ocrbench-v2",
@@ -643,6 +672,8 @@ const rawBenchmarks: Benchmark[] = [
     description: "Optical character recognition and document understanding benchmark.",
     maxScore: 100,
     higherIsBetter: true,
+    link: "https://ocrbench.github.io/",
+    paperUrl: "https://arxiv.org/abs/2312.16151"
   },
   {
     id: "dynamath",
@@ -1267,6 +1298,8 @@ const rawBenchmarks: Benchmark[] = [
     higherIsBetter: true,
     normalization: "max",
     unit: "%",
+    link: "https://webarena.dev/",
+    paperUrl: "https://arxiv.org/abs/2307.13854"
   },
   {
     id: "swe-lancer",

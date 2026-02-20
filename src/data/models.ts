@@ -229,7 +229,8 @@ const rawModels: Model[] = [
       "math": { score: 92.0, verified: true },
       "human-eval": { score: 98.2, verified: false, sourceId: "openai-blog" },
       "mmmu": { score: 84.5, verified: false, sourceId: "openai-blog" },
-      "lmarena-elo": { score: 1450, verified: false, sourceId: "lmarena" }
+      "lmarena-elo": { score: 1450, verified: false, sourceId: "lmarena" },
+      "livebench": { score: 70.48, verified: true, sourceId: "livebench", asOfDate: "2026-02-20" }
     }
   },
   {
@@ -276,7 +277,8 @@ const rawModels: Model[] = [
     },
     scores: {
       "mmlu-pro": { score: 85.9, verified: true },
-      "hle": { score: 29.9, verified: true }
+      "hle": { score: 29.9, verified: true },
+      "livebench": { score: 48.91, verified: true, sourceId: "livebench", asOfDate: "2026-02-20" }
     },
     variants: [
       {
@@ -294,6 +296,7 @@ const rawModels: Model[] = [
         scores: {
           "mmlu-pro": { score: 85.9, verified: true },
           "hle": { score: 29.9, verified: true },
+          "livebench": { score: 74.84, verified: true, sourceId: "livebench", asOfDate: "2026-02-20" },
           "simpleqa": { score: 14.5, verified: true },
           "healthbench": { score: 33.3, verified: true },
           "supergpqa": { score: 29.3, verified: true },
@@ -420,7 +423,8 @@ const rawModels: Model[] = [
       "human-eval": { score: 98.5, verified: true },
       "swe-bench-verified": { score: 72.4, verified: true },
       "terminal-bench": { score: 77.3, verified: true },
-      "osworld-verified": { score: 64.7, verified: true }
+      "osworld-verified": { score: 64.7, verified: true },
+      "livebench": { score: 74.30, verified: true, sourceId: "livebench", asOfDate: "2026-02-20" }
     }
   },
   {
@@ -470,7 +474,8 @@ const rawModels: Model[] = [
           "arc-agi-1": { score: 54.5, verified: true },
           "mmmlu": { score: 86.3, verified: true },
           "putnam-200": { score: 30.5, verified: true },
-          "lmarena-elo": { score: 1380, verified: false, sourceId: "lmarena" }
+          "lmarena-elo": { score: 1380, verified: false, sourceId: "lmarena" },
+          "livebench": { score: 65.91, verified: true, sourceId: "livebench", asOfDate: "2026-02-20" }
         }
       }
     ]
@@ -511,7 +516,7 @@ const rawModels: Model[] = [
       "aime": { score: 92.0, verified: true },
       "bigcodebench": { score: 35.5, verified: true },
       "agentbench": { score: 84.7, verified: true },
-      "livebench": { score: 84.6, verified: true },
+      "livebench": { score: 84.6, verified: true, sourceId: "livebench", asOfDate: "2026-02-20" },
       "superchem": { score: 40.0, verified: false }
     }
   },
@@ -549,7 +554,8 @@ const rawModels: Model[] = [
       "gpqa-diamond": { score: 80.1, verified: true },
       "ifbench": { score: 0.695, verified: true },
       "math": { score: 97.9, verified: true },
-      "hle": { score: 19.0, verified: true }
+      "hle": { score: 19.0, verified: true },
+      "livebench": { score: 46.09, verified: true, sourceId: "livebench", asOfDate: "2026-02-20" }
     }
   },
 
@@ -636,7 +642,7 @@ const rawModels: Model[] = [
       "mmlu": { score: 91.4, verified: true },
       "mmlu-pro": { score: 82.2, verified: true },
       "gpqa-diamond": { score: 87.0, verified: true },
-      "livebench": { score: 76.33, verified: true },
+      "livebench": { score: 76.33, verified: true, sourceId: "livebench", asOfDate: "2026-02-20" },
       "math": { score: 89.2, verified: true },
       "human-eval": { score: 94.6, verified: true },
       "swe-bench-verified": { score: 80.8, verified: true },
@@ -675,7 +681,8 @@ const rawModels: Model[] = [
       "terminal-bench-hard": { score: 47.0, verified: true },
       "aa-intelligence-index": { score: 48.0, verified: true },
       "aa-omniscience": { score: 10.0, verified: true },
-      "swe-bench-verified": { score: 80.9, verified: true }
+      "swe-bench-verified": { score: 80.9, verified: true },
+      "livebench": { score: 59.10, verified: true, sourceId: "livebench", asOfDate: "2026-02-20" }
     },
     variants: [
       {
@@ -740,7 +747,8 @@ const rawModels: Model[] = [
           "tob-classification": { score: 50.1, verified: true },
           "tob-extraction": { score: 21.3, verified: true },
           "world-travel-vlm": { score: 32.67, verified: true },
-          "world-travel-text": { score: 69.0, verified: true }
+          "world-travel-text": { score: 69.0, verified: true },
+          "livebench": { score: 75.96, verified: true, sourceId: "livebench", asOfDate: "2026-02-20" }
         }
       }
     ]
@@ -760,7 +768,7 @@ const rawModels: Model[] = [
     scores: {
       "mmlu": { score: 89.8, verified: true },
       "gpqa-diamond": { score: 72.7, verified: false, sourceId: "artificial-analysis" },
-      "livebench": { score: 68.19, verified: true },
+      "livebench": { score: 53.69, verified: true, sourceId: "livebench", asOfDate: "2026-02-20" },
       "human-eval": { score: 93.5, verified: true },
       "swe-bench-verified": { score: 77.2, verified: true },
       "lmarena-elo": { score: 1451, verified: true }
@@ -780,6 +788,7 @@ const rawModels: Model[] = [
         },
         scores: {
           "mmlu-pro": { score: 88.0, verified: true },
+          "livebench": { score: 75.47, verified: true, sourceId: "livebench", asOfDate: "2026-02-20" },
           "hle": { score: 13.7, verified: true, sourceId: "google-gemini3-announce", asOfDate: "2025-11-18" },
           "aime-2026": { score: 65.5, verified: true },
           "aime-2025": { score: 87.0, verified: true, sourceId: "google-gemini3-announce", asOfDate: "2025-11-18" },
@@ -906,7 +915,8 @@ const rawModels: Model[] = [
       "mmmlu": { score: 89.5, verified: true, sourceId: "google-gemini3-announce", asOfDate: "2025-11-18" },
       "global-piqa": { score: 91.5, verified: true, sourceId: "google-gemini3-announce", asOfDate: "2025-11-18" },
       "mrcr-v2": { score: 58.0, verified: true, sourceId: "google-gemini3-announce", asOfDate: "2025-11-18" },
-      "phybench": { score: 36.87, verified: true }
+      "phybench": { score: 36.87, verified: true },
+      "livebench": { score: 58.33, verified: true, sourceId: "livebench", asOfDate: "2026-02-20" }
     }
   },
   {
@@ -942,7 +952,8 @@ const rawModels: Model[] = [
       "simpleqa-verified": { score: 28.1, verified: true, sourceId: "google-gemini3-announce", asOfDate: "2025-11-18" },
       "mmmlu": { score: 86.6, verified: true, sourceId: "google-gemini3-announce", asOfDate: "2025-11-18" },
       "global-piqa": { score: 90.2, verified: true, sourceId: "google-gemini3-announce", asOfDate: "2025-11-18" },
-      "mrcr-v2": { score: 54.3, verified: true, sourceId: "google-gemini3-announce", asOfDate: "2025-11-18" }
+      "mrcr-v2": { score: 54.3, verified: true, sourceId: "google-gemini3-announce", asOfDate: "2025-11-18" },
+      "livebench": { score: 53.09, verified: true, sourceId: "livebench", asOfDate: "2026-02-20" }
     }
   },
   {
@@ -997,6 +1008,7 @@ const rawModels: Model[] = [
       "global-piqa": { score: 93.4, verified: true, sourceId: "google-gemini3-announce", asOfDate: "2025-11-18" },
       "mrcr-v2": { score: 77.0, verified: true, sourceId: "google-gemini3-announce", asOfDate: "2025-11-18" },
       "screenspot-pro": { score: 72.7, verified: true, sourceId: "google-gemini3-announce", asOfDate: "2025-11-18" },
+      "livebench": { score: 73.39, verified: true, sourceId: "livebench", asOfDate: "2026-02-20" },
       "charxiv-reasoning": { score: 81.4, verified: true, sourceId: "google-gemini3-announce", asOfDate: "2025-11-18" },
       "omnidocbench-15": { score: 0.115, verified: true, sourceId: "google-gemini3-announce", asOfDate: "2025-11-18" },
       "mcp-atlas": { score: 54.1, verified: true, sourceId: "google-gemini3-announce", asOfDate: "2025-11-18" },
@@ -1149,7 +1161,8 @@ const rawModels: Model[] = [
       "simpleqa-verified": { score: 68.7, verified: true, sourceId: "google-gemini3-announce", asOfDate: "2025-11-18" },
       "mmmlu": { score: 91.8, verified: true, sourceId: "google-gemini3-announce", asOfDate: "2025-11-18" },
       "global-piqa": { score: 92.8, verified: true, sourceId: "google-gemini3-announce", asOfDate: "2025-11-18" },
-      "mrcr-v2": { score: 67.2, verified: true, sourceId: "google-gemini3-announce", asOfDate: "2025-11-18" }
+      "mrcr-v2": { score: 67.2, verified: true, sourceId: "google-gemini3-announce", asOfDate: "2025-11-18" },
+      "livebench": { score: 72.40, verified: true, sourceId: "livebench", asOfDate: "2026-02-20" }
     },
     variants: [
       {
@@ -1382,7 +1395,7 @@ const rawModels: Model[] = [
       "mmlu": { score: 88.5, verified: true },
       "gpqa-diamond": { score: 82.4, verified: true },
       "matharena-apex": { score: 76.5, verified: true },
-      "livebench": { score: 62.2, verified: true },
+      "livebench": { score: 62.2, verified: true, sourceId: "livebench", asOfDate: "2026-02-20" },
       "aime-2025": { score: 93.1, verified: true },
       "codeforces": { score: 2701, verified: true },
       "swe-bench-verified": { score: 73.1, verified: true },
@@ -1581,7 +1594,8 @@ const rawModels: Model[] = [
     },
     scores: {
       "swe-bench-verified": { score: 80.2, verified: true },
-      "mmlu": { score: 89.0, verified: true }
+      "mmlu": { score: 89.0, verified: true },
+      "livebench": { score: 60.14, verified: true, sourceId: "livebench", asOfDate: "2026-02-20" }
     }
   },
   {
@@ -1597,7 +1611,8 @@ const rawModels: Model[] = [
       pricing: { input: 0.50, output: 1.50 }
     },
     scores: {
-      "mmlu-pro": { score: 82.0, verified: true }
+      "mmlu-pro": { score: 82.0, verified: true },
+      "livebench": { score: 48.10, verified: true, sourceId: "livebench", asOfDate: "2026-02-20" }
     },
     variants: [
       {
@@ -1614,7 +1629,8 @@ const rawModels: Model[] = [
         },
         scores: {
           "mmlu-pro": { score: 86.5, verified: true },
-          "math": { score: 92.0, verified: true }
+          "math": { score: 92.0, verified: true },
+          "livebench": { score: 61.59, verified: true, sourceId: "livebench", asOfDate: "2026-02-20" }
         }
       }
     ]
@@ -1687,7 +1703,8 @@ const rawModels: Model[] = [
       "lvbench": { score: 75.9, verified: true },
       // Computer Use
       "osworld-verified": { score: 63.3, verified: true },
-      "webarena": { score: 58.9, verified: true }
+      "webarena": { score: 58.9, verified: true },
+      "livebench": { score: 69.07, verified: true, sourceId: "livebench", asOfDate: "2026-02-20" }
     }
   },
   {
@@ -1708,7 +1725,8 @@ const rawModels: Model[] = [
       "human-eval": { score: 82.0, verified: true, sourceId: "artificial-analysis", asOfDate: "2026-02-16" },
       "math": { score: 71.5, verified: true, sourceId: "artificial-analysis", asOfDate: "2026-02-16" },
       "swe-bench-verified": { score: 65.3, verified: true, sourceId: "artificial-analysis", asOfDate: "2026-02-16" },
-      "lmarena-elo": { score: 1385, verified: true, sourceId: "lmarena", asOfDate: "2026-02-18" }
+      "lmarena-elo": { score: 1385, verified: true, sourceId: "lmarena", asOfDate: "2026-02-18" },
+      "livebench": { score: 55.19, verified: true, sourceId: "livebench", asOfDate: "2026-02-20" }
     }
   },
   {
@@ -1729,7 +1747,8 @@ const rawModels: Model[] = [
       "math": { score: 75.0, verified: true, sourceId: "z-ai-blog", asOfDate: "2025-12-22" },
       "human-eval": { score: 85.0, verified: true, sourceId: "artificial-analysis", asOfDate: "2026-02-16" },
       "swe-bench-verified": { score: 70.2, verified: true, sourceId: "artificial-analysis", asOfDate: "2026-02-16" },
-      "lmarena-elo": { score: 1410, verified: true, sourceId: "lmarena", asOfDate: "2026-02-18" }
+      "lmarena-elo": { score: 1410, verified: true, sourceId: "lmarena", asOfDate: "2026-02-18" },
+      "livebench": { score: 58.09, verified: true, sourceId: "livebench", asOfDate: "2026-02-20" }
     }
   },
   {
@@ -1760,6 +1779,7 @@ const rawModels: Model[] = [
       "vending-bench-2": { score: 4432, verified: true, sourceId: "glm5-paper", asOfDate: "2026-02-17" },
       "tau-bench": { score: 85.0, verified: true, sourceId: "artificial-analysis", asOfDate: "2026-02-16" },
       "tau-bench-telecom": { score: 98.2, verified: true, sourceId: "artificial-analysis", asOfDate: "2026-02-16" },
+      "livebench": { score: 68.85, verified: true, sourceId: "livebench", asOfDate: "2026-02-20" },
       "aa-intelligence-index": { score: 49.6, verified: true, sourceId: "artificial-analysis", asOfDate: "2026-02-16" },
       "lmarena-elo": { score: 1452, verified: true, sourceId: "lmarena", asOfDate: "2026-02-18" }
     }
@@ -1806,7 +1826,8 @@ const rawModels: Model[] = [
       "human-eval": { score: 88.4, verified: false, sourceId: "artificial-analysis" },
       "osworld-verified": { score: 63.4, verified: true },
       "webarena": { score: 26.4, verified: true },
-      "lmarena-elo": { score: 1320, verified: false, sourceId: "lmarena" }
+      "lmarena-elo": { score: 1320, verified: false, sourceId: "lmarena" },
+      "livebench": { score: 48.84, verified: true, sourceId: "livebench", asOfDate: "2026-02-20" }
     },
     variants: [
       {
@@ -1821,7 +1842,9 @@ const rawModels: Model[] = [
           parameters: "235B (22B active)",
           pricing: { input: 0, output: 0 }
         },
-        scores: {}
+        scores: {
+          "livebench": { score: 52.97, verified: true, sourceId: "livebench", asOfDate: "2026-02-20" }
+        }
       }
     ]
   },
@@ -2073,7 +2096,8 @@ const rawModels: Model[] = [
       "hle": { score: 26.9, verified: true },
       "hle-full": { score: 26.9, verified: true },
       "arc-agi-2": { score: 15.9, verified: true },
-      "lmarena-elo": { score: 1410, verified: true }
+      "lmarena-elo": { score: 1410, verified: true },
+      "livebench": { score: 62.02, verified: true, sourceId: "livebench", asOfDate: "2026-02-20" }
     }
   },
   {
@@ -2112,7 +2136,8 @@ const rawModels: Model[] = [
       "global-piqa": { score: 90.2, verified: true, sourceId: "google-gemini3-announce", asOfDate: "2025-11-18" },
       "mrcr-v2": { score: 54.3, verified: true, sourceId: "google-gemini3-announce", asOfDate: "2025-11-18" },
       "factscore": { score: 97.0, verified: true },
-      "lmarena-elo": { score: 1280, verified: true }
+      "lmarena-elo": { score: 1280, verified: true },
+      "livebench": { score: 59.99, verified: true, sourceId: "livebench", asOfDate: "2026-02-20" }
     }
   },
   {

@@ -154,6 +154,17 @@ export default async function BenchmarkPage({ params, searchParams }: BenchmarkP
               rel="noreferrer"
               className="inline-flex items-center gap-1.5 rounded-md border border-border/60 px-3 py-1.5 text-xs font-medium text-foreground hover:bg-muted/50 transition-colors"
             >
+              Website
+              <ExternalLink className="h-3 w-3" />
+            </a>
+          )}
+          {benchmark.paperUrl && (
+            <a
+              href={benchmark.paperUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-1.5 rounded-md border border-border/60 px-3 py-1.5 text-xs font-medium text-foreground hover:bg-muted/50 transition-colors"
+            >
               Paper
               <ExternalLink className="h-3 w-3" />
             </a>

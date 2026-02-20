@@ -171,7 +171,7 @@ export type BenchmarkCategory =
   | "Advanced Tasks";
 
 export interface Benchmark {
-  id: string;                    // e.g., "swe-bench-verified"
+  id: string;                    // e.g. "swe-bench-verified"
   name: string;                  // Display name
   category: BenchmarkCategory;
   description: string;           // Tooltip text
@@ -180,7 +180,8 @@ export interface Benchmark {
   higherIsBetter: boolean;       // True for accuracy, False for perplexity
   normalization?: BenchmarkNormalization;
   unit?: string;                 // e.g., "%", "ELO", "pass@1"
-  link?: string;                 // URL to original paper/leaderboard
+  link?: string;                 // URL to leaderboard/website
+  paperUrl?: string;             // URL to paper (arXiv or similar)
 }
 
 export interface SourceRecord {
