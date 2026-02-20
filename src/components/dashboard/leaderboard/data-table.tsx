@@ -979,8 +979,11 @@ export function DataTable({
         </div>
       )}
 
-      {/* Normal Table Container */}
-      <div className="relative hidden max-h-[70vh] overflow-auto rounded-2xl border border-border bg-card md:block shadow-sm">
+      {/* Normal Table Container - Hidden when maximized */}
+      <div className={cn(
+        "relative hidden max-h-[70vh] overflow-auto rounded-2xl border border-border bg-card md:block shadow-sm",
+        (isMaximized || isAnimatingOut) && "md:hidden"
+      )}>
         <div className="pointer-events-none absolute inset-y-0 left-0 z-30 w-8 bg-gradient-to-r from-card to-transparent opacity-0 transition-opacity group-hover/table:opacity-100" />
         <div className="pointer-events-none absolute inset-y-0 right-0 z-30 w-8 bg-gradient-to-l from-card to-transparent" />
         <Table>
@@ -1064,8 +1067,11 @@ export function DataTable({
         </Table>
       </div>
 
-      {/* Normal Pagination */}
-      <div className="flex flex-wrap items-center justify-between gap-4 px-2 py-2">
+      {/* Normal Pagination - Hidden when maximized */}
+      <div className={cn(
+        "flex flex-wrap items-center justify-between gap-4 px-2 py-2",
+        (isMaximized || isAnimatingOut) && "md:hidden"
+      )}>
         <div className="flex items-center gap-4 text-[10px] font-bold uppercase tracking-widest text-muted-foreground/50">
           <span>{totalRows} Models Registered</span>
           <span className="h-1 w-1 rounded-full bg-border" />
