@@ -18,8 +18,29 @@ const VALID_MODALITIES = new Set(["text", "image", "audio", "video", "other"]);
 const VALID_DIRECTIONS = new Set(["input", "output", "cache_input", "cache_output"]);
 const VALID_UNITS = new Set(["per_1m_tokens", "per_image", "per_minute", "per_request"]);
 
+function flattenModels(input) {
+  return input.flatMap((model) => [
+    model,
+    ...(Array.isArray(model.variants) ? flattenModels(model.variants) : []),
+  ]);
+}
+
+function buildKnownModelIds(modelsList) {
+  const known = new Set();
+
+  for (const model of flattenModels(modelsList)) {
+    known.add(model.id);
+    const parts = model.id.split("-");
+    for (let i = 1; i < parts.length; i += 1) {
+      known.add(parts.slice(i).join("-"));
+    }
+  }
+
+  return known;
+}
+
 test("metadata override IDs reference known models", () => {
-  const modelIds = new Set(models.map((model) => model.id));
+  const modelIds = buildKnownModelIds(models);
   for (const modelId of Object.keys(modelMetadataOverrides)) {
     assert.ok(modelIds.has(modelId), `Unknown model metadata override key: ${modelId}`);
   }

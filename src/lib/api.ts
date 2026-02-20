@@ -41,7 +41,7 @@ export function jsonWithCache(
 
   const headers = new Headers({
     "Content-Type": "application/json; charset=utf-8",
-    "Cache-Control": "public, s-maxage=3600, stale-while-revalidate=86400",
+    "Cache-Control": status >= 400 ? "no-store" : "public, s-maxage=3600, stale-while-revalidate=86400",
     ETag: etag,
   });
 

@@ -28,12 +28,18 @@ const benchmarkCategoryValues = [
   "Advanced Tasks",
 ] as const;
 
+const httpUrlSchema = z
+  .url()
+  .refine((value) => value.startsWith("https://") || value.startsWith("http://"), {
+    message: "URL must use http or https",
+  });
+
 export const scoreSchema = z.object({
   score: z.number().nullable(),
   verified: z.boolean(),
   verificationLevel: z.enum(scoreVerificationValues).optional(),
   sourceId: z.string().min(1).optional(),
-  sourceUrl: z.string().min(1).optional(),
+  sourceUrl: httpUrlSchema.optional(),
   asOfDate: z.string().min(1).optional(),
   rawScore: z.string().optional(),
   notes: z.string().optional(),
@@ -91,11 +97,11 @@ export const modelSchema: z.ZodType<any> = z.lazy(() =>
     pricingDimensions: z.array(modelPricingDimensionSchema).optional(),
     trainingCutoff: z.string().min(1).optional(),
     metadataSourceId: z.string().min(1).optional(),
-    metadataSourceUrl: z.string().min(1).optional(),
+    metadataSourceUrl: httpUrlSchema.optional(),
     metadataAsOfDate: z.string().min(1).optional(),
     externalModelId: z.string().min(1).optional(),
-    modelCardUrl: z.string().min(1).optional(),
-    modelUrl: z.string().min(1).optional(),
+    modelCardUrl: httpUrlSchema.optional(),
+    modelUrl: httpUrlSchema.optional(),
     scores: z.record(z.string(), scoreSchema),
     variants: z.array(z.lazy(() => modelSchema)).optional(),
   })
@@ -111,13 +117,14 @@ export const benchmarkSchema = z.object({
   higherIsBetter: z.boolean(),
   normalization: z.enum(benchmarkNormalizationValues).optional(),
   unit: z.string().min(1).optional(),
-  link: z.string().min(1).optional(),
+  link: httpUrlSchema.optional(),
+  paperUrl: httpUrlSchema.optional(),
 });
 
 export const sourceRecordSchema = z.object({
   id: z.string().min(1),
   name: z.string().min(1),
-  url: z.string().min(1),
+  url: httpUrlSchema,
   publisher: z.string().optional(),
   updatedAt: z.string().optional(),
 });

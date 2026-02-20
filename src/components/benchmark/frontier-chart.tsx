@@ -59,7 +59,7 @@ export function FrontierChart({
     return date.toISOString().split("T")[0];
   }, []);
 
-  const { chartData, frontierSteps } = useMemo(() => {
+  const { chartData, frontierSteps, frontierPointIds } = useMemo(() => {
     let filtered = models;
     
     if (!includeVariants) {
@@ -84,6 +84,7 @@ export function FrontierChart({
 
     const frontier: { x: number; y: number }[] = [];
     const stepPoints: { startX: number; endX: number; y: number }[] = [];
+    const frontierIds = new Set<string>();
     let bestScore = benchmark.higherIsBetter ? -Infinity : Infinity;
     let lastFrontierX: number | null = null;
 
@@ -105,6 +106,7 @@ export function FrontierChart({
         
         bestScore = point.score;
         lastFrontierX = currentX;
+        frontierIds.add(point.id);
         frontier.push({
           x: currentX,
           y: point.score,
@@ -121,7 +123,7 @@ export function FrontierChart({
       });
     }
 
-    return { chartData: sorted, frontierSteps: stepPoints };
+    return { chartData: sorted, frontierSteps: stepPoints, frontierPointIds: frontierIds };
   }, [models, benchmark.id, benchmark.higherIsBetter, includeVariants, range, sixMonthsAgo, variantIds]);
 
   const dateTicks = useMemo(() => {
@@ -349,9 +351,7 @@ export function FrontierChart({
               />
             )}
 
-            {(view === "all" ? chartData : chartData.filter((p) => 
-              frontierSteps.some((s) => toPixelY(s.y) === toPixelY(p.score))
-            )).map((point) => {
+            {(view === "all" ? chartData : chartData.filter((point) => frontierPointIds.has(point.id))).map((point) => {
               const x = toPixelX(new Date(point.releaseDate).getTime());
               const y = toPixelY(point.score);
               const isHovered = hoveredPoint?.id === point.id;

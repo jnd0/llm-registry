@@ -437,7 +437,7 @@ export function DataTable({
 
   React.useEffect(() => {
     if (sorting.length > 0) return;
-    setSortingSafely(defaultSortId, true, false);
+    setSortingSafely(defaultSortId, true);
   }, [defaultSortId, setSortingSafely, sorting.length]);
 
   React.useEffect(() => {
@@ -497,7 +497,7 @@ export function DataTable({
       const currentSortId = sorting[0]?.id;
       const sortStillVisible = currentSortId ? newVisibility[currentSortId] !== false : false;
       if (!sortStillVisible) {
-        setSortingSafely(defaultSortId, true, false);
+        setSortingSafely(defaultSortId, true);
       }
     } else {
       const visibleBenchmarkIds = canUseBenchmarkWindow ? benchmarkWindowIds : groupedBenchmarkIds;
@@ -511,7 +511,7 @@ export function DataTable({
       const currentSortId = sorting[0]?.id;
       const sortStillVisible = currentSortId ? newVisibility[currentSortId] !== false : false;
       if (!sortStillVisible) {
-        setSortingSafely(defaultSortId, true, false);
+        setSortingSafely(defaultSortId, true);
       }
     }
   }, [activeCategory, domain, allColumnIds, benchmarkWindowIds, canUseBenchmarkWindow, coreColumnIds, defaultSortId, groupedBenchmarkIds, setColumnVisibilitySafely, setSortingSafely, sorting, summaryAvgColumnIds, summaryView]);
@@ -536,7 +536,7 @@ export function DataTable({
       ? avgColumnId
       : categoryBenchmarkIds[0] ?? "mmlu";
 
-    setSortingSafely(sortingId, true, false);
+    setSortingSafely(sortingId, true);
     setColumnOrderSafely([...coreColumnIds, avgColumnId, ...categoryBenchmarkIds]);
   }, [activeCategory, allColumnIds, categoryBenchmarksMap, coreColumnIds, setColumnOrderSafely, setColumnVisibilitySafely, setSortingSafely]);
 
@@ -561,7 +561,7 @@ export function DataTable({
 
     const sortingId = avgColumnIds.find((id) => allColumnIds.includes(id)) ?? 
       domainBenchmarkIds[0] ?? "coverage";
-    setSortingSafely(sortingId, true, false);
+    setSortingSafely(sortingId, true);
     setColumnOrderSafely([...coreColumnIds, ...avgColumnIds, ...domainBenchmarkIds]);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [domain, activeCategory, allColumnIds, coreColumnIds]);

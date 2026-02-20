@@ -6,11 +6,19 @@ import { useState } from "react";
 
 export function ShareButton() {
   const [copied, setCopied] = useState(false);
+  const [failed, setFailed] = useState(false);
 
-  const handleShare = () => {
-    navigator.clipboard.writeText(window.location.href);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+  const handleShare = async () => {
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      setFailed(false);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      setCopied(false);
+      setFailed(true);
+      setTimeout(() => setFailed(false), 2500);
+    }
   };
 
   return (
@@ -24,6 +32,11 @@ export function ShareButton() {
         <>
           <Check className="h-3 w-3 mr-1.5 text-emerald-500" />
           Copied!
+        </>
+      ) : failed ? (
+        <>
+          <Share2 className="h-3 w-3 mr-1.5 text-amber-500" />
+          Copy failed
         </>
       ) : (
         <>

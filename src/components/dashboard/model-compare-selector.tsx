@@ -58,7 +58,6 @@ export function ModelFamilyCompare({ currentModelId, family }: ModelFamilyCompar
                   "flex items-center space-x-3 rounded-xl border border-transparent p-2 transition-all cursor-pointer hover:bg-muted/30",
                   selectedIds.includes(model.id) && "border-primary/20 bg-primary/5"
                 )}
-                onClick={() => toggleModel(model.id)}
               >
                 <Checkbox
                   id={`model-${model.id}`}

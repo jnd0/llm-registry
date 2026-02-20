@@ -12,6 +12,7 @@ import { HomeStatsCard } from "@/components/dashboard/home-stats-card";
 import { LatestArrivalCard } from "@/components/dashboard/latest-arrival-card";
 import { siteName, siteUrl } from "@/lib/site";
 import { HomeLeaderboardServer } from "@/components/dashboard/home-leaderboard-server";
+import { toSafeJsonLd } from "@/lib/security";
 
 interface HomePageProps {
   searchParams: Promise<{
@@ -78,6 +79,8 @@ export default async function Home({ searchParams }: HomePageProps) {
       if (params.pageSize) remainingParams.set("pageSize", params.pageSize);
       if (params.domain) remainingParams.set("domain", params.domain);
       if (params.license) remainingParams.set("license", params.license);
+      if (params.source) remainingParams.set("source", params.source);
+      if (params.verification) remainingParams.set("verification", params.verification);
       const queryString = remainingParams.toString();
       redirect(`/leaderboard/${slug}${queryString ? `?${queryString}` : ""}`);
     }
@@ -102,7 +105,7 @@ export default async function Home({ searchParams }: HomePageProps) {
 
   return (
     <div className="space-y-5">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(homeStructuredData) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toSafeJsonLd(homeStructuredData) }} />
       <section className="relative overflow-hidden rounded-2xl border border-border bg-card/50 px-6 py-8 sm:px-10 sm:py-12">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_0%_0%,color-mix(in_oklab,var(--primary)_8%,transparent),transparent_50%)]" />
 

@@ -71,7 +71,7 @@ export const modelMetadataOverrides: Record<string, ModelMetadataOverride> = {
     "modelUrl": "https://www.anthropic.com/claude/haiku",
     "trainingCutoff": "2024-07"
   },
-  "llama-3-3-70b": {
+  "meta-llama-3-3-70b": {
     "metadataAsOfDate": "2026-02-17",
     "metadataSourceId": "meta-docs",
     "modelUrl": "https://llama.meta.com/",

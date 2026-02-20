@@ -12,6 +12,7 @@ import { BenchmarkInsights } from "@/components/benchmark/benchmark-insights";
 import { SimilarBenchmarks } from "@/components/benchmark/similar-benchmarks";
 import { ShareButton } from "@/components/benchmark/share-button";
 import { siteName, siteUrl } from "@/lib/site";
+import { safeExternalHref, toSafeJsonLd } from "@/lib/security";
 
 interface BenchmarkPageProps {
   params: Promise<{ id: string }>;
@@ -86,6 +87,8 @@ export default async function BenchmarkPage({ params, searchParams }: BenchmarkP
 
   const domain = getDomainForBenchmark(benchmark);
   const categorySlug = categoryToSlug(benchmark.category);
+  const safeBenchmarkLink = safeExternalHref(benchmark.link);
+  const safePaperUrl = safeExternalHref(benchmark.paperUrl);
 
   const modelsWithScores = flattenedModels
     .filter((model) => {
@@ -185,9 +188,9 @@ export default async function BenchmarkPage({ params, searchParams }: BenchmarkP
 
   return (
     <div className="space-y-4">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(benchmarkBreadcrumbJsonLd) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(benchmarkDatasetJsonLd) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(benchmarkArticleJsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toSafeJsonLd(benchmarkBreadcrumbJsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toSafeJsonLd(benchmarkDatasetJsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toSafeJsonLd(benchmarkArticleJsonLd) }} />
       <nav className="hidden sm:flex items-center gap-1 text-xs text-muted-foreground">
         <Link href="/benchmarks" className="hover:text-foreground transition-colors">
           Benchmarks
@@ -228,9 +231,9 @@ export default async function BenchmarkPage({ params, searchParams }: BenchmarkP
           </p>
         </div>
         <div className="flex items-center gap-2 shrink-0">
-          {benchmark.link && (
+          {safeBenchmarkLink && (
             <a
-              href={benchmark.link}
+              href={safeBenchmarkLink}
               target="_blank"
               rel="noreferrer"
               className="inline-flex items-center gap-1.5 rounded-md border border-border/60 px-3 py-1.5 text-xs font-medium text-foreground hover:bg-muted/50 transition-colors"
@@ -239,9 +242,9 @@ export default async function BenchmarkPage({ params, searchParams }: BenchmarkP
               <ExternalLink className="h-3 w-3" />
             </a>
           )}
-          {benchmark.paperUrl && (
+          {safePaperUrl && (
             <a
-              href={benchmark.paperUrl}
+              href={safePaperUrl}
               target="_blank"
               rel="noreferrer"
               className="inline-flex items-center gap-1.5 rounded-md border border-border/60 px-3 py-1.5 text-xs font-medium text-foreground hover:bg-muted/50 transition-colors"

@@ -8,6 +8,7 @@ import { ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { siteName, siteUrl } from "@/lib/site";
 import { BenchmarkExpandableList } from "@/components/dashboard/benchmark-expandable-list";
+import { toSafeJsonLd } from "@/lib/security";
 
 interface DomainPageProps {
   params: Promise<{ slug: string }>;
@@ -142,8 +143,8 @@ export default async function DomainPage({ params }: DomainPageProps) {
 
   return (
     <div className="space-y-4">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(domainBreadcrumbJsonLd) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(domainCollectionJsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toSafeJsonLd(domainBreadcrumbJsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toSafeJsonLd(domainCollectionJsonLd) }} />
       <nav className="hidden sm:flex items-center gap-1 text-xs text-muted-foreground">
         <Link href="/" className="hover:text-foreground transition-colors">
           Leaderboard

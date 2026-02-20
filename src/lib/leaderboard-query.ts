@@ -222,17 +222,41 @@ function matchesCategory(model: Model, category: BenchmarkCategory | null, bench
   });
 }
 
-function matchesSources(model: Model, sources: string[]): boolean {
+function getScopedBenchmarkIds(
+  benchmarks: Benchmark[],
+  params: Pick<LeaderboardQueryParams, "category" | "domain">
+): Set<string> | null {
+  const categoryScoped = params.category
+    ? new Set(benchmarks.filter((benchmark) => benchmark.category === params.category).map((benchmark) => benchmark.id))
+    : null;
+  const domainScoped = params.domain ? new Set(getBenchmarkIdsForDomain(params.domain)) : null;
+
+  if (!categoryScoped && !domainScoped) return null;
+  if (categoryScoped && !domainScoped) return categoryScoped;
+  if (!categoryScoped && domainScoped) return domainScoped;
+
+  const intersection = new Set<string>();
+  for (const benchmarkId of categoryScoped!) {
+    if (domainScoped!.has(benchmarkId)) intersection.add(benchmarkId);
+  }
+  return intersection;
+}
+
+function matchesSources(model: Model, sources: string[], scopedBenchmarkIds: Set<string> | null): boolean {
   if (sources.length === 0) return true;
-  return Object.values(model.scores).some((scoreEntry) => {
+  return Object.entries(model.scores).some(([benchmarkId, scoreEntry]) => {
+    if (scopedBenchmarkIds && !scopedBenchmarkIds.has(benchmarkId)) return false;
+    if (scoreEntry.score === null || scoreEntry.score === undefined) return false;
     if (!scoreEntry.sourceId) return false;
     return sources.includes(scoreEntry.sourceId);
   });
 }
 
-function matchesVerification(model: Model, verification: string[]): boolean {
+function matchesVerification(model: Model, verification: string[], scopedBenchmarkIds: Set<string> | null): boolean {
   if (verification.length === 0) return true;
-  return Object.values(model.scores).some((scoreEntry) => {
+  return Object.entries(model.scores).some(([benchmarkId, scoreEntry]) => {
+    if (scopedBenchmarkIds && !scopedBenchmarkIds.has(benchmarkId)) return false;
+    if (scoreEntry.score === null || scoreEntry.score === undefined) return false;
     const level = scoreEntry.verificationLevel ?? (scoreEntry.verified ? "provider" : null);
     if (!level) return false;
     return verification.includes(level);
@@ -245,6 +269,7 @@ export function queryLeaderboardModels(
   params: LeaderboardQueryParams
 ): LeaderboardQueryResult {
   const directionFactor = params.sortDir === "asc" ? 1 : -1;
+  const scopedBenchmarkIds = getScopedBenchmarkIds(benchmarks, params);
 
   const filtered = models.filter(
     (model) => 
@@ -252,8 +277,8 @@ export function queryLeaderboardModels(
       matchesLicense(model, params.license) && 
       matchesDomain(model, params.domain) && 
       matchesCategory(model, params.category, benchmarks) &&
-      matchesSources(model, params.sources) &&
-      matchesVerification(model, params.verification)
+      matchesSources(model, params.sources, scopedBenchmarkIds) &&
+      matchesVerification(model, params.verification, scopedBenchmarkIds)
   );
   const benchmarkById = new Map(benchmarks.map((benchmark) => [benchmark.id, benchmark]));
   const categoryForSort = params.sortBy.startsWith("avg-")

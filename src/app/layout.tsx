@@ -5,6 +5,7 @@ import { Footer } from "@/components/layout/footer";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { siteName, siteUrl } from "@/lib/site";
+import { toSafeJsonLd } from "@/lib/security";
 import "./globals.css";
 
 const defaultDescription = "Source-of-truth registry for LLM benchmark performance with provenance, category rankings, and comparison workflows.";
@@ -141,8 +142,8 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         <meta name="theme-color" content="#0a0a12" />
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }} />
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toSafeJsonLd(websiteJsonLd) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toSafeJsonLd(organizationJsonLd) }} />
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         <script dangerouslySetInnerHTML={{ __html: themeColorScript }} />
       </head>

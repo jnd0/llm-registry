@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { normalizeScore } from "@/lib/stats";
 import { apiAttribution, getLatestScoreDate } from "@/lib/api";
 import { benchmarks, models } from "@/lib/registry-data";
+import { neutralizeCsvFormula } from "@/lib/security";
 
 interface ExportRow {
   modelId: string;
@@ -25,6 +26,8 @@ function getExportData(filters: {
   benchmarkId?: string;
   category?: string;
   sourceId?: string;
+  limit?: number;
+  offset?: number;
 }): ExportRow[] {
   const benchmarkById = new Map(benchmarks.map((benchmark) => [benchmark.id, benchmark]));
 
@@ -59,11 +62,15 @@ function getExportData(filters: {
     });
   });
 
-  return rows.sort((a, b) => {
+  const sorted = rows.sort((a, b) => {
     const modelCmp = a.modelName.localeCompare(b.modelName);
     if (modelCmp !== 0) return modelCmp;
     return a.benchmarkName.localeCompare(b.benchmarkName);
   });
+
+  const offset = Math.max(0, filters.offset ?? 0);
+  const limit = Math.max(1, Math.min(10_000, filters.limit ?? 5_000));
+  return sorted.slice(offset, offset + limit);
 }
 
 function rowsToCsv(rows: ExportRow[]): string {
@@ -86,7 +93,7 @@ function rowsToCsv(rows: ExportRow[]): string {
 
   const escapeCsv = (value: string | number | boolean | null): string => {
     if (value === null) return "";
-    const str = String(value);
+    const str = typeof value === "string" ? neutralizeCsvFormula(value) : String(value);
     if (str.includes(",") || str.includes('"') || str.includes("\n")) {
       return `"${str.replace(/"/g, '""')}"`;
     }
@@ -109,8 +116,12 @@ export function GET(request: NextRequest) {
   const benchmarkId = request.nextUrl.searchParams.get("benchmarkId") ?? undefined;
   const category = request.nextUrl.searchParams.get("category") ?? undefined;
   const sourceId = request.nextUrl.searchParams.get("sourceId") ?? undefined;
+  const limitParam = Number.parseInt(request.nextUrl.searchParams.get("limit") ?? "5000", 10);
+  const offsetParam = Number.parseInt(request.nextUrl.searchParams.get("offset") ?? "0", 10);
+  const limit = Number.isFinite(limitParam) ? Math.max(1, Math.min(10_000, limitParam)) : 5_000;
+  const offset = Number.isFinite(offsetParam) ? Math.max(0, offsetParam) : 0;
 
-  const rows = getExportData({ modelId, benchmarkId, category, sourceId });
+  const rows = getExportData({ modelId, benchmarkId, category, sourceId, limit, offset });
   const lastModified = getLatestScoreDate() ?? new Date().toISOString();
 
   if (format === "csv") {
@@ -130,7 +141,7 @@ export function GET(request: NextRequest) {
     {
       total: rows.length,
       exportedAt: new Date().toISOString(),
-      filters: { modelId, benchmarkId, category, sourceId },
+      filters: { modelId, benchmarkId, category, sourceId, limit, offset },
       scores: rows,
       attribution: apiAttribution,
     },

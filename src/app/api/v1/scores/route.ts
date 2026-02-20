@@ -11,7 +11,7 @@ export function GET(request: NextRequest) {
   const limit = Number.parseInt(request.nextUrl.searchParams.get("limit") ?? "500", 10);
   const offset = Number.parseInt(request.nextUrl.searchParams.get("offset") ?? "0", 10);
 
-  const safeLimit = Number.isFinite(limit) ? Math.max(1, Math.min(5000, limit)) : 500;
+  const safeLimit = Number.isFinite(limit) ? Math.max(1, Math.min(1000, limit)) : 500;
   const safeOffset = Number.isFinite(offset) ? Math.max(0, offset) : 0;
 
   const benchmarkById = new Map(benchmarks.map((benchmark) => [benchmark.id, benchmark]));

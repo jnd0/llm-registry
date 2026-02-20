@@ -49,9 +49,9 @@ const BENCHMARK_LINK_OVERRIDES: Record<string, string> = {
   "terminal-bench-hard": "https://www.tbench.ai/leaderboard/terminal-bench/2.0",
   "osworld-verified": "https://os-world.github.io/",
   "swe-bench-pro": "https://www.swebench.com/",
-  "lcr": "https://artificialanalysis.ai/evaluations/lcr",
-  "ifbench": "https://artificialanalysis.ai/evaluations/ifbench",
-  "aa-omniscience": "https://artificialanalysis.ai/evaluations/omniscience",
+  "lcr": "https://artificialanalysis.ai/evaluations#lcr",
+  "ifbench": "https://artificialanalysis.ai/evaluations#ifbench",
+  "aa-omniscience": "https://artificialanalysis.ai/evaluations#omniscience",
   "critpt": "https://arxiv.org/abs/2501.00663",
   "scicode": "https://github.com/scicode-bench/scicode",
   "browsecomp": "https://github.com/google-research/browsecomp",
@@ -433,7 +433,7 @@ const rawBenchmarks: Benchmark[] = [
     description: "Artificial Analysis Long Context Reasoning benchmark. Evaluates reasoning over long contexts.",
     maxScore: 100,
     higherIsBetter: true,
-    link: "https://artificialanalysis.ai/evaluations/lcr"
+    link: "https://artificialanalysis.ai/evaluations#lcr"
   },
   // --- MULTILINGUAL ---
   {
@@ -471,7 +471,7 @@ const rawBenchmarks: Benchmark[] = [
     description: "Artificial Analysis IFBench. Evaluates precise instruction following with constraints.",
     maxScore: 100,
     higherIsBetter: true,
-    link: "https://artificialanalysis.ai/evaluations/ifbench"
+    link: "https://artificialanalysis.ai/evaluations#ifbench"
   },
   {
     id: "verified-advancedif",
@@ -498,7 +498,7 @@ const rawBenchmarks: Benchmark[] = [
     maxScore: 100,
     minScore: -100,
     higherIsBetter: true,
-    link: "https://artificialanalysis.ai/evaluations/omniscience"
+    link: "https://artificialanalysis.ai/evaluations#omniscience"
   },
   {
     id: "aime-2025",

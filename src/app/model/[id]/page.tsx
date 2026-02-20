@@ -10,10 +10,11 @@ import { getProviderTheme } from "@/lib/provider-identity";
 import { ModelFamilyCompare } from "@/components/dashboard/model-compare-selector";
 import { ShareButton } from "@/components/benchmark/share-button";
 import { siteName, siteUrl } from "@/lib/site";
+import { safeExternalHref, toSafeJsonLd } from "@/lib/security";
 
 const sourceMap = new Map(sources.map((source) => [source.id, source]));
 
-function getHostLabel(url?: string) {
+function getHostLabel(url?: string | null) {
   if (!url) return "Unknown source";
   try {
     return new URL(url).hostname.replace(/^www\./, "");
@@ -106,6 +107,9 @@ export default async function ModelPage({ params }: PageProps) {
   const providerSourceId = scoreEntries.find((entry) => entry.sourceId)?.sourceId;
   const providerSource = providerSourceId ? sourceMap.get(providerSourceId) : undefined;
   const providerUrl = providerSource?.url;
+  const safeProviderUrl = safeExternalHref(providerUrl);
+  const safeModelUrl = safeExternalHref(model.modelUrl);
+  const safeModelCardUrl = safeExternalHref(model.modelCardUrl);
   const latestAsOf = scoreEntries
     .map((entry) => entry.asOfDate)
     .filter((date): date is string => Boolean(date))
@@ -161,6 +165,11 @@ export default async function ModelPage({ params }: PageProps) {
   ).slice(0, 4);
 
   const modelPageUrl = `${siteUrl}/model/${model.id}`;
+  const reportIssueUrl = `https://github.com/jnd0/llm-registry/issues/new?title=${encodeURIComponent(
+    `Data inaccuracy: ${model.name}`
+  )}&body=${encodeURIComponent(
+    `Model: ${model.name}\nProvider: ${model.provider}\nPage: ${modelPageUrl}\n\nDescribe the inaccuracy:\n`
+  )}`;
   const scoredBenchmarkCount = scoreEntries.filter((entry) => entry.score !== null && entry.score !== undefined).length;
   const modelBreadcrumbJsonLd = {
     "@context": "https://schema.org",
@@ -256,9 +265,9 @@ export default async function ModelPage({ params }: PageProps) {
 
   return (
     <div className="animate-in fade-in duration-700 space-y-4 pb-12">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(modelBreadcrumbJsonLd) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(modelEntityJsonLd) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(modelDatasetJsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toSafeJsonLd(modelBreadcrumbJsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toSafeJsonLd(modelEntityJsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toSafeJsonLd(modelDatasetJsonLd) }} />
       <nav className="hidden sm:flex items-center gap-1 text-xs text-muted-foreground">
         <Link href="/" className="hover:text-foreground transition-colors">
           Leaderboard
@@ -303,24 +312,24 @@ export default async function ModelPage({ params }: PageProps) {
 
             <div className="flex flex-wrap items-center gap-2 pt-2">
               <ModelFamilyCompare currentModelId={model.id} family={fullFamily} />
-              {providerUrl && (
+              {safeProviderUrl && (
                 <Button asChild variant="outline" size="sm" className="h-9 rounded-full border-emerald-500/30 bg-emerald-500/5 px-4 text-[11px] font-bold uppercase tracking-wider text-emerald-700 hover:bg-emerald-500/10 dark:text-emerald-300">
-                  <a href={providerUrl} target="_blank" rel="noreferrer">
+                  <a href={safeProviderUrl} target="_blank" rel="noreferrer">
                     <ShieldCheck className="mr-2 h-3.5 w-3.5" />
                     Verified
                   </a>
                 </Button>
               )}
-              {model.modelUrl && (
+              {safeModelUrl && (
                 <Button asChild variant="outline" size="sm" className="h-9 rounded-full px-4 text-[11px] font-bold uppercase tracking-wider">
-                  <a href={model.modelUrl} target="_blank" rel="noreferrer">
+                  <a href={safeModelUrl} target="_blank" rel="noreferrer">
                     Official
                   </a>
                 </Button>
               )}
               <Button asChild size="sm" className="h-9 rounded-full px-5 text-[11px] font-bold uppercase tracking-wider shadow-lg shadow-primary/20">
-                {model.modelCardUrl ? (
-                  <a href={model.modelCardUrl} target="_blank" rel="noreferrer">
+                {safeModelCardUrl ? (
+                  <a href={safeModelCardUrl} target="_blank" rel="noreferrer">
                     Model Card
                   </a>
                 ) : (
@@ -521,7 +530,7 @@ export default async function ModelPage({ params }: PageProps) {
                 const isMed = scoreRatio >= 0.7;
 
                 const source = scoreData.sourceId ? sourceMap.get(scoreData.sourceId) : undefined;
-                const sourceUrl = scoreData.sourceUrl ?? source?.url ?? benchmark.link;
+                const sourceUrl = safeExternalHref(scoreData.sourceUrl ?? source?.url ?? benchmark.link);
                 const sourceLabel = source?.name ?? getHostLabel(sourceUrl);
                 const verificationLabel = getVerificationLabel(scoreData.verificationLevel, scoreData.verified);
                 const isArtificialAnalysis = scoreData.sourceId === "artificial-analysis";
@@ -628,7 +637,9 @@ export default async function ModelPage({ params }: PageProps) {
 
             <Button asChild variant="outline" className="mt-5 h-10 w-full">
               <a
-                href={`mailto:registry@example.com?subject=Report%20Inaccuracy%3A%20${encodeURIComponent(model.name)}&body=${encodeURIComponent(`Model: ${model.name}\nProvider: ${model.provider}\n\nPlease describe the inaccuracy:\n`)}`}
+                href={reportIssueUrl}
+                target="_blank"
+                rel="noreferrer"
               >
                 Report Inaccuracy
               </a>
