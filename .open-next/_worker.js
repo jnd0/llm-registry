@@ -20,6 +20,15 @@ export default {
                 return response;
             }
             const url = new URL(request.url);
+            // Serve static assets first
+            if (url.pathname.startsWith("/_next/") || 
+                url.pathname.startsWith("/favicon") ||
+                url.pathname.match(/\.(js|css|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot|json|xml|txt|webmanifest)$/)) {
+                const assetResponse = await env.ASSETS?.fetch(request);
+                if (assetResponse && assetResponse.status !== 404) {
+                    return assetResponse;
+                }
+            }
             // Serve images in development.
             // Note: "/cdn-cgi/image/..." requests do not reach production workers.
             if (url.pathname.startsWith("/cdn-cgi/image/")) {
