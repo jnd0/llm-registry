@@ -428,9 +428,12 @@ export default async function ModelPage({ params }: PageProps) {
                 return (
                   <article key={benchmark.id} className="data-module group relative rounded-lg p-5 transition-transform duration-300 hover:-translate-y-0.5">
                     <div className="mb-5 flex items-start justify-between gap-3">
-                      <span className="max-w-[72%] font-mono text-sm font-semibold tracking-[0.06em] text-muted-foreground transition-colors group-hover:text-foreground">
+                      <Link
+                        href={`/benchmark/${benchmark.id}`}
+                        className="max-w-[72%] font-mono text-sm font-semibold tracking-[0.06em] text-muted-foreground transition-colors hover:text-primary group-hover:text-foreground"
+                      >
                         {benchmark.name}
-                      </span>
+                      </Link>
                       <Badge variant="secondary" className="rounded border-border bg-secondary px-1.5 py-0.5 font-mono text-[11px] tracking-[0.06em] text-muted-foreground">
                         {benchmark.category}
                       </Badge>
