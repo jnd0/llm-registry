@@ -365,11 +365,12 @@ export function createColumns(
         const sourceLabel = source?.name ?? "Source";
         const verificationLabel = getVerificationLabel(scoreEntry?.verificationLevel, scoreEntry?.verified);
         const isArtificialAnalysis = scoreEntry?.sourceId === "artificial-analysis";
+        const isInherited = Boolean(scoreEntry?.inheritedFrom);
         const normalizedScore = normalizeScore(score, benchmark);
         const freshness = getFreshnessLevel(scoreEntry?.asOfDate);
         const daysAgo = formatDaysAgo(scoreEntry?.asOfDate);
 
-        const displayScore = `${score.toFixed(benchmark.maxScore > 100 ? 0 : 1)}${isArtificialAnalysis ? "*" : ""}`;
+        const displayScore = `${score.toFixed(benchmark.maxScore > 100 ? 0 : 1)}${isArtificialAnalysis ? "*" : ""}${isInherited ? "~" : ""}`;
 
         return (
           <div className="pl-2">
@@ -378,8 +379,8 @@ export function createColumns(
                 "inline-flex min-w-[84px] max-w-[120px] items-center justify-center gap-1 rounded-md border px-2.5 py-1 font-mono text-sm font-semibold tabular-nums",
                 getScorePillClass(normalizedScore)
               )}
-              title={`${verificationLabel} | ${sourceLabel} | ${scoreEntry?.asOfDate ?? "unknown date"}${sourceUrl ? ` | ${sourceUrl}` : ""} | normalized ${normalizedScore.toFixed(1)}`}
-            >
+                title={`${verificationLabel}${isInherited ? ` | inherited from ${scoreEntry?.inheritedFrom}` : ""} | ${sourceLabel} | ${scoreEntry?.asOfDate ?? "unknown date"}${sourceUrl ? ` | ${sourceUrl}` : ""} | normalized ${normalizedScore.toFixed(1)}`}
+              >
               <span className="truncate">{displayScore}</span>
               {freshness === "stale" && (
                 <span className="shrink-0 h-1.5 w-1.5 rounded-full bg-red-500" title={`Stale: ${daysAgo}`} />

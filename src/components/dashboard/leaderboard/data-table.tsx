@@ -26,7 +26,7 @@ import {
 } from "@/components/ui/select";
 import { normalizeScore } from "@/lib/stats";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import type { LeaderboardSortDirection, LicenseFilter } from "@/lib/leaderboard-query";
+import type { LeaderboardSortDirection, LicenseFilter, CoverageMode } from "@/lib/leaderboard-query";
 import type { CapabilityDomain } from "@/lib/domains";
 import { getBenchmarkIdsForDomain, domainDefinitions } from "@/lib/domains";
 import { useMaximizedView } from "@/hooks/use-maximized-view";
@@ -47,6 +47,7 @@ export interface DataTableProps {
   domain: CapabilityDomain | null;
   sourcesFilter: string[];
   verificationFilter: string[];
+  coverageMode: CoverageMode;
 }
 
 function areStringArraysEqual(a: string[], b: string[]) {
@@ -82,6 +83,7 @@ export function DataTable({
   domain,
   sourcesFilter,
   verificationFilter,
+  coverageMode,
 }: DataTableProps) {
   const benchmarkWindowSize = 24;
 
@@ -625,6 +627,17 @@ export function DataTable({
     [enqueueSearchParamUpdates]
   );
 
+  const handleCoverageModeChange = React.useCallback(
+    (nextMode: CoverageMode) => {
+      if (nextMode === coverageMode) return;
+      enqueueSearchParamUpdates({
+        coverageMode: nextMode === "assisted" ? null : nextMode,
+        page: "1",
+      });
+    },
+    [coverageMode, enqueueSearchParamUpdates]
+  );
+
   const goToPage = React.useCallback(
     (page: number) => {
       const safePage = Math.max(1, Math.min(totalPages, page));
@@ -672,9 +685,17 @@ export function DataTable({
         onSourcesFilterChange={handleSourcesFilterChange}
         verificationFilter={verificationFilter}
         onVerificationFilterChange={handleVerificationFilterChange}
+        coverageMode={coverageMode}
+        onCoverageModeChange={handleCoverageModeChange}
         isMaximized={isMaximized}
         onToggleMaximized={toggleMaximized}
       />
+
+      {coverageMode === "assisted" && (
+        <p className="px-1 font-mono text-[10px] font-bold uppercase tracking-[0.14em] text-muted-foreground/70">
+          Coverage-assisted mode enabled: estimated family-proxy scores are marked with ~
+        </p>
+      )}
 
       {!isDesktopViewport && (
         <div className="space-y-3">
@@ -827,6 +848,8 @@ export function DataTable({
                 onSourcesFilterChange={handleSourcesFilterChange}
                 verificationFilter={verificationFilter}
                 onVerificationFilterChange={handleVerificationFilterChange}
+                coverageMode={coverageMode}
+                onCoverageModeChange={handleCoverageModeChange}
                 isMaximized={isMaximized}
                 onToggleMaximized={toggleMaximized}
               />

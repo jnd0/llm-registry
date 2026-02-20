@@ -147,6 +147,7 @@ export interface Model {
     rawScore?: string;           // Optional raw string from original source
     notes?: string;
     rank?: number;               // Pre-computed rank for this benchmark
+    inheritedFrom?: string;
   }>;
 }
 

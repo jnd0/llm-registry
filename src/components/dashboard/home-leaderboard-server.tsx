@@ -13,6 +13,7 @@ interface HomeLeaderboardServerProps {
     pageSize?: string;
     source?: string;
     verification?: string;
+    coverageMode?: string;
   };
 }
 
@@ -37,6 +38,7 @@ export function HomeLeaderboardServer({ params }: HomeLeaderboardServerProps) {
       domain={leaderboard.domain}
       sourcesFilter={leaderboard.sources}
       verificationFilter={leaderboard.verification}
+      coverageMode={leaderboard.coverageMode}
     />
   );
 }

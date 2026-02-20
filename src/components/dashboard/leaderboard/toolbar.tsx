@@ -17,7 +17,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import Link from "next/link";
 import { Model } from "@/types";
-import type { LicenseFilter } from "@/lib/leaderboard-query";
+import type { LicenseFilter, CoverageMode } from "@/lib/leaderboard-query";
 import type { CapabilityDomain } from "@/lib/domains";
 import { domainDefinitions } from "@/lib/domains";
 import { sources } from "@/data/sources";
@@ -46,6 +46,8 @@ interface LeaderboardToolbarProps {
   onSourcesFilterChange: (value: string[]) => void;
   verificationFilter: string[];
   onVerificationFilterChange: (value: string[]) => void;
+  coverageMode: CoverageMode;
+  onCoverageModeChange: (value: CoverageMode) => void;
   isMaximized?: boolean;
   onToggleMaximized?: () => void;
 }
@@ -67,6 +69,8 @@ export function LeaderboardToolbar({
   onSourcesFilterChange,
   verificationFilter,
   onVerificationFilterChange,
+  coverageMode,
+  onCoverageModeChange,
   isMaximized = false,
   onToggleMaximized,
 }: LeaderboardToolbarProps) {
@@ -156,6 +160,31 @@ export function LeaderboardToolbar({
             )}
           >
             Benchmarks
+          </Button>
+        </div>
+
+        <div className="flex items-center gap-1.5 bg-muted/30 p-1 rounded-full border border-border/40">
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => onCoverageModeChange("assisted")}
+            className={cn(
+              "h-7 rounded-full px-3 text-[11px] font-bold uppercase tracking-wider transition-all",
+              coverageMode === "assisted" ? "bg-background text-primary shadow-sm" : "text-muted-foreground hover:text-foreground"
+            )}
+          >
+            Coverage Assisted
+          </Button>
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => onCoverageModeChange("strict")}
+            className={cn(
+              "h-7 rounded-full px-3 text-[11px] font-bold uppercase tracking-wider transition-all",
+              coverageMode === "strict" ? "bg-background text-primary shadow-sm" : "text-muted-foreground hover:text-foreground"
+            )}
+          >
+            Observed Only
           </Button>
         </div>
 

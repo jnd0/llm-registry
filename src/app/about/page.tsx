@@ -161,6 +161,13 @@ export default function AboutPage() {
                   Compare pages expose shared benchmark counts and per-model coverage so confidence in comparisons is visible before interpretation.
                 </p>
               </article>
+
+              <article className="rounded-2xl border border-border bg-card p-5">
+                <p className="font-mono text-[10px] font-bold uppercase tracking-widest text-primary">Coverage-Assisted Mode (Leaderboard)</p>
+                <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
+                  Leaderboard can optionally fill sparse base-model gaps with family-proxy scores from the same model line. These scores are marked as estimated and shown with a ~ suffix. Use Observed Only mode for strict measured values.
+                </p>
+              </article>
             </div>
           </section>
 

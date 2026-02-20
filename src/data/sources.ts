@@ -73,6 +73,13 @@ export const sources: SourceRecord[] = [
     updatedAt: "2026-02-16",
   },
   {
+    id: "model-family-proxy",
+    name: "Model Family Proxy (Estimated)",
+    url: "https://llm-registry.com/about",
+    publisher: "LLM Registry",
+    updatedAt: "2026-02-20",
+  },
+  {
     id: "livebench",
     name: "LiveBench",
     url: "https://livebench.ai/",

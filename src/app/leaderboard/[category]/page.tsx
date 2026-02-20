@@ -20,6 +20,7 @@ interface CategoryPageProps {
     domain?: string;
     source?: string;
     verification?: string;
+    coverageMode?: string;
   }>;
 }
 
@@ -143,6 +144,7 @@ export default async function CategoryLeaderboardPage({ params, searchParams }: 
           domain={leaderboard.domain}
           sourcesFilter={leaderboard.sources}
           verificationFilter={leaderboard.verification}
+          coverageMode={leaderboard.coverageMode}
         />
       </Suspense>
     </div>

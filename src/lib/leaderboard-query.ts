@@ -5,6 +5,7 @@ import { slugToDomain, getBenchmarkIdsForDomain, type CapabilityDomain } from ".
 
 export type LeaderboardSortDirection = "asc" | "desc";
 export type LicenseFilter = "all" | "open" | "proprietary";
+export type CoverageMode = "assisted" | "strict";
 
 export interface LeaderboardQueryParams {
   query: string;
@@ -17,6 +18,7 @@ export interface LeaderboardQueryParams {
   category: BenchmarkCategory | null;
   sources: string[];
   verification: string[];
+  coverageMode: CoverageMode;
 }
 
 export interface LeaderboardQueryResult {
@@ -33,6 +35,7 @@ export interface LeaderboardQueryResult {
   category: BenchmarkCategory | null;
   sources: string[];
   verification: string[];
+  coverageMode: CoverageMode;
 }
 
 interface LeaderboardQueryOptions {
@@ -40,6 +43,7 @@ interface LeaderboardQueryOptions {
 }
 
 const coverageMemo = new WeakMap<Model[], WeakMap<Benchmark[], Map<string, number>>>();
+const COVERAGE_ASSIST_ALLOWLIST = new Set(["gpt-5-2"]);
 
 type SearchParamsLike =
   | URLSearchParams
@@ -94,6 +98,7 @@ export function parseLeaderboardQueryParams(
   const requestedDomain = readParam(searchParams, "domain") ?? "";
   const requestedSources = readParam(searchParams, "source") ?? "";
   const requestedVerification = readParam(searchParams, "verification") ?? "";
+  const requestedCoverageMode = readParam(searchParams, "coverageMode") ?? "assisted";
 
   const validSortIds = getValidSortIds(benchmarks);
   const fallbackSort = getDefaultSortBy(options.activeCategory ?? null);
@@ -118,6 +123,8 @@ export function parseLeaderboardQueryParams(
     ? requestedVerification.split(",").map((v) => v.trim()).filter(Boolean)
     : [];
 
+  const coverageMode: CoverageMode = requestedCoverageMode === "strict" ? "strict" : "assisted";
+
   return {
     query,
     sortBy,
@@ -129,7 +136,75 @@ export function parseLeaderboardQueryParams(
     category: options.activeCategory ?? null,
     sources,
     verification,
+    coverageMode,
   };
+}
+
+function countAvailableScores(model: Model, benchmarks: Benchmark[]): number {
+  let count = 0;
+  for (const benchmark of benchmarks) {
+    const score = model.scores[benchmark.id]?.score;
+    if (score !== null && score !== undefined) count += 1;
+  }
+  return count;
+}
+
+function selectProxyVariant(baseModel: Model, benchmarks: Benchmark[]): Model | null {
+  const variants = baseModel.variants ?? [];
+  if (variants.length === 0) return null;
+
+  const viable = variants.filter((variant) => countAvailableScores(variant, benchmarks) > 0);
+  if (viable.length === 0) return null;
+
+  const exactHigh = viable.find((variant) => variant.id === `${baseModel.id}-high`);
+  if (exactHigh) return exactHigh;
+
+  const high = viable.find((variant) => /(^|-)high$/.test(variant.id) || /\bhigh\b/i.test(variant.name));
+  if (high) return high;
+
+  return [...viable].sort(
+    (a, b) => countAvailableScores(b, benchmarks) - countAvailableScores(a, benchmarks)
+  )[0] ?? null;
+}
+
+function applyCoverageAssist(models: Model[], benchmarks: Benchmark[], mode: CoverageMode): Model[] {
+  if (mode === "strict") return models;
+
+  return models.map((model) => {
+    if (!COVERAGE_ASSIST_ALLOWLIST.has(model.id)) return model;
+
+    const proxyVariant = selectProxyVariant(model, benchmarks);
+    if (!proxyVariant) return model;
+
+    const observedCount = countAvailableScores(model, benchmarks);
+    const proxyCount = countAvailableScores(proxyVariant, benchmarks);
+
+    if (proxyCount <= observedCount) return model;
+
+    const mergedScores: Model["scores"] = { ...model.scores };
+
+    for (const benchmark of benchmarks) {
+      const existing = model.scores[benchmark.id]?.score;
+      if (existing !== null && existing !== undefined) continue;
+
+      const proxyScore = proxyVariant.scores[benchmark.id];
+      if (!proxyScore || proxyScore.score === null || proxyScore.score === undefined) continue;
+
+      mergedScores[benchmark.id] = {
+        ...proxyScore,
+        verified: false,
+        verificationLevel: "estimated",
+        sourceId: "model-family-proxy",
+        inheritedFrom: proxyVariant.id,
+        notes: `Estimated from ${proxyVariant.name} (${proxyVariant.id})`,
+      };
+    }
+
+    return {
+      ...model,
+      scores: mergedScores,
+    };
+  });
 }
 
 function getCoverageMap(models: Model[], benchmarks: Benchmark[]): Map<string, number> {
@@ -268,10 +343,11 @@ export function queryLeaderboardModels(
   benchmarks: Benchmark[],
   params: LeaderboardQueryParams
 ): LeaderboardQueryResult {
+  const candidateModels = applyCoverageAssist(models, benchmarks, params.coverageMode);
   const directionFactor = params.sortDir === "asc" ? 1 : -1;
   const scopedBenchmarkIds = getScopedBenchmarkIds(benchmarks, params);
 
-  const filtered = models.filter(
+  const filtered = candidateModels.filter(
     (model) => 
       matchesQuery(model, params.query) && 
       matchesLicense(model, params.license) && 
@@ -284,7 +360,7 @@ export function queryLeaderboardModels(
   const categoryForSort = params.sortBy.startsWith("avg-")
     ? slugToCategory(params.sortBy.replace(/^avg-/, ""))
     : null;
-  const coverageByModelId = params.sortBy === "coverage" ? getCoverageMap(models, benchmarks) : undefined;
+  const coverageByModelId = params.sortBy === "coverage" ? getCoverageMap(candidateModels, benchmarks) : undefined;
 
   const sortValues = new Map<string, number | null>();
   for (const model of filtered) {
@@ -339,5 +415,6 @@ export function queryLeaderboardModels(
     category: params.category,
     sources: params.sources,
     verification: params.verification,
+    coverageMode: params.coverageMode,
   };
 }

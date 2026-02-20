@@ -44,6 +44,7 @@ export const scoreSchema = z.object({
   rawScore: z.string().optional(),
   notes: z.string().optional(),
   rank: z.number().int().nonnegative().optional(),
+  inheritedFrom: z.string().min(1).optional(),
 });
 
 export const modelApiSupportSchema = z.object({

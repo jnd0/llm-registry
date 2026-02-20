@@ -26,6 +26,7 @@ interface HomePageProps {
     pageSize?: string;
     source?: string;
     verification?: string;
+    coverageMode?: string;
   }>;
 }
 
@@ -81,6 +82,7 @@ export default async function Home({ searchParams }: HomePageProps) {
       if (params.license) remainingParams.set("license", params.license);
       if (params.source) remainingParams.set("source", params.source);
       if (params.verification) remainingParams.set("verification", params.verification);
+      if (params.coverageMode) remainingParams.set("coverageMode", params.coverageMode);
       const queryString = remainingParams.toString();
       redirect(`/leaderboard/${slug}${queryString ? `?${queryString}` : ""}`);
     }
