@@ -699,33 +699,86 @@ export function DataTable({
         )}
       </div>
       
-      {/* Maximized Overlay */}
+      {/* Maximized Overlay with Animations */}
       {isMaximized && (
-        <div className="fixed inset-0 z-50 bg-background flex flex-col">
-          {/* Floating Header */}
-          <div className="flex items-center justify-between px-6 py-4 border-b border-border bg-card shrink-0">
-            <div className="flex items-center gap-3">
-              <h2 className="font-display text-lg font-bold tracking-tight">Leaderboard</h2>
-              {searchQuery && (
-                <span className="text-sm text-muted-foreground">
-                  Search: "{searchQuery}"
-                </span>
-              )}
+        <div 
+          className="fixed inset-0 z-[100] bg-background/95 backdrop-blur-sm flex flex-col animate-in fade-in duration-200"
+          style={{
+            animation: 'fadeIn 200ms ease-out'
+          }}
+        >
+          <style jsx>{`
+            @keyframes fadeIn {
+              from { opacity: 0; }
+              to { opacity: 1; }
+            }
+            @keyframes slideDown {
+              from { opacity: 0; transform: translateY(-10px); }
+              to { opacity: 1; transform: translateY(0); }
+            }
+            @keyframes scaleIn {
+              from { opacity: 0; transform: scale(0.98); }
+              to { opacity: 1; transform: scale(1); }
+            }
+          `}</style>
+
+          {/* Floating Header with Toolbar */}
+          <div 
+            className="flex flex-col border-b border-border bg-card shrink-0"
+            style={{ animation: 'slideDown 300ms ease-out 50ms backwards' }}
+          >
+            {/* Title Bar with Exit Button */}
+            <div className="flex items-center justify-between px-6 py-3 border-b border-border/50">
+              <div className="flex items-center gap-3">
+                <h2 className="font-display text-lg font-bold tracking-tight">Leaderboard</h2>
+                {searchQuery && (
+                  <span className="text-sm text-muted-foreground">
+                    Search: "{searchQuery}"
+                  </span>
+                )}
+              </div>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={exitMaximized}
+                className="rounded-full border-border/60 hover:bg-destructive/10 hover:text-destructive hover:border-destructive/30 transition-colors"
+              >
+                <X className="h-4 w-4 mr-2" />
+                Exit View
+                <span className="ml-2 text-xs text-muted-foreground">(Esc)</span>
+              </Button>
             </div>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={exitMaximized}
-              className="rounded-full border-border/60"
-            >
-              <X className="h-4 w-4 mr-2" />
-              Exit View
-              <span className="ml-2 text-xs text-muted-foreground">(Esc)</span>
-            </Button>
+
+            {/* Toolbar */}
+            <div className="px-6 py-3">
+              <LeaderboardToolbar
+                table={table}
+                compareIds={compareIds || []}
+                compareHref={compareHref}
+                searchQuery={searchQuery}
+                onSearchQueryChange={handleSearchQueryChange}
+                resetLayout={resetLayout}
+                summaryView={summaryView}
+                setSummaryView={setSummaryView}
+                license={license}
+                onLicenseChange={handleLicenseChange}
+                domain={domain}
+                onClearDomain={handleClearDomain}
+                sourcesFilter={sourcesFilter}
+                onSourcesFilterChange={handleSourcesFilterChange}
+                verificationFilter={verificationFilter}
+                onVerificationFilterChange={handleVerificationFilterChange}
+                isMaximized={isMaximized}
+                onToggleMaximized={toggleMaximized}
+              />
+            </div>
           </div>
 
           {/* Table Content */}
-          <div className="flex-1 overflow-hidden p-6">
+          <div 
+            className="flex-1 overflow-hidden p-6"
+            style={{ animation: 'scaleIn 300ms ease-out 100ms backwards' }}
+          >
             <div className="relative h-full overflow-auto rounded-2xl border border-border bg-card shadow-sm">
               <div className="pointer-events-none absolute inset-y-0 left-0 z-30 w-8 bg-gradient-to-r from-card to-transparent opacity-0 transition-opacity group-hover/table:opacity-100" />
               <div className="pointer-events-none absolute inset-y-0 right-0 z-30 w-8 bg-gradient-to-l from-card to-transparent" />
@@ -843,6 +896,18 @@ export function DataTable({
               </Button>
             </div>
           </div>
+
+          {/* Floating Exit Button (Bottom Right) */}
+          <button
+            onClick={exitMaximized}
+            className="fixed bottom-6 right-6 z-[101] flex items-center justify-center w-12 h-12 rounded-full bg-card border border-border shadow-lg hover:bg-destructive hover:text-destructive-foreground hover:border-destructive transition-all duration-200 group"
+            aria-label="Exit maximized view"
+          >
+            <X className="h-5 w-5" />
+            <span className="absolute right-full mr-3 px-2 py-1 bg-card border border-border rounded-md text-xs font-medium opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+              Exit (Esc)
+            </span>
+          </button>
         </div>
       )}
 
