@@ -4,7 +4,7 @@ import { Table } from "@tanstack/react-table";
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Search, Filter, Check } from "lucide-react";
+import { Search, Filter, Check, Maximize2, Minimize2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import {
   DropdownMenu,
@@ -46,11 +46,13 @@ interface LeaderboardToolbarProps {
   onSourcesFilterChange: (value: string[]) => void;
   verificationFilter: string[];
   onVerificationFilterChange: (value: string[]) => void;
+  isMaximized?: boolean;
+  onToggleMaximized?: () => void;
 }
 
-export function LeaderboardToolbar({ 
-  table, 
-  compareIds, 
+export function LeaderboardToolbar({
+  table,
+  compareIds,
   compareHref,
   searchQuery,
   onSearchQueryChange,
@@ -65,6 +67,8 @@ export function LeaderboardToolbar({
   onSourcesFilterChange,
   verificationFilter,
   onVerificationFilterChange,
+  isMaximized = false,
+  onToggleMaximized,
 }: LeaderboardToolbarProps) {
   const [searchValue, setSearchValue] = useState(searchQuery);
   const [debounceTimer, setDebounceTimer] = useState<NodeJS.Timeout | null>(null);
@@ -310,6 +314,27 @@ export function LeaderboardToolbar({
               Compare ({compareIds.length})
             </Button>
           </Link>
+        )}
+
+        {onToggleMaximized && (
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={onToggleMaximized}
+            className={cn(
+              "h-8 rounded-full border-border/60 px-3 text-[11px] font-bold uppercase tracking-wider",
+              isMaximized
+                ? "bg-primary/10 border-primary/30 text-primary"
+                : "text-muted-foreground hover:text-foreground"
+            )}
+            title={isMaximized ? "Exit maximized view (Esc)" : "Maximize view (F)"}
+          >
+            {isMaximized ? (
+              <Minimize2 className="h-3.5 w-3.5" />
+            ) : (
+              <Maximize2 className="h-3.5 w-3.5" />
+            )}
+          </Button>
         )}
 
         <DropdownMenu onOpenChange={(open) => !open && setColumnSearch("")}>

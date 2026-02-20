@@ -8,7 +8,7 @@ import {
   getCoreRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { GripVertical, ChevronDown } from "lucide-react";
+import { GripVertical, ChevronDown, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Model, Benchmark } from "@/types";
@@ -22,6 +22,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import type { LeaderboardSortDirection, LicenseFilter } from "@/lib/leaderboard-query";
 import type { CapabilityDomain } from "@/lib/domains";
 import { getBenchmarkIdsForDomain, domainDefinitions } from "@/lib/domains";
+import { useMaximizedView } from "@/hooks/use-maximized-view";
 
 interface DataTableProps {
   data: Model[];
@@ -92,6 +93,7 @@ export function DataTable({
   const [summaryView, setSummaryView] = React.useState(() => !activeCategory);
   const [benchmarkWindowPage, setBenchmarkWindowPage] = React.useState(0);
   const [queuedParamUpdates, setQueuedParamUpdates] = React.useState<Record<string, string | null> | null>(null);
+  const { isMaximized, toggleMaximized, exitMaximized } = useMaximizedView();
 
   const setColumnOrderSafely = React.useCallback((nextOrder: string[]) => {
     setColumnOrder((prev) => (areStringArraysEqual(prev, nextOrder) ? prev : nextOrder));
@@ -615,9 +617,9 @@ export function DataTable({
           ? `Found ${totalRows} ${totalRows === 1 ? 'model' : 'models'} matching "${searchQuery}"`
           : `${totalRows} models in registry`}
       </div>
-      <LeaderboardToolbar 
-        table={table} 
-        compareIds={compareIds || []} 
+      <LeaderboardToolbar
+        table={table}
+        compareIds={compareIds || []}
         compareHref={compareHref}
         searchQuery={searchQuery}
         onSearchQueryChange={handleSearchQueryChange}
@@ -632,6 +634,8 @@ export function DataTable({
         onSourcesFilterChange={handleSourcesFilterChange}
         verificationFilter={verificationFilter}
         onVerificationFilterChange={handleVerificationFilterChange}
+        isMaximized={isMaximized}
+        onToggleMaximized={toggleMaximized}
       />
 
       <div className="space-y-3 md:hidden">
@@ -695,7 +699,154 @@ export function DataTable({
         )}
       </div>
       
-      {/* The Table Container */}
+      {/* Maximized Overlay */}
+      {isMaximized && (
+        <div className="fixed inset-0 z-50 bg-background flex flex-col">
+          {/* Floating Header */}
+          <div className="flex items-center justify-between px-6 py-4 border-b border-border bg-card shrink-0">
+            <div className="flex items-center gap-3">
+              <h2 className="font-display text-lg font-bold tracking-tight">Leaderboard</h2>
+              {searchQuery && (
+                <span className="text-sm text-muted-foreground">
+                  Search: "{searchQuery}"
+                </span>
+              )}
+            </div>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={exitMaximized}
+              className="rounded-full border-border/60"
+            >
+              <X className="h-4 w-4 mr-2" />
+              Exit View
+              <span className="ml-2 text-xs text-muted-foreground">(Esc)</span>
+            </Button>
+          </div>
+
+          {/* Table Content */}
+          <div className="flex-1 overflow-hidden p-6">
+            <div className="relative h-full overflow-auto rounded-2xl border border-border bg-card shadow-sm">
+              <div className="pointer-events-none absolute inset-y-0 left-0 z-30 w-8 bg-gradient-to-r from-card to-transparent opacity-0 transition-opacity group-hover/table:opacity-100" />
+              <div className="pointer-events-none absolute inset-y-0 right-0 z-30 w-8 bg-gradient-to-l from-card to-transparent" />
+              <Table>
+                <TableHeader className="sticky top-0 z-20 border-b border-border bg-card">
+                  {table.getHeaderGroups().map((headerGroup) => (
+                    <TableRow
+                      key={headerGroup.id}
+                      className="border-border/40 hover:bg-transparent h-12"
+                    >
+                      {headerGroup.headers.map((header) => {
+                        const isDraggable = header.id !== "select";
+                        return (
+                          <TableHead
+                            key={header.id}
+                            className={cn(
+                              "group/head h-12 px-5 font-mono text-[10px] font-bold uppercase tracking-[0.15em] text-muted-foreground/60 transition-all duration-200",
+                              isDraggable && "cursor-grab active:cursor-grabbing",
+                              draggedColumn === header.id && "opacity-20",
+                              draggedColumn && draggedColumn !== header.id && isDraggable && "hover:bg-muted/40",
+                              header.id === "select" && "z-40 bg-card md:sticky",
+                              header.id === "name" && "z-40 bg-card md:sticky border-r border-border shadow-[4px_0_8px_-4px_rgba(0,0,0,0.1)]"
+                            )}
+                            style={getStickyColumnStyle(header.id)}
+                            draggable={isDraggable}
+                            onDragStart={() => handleDragStart(header.id)}
+                            onDragOver={handleDragOver}
+                            onDrop={() => handleDrop(header.id)}
+                            onDragEnd={() => setDraggedColumn(null)}
+                          >
+                            <div className="flex items-center gap-1.5">
+                              {isDraggable && (
+                                <GripVertical className="-ml-1 h-3 w-3 opacity-0 transition-opacity group-hover/head:opacity-30" />
+                              )}
+                              {header.isPlaceholder
+                                ? null
+                                : flexRender(
+                                    header.column.columnDef.header,
+                                    header.getContext()
+                                  )}
+                            </div>
+                          </TableHead>
+                        );
+                      })}
+                    </TableRow>
+                  ))}
+                </TableHeader>
+                <TableBody>
+                  {desktopRows?.length ? (
+                    desktopRows.map((row) => (
+                      <TableRow
+                        key={row.id}
+                        data-state={row.getIsSelected() && "selected"}
+                        className="group/row relative h-14 border-border/30 transition-colors hover:bg-muted/30 data-[state=selected]:bg-muted/60"
+                      >
+                        {row.getVisibleCells().map((cell) => (
+                          <TableCell
+                            key={cell.id}
+                            className={cn(
+                              "relative z-10 px-5 py-3 align-middle transition-colors",
+                              cell.column.id === "select" && "z-40 bg-card md:sticky",
+                              cell.column.id === "name" && "z-40 bg-card md:sticky border-r border-border shadow-[4px_0_8px_-4px_rgba(0,0,0,0.1)]"
+                            )}
+                            style={getStickyColumnStyle(cell.column.id)}
+                          >
+                            {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                          </TableCell>
+                        ))}
+                      </TableRow>
+                    ))
+                  ) : (
+                    <TableRow>
+                      <TableCell
+                        colSpan={columns.length}
+                        className="h-48 text-center font-mono text-muted-foreground/40 uppercase tracking-[0.2em] text-[10px]"
+                      >
+                        No systems match criteria
+                      </TableCell>
+                    </TableRow>
+                  )}
+                </TableBody>
+              </Table>
+            </div>
+          </div>
+
+          {/* Pagination Footer */}
+          <div className="flex flex-wrap items-center justify-between gap-4 px-6 py-4 border-t border-border bg-card shrink-0">
+            <div className="flex items-center gap-4 text-[10px] font-bold uppercase tracking-widest text-muted-foreground/50">
+              <span>{totalRows} Models Registered</span>
+              <span className="h-1 w-1 rounded-full bg-border" />
+              <span>{benchmarks.length} Benchmarks Active</span>
+            </div>
+
+            <div className="flex items-center gap-1.5">
+              <div className="mr-4 flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest text-muted-foreground/50">
+                <span>Page {currentPage} of {totalPages}</span>
+              </div>
+              <Button
+                variant="ghost"
+                size="sm"
+                className="h-8 w-8 rounded-full p-0 hover:bg-muted"
+                onClick={() => goToPage(currentPage - 1)}
+                disabled={currentPage <= 1}
+              >
+                <ChevronDown className="h-4 w-4 rotate-90" />
+              </Button>
+              <Button
+                variant="ghost"
+                size="sm"
+                className="h-8 w-8 rounded-full p-0 hover:bg-muted"
+                onClick={() => goToPage(currentPage + 1)}
+                disabled={currentPage >= totalPages}
+              >
+                <ChevronDown className="h-4 w-4 -rotate-90" />
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Normal Table Container */}
       <div className="relative hidden max-h-[70vh] overflow-auto rounded-2xl border border-border bg-card md:block shadow-sm">
         <div className="pointer-events-none absolute inset-y-0 left-0 z-30 w-8 bg-gradient-to-r from-card to-transparent opacity-0 transition-opacity group-hover/table:opacity-100" />
         <div className="pointer-events-none absolute inset-y-0 right-0 z-30 w-8 bg-gradient-to-l from-card to-transparent" />
@@ -779,7 +930,8 @@ export function DataTable({
           </TableBody>
         </Table>
       </div>
-      
+
+      {/* Normal Pagination */}
       <div className="flex flex-wrap items-center justify-between gap-4 px-2 py-2">
         <div className="flex items-center gap-4 text-[10px] font-bold uppercase tracking-widest text-muted-foreground/50">
           <span>{totalRows} Models Registered</span>
