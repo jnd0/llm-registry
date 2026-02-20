@@ -18,7 +18,7 @@ interface ExploreClientProps {
 }
 
 type XAxisOption = "price" | "inputPrice" | "outputPrice" | "contextWindow" | "releaseDate";
-type YAxisOption = "coverage" | string;
+type YAxisOption = string;
 
 const xAxisLabels: Record<XAxisOption, string> = {
   price: "Total Price ($/M)",
@@ -41,7 +41,7 @@ export function ExploreClient({
   benchmarkOptions,
 }: ExploreClientProps) {
   const [xAxis, setXAxis] = useState<XAxisOption>("price");
-  const [yAxis, setYAxis] = useState<YAxisOption>("coverage");
+  const [yAxis, setYAxis] = useState<YAxisOption>(benchmarkOptions[0]?.id ?? "mmlu");
   const [hoveredPoint, setHoveredPoint] = useState<ChartDataPoint | null>(null);
   const [selectedLicense, setSelectedLicense] = useState<"all" | "open" | "proprietary">("all");
   const [logScale, setLogScale] = useState(true);
@@ -88,15 +88,7 @@ export function ExploreClient({
         }
 
         let yValue: number | null = null;
-        if (yAxis === "coverage") {
-          const scores = Object.values(model.scores);
-          const validScores = scores.filter((s) => s.score !== null && s.score !== undefined);
-          yValue = validScores.length > 0
-            ? (validScores.length / Object.keys(model.scores).length) * 100
-            : null;
-        } else {
-          yValue = model.scores[yAxis]?.score ?? null;
-        }
+        yValue = model.scores[yAxis]?.score ?? null;
 
         if (xValue === null || yValue === null || xValue <= 0) return null;
 
@@ -249,7 +241,7 @@ export function ExploreClient({
               className="h-8 rounded-lg border border-border bg-background px-3 text-sm flex items-center gap-2 min-w-[160px]"
             >
               <span className="truncate">
-                {yAxis === "coverage" ? "Coverage %" : benchmarkOptions.find((b) => b.id === yAxis)?.name ?? "Select..."}
+                {benchmarkOptions.find((b) => b.id === yAxis)?.name ?? "Select..."}
               </span>
               <ChevronDown className="h-3 w-3 ml-auto shrink-0" />
             </button>
@@ -269,19 +261,6 @@ export function ExploreClient({
                   </div>
                 </div>
                 <div className="max-h-64 overflow-y-auto p-1">
-                  <button
-                    onClick={() => {
-                      setYAxis("coverage");
-                      setShowBenchmarkDropdown(false);
-                      setBenchmarkSearch("");
-                    }}
-                    className={cn(
-                      "w-full rounded px-2 py-1.5 text-left text-xs hover:bg-muted",
-                      yAxis === "coverage" && "bg-muted"
-                    )}
-                  >
-                    Coverage %
-                  </button>
                   {filteredBenchmarks.slice(0, 50).map((b) => (
                     <button
                       key={b.id}

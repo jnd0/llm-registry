@@ -3,21 +3,8 @@
 import { useQueryState, parseAsArrayOf, parseAsString } from "nuqs";
 import { Model, Benchmark } from "@/types";
 import { Button } from "@/components/ui/button";
-import { X, Plus, Share2 } from "lucide-react";
+import { X, Plus, Share2, Search } from "lucide-react";
 import { Card } from "@/components/ui/card";
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from "@/components/ui/command";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
 import { useState, useMemo, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { normalizeScore } from "@/lib/stats";
@@ -48,6 +35,7 @@ interface CompareViewProps {
     id: string;
     name: string;
     provider: string;
+    releaseDate: string;
   }[];
   initialSelectedModels: Model[];
   benchmarks: Benchmark[];
@@ -57,7 +45,8 @@ export function CompareView({ modelOptions, initialSelectedModels, benchmarks }:
   const [showSummary, setShowSummary] = useState(true);
   const [onlySharedBenchmarks, setOnlySharedBenchmarks] = useState(true);
   const [copied, setCopied] = useState(false);
-  const [popoverOpen, setPopoverOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [searchText, setSearchText] = useState("");
   const [modelCache, setModelCache] = useState<Record<string, Model>>(() =>
     Object.fromEntries(initialSelectedModels.map((model) => [model.id, model]))
   );
@@ -134,6 +123,13 @@ export function CompareView({ modelOptions, initialSelectedModels, benchmarks }:
       return a.name.localeCompare(b.name);
     }),
     [modelOptions]
+  );
+
+  const latestModels = useMemo(
+    () => [...modelOptions]
+      .filter((m) => !compareIds.includes(m.id))
+      .sort((a, b) => b.releaseDate.localeCompare(a.releaseDate)),
+    [modelOptions, compareIds]
   );
 
   const benchmarkCategoryFilter = useMemo(() => {
@@ -250,8 +246,20 @@ export function CompareView({ modelOptions, initialSelectedModels, benchmarks }:
     if (compareIds.includes(id)) return;
     if (compareIds.length >= 3) return;
     setCompareIds((prev) => [...(prev || []), id]);
-    setPopoverOpen(false);
+    setSearchOpen(false);
+    setSearchText("");
   };
+
+  const filteredModels = useMemo(() => {
+    if (!searchText) return selectableModels.slice(0, 10);
+    const search = searchText.toLowerCase();
+    return selectableModels
+      .filter((m) => 
+        m.name.toLowerCase().includes(search) || 
+        m.provider.toLowerCase().includes(search)
+      )
+      .slice(0, 10);
+  }, [selectableModels, searchText]);
 
   const getModelCardMeta = (model: Model) => {
     const entries = Object.values(model.scores);
@@ -387,49 +395,65 @@ export function CompareView({ modelOptions, initialSelectedModels, benchmarks }:
             {copied ? "Copied" : "Share"}
           </Button>
 
-          <Popover open={popoverOpen} onOpenChange={setPopoverOpen}>
-            <PopoverTrigger asChild>
-              <Button
-                size="sm"
-                className="h-9 rounded-full px-5 text-[11px] font-bold uppercase tracking-wider shadow-lg shadow-primary/20"
-              >
-                <Plus className="mr-1.5 h-3.5 w-3.5" />
-                Add Model
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent className="w-[300px] overflow-hidden rounded-2xl border-border bg-card p-0 shadow-2xl" align="end">
-              <Command className="bg-transparent font-mono">
-                <CommandInput placeholder="Search models…" className="h-11 border-b border-border/50 text-xs" />
-                <CommandList className="max-h-[320px] overflow-y-auto no-scrollbar">
-                  <CommandEmpty className="p-6 text-center text-[10px] uppercase tracking-widest text-muted-foreground">No models found</CommandEmpty>
-                  <CommandGroup heading="Available Registry" className="p-2 text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground/50">
-                    {selectableModels.map((model) => {
+          <div className="relative">
+            <Button
+              size="sm"
+              onClick={() => setSearchOpen(!searchOpen)}
+              className="h-9 rounded-full px-5 text-[11px] font-bold uppercase tracking-wider shadow-lg shadow-primary/20"
+            >
+              <Plus className="mr-1.5 h-3.5 w-3.5" />
+              Add Model
+            </Button>
+
+            {searchOpen && (
+              <div className="absolute right-0 top-full mt-2 z-50 w-[320px] rounded-2xl border border-border bg-card shadow-2xl overflow-hidden">
+                <div className="p-3 border-b border-border/50">
+                  <div className="relative">
+                    <Search className="absolute left-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-muted-foreground" />
+                    <input
+                      type="text"
+                      placeholder="Search models..."
+                      value={searchText}
+                      onChange={(e) => setSearchText(e.target.value)}
+                      className="h-10 w-full rounded-lg border border-border bg-background pl-9 pr-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20"
+                      autoFocus
+                    />
+                  </div>
+                </div>
+                <div className="max-h-[300px] overflow-y-auto p-2">
+                  {filteredModels.length === 0 ? (
+                    <p className="p-4 text-center text-xs text-muted-foreground">No models found</p>
+                  ) : (
+                    filteredModels.map((model) => {
                       const providerTheme = getProviderTheme(model.provider);
+                      const isAdded = compareIds.includes(model.id);
                       return (
-                        <CommandItem
+                        <button
                           key={model.id}
-                          value={`${model.name} ${model.provider}`}
-                          onSelect={() => addModel(model.id)}
-                          disabled={compareIds.includes(model.id) || compareIds.length >= 3}
-                          className="mb-1 cursor-pointer rounded-xl px-3 py-2.5 transition-colors aria-selected:bg-primary/5 aria-selected:text-primary"
+                          onClick={() => addModel(model.id)}
+                          disabled={isAdded || compareIds.length >= 3}
+                          className={cn(
+                            "w-full rounded-xl px-3 py-2.5 text-left transition-colors",
+                            isAdded ? "opacity-50 cursor-not-allowed" : "hover:bg-muted"
+                          )}
                         >
                           <div className="flex w-full items-center justify-between gap-3">
                             <div className="min-w-0">
-                              <span className="block truncate text-sm font-bold tracking-tight" title={model.name}>{model.name}</span>
+                              <span className="block truncate text-sm font-bold tracking-tight text-foreground">{model.name}</span>
                               <span className={cn("block truncate text-[10px] font-bold uppercase tracking-wider opacity-70", providerTheme.text)}>{model.provider}</span>
                             </div>
-                            {compareIds.includes(model.id) && (
+                            {isAdded && (
                               <span className="rounded-full bg-primary/10 px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider text-primary">Added</span>
                             )}
                           </div>
-                        </CommandItem>
+                        </button>
                       );
-                    })}
-                  </CommandGroup>
-                </CommandList>
-              </Command>
-            </PopoverContent>
-          </Popover>
+                    })
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
         </div>
       </div>
 
@@ -484,7 +508,7 @@ export function CompareView({ modelOptions, initialSelectedModels, benchmarks }:
 
         {Array.from({ length: Math.max(0, 3 - selectedModels.length) }).map((_, idx) => {
           const slotNum = selectedModels.length + idx + 1;
-          const suggestions = selectableModels.filter(m => !compareIds.includes(m.id)).slice(0, 3);
+          const suggestions = latestModels.slice(0, 3);
 
           return (
             <div
@@ -493,7 +517,7 @@ export function CompareView({ modelOptions, initialSelectedModels, benchmarks }:
             >
               <div className="flex items-center justify-between mb-4">
                 <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground/50">Slot 0{slotNum}</p>
-                <Button variant="ghost" size="sm" onClick={() => setPopoverOpen(true)} className="h-7 text-[10px] uppercase font-bold tracking-wider px-2 hover:bg-muted text-muted-foreground">
+                <Button variant="ghost" size="sm" onClick={() => setSearchOpen(true)} className="h-7 text-[10px] uppercase font-bold tracking-wider px-2 hover:bg-muted text-muted-foreground">
                   <Plus className="mr-1 h-3 w-3" /> Search
                 </Button>
               </div>

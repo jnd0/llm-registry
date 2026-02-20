@@ -31,6 +31,7 @@ export default async function ComparePage({ searchParams }: ComparePageProps) {
     id: model.id,
     name: model.name,
     provider: model.provider,
+    releaseDate: model.releaseDate,
   }));
 
   return (

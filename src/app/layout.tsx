@@ -107,6 +107,10 @@ export default function RootLayout({
 
               <Navbar />
               <main id="main-content" className="container relative z-10 flex-1 mx-auto px-4 py-8 sm:px-8 md:py-12">
+                <div className="rounded-xl border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-sm text-amber-700 dark:text-amber-400 flex items-center gap-3 mb-5">
+                  <span className="flex h-2 w-2 rounded-full bg-amber-500 animate-pulse shrink-0" />
+                  <p><strong>Beta version:</strong> *Information might not be fully accurate. Please report any discrepancies.</p>
+                </div>
                 {children}
               </main>
               <Footer />

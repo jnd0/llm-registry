@@ -65,10 +65,6 @@ export default async function Home({ searchParams }: HomePageProps) {
 
   return (
     <div className="animate-in fade-in duration-500 space-y-5">
-      <div className="rounded-xl border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-sm text-amber-700 dark:text-amber-400 flex items-center gap-3">
-        <span className="flex h-2 w-2 rounded-full bg-amber-500 animate-pulse shrink-0" />
-        <p><strong>Beta version 0.5.0:</strong> *Information might not be fully accurate. Please report any discrepancies.</p>
-      </div>
       <section className="relative overflow-hidden rounded-2xl border border-border bg-card/50 px-6 py-8 sm:px-10 sm:py-12">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_0%_0%,color-mix(in_oklab,var(--primary)_8%,transparent),transparent_50%)]" />
 
