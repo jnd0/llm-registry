@@ -36,14 +36,14 @@ export default async function ComparePage({ searchParams }: ComparePageProps) {
 
   return (
     <div className="animate-in fade-in duration-700 space-y-8 pb-16">
-      <section className="relative overflow-hidden rounded-2xl border border-border bg-card/50 px-6 py-8 sm:px-10 sm:py-12">
+      <section className="relative overflow-hidden rounded-2xl border border-border bg-card/50 px-6 py-6 sm:px-10 sm:py-8">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_100%_100%,color-mix(in_oklab,var(--primary)_8%,transparent),transparent_50%)]" />
         <div className="relative max-w-3xl space-y-4">
           <p className="label-eyebrow text-muted-foreground/70">Registry / Benchmarks / Analysis</p>
-          <h1 className="text-balance font-display text-4xl font-bold tracking-tight text-foreground sm:text-5xl lg:text-6xl">
+          <h1 className="text-balance font-display text-3xl font-bold tracking-tight text-foreground sm:text-4xl lg:text-5xl">
             Model Comparison
           </h1>
-          <p className="max-w-2xl text-lg text-muted-foreground sm:text-xl">
+          <p className="max-w-2xl text-base text-muted-foreground sm:text-lg">
             Compare up to three foundation models side by side across category averages and benchmark-level performance deltas.
           </p>
         </div>

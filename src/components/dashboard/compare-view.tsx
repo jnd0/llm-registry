@@ -12,6 +12,7 @@ import { ALL_CATEGORY_SLUG, categoryToSlug, slugToCategory } from "@/lib/categor
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { getProviderTheme } from "@/lib/provider-identity";
+import { sources } from "@/data/sources";
 
 const RadarComparison = dynamic(
   () => import("./radar-chart").then((mod) => mod.RadarComparison),
@@ -31,6 +32,22 @@ function getSeriesColorClasses(idx: number) {
   return { bar: "bg-chart-3", text: "text-chart-3" };
 }
 
+const sourceMap = new Map(sources.map((source) => [source.id, source]));
+const MIN_RELIABLE_SHARED_BENCHMARKS = 8;
+
+function hasScore(model: Model, benchmarkId: string) {
+  const score = model.scores[benchmarkId]?.score;
+  return score !== null && score !== undefined;
+}
+
+function getVerificationBadge(verificationLevel?: string, verified?: boolean) {
+  if (verificationLevel === "third_party") return "3rd";
+  if (verificationLevel === "provider") return "Prov";
+  if (verificationLevel === "community") return "Comm";
+  if (verificationLevel === "estimated") return "Est";
+  return verified ? "Prov" : "Unv";
+}
+
 interface CompareViewProps {
   modelOptions: {
     id: string;
@@ -44,7 +61,6 @@ interface CompareViewProps {
 
 export function CompareView({ modelOptions, initialSelectedModels, benchmarks }: CompareViewProps) {
   const [showSummary, setShowSummary] = useState(true);
-  const [onlySharedBenchmarks, setOnlySharedBenchmarks] = useState(true);
   const [copied, setCopied] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchText, setSearchText] = useState("");
@@ -59,6 +75,12 @@ export function CompareView({ modelOptions, initialSelectedModels, benchmarks }:
     "category",
     parseAsString.withDefault(ALL_CATEGORY_SLUG)
   );
+  const [comparisonMode, setComparisonMode] = useQueryState(
+    "mode",
+    parseAsString.withDefault("strict")
+  );
+
+  const onlySharedBenchmarks = comparisonMode !== "explore";
 
   const selectedModels = useMemo(() => {
     const ids = (compareIds || []).slice(0, 3);
@@ -138,46 +160,109 @@ export function CompareView({ modelOptions, initialSelectedModels, benchmarks }:
     return category ?? ALL_CATEGORY_SLUG;
   }, [categorySlug]);
 
+  const scopedBenchmarks = useMemo(() => {
+    if (benchmarkCategoryFilter === ALL_CATEGORY_SLUG) {
+      return benchmarks;
+    }
+    return benchmarks.filter((benchmark) => benchmark.category === benchmarkCategoryFilter);
+  }, [benchmarkCategoryFilter, benchmarks]);
+
+  const sharedBenchmarkCount = useMemo(() => {
+    if (selectedModels.length === 0) return 0;
+
+    return scopedBenchmarks.filter((benchmark) => {
+      if (selectedModels.length === 1) {
+        return hasScore(selectedModels[0], benchmark.id);
+      }
+      return selectedModels.every((model) => hasScore(model, benchmark.id));
+    }).length;
+  }, [scopedBenchmarks, selectedModels]);
+
+  const comparisonQuality = useMemo(() => {
+    if (selectedModels.length < 2) return null;
+
+    const totalBenchmarks = scopedBenchmarks.length;
+    const sharedCoverage = totalBenchmarks > 0 ? (sharedBenchmarkCount / totalBenchmarks) * 100 : 0;
+    const coverageStats = selectedModels.map((model) => {
+      const available = scopedBenchmarks.filter((benchmark) => hasScore(model, benchmark.id)).length;
+      const coverage = totalBenchmarks > 0 ? (available / totalBenchmarks) * 100 : 0;
+      return coverage;
+    });
+    const averageCoverage = coverageStats.length > 0
+      ? coverageStats.reduce((sum, value) => sum + value, 0) / coverageStats.length
+      : 0;
+    const minimumCoverage = coverageStats.length > 0 ? Math.min(...coverageStats) : 0;
+
+    let reliability: "high" | "medium" | "low" = "low";
+    if (sharedBenchmarkCount >= 12 && minimumCoverage >= 50) {
+      reliability = "high";
+    } else if (sharedBenchmarkCount >= MIN_RELIABLE_SHARED_BENCHMARKS && minimumCoverage >= 35) {
+      reliability = "medium";
+    }
+
+    return {
+      totalBenchmarks,
+      sharedBenchmarks: sharedBenchmarkCount,
+      sharedCoverage,
+      averageCoverage,
+      minimumCoverage,
+      reliability,
+      isReliable: sharedBenchmarkCount >= MIN_RELIABLE_SHARED_BENCHMARKS,
+    };
+  }, [scopedBenchmarks, selectedModels, sharedBenchmarkCount]);
+
   const categoryAverages = useMemo(() => {
     if (!showSummary) return [];
 
-    return categories.map(category => {
-      const categoryBenchmarks = benchmarks.filter(b => b.category === category);
-      const modelScores = selectedModels.map(model => {
-        const scores = categoryBenchmarks
-          .map(b => {
-            const scoreObj = model.scores[b.id];
-            if (!scoreObj || scoreObj.score === null) return null;
-            return normalizeScore(scoreObj.score, b);
-          })
-          .filter((s): s is number => s !== null);
+    const scopedCategories = Array.from(new Set(scopedBenchmarks.map((benchmark) => benchmark.category)));
+
+    return scopedCategories
+      .map((category) => {
+        const categoryBenchmarks = scopedBenchmarks.filter((benchmark) => benchmark.category === category);
+        const comparableBenchmarks =
+          onlySharedBenchmarks && selectedModels.length > 1
+            ? categoryBenchmarks.filter((benchmark) => selectedModels.every((model) => hasScore(model, benchmark.id)))
+            : categoryBenchmarks;
+
+        const modelScores = selectedModels.map((model) => {
+          const normalizedScores = comparableBenchmarks
+            .map((benchmark) => {
+              const score = model.scores[benchmark.id]?.score;
+              if (score === null || score === undefined) return null;
+              return normalizeScore(score, benchmark);
+            })
+            .filter((score): score is number => score !== null);
+
+          return {
+            modelId: model.id,
+            modelName: model.name,
+            average:
+              normalizedScores.length > 0
+                ? normalizedScores.reduce((sum, value) => sum + value, 0) / normalizedScores.length
+                : null,
+            availableBenchmarks: normalizedScores.length,
+            comparableBenchmarks: comparableBenchmarks.length,
+          };
+        });
 
         return {
-          modelId: model.id,
-          modelName: model.name,
-          average: scores.length > 0 ? scores.reduce((a, b) => a + b, 0) / scores.length : null
+          id: category.toLowerCase().replace(/\s+/g, "-"),
+          name: category,
+          description: `Aggregate performance across ${category} evaluations.`,
+          benchmarkCount: comparableBenchmarks.length,
+          totalBenchmarkCount: categoryBenchmarks.length,
+          scores: modelScores,
         };
-      });
-
-      return {
-        id: category.toLowerCase().replace(/\s+/g, '-'),
-        name: category,
-        description: `Aggregate performance across all ${category} evaluations.`,
-        scores: modelScores
-      };
-    });
-  }, [benchmarks, categories, selectedModels, showSummary]);
+      })
+      .filter((category) => category.scores.some((score) => score.average !== null));
+  }, [onlySharedBenchmarks, scopedBenchmarks, selectedModels, showSummary]);
 
   const detailedBenchmarks = useMemo(() => {
     if (showSummary) return [];
 
-    return benchmarks
-      .filter((benchmark) => benchmarkCategoryFilter === ALL_CATEGORY_SLUG || benchmark.category === benchmarkCategoryFilter)
+    return scopedBenchmarks
       .filter((benchmark) => {
-        const availableCount = selectedModels.filter((model) => {
-          const score = model.scores[benchmark.id]?.score;
-          return score !== null && score !== undefined;
-        }).length;
+        const availableCount = selectedModels.filter((model) => hasScore(model, benchmark.id)).length;
 
         if (availableCount === 0) return false;
         if (!onlySharedBenchmarks) return true;
@@ -188,7 +273,7 @@ export function CompareView({ modelOptions, initialSelectedModels, benchmarks }:
         if (a.category === b.category) return a.name.localeCompare(b.name);
         return a.category.localeCompare(b.category);
       });
-  }, [benchmarkCategoryFilter, benchmarks, onlySharedBenchmarks, selectedModels, showSummary]);
+  }, [onlySharedBenchmarks, scopedBenchmarks, selectedModels, showSummary]);
 
   const benchmarkDeltas = useMemo(() => {
     if (showSummary) return {};
@@ -214,28 +299,12 @@ export function CompareView({ modelOptions, initialSelectedModels, benchmarks }:
   }, [detailedBenchmarks, selectedModels, showSummary]);
 
   const radarBenchmarks = useMemo(() => {
-    if (benchmarkCategoryFilter !== ALL_CATEGORY_SLUG) {
-      return benchmarks.filter((benchmark) => benchmark.category === benchmarkCategoryFilter);
-    }
+    if (selectedModels.length === 0) return scopedBenchmarks;
 
-    const preferredCategories = [
-      "Reasoning",
-      "Knowledge",
-      "Math",
-      "Coding",
-      "Multimodal",
-      "Agentic",
-      "Real-world",
-    ];
-
-    const selectedCategories = preferredCategories.filter((category) =>
-      benchmarks.some((benchmark) => benchmark.category === category)
-    ).slice(0, 6);
-
-    if (selectedCategories.length === 0) return benchmarks;
-
-    return benchmarks.filter((benchmark) => selectedCategories.includes(benchmark.category));
-  }, [benchmarkCategoryFilter, benchmarks]);
+    return scopedBenchmarks.filter((benchmark) =>
+      selectedModels.some((model) => hasScore(model, benchmark.id))
+    );
+  }, [scopedBenchmarks, selectedModels]);
 
   const removeModel = (id: string) => {
     setCompareIds((prev) => prev?.filter((i) => i !== id) || []);
@@ -263,41 +332,66 @@ export function CompareView({ modelOptions, initialSelectedModels, benchmarks }:
   }, [selectableModels, searchText]);
 
   const getModelCardMeta = (model: Model) => {
-    const entries = Object.values(model.scores);
-    const normalized = benchmarks
-      .map((benchmark) => {
-        const score = model.scores[benchmark.id]?.score;
-        if (score === null || score === undefined) return null;
-        return normalizeScore(score, benchmark);
-      })
-      .filter((score): score is number => score !== null);
+    const scopedScoreEntries = scopedBenchmarks
+      .map((benchmark) => model.scores[benchmark.id])
+      .filter((entry): entry is Model["scores"][string] => {
+        const score = entry?.score;
+        return score !== null && score !== undefined;
+      });
 
-    const baseScore = normalized.length > 0
-      ? normalized.reduce((sum, value) => sum + value, 0) / normalized.length
-      : 0;
+    const totalBenchmarks = scopedBenchmarks.length;
+    const scoredBenchmarks = scopedScoreEntries.length;
+    const coverage = totalBenchmarks > 0 ? (scoredBenchmarks / totalBenchmarks) * 100 : 0;
 
-    const confidence = Number(Math.max(0, Math.min(100, 50 + baseScore * 0.5)).toFixed(1));
+    const strongVerified = scopedScoreEntries.filter((entry) => {
+      if (entry.verificationLevel === "provider" || entry.verificationLevel === "third_party") return true;
+      return entry.verified && !entry.verificationLevel;
+    }).length;
+    const communityVerified = scopedScoreEntries.filter((entry) => entry.verificationLevel === "community").length;
+    const estimated = scopedScoreEntries.filter((entry) => entry.verificationLevel === "estimated").length;
+    const strongVerificationShare = scoredBenchmarks > 0 ? (strongVerified / scoredBenchmarks) * 100 : 0;
 
-    const hasProviderOrThirdParty = entries.some((entry) =>
-      entry.verificationLevel === "provider" || entry.verificationLevel === "third_party"
-    );
-    const hasCommunity = entries.some((entry) => entry.verificationLevel === "community");
+    const datedEntries = scopedScoreEntries.filter((entry) => Boolean(entry.asOfDate));
+    const latestAsOfDate = datedEntries
+      .map((entry) => entry.asOfDate as string)
+      .sort((a, b) => b.localeCompare(a))[0] ?? null;
 
-    if (hasProviderOrThirdParty) {
+    if (strongVerificationShare >= 60) {
       return {
-        label: "Lab Verified",
+        label: "Strong Verification",
         tone: "text-emerald-700 dark:text-emerald-400",
         dot: "bg-emerald-500",
-        confidence,
+        coverage,
+        strongVerificationShare,
+        scoredBenchmarks,
+        totalBenchmarks,
+        latestAsOfDate,
       };
     }
 
-    if (hasCommunity) {
+    if (strongVerified > 0 || communityVerified > 0) {
       return {
-        label: "Community Report",
+        label: "Partial Verification",
         tone: "text-amber-700 dark:text-amber-400",
         dot: "bg-amber-500",
-        confidence,
+        coverage,
+        strongVerificationShare,
+        scoredBenchmarks,
+        totalBenchmarks,
+        latestAsOfDate,
+      };
+    }
+
+    if (estimated > 0) {
+      return {
+        label: "Estimated Data",
+        tone: "text-slate-600 dark:text-slate-300",
+        dot: "bg-slate-500",
+        coverage,
+        strongVerificationShare,
+        scoredBenchmarks,
+        totalBenchmarks,
+        latestAsOfDate,
       };
     }
 
@@ -305,7 +399,11 @@ export function CompareView({ modelOptions, initialSelectedModels, benchmarks }:
       label: "Unverified",
       tone: "text-muted-foreground",
       dot: "bg-muted-foreground",
-      confidence,
+      coverage,
+      strongVerificationShare,
+      scoredBenchmarks,
+      totalBenchmarks,
+      latestAsOfDate,
     };
   };
 
@@ -351,38 +449,34 @@ export function CompareView({ modelOptions, initialSelectedModels, benchmarks }:
             </Button>
           </div>
 
-          {!showSummary && (
-            <div className="h-4 w-px bg-border/40 mx-2" />
-          )}
+          <div className="h-4 w-px bg-border/40 mx-2" />
 
-          {!showSummary && (
-            <div className="flex items-center gap-2">
-              <select
-                value={categorySlug}
-                onChange={(event) => setCategorySlug(event.target.value)}
-                aria-label="Filter by category"
-                className="h-9 rounded-full border border-border/60 bg-muted/20 px-4 text-[11px] font-bold uppercase tracking-wider text-muted-foreground focus:bg-background transition-all outline-none"
-              >
-                <option value={ALL_CATEGORY_SLUG}>All Categories</option>
-                {categories.map((category) => (
-                  <option key={category} value={categoryToSlug(category)}>
-                    {category}
-                  </option>
-                ))}
-              </select>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => setOnlySharedBenchmarks((prev) => !prev)}
-                className={cn(
-                  "h-9 rounded-full border-border/60 px-4 text-[11px] font-bold uppercase tracking-wider transition-all",
-                  onlySharedBenchmarks ? "bg-primary/5 text-primary border-primary/20" : "text-muted-foreground hover:text-foreground"
-                )}
-              >
-                {onlySharedBenchmarks ? "Shared Only" : "All Results"}
-              </Button>
-            </div>
-          )}
+          <div className="flex items-center gap-2">
+            <select
+              value={categorySlug}
+              onChange={(event) => setCategorySlug(event.target.value)}
+              aria-label="Filter by category"
+              className="h-9 rounded-full border border-border/60 bg-muted/20 px-4 text-[11px] font-bold uppercase tracking-wider text-muted-foreground focus:bg-background transition-all outline-none"
+            >
+              <option value={ALL_CATEGORY_SLUG}>All Categories</option>
+              {categories.map((category) => (
+                <option key={category} value={categoryToSlug(category)}>
+                  {category}
+                </option>
+              ))}
+            </select>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setComparisonMode(onlySharedBenchmarks ? "explore" : "strict")}
+              className={cn(
+                "h-9 rounded-full border-border/60 px-4 text-[11px] font-bold uppercase tracking-wider transition-all",
+                onlySharedBenchmarks ? "bg-primary/5 text-primary border-primary/20" : "text-muted-foreground hover:text-foreground"
+              )}
+            >
+              {onlySharedBenchmarks ? "Strict Shared" : "Exploratory"}
+            </Button>
+          </div>
         </div>
 
         <div className="flex items-center gap-2">
@@ -458,6 +552,44 @@ export function CompareView({ modelOptions, initialSelectedModels, benchmarks }:
         </div>
       </div>
 
+      {comparisonQuality && (
+        <section className="rounded-2xl border border-border bg-card/40 px-5 py-4">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <div className="space-y-1">
+              <p className="font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-muted-foreground/70">
+                Comparison Quality
+              </p>
+              <div className="flex flex-wrap items-center gap-2 text-[11px] font-bold uppercase tracking-wider">
+                <span
+                  className={cn(
+                    "rounded-full border px-2.5 py-1",
+                    comparisonQuality.reliability === "high"
+                      ? "border-emerald-500/30 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300"
+                      : comparisonQuality.reliability === "medium"
+                        ? "border-amber-500/30 bg-amber-500/10 text-amber-700 dark:text-amber-300"
+                        : "border-rose-500/30 bg-rose-500/10 text-rose-700 dark:text-rose-300"
+                  )}
+                >
+                  {comparisonQuality.reliability} evidence
+                </span>
+                <span className="text-muted-foreground">
+                  Shared {comparisonQuality.sharedBenchmarks}/{comparisonQuality.totalBenchmarks} ({comparisonQuality.sharedCoverage.toFixed(1)}%)
+                </span>
+                <span className="text-muted-foreground">
+                  Avg Coverage {comparisonQuality.averageCoverage.toFixed(1)}% | Min {comparisonQuality.minimumCoverage.toFixed(1)}%
+                </span>
+              </div>
+            </div>
+
+            <p className="text-xs text-muted-foreground">
+              {comparisonQuality.isReliable
+                ? "Reliable overlap for directional benchmark comparisons."
+                : `Low overlap: fewer than ${MIN_RELIABLE_SHARED_BENCHMARKS} shared benchmarks. Avoid hard winner claims.`}
+            </p>
+          </div>
+        </section>
+      )}
+
       <section className="grid gap-4 lg:grid-cols-3">
         {selectedModels.map((model, idx) => {
           const providerTheme = getProviderTheme(model.provider);
@@ -494,9 +626,12 @@ export function CompareView({ modelOptions, initialSelectedModels, benchmarks }:
               </div>
 
               <div className="mt-8 flex items-baseline gap-2">
-                <span className="font-display text-5xl font-bold tracking-tight text-foreground">{cardMeta.confidence.toFixed(1)}%</span>
-                <span className="font-mono text-[10px] font-bold uppercase tracking-widest text-muted-foreground/50">Confidence</span>
+                <span className="font-display text-5xl font-bold tracking-tight text-foreground">{cardMeta.coverage.toFixed(1)}%</span>
+                <span className="font-mono text-[10px] font-bold uppercase tracking-widest text-muted-foreground/50">Coverage</span>
               </div>
+              <p className="mt-1 font-mono text-[10px] font-bold uppercase tracking-widest text-muted-foreground/50">
+                {cardMeta.scoredBenchmarks}/{cardMeta.totalBenchmarks} Benchmarks In Scope
+              </p>
 
               <div className="mt-6 space-y-3">
                 <div className="flex items-center justify-between text-[10px] font-bold uppercase tracking-widest">
@@ -504,10 +639,20 @@ export function CompareView({ modelOptions, initialSelectedModels, benchmarks }:
                     <span className={cn("h-1.5 w-1.5 rounded-full", cardMeta.dot)} />
                     {cardMeta.label}
                   </span>
-                  <span className="text-muted-foreground/60">{model.releaseDate}</span>
+                  <span className="text-muted-foreground/60">{cardMeta.latestAsOfDate ?? "No Date"}</span>
                 </div>
+
+                <div className="grid grid-cols-1 gap-2 text-[10px] font-bold uppercase tracking-widest text-muted-foreground/70">
+                  <span className="rounded-md border border-border/60 bg-muted/20 px-2 py-1">
+                    Verified {cardMeta.strongVerificationShare.toFixed(0)}%
+                  </span>
+                </div>
+
                 <div className="h-1 w-full overflow-hidden rounded-full bg-muted/50">
-                  <div className="h-full bg-primary duration-1000 ease-out motion-reduce:duration-0" style={{ width: `${Math.max(8, cardMeta.confidence)}%` }} />
+                  <div
+                    className="h-full bg-primary duration-1000 ease-out motion-reduce:duration-0"
+                    style={{ width: `${Math.max(8, cardMeta.coverage)}%` }}
+                  />
                 </div>
               </div>
             </article>
@@ -558,9 +703,15 @@ export function CompareView({ modelOptions, initialSelectedModels, benchmarks }:
       {selectedModels.length > 0 && (
         <div className="grid gap-6 lg:grid-cols-2">
           {selectedModels.length >= 2 ? (
-            <div className="rounded-2xl border border-border bg-card overflow-hidden h-[500px]">
-              <RadarComparison models={selectedModels} benchmarks={radarBenchmarks} className="h-full w-full" />
-            </div>
+            radarBenchmarks.length > 0 ? (
+              <div className="rounded-2xl border border-border bg-card overflow-hidden h-[500px]">
+                <RadarComparison models={selectedModels} benchmarks={radarBenchmarks} className="h-full w-full" />
+              </div>
+            ) : (
+              <div className="flex h-[500px] items-center justify-center rounded-2xl border border-dashed border-border/60 bg-muted/5 px-8 text-center text-[10px] font-bold uppercase tracking-widest text-muted-foreground/50">
+                No comparable benchmarks in the current scope
+              </div>
+            )
           ) : (
             <div className="flex h-[500px] items-center justify-center rounded-2xl border border-dashed border-border/60 bg-muted/5 text-[10px] font-bold uppercase tracking-widest text-muted-foreground/40">
               Select 2+ models for radar analysis
@@ -573,18 +724,24 @@ export function CompareView({ modelOptions, initialSelectedModels, benchmarks }:
                 {showSummary ? "Capability Variance" : "Performance Delta"}
               </h3>
               <p className="mt-1 font-mono text-[10px] font-bold uppercase tracking-widest text-muted-foreground/50">
-                {showSummary ? "Category Normalized Averages" : "Benchmark Comparison"}
+                {showSummary ? "Category Normalized Averages" : "Benchmark Comparison"} | {onlySharedBenchmarks ? `Strict ${sharedBenchmarkCount}/${scopedBenchmarks.length}` : "Exploratory"}
               </p>
             </div>
 
             <div className="flex-1 p-6 overflow-y-auto no-scrollbar max-h-[400px]">
               <div className="space-y-8">
                 {showSummary ? (
-                  categoryAverages.map((cat) => (
+                  categoryAverages.length === 0 ? (
+                    <div className="flex h-full items-center justify-center py-20 text-[10px] font-bold uppercase tracking-widest text-muted-foreground/40">
+                      No comparable category data in this scope
+                    </div>
+                  ) : categoryAverages.map((cat) => (
                     <div key={cat.id} className="space-y-4">
                       <div className="flex items-end justify-between border-b border-border/40 pb-2">
                         <span className="text-[11px] font-bold uppercase tracking-widest text-primary">{cat.name} Avg</span>
-                        <span className="font-mono text-[10px] font-bold text-muted-foreground/40 uppercase tracking-widest">Scale 100%</span>
+                        <span className="font-mono text-[10px] font-bold text-muted-foreground/40 uppercase tracking-widest">
+                          Evidence {cat.benchmarkCount}/{cat.totalBenchmarkCount}
+                        </span>
                       </div>
 
                       <div className="space-y-3">
@@ -598,7 +755,10 @@ export function CompareView({ modelOptions, initialSelectedModels, benchmarks }:
                             <div key={scoreObj.modelId} className="space-y-1.5">
                               <div className="flex items-center justify-between text-[10px] font-bold uppercase tracking-wider">
                                 <span className="text-muted-foreground truncate max-w-[120px]">{scoreObj.modelName}</span>
-                                <span className={cn("tabular-nums", seriesColors.text)}>{score.toFixed(1)}%</span>
+                                <span className={cn("tabular-nums", seriesColors.text)}>
+                                  {score.toFixed(1)}% {" "}
+                                  <span className="text-muted-foreground/70">{scoreObj.availableBenchmarks}/{scoreObj.comparableBenchmarks}</span>
+                                </span>
                               </div>
                               <div className="h-1.5 w-full bg-muted/50 rounded-full overflow-hidden">
                                 <div
@@ -617,54 +777,73 @@ export function CompareView({ modelOptions, initialSelectedModels, benchmarks }:
                     <div className="flex h-full items-center justify-center text-[10px] font-bold uppercase tracking-widest text-muted-foreground/40 py-20">
                       No data matches current filters
                     </div>
-                  ) : detailedBenchmarks.map((benchmark) => (
-                    <div key={benchmark.id} className="space-y-4">
-                      <div className="flex items-end justify-between border-b border-border/40 pb-2">
-                        <span className="text-[11px] font-bold uppercase tracking-widest text-foreground">{benchmark.name}</span>
-                        <span className="font-mono text-[10px] font-bold text-muted-foreground/40 uppercase tracking-widest">Delta {benchmarkDeltas[benchmark.id]?.toFixed(1) ?? "0.0"}</span>
-                      </div>
+                  ) : detailedBenchmarks.map((benchmark) => {
+                    const availableModels = selectedModels.filter((model) => hasScore(model, benchmark.id)).length;
 
-                      <div className="space-y-4">
-                        {selectedModels.map((model, idx) => {
-                          const scoreEntry = model.scores[benchmark.id];
-                          const score = scoreEntry?.score;
-                          const seriesColors = getSeriesColorClasses(idx);
+                    return (
+                      <div key={benchmark.id} className="space-y-4">
+                        <div className="flex items-end justify-between border-b border-border/40 pb-2">
+                          <span className="text-[11px] font-bold uppercase tracking-widest text-foreground">{benchmark.name}</span>
+                          <span className="font-mono text-[10px] font-bold text-muted-foreground/40 uppercase tracking-widest">
+                            Delta {benchmarkDeltas[benchmark.id]?.toFixed(1) ?? "0.0"} | {availableModels}/{selectedModels.length}
+                          </span>
+                        </div>
 
-                          if (score === null || score === undefined) {
+                        <div className="space-y-4">
+                          {selectedModels.map((model, idx) => {
+                            const scoreEntry = model.scores[benchmark.id];
+                            const score = scoreEntry?.score;
+                            const seriesColors = getSeriesColorClasses(idx);
+
+                            if (score === null || score === undefined) {
+                              return (
+                                <div key={model.id} className="space-y-1 opacity-45">
+                                  <div className="flex items-center justify-between text-[10px] font-bold uppercase tracking-wider">
+                                    <span className="text-muted-foreground truncate max-w-[140px]" title={model.name}>{model.name}</span>
+                                    <span className="font-mono text-muted-foreground">N/A</span>
+                                  </div>
+                                  <p className="font-mono text-[9px] uppercase tracking-widest text-muted-foreground/60">No reported score</p>
+                                </div>
+                              );
+                            }
+
+                            const width = `${Math.min(normalizeScore(score, benchmark), 100)}%`;
+                            const source = scoreEntry.sourceId ? sourceMap.get(scoreEntry.sourceId) : null;
+                            const sourceLabel = source?.name ?? "Unknown source";
+                            const verificationLabel = getVerificationBadge(scoreEntry.verificationLevel, scoreEntry.verified);
+
                             return (
-                              <div key={model.id} className="flex items-center justify-between opacity-30">
-                                <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground truncate max-w-[120px]" title={model.name}>{model.name}</span>
-                                <span className="text-[10px] font-mono font-bold text-muted-foreground">--.-</span>
-                              </div>
-                            );
-                          }
-
-                          const width = `${Math.min(normalizeScore(score, benchmark), 100)}%`;
-                          return (
-                            <div key={model.id} className="space-y-1.5">
-                              <div className="flex items-center justify-between text-[10px] font-bold uppercase tracking-wider">
-                                <div className="flex items-center gap-2 truncate max-w-[180px]" title={model.name}>
-                                  <span className="text-muted-foreground truncate">{model.name}</span>
-                                  <span className="text-muted-foreground/40 px-1 border border-border/40 rounded text-[8px]">
-                                    {scoreEntry.verificationLevel === 'third_party' ? '3rd' : 'Prov'}
+                              <div key={model.id} className="space-y-1.5">
+                                <div className="flex items-center justify-between text-[10px] font-bold uppercase tracking-wider">
+                                  <div className="flex items-center gap-2 truncate max-w-[200px]" title={model.name}>
+                                    <span className="text-muted-foreground truncate">{model.name}</span>
+                                    <span className="rounded border border-border/40 px-1 text-[8px] text-muted-foreground/80">
+                                      {verificationLabel}
+                                    </span>
+                                  </div>
+                                  <span className={cn("tabular-nums", seriesColors.text)}>
+                                    {score.toFixed(1)}{scoreEntry.sourceId === "artificial-analysis" ? "*" : ""}
                                   </span>
                                 </div>
-                                <span className={cn("tabular-nums", seriesColors.text)}>
-                                  {score.toFixed(1)}{scoreEntry.sourceId === "artificial-analysis" ? "*" : ""}
-                                </span>
+
+                                <div className="flex items-center justify-between font-mono text-[9px] uppercase tracking-widest text-muted-foreground/65">
+                                  <span className="truncate max-w-[62%]" title={sourceLabel}>{sourceLabel}</span>
+                                  <span>{scoreEntry.asOfDate ?? "Unknown Date"}</span>
+                                </div>
+
+                                <div className="h-1.5 w-full overflow-hidden rounded-full bg-muted/50">
+                                  <div
+                                    className={cn("h-full ease-out motion-reduce:duration-0", seriesColors.bar)}
+                                    style={{ width, transitionDuration: "1000ms" }}
+                                  />
+                                </div>
                               </div>
-                              <div className="h-1.5 w-full bg-muted/50 rounded-full overflow-hidden">
-                                <div
-                                  className={cn("h-full ease-out motion-reduce:duration-0", seriesColors.bar)}
-                                  style={{ width, transitionDuration: '1000ms' }}
-                                />
-                              </div>
-                            </div>
-                          )
-                        })}
+                            );
+                          })}
+                        </div>
                       </div>
-                    </div>
-                  ))
+                    );
+                  })
                 )}
               </div>
             </div>

@@ -34,7 +34,7 @@ const COLORS = [
 interface RadarTooltipEntry {
   color?: string;
   name?: string;
-  value?: number;
+  value?: number | null;
 }
 
 interface RadarTooltipProps {
@@ -61,11 +61,11 @@ const CustomTooltip = ({ active, payload, label }: RadarTooltipProps) => {
                 {entry.name}
               </span>
             </div>
-            <span className="font-mono text-sm font-bold tabular-nums text-foreground">
-              {(entry.value ?? 0).toFixed(1)}
-            </span>
-          </div>
-        ))}
+              <span className="font-mono text-sm font-bold tabular-nums text-foreground">
+              {typeof entry.value === "number" ? entry.value.toFixed(1) : "N/A"}
+              </span>
+            </div>
+          ))}
       </div>
     );
   }
@@ -79,12 +79,16 @@ export function RadarComparison({ models, benchmarks, className }: RadarComparis
   );
 
   const data = useMemo(() => {
-    return domainDefinitions.map((domain) => {
-      const domainBenchmarkIds = getBenchmarkIdsForDomain(domain.id);
-      const point: Record<string, string | number> = { 
+    return domainDefinitions
+      .map((domain) => {
+      const domainBenchmarkIds = getBenchmarkIdsForDomain(domain.id).filter((benchmarkId) => benchmarkById.has(benchmarkId));
+      if (domainBenchmarkIds.length === 0) return null;
+
+      const point: Record<string, string | number | null> = { 
         subject: domain.label, 
         fullMark: 100 
       };
+      let hasAnyScore = false;
 
       models.forEach((model) => {
         const normalizedScores: number[] = [];
@@ -100,17 +104,38 @@ export function RadarComparison({ models, benchmarks, className }: RadarComparis
         }
 
         if (normalizedScores.length === 0) {
-          point[model.id] = 0;
+          point[model.id] = null;
           return;
         }
 
         const average = normalizedScores.reduce((acc, score) => acc + score, 0) / normalizedScores.length;
+        hasAnyScore = true;
         point[model.id] = Number(average.toFixed(1));
       });
 
+      if (!hasAnyScore) return null;
+      return point;
+    })
+      .filter((point): point is Record<string, string | number | null> => point !== null);
+  }, [models, benchmarkById]);
+
+  const chartData = useMemo(() => {
+    if (data.length >= 3) return data;
+
+    const padCount = 3 - data.length;
+    const paddedAxes = Array.from({ length: padCount }, (_, index) => {
+      const point: Record<string, string | number | null> = {
+        subject: `No Shared Data ${index + 1}`,
+        fullMark: 100,
+      };
+      models.forEach((model) => {
+        point[model.id] = 0;
+      });
       return point;
     });
-  }, [models, benchmarkById]);
+
+    return [...data, ...paddedAxes];
+  }, [data, models]);
 
   if (models.length === 0) return null;
 
@@ -123,7 +148,9 @@ export function RadarComparison({ models, benchmarks, className }: RadarComparis
               Capability Profile
             </CardTitle>
             <CardDescription className="mt-1 text-xs font-mono tracking-[0.12em] text-muted-foreground">
-              Performance Across 8 Capability Domains
+              {data.length > 0
+                ? `Performance Across ${data.length} Capability ${data.length === 1 ? "Domain" : "Domains"}`
+                : "No comparable domain data in current scope"}
             </CardDescription>
           </div>
           <div className="h-2 w-2 rounded-full bg-primary" />
@@ -131,42 +158,48 @@ export function RadarComparison({ models, benchmarks, className }: RadarComparis
       </CardHeader>
 
       <CardContent className="relative z-10 h-[450px] pb-4 pt-8">
-        <ResponsiveContainer width="100%" height="100%">
-          <RadarChart cx="50%" cy="50%" outerRadius="70%" data={data}>
-            <PolarGrid stroke="var(--border)" strokeDasharray="3 3" />
-            <PolarAngleAxis
-              dataKey="subject"
-              tick={{ fill: "var(--muted-foreground)", fontSize: 10, fontFamily: "var(--font-geist-mono)", fontWeight: 500 }}
-            />
-            <PolarRadiusAxis angle={30} domain={[0, 100]} tick={false} axisLine={false} />
-            <Tooltip content={<CustomTooltip />} cursor={{ stroke: "var(--primary)", strokeWidth: 1, strokeDasharray: "4 4" }} />
-
-            {models.map((model, index) => (
-              <Radar
-                key={model.id}
-                name={model.name}
-                dataKey={model.id}
-                stroke={COLORS[index % COLORS.length]}
-                strokeWidth={2.5}
-                fill={COLORS[index % COLORS.length]}
-                fillOpacity={0.14}
-                dot={{ r: 0, fill: COLORS[index % COLORS.length], strokeWidth: 0 }}
-                activeDot={{ r: 6, strokeWidth: 2, stroke: "var(--card)", fill: COLORS[index % COLORS.length] }}
-                className="transition-opacity duration-300 hover:opacity-100"
+        {data.length === 0 ? (
+          <div className="flex h-full items-center justify-center px-8 text-center font-mono text-[10px] font-bold uppercase tracking-[0.14em] text-muted-foreground/50">
+            Add models with overlapping benchmark coverage to render the capability profile
+          </div>
+        ) : (
+          <ResponsiveContainer width="100%" height="100%">
+            <RadarChart cx="50%" cy="50%" outerRadius="70%" data={chartData}>
+              <PolarGrid stroke="var(--border)" strokeDasharray="3 3" />
+              <PolarAngleAxis
+                dataKey="subject"
+                tick={{ fill: "var(--muted-foreground)", fontSize: 10, fontFamily: "var(--font-geist-mono)", fontWeight: 500 }}
               />
-            ))}
-            <Legend
-              wrapperStyle={{
-                fontFamily: "var(--font-geist-mono)",
-                fontSize: "11px",
-                paddingTop: "24px",
-                color: "var(--muted-foreground)",
-              }}
-              iconType="circle"
-              formatter={(value) => <span className="text-muted-foreground font-medium ml-1">{value}</span>}
-            />
-          </RadarChart>
-        </ResponsiveContainer>
+              <PolarRadiusAxis angle={30} domain={[0, 100]} tick={false} axisLine={false} />
+              <Tooltip content={<CustomTooltip />} cursor={{ stroke: "var(--primary)", strokeWidth: 1, strokeDasharray: "4 4" }} />
+
+              {models.map((model, index) => (
+                <Radar
+                  key={model.id}
+                  name={model.name}
+                  dataKey={model.id}
+                  stroke={COLORS[index % COLORS.length]}
+                  strokeWidth={2.5}
+                  fill={COLORS[index % COLORS.length]}
+                  fillOpacity={0.14}
+                  dot={{ r: 0, fill: COLORS[index % COLORS.length], strokeWidth: 0 }}
+                  activeDot={{ r: 6, strokeWidth: 2, stroke: "var(--card)", fill: COLORS[index % COLORS.length] }}
+                  className="transition-opacity duration-300 hover:opacity-100"
+                />
+              ))}
+              <Legend
+                wrapperStyle={{
+                  fontFamily: "var(--font-geist-mono)",
+                  fontSize: "11px",
+                  paddingTop: "24px",
+                  color: "var(--muted-foreground)",
+                }}
+                iconType="circle"
+                formatter={(value) => <span className="text-muted-foreground font-medium ml-1">{value}</span>}
+              />
+            </RadarChart>
+          </ResponsiveContainer>
+        )}
       </CardContent>
     </Card>
   );
