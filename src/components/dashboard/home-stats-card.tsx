@@ -33,9 +33,9 @@ export function HomeStatsCard({ models, benchmarks, totalScores, latestScoreDate
             <path strokeLinecap="round" strokeLinejoin="round" d="M4 7v10c0 2 1 3 3 3h10c2 0 3-1 3-3V7c0-2-1-3-3-3H7c-2 0-3 1-3 3z" />
           </svg>
         </div>
-        <span className="font-mono text-[9px] font-bold uppercase tracking-[0.2em] text-muted-foreground/60">
-          Registry
-        </span>
+          <span className="font-mono text-[9px] font-bold uppercase tracking-[0.2em] text-muted-foreground/80">
+            Registry
+          </span>
       </div>
 
       <div className="flex items-baseline gap-6">
@@ -48,7 +48,7 @@ export function HomeStatsCard({ models, benchmarks, totalScores, latestScoreDate
           </span>
         </div>
         
-        <div className="flex items-center gap-4 text-xs font-mono text-muted-foreground/60">
+          <div className="flex items-center gap-4 text-xs font-mono text-muted-foreground/80">
           <span>{benchmarks.length} benchmarks</span>
           <span className="h-1 w-1 rounded-full bg-border" />
           <span>{categories.size} categories</span>
@@ -57,11 +57,8 @@ export function HomeStatsCard({ models, benchmarks, totalScores, latestScoreDate
         </div>
       </div>
 
-      <div className="mt-3 flex items-center gap-1.5 font-mono text-[10px] text-muted-foreground/50">
-        <span className="relative flex h-1.5 w-1.5">
-          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-60" />
-          <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500" />
-        </span>
+      <div className="mt-3 flex items-center gap-1.5 font-mono text-[10px] text-muted-foreground/70">
+        <span className="inline-flex h-1.5 w-1.5 rounded-full bg-emerald-500" />
         <span>Updated {formatDateRelative(latestScoreDate)}</span>
       </div>
     </article>

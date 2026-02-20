@@ -7,6 +7,22 @@ export interface ChangelogEntry {
 
 export const changelog: ChangelogEntry[] = [
   {
+    version: "0.6.0",
+    date: "2026-02-20",
+    title: "Reliable Compare, SEO Foundation, and Performance Pass",
+    notes: [
+      "Reworked compare cards to use evidence metrics (coverage, verification share, latest as-of date) instead of synthetic confidence.",
+      "Added strict vs exploratory comparison modes with explicit shared benchmark visibility and reliability messaging.",
+      "Improved compare benchmark detail rows with provenance context (source, verification badge, as-of date, and N/A handling).",
+      "Updated capability profile rendering to support sparse overlap safely while preserving radar behavior and full available domain coverage.",
+      "Added comprehensive metadata and social preview improvements across core pages plus canonical URL normalization.",
+      "Added structured data (WebSite, Organization, Dataset, TechArticle, BreadcrumbList) for home, model, benchmark, and domain surfaces.",
+      "Added Search Console runbook in SEO_CHECKLIST.md and linked it from README methodology guidance.",
+      "Improved accessibility with better icon control labels, heading order fixes, and higher-contrast microcopy in key cards.",
+      "Reduced initial homepage work by lazy-loading leaderboard interaction code and trimming non-essential above-the-fold motion.",
+    ],
+  },
+  {
     version: "0.5.0",
     date: "2026-02-19",
     title: "Filters, Freshness, and API Enhancements",

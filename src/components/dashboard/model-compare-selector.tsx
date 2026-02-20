@@ -46,7 +46,7 @@ export function ModelFamilyCompare({ currentModelId, family }: ModelFamilyCompar
       <PopoverContent align="start" className="w-[280px] rounded-2xl border-border bg-card p-4 shadow-2xl">
         <div className="space-y-4">
           <div className="space-y-1">
-            <h4 className="font-display text-sm font-bold text-foreground">Select to Compare</h4>
+            <h3 className="font-display text-sm font-bold text-foreground">Select to Compare</h3>
             <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/50">Max 3 models</p>
           </div>
           

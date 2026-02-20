@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Terminal, Github, Menu, Search } from "lucide-react";
 import { usePathname } from "next/navigation";
 import dynamic from "next/dynamic";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -39,6 +39,24 @@ interface NavbarClientProps {
 export function NavbarClient({ models, benchmarks }: NavbarClientProps) {
   const pathname = usePathname();
   const [commandOpen, setCommandOpen] = useState(false);
+  const [hasOpenedCommand, setHasOpenedCommand] = useState(false);
+
+  const openCommandPalette = useCallback(() => {
+    setHasOpenedCommand(true);
+    setCommandOpen(true);
+  }, []);
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
+        event.preventDefault();
+        openCommandPalette();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [openCommandPalette]);
   const navItems = [
     { href: "/", label: "Leaderboard" },
     { href: "/benchmarks", label: "Benchmarks" },
@@ -55,7 +73,9 @@ export function NavbarClient({ models, benchmarks }: NavbarClientProps) {
 
   return (
     <>
-      <CommandPalette open={commandOpen} onOpenChange={setCommandOpen} models={models} benchmarks={benchmarks} />
+      {hasOpenedCommand ? (
+        <CommandPalette open={commandOpen} onOpenChange={setCommandOpen} models={models} benchmarks={benchmarks} />
+      ) : null}
       <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/80 backdrop-blur-md">
         <div className="container mx-auto flex h-14 items-center justify-between gap-3 px-4">
           <div className="flex items-center gap-4 lg:gap-8">
@@ -88,8 +108,9 @@ export function NavbarClient({ models, benchmarks }: NavbarClientProps) {
 
           <div className="flex items-center gap-2 sm:gap-3 shrink-0">
             <button
-              onClick={() => setCommandOpen(true)}
+              onClick={openCommandPalette}
               className="hidden sm:flex items-center gap-2 rounded-full border border-border/60 bg-muted/20 px-3 py-1.5 text-xs text-muted-foreground hover:bg-muted/40 hover:text-foreground transition-colors shrink-0"
+              aria-label="Open search"
             >
               <Search className="h-3.5 w-3.5 shrink-0" />
               <span className="hidden md:inline">Search…</span>
@@ -103,6 +124,7 @@ export function NavbarClient({ models, benchmarks }: NavbarClientProps) {
                 target="_blank"
                 rel="noreferrer"
                 className="flex h-8 w-8 items-center justify-center rounded-full text-muted-foreground hover:bg-muted hover:text-foreground transition-colors shrink-0"
+                aria-label="Open GitHub repository"
               >
                 <Github className="h-4 w-4" aria-hidden="true" />
               </Link>
@@ -114,6 +136,7 @@ export function NavbarClient({ models, benchmarks }: NavbarClientProps) {
                   variant="ghost"
                   size="icon"
                   className="h-8 w-8 lg:hidden shrink-0"
+                  aria-label="Open navigation menu"
                 >
                   <Menu className="h-4 w-4" aria-hidden="true" />
                 </Button>

@@ -2,6 +2,7 @@ import { CompareView } from "@/components/dashboard/compare-view";
 import { benchmarks, flattenedModels } from "@/lib/registry-data";
 import type { Metadata } from "next";
 import { Suspense } from "react";
+import { siteName, siteUrl } from "@/lib/site";
 
 interface ComparePageProps {
   searchParams: Promise<{ models?: string }>;
@@ -10,8 +11,29 @@ interface ComparePageProps {
 export const metadata: Metadata = {
   title: "Compare",
   description: "Compare up to three models side by side across category averages and benchmark-level deltas.",
+  keywords: ["llm model comparison", "ai model compare", "benchmark overlap", "llm performance deltas"],
   alternates: {
     canonical: "/compare",
+  },
+  openGraph: {
+    title: `Model Comparison | ${siteName}`,
+    description: "Compare up to three models side by side across category averages and benchmark-level deltas.",
+    url: `${siteUrl}/compare`,
+    type: "website",
+    images: [
+      {
+        url: `${siteUrl}/opengraph-image.png`,
+        width: 1200,
+        height: 630,
+        alt: "LLM model comparison dashboard",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `Model Comparison | ${siteName}`,
+    description: "Compare up to three models side by side across category averages and benchmark-level deltas.",
+    images: [`${siteUrl}/opengraph-image.png`],
   },
 };
 

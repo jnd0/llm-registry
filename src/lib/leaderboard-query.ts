@@ -101,7 +101,7 @@ export function parseLeaderboardQueryParams(
 
   const sortDir: LeaderboardSortDirection = requestedDir === "asc" ? "asc" : "desc";
   const page = parseIntParam(readParam(searchParams, "page"), 1, 1, 10_000);
-  const pageSize = parseIntParam(readParam(searchParams, "pageSize"), 25, 5, 100);
+  const pageSize = parseIntParam(readParam(searchParams, "pageSize"), 10, 5, 100);
   
   const license: LicenseFilter = 
     requestedLicense === "open" || requestedLicense === "proprietary" 

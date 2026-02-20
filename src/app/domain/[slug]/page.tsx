@@ -6,7 +6,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { siteUrl } from "@/lib/site";
+import { siteName, siteUrl } from "@/lib/site";
 import { BenchmarkExpandableList } from "@/components/dashboard/benchmark-expandable-list";
 
 interface DomainPageProps {
@@ -25,7 +25,13 @@ export async function generateMetadata({ params }: DomainPageProps): Promise<Met
   const domain = domainDefinitions.find((d) => domainToSlug(d.id) === slug);
   
   if (!domain) {
-    return { title: "Domain Not Found" };
+    return {
+      title: "Domain Not Found",
+      robots: {
+        index: false,
+        follow: false,
+      },
+    };
   }
 
   return {
@@ -41,7 +47,7 @@ export async function generateMetadata({ params }: DomainPageProps): Promise<Met
       type: "article",
       images: [
         {
-          url: `${siteUrl}/og-image.png`,
+          url: `${siteUrl}/opengraph-image.png`,
           width: 1200,
           height: 630,
           alt: `${domain.label} - LLM Registry`,
@@ -52,6 +58,7 @@ export async function generateMetadata({ params }: DomainPageProps): Promise<Met
       card: "summary_large_image",
       title: `${domain.label} Benchmarks`,
       description: domain.description,
+      images: [`${siteUrl}/opengraph-image.png`],
     },
   };
 }
@@ -94,8 +101,49 @@ export default async function DomainPage({ params }: DomainPageProps) {
 
   const topModels = modelsWithScores.slice(0, 10);
 
+  const domainPageUrl = `${siteUrl}/domain/${slug}`;
+  const domainBreadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Leaderboard",
+        item: `${siteUrl}/`,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Domains",
+        item: `${siteUrl}/benchmarks`,
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: domainDef.label,
+        item: domainPageUrl,
+      },
+    ],
+  };
+
+  const domainCollectionJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: `${domainDef.label} benchmarks and rankings`,
+    description: domainDef.longDescription || domainDef.description,
+    url: domainPageUrl,
+    isPartOf: {
+      "@type": "WebSite",
+      name: siteName,
+      url: siteUrl,
+    },
+  };
+
   return (
     <div className="space-y-4">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(domainBreadcrumbJsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(domainCollectionJsonLd) }} />
       <nav className="hidden sm:flex items-center gap-1 text-xs text-muted-foreground">
         <Link href="/" className="hover:text-foreground transition-colors">
           Leaderboard

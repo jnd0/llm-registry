@@ -55,7 +55,11 @@ Leaderboard filtering/sorting/pagination is URL-driven and server-applied, so th
 - Global and category views use normalized benchmark scores (0-100).
 - Lower-is-better metrics are inverted so higher normalized score always means better performance.
 - Category averages are computed over available scores for that category.
+- Compare view defaults to strict shared-benchmark analysis for fair model-vs-model deltas.
+- Exploratory compare mode allows partial overlap; missing values stay explicit as `N/A`.
+- Capability profile (radar) shows all available domains in scope and never treats missing data as zero.
 - Full methodology page: `/about`
+- Ongoing SEO operations checklist: `SEO_CHECKLIST.md`
 
 ## Project Structure
 

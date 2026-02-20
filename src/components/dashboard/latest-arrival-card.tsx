@@ -27,10 +27,7 @@ export function LatestArrivalCard({ model }: LatestArrivalCardProps) {
     <article className="rounded-xl border border-slate-800/70 bg-gradient-to-br from-slate-950 to-slate-900 p-5 text-slate-100">
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-2">
-          <span className="relative flex h-1.5 w-1.5">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-60" />
-            <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-primary" />
-          </span>
+          <span className="inline-flex h-1.5 w-1.5 rounded-full bg-primary" />
           <span className="font-mono text-[9px] font-bold uppercase tracking-[0.2em] text-primary">
             New
           </span>
@@ -42,10 +39,10 @@ export function LatestArrivalCard({ model }: LatestArrivalCardProps) {
 
       <div className="flex items-center justify-between">
         <div>
-          <h3 className="font-display text-xl font-bold tracking-tight text-white">
+          <h2 className="font-display text-xl font-bold tracking-tight text-white">
             {model.name}
-          </h3>
-          <p className="mt-0.5 text-xs text-slate-400">
+          </h2>
+          <p className="mt-0.5 text-xs text-slate-300">
             {formatReleaseDate(model.releaseDate)} · {scoreCount} benchmarks
           </p>
         </div>

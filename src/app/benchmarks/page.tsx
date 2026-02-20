@@ -3,12 +3,34 @@ import { domainDefinitions, getDomainForBenchmark } from "@/lib/domains";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ExternalLink } from "lucide-react";
+import { siteName, siteUrl } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Benchmarks",
   description: "Explore all benchmarks tracked in the LLM Registry.",
+  keywords: ["llm benchmarks", "ai evaluation benchmarks", "benchmark categories", "model testing datasets"],
   alternates: {
     canonical: "/benchmarks",
+  },
+  openGraph: {
+    title: `LLM Benchmarks Directory | ${siteName}`,
+    description: "Explore all benchmarks tracked in the LLM Registry.",
+    url: `${siteUrl}/benchmarks`,
+    type: "website",
+    images: [
+      {
+        url: `${siteUrl}/opengraph-image.png`,
+        width: 1200,
+        height: 630,
+        alt: "LLM benchmarks directory",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `LLM Benchmarks Directory | ${siteName}`,
+    description: "Explore all benchmarks tracked in the LLM Registry.",
+    images: [`${siteUrl}/opengraph-image.png`],
   },
 };
 

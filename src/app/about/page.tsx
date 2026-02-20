@@ -1,14 +1,36 @@
 import { benchmarks, models, sources } from "@/lib/registry-data";
 import { changelog } from "@/data/changelog";
 import type { Metadata } from "next";
+import { siteName, siteUrl } from "@/lib/site";
 
 const categories = Array.from(new Set(benchmarks.map((benchmark) => benchmark.category)));
 
 export const metadata: Metadata = {
   title: "Methodology",
   description: "Read data policy, normalization rules, attribution, and confidence caveats used in LLM Registry rankings.",
+  keywords: ["llm methodology", "benchmark normalization", "score provenance", "verification tiers"],
   alternates: {
     canonical: "/about",
+  },
+  openGraph: {
+    title: `Methodology and Data Policy | ${siteName}`,
+    description: "Read data policy, normalization rules, attribution, and confidence caveats used in LLM Registry rankings.",
+    url: `${siteUrl}/about`,
+    type: "website",
+    images: [
+      {
+        url: `${siteUrl}/opengraph-image.png`,
+        width: 1200,
+        height: 630,
+        alt: "LLM Registry methodology and data policy",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `Methodology and Data Policy | ${siteName}`,
+    description: "Read data policy, normalization rules, attribution, and confidence caveats used in LLM Registry rankings.",
+    images: [`${siteUrl}/opengraph-image.png`],
   },
 };
 
@@ -102,6 +124,43 @@ export default function AboutPage() {
                   </li>
                 </ul>
               </div>
+            </div>
+          </section>
+
+          <section className="space-y-6">
+            <h2 className="font-display text-3xl font-bold tracking-tight text-foreground">Comparison Methodology</h2>
+            <p className="text-base leading-relaxed text-muted-foreground">
+              Compare views prioritize reliability first. We separate fair, overlap-based analysis from exploratory analysis so missing data does not get interpreted as zero performance.
+            </p>
+
+            <div className="grid gap-4 sm:grid-cols-2">
+              <article className="rounded-2xl border border-border bg-card p-5">
+                <p className="font-mono text-[10px] font-bold uppercase tracking-widest text-primary">Strict Mode (Default)</p>
+                <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
+                  Uses only benchmarks shared by selected models for fair head-to-head comparisons in summary and detailed tables.
+                </p>
+              </article>
+
+              <article className="rounded-2xl border border-border bg-card p-5">
+                <p className="font-mono text-[10px] font-bold uppercase tracking-widest text-primary">Exploratory Mode</p>
+                <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
+                  Includes non-shared results for broader context. Missing entries remain explicitly labeled as N/A.
+                </p>
+              </article>
+
+              <article className="rounded-2xl border border-border bg-card p-5">
+                <p className="font-mono text-[10px] font-bold uppercase tracking-widest text-primary">Capability Profile</p>
+                <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
+                  Radar uses all available domains within the current scope and preserves missing values as N/A instead of plotting them as zero.
+                </p>
+              </article>
+
+              <article className="rounded-2xl border border-border bg-card p-5">
+                <p className="font-mono text-[10px] font-bold uppercase tracking-widest text-primary">Evidence Quality</p>
+                <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
+                  Compare pages expose shared benchmark counts and per-model coverage so confidence in comparisons is visible before interpretation.
+                </p>
+              </article>
             </div>
           </section>
 

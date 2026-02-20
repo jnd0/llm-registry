@@ -8,7 +8,7 @@ import {
   getCoreRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { GripVertical, ChevronDown, X, ChevronLeft, ChevronRight } from "lucide-react";
+import { GripVertical, X, ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Model, Benchmark } from "@/types";
@@ -31,7 +31,7 @@ import type { CapabilityDomain } from "@/lib/domains";
 import { getBenchmarkIdsForDomain, domainDefinitions } from "@/lib/domains";
 import { useMaximizedView } from "@/hooks/use-maximized-view";
 
-interface DataTableProps {
+export interface DataTableProps {
   data: Model[];
   benchmarks: Benchmark[];
   activeCategory?: string | null;
@@ -103,6 +103,10 @@ export function DataTable({
   const [benchmarkWindowPage, setBenchmarkWindowPage] = React.useState(0);
   const [queuedParamUpdates, setQueuedParamUpdates] = React.useState<Record<string, string | null> | null>(null);
   const { isMaximized, isAnimatingOut, toggleMaximized, exitMaximized } = useMaximizedView();
+  const [isDesktopViewport, setIsDesktopViewport] = React.useState(() => {
+    if (typeof window === "undefined") return true;
+    return window.matchMedia("(min-width: 768px)").matches;
+  });
 
   const setColumnOrderSafely = React.useCallback((nextOrder: string[]) => {
     setColumnOrder((prev) => (areStringArraysEqual(prev, nextOrder) ? prev : nextOrder));
@@ -141,6 +145,17 @@ export function DataTable({
     updateSearchParamState(queuedParamUpdates);
     setQueuedParamUpdates(null);
   }, [queuedParamUpdates, updateSearchParamState]);
+
+  React.useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const media = window.matchMedia("(min-width: 768px)");
+    const handleChange = () => setIsDesktopViewport(media.matches);
+
+    handleChange();
+    media.addEventListener("change", handleChange);
+    return () => media.removeEventListener("change", handleChange);
+  }, []);
 
   const setSortingSafely = React.useCallback((nextId: string, desc = true, syncUrl = true) => {
     const current = sorting[0];
@@ -410,8 +425,8 @@ export function DataTable({
           setColumnOrderSafely(parsed);
         }
         return;
-      } catch (e) {
-        console.error("Failed to parse saved column order", e);
+      } catch {
+        localStorage.removeItem("columnOrder");
       }
     }
 
@@ -634,7 +649,7 @@ export function DataTable({
   const pageSizeOptions = [10, 25, 50, 100];
 
   return (
-    <div className="animate-in slide-in-from-bottom-4 fade-in delay-100 duration-700 space-y-6 pb-20 w-full">
+    <div className="space-y-6 pb-20 w-full">
       <div className="sr-only" aria-live="polite" aria-atomic="true">
         {searchQuery
           ? `Found ${totalRows} ${totalRows === 1 ? 'model' : 'models'} matching "${searchQuery}"`
@@ -661,69 +676,71 @@ export function DataTable({
         onToggleMaximized={toggleMaximized}
       />
 
-      <div className="space-y-3 md:hidden">
-        {table.getRowModel().rows.length === 0 ? (
-          <div className="surface-card rounded-lg p-6 text-center text-xs font-mono uppercase tracking-[0.14em] text-muted-foreground">
-            No systems match current filters
-          </div>
-        ) : (
-          table.getRowModel().rows.map((row) => {
-            const model = row.original;
+      {!isDesktopViewport && (
+        <div className="space-y-3">
+          {table.getRowModel().rows.length === 0 ? (
+            <div className="surface-card rounded-lg p-6 text-center text-xs font-mono uppercase tracking-[0.14em] text-muted-foreground">
+              No systems match current filters
+            </div>
+          ) : (
+            table.getRowModel().rows.map((row) => {
+              const model = row.original;
 
-            return (
-              <div key={row.id} className="surface-card rounded-lg p-4">
-                <div className="flex items-start justify-between gap-3">
-                  <div>
-                    <Link href={`/model/${model.id}`} className="font-display text-base font-bold tracking-tight text-foreground transition-colors hover:text-primary">
-                      {model.name}
-                    </Link>
-                    <p className="mt-1 text-xs font-mono tracking-wide text-muted-foreground">
-                      {model.provider} · {model.releaseDate}
-                    </p>
+              return (
+                <div key={row.id} className="surface-card rounded-lg p-4">
+                  <div className="flex items-start justify-between gap-3">
+                    <div>
+                      <Link href={`/model/${model.id}`} className="font-display text-base font-bold tracking-tight text-foreground transition-colors hover:text-primary">
+                        {model.name}
+                      </Link>
+                      <p className="mt-1 text-xs font-mono tracking-wide text-muted-foreground">
+                        {model.provider} · {model.releaseDate}
+                      </p>
+                    </div>
+                    <button
+                      type="button"
+                      aria-label={`Toggle compare for ${model.name}`}
+                      onClick={() => toggleCompare(model.id)}
+                      className={cn(
+                        "min-h-11 min-w-11 rounded-md border px-2 text-xs font-semibold",
+                        compareIds.includes(model.id)
+                          ? "border-primary/40 bg-primary/10 text-primary"
+                          : "border-border bg-background text-muted-foreground"
+                      )}
+                    >
+                      {compareIds.includes(model.id) ? "Added" : "Compare"}
+                    </button>
                   </div>
-                  <button
-                    type="button"
-                    aria-label={`Toggle compare for ${model.name}`}
-                    onClick={() => toggleCompare(model.id)}
-                    className={cn(
-                      "min-h-11 min-w-11 rounded-md border px-2 text-xs font-semibold",
-                      compareIds.includes(model.id)
-                        ? "border-primary/40 bg-primary/10 text-primary"
-                        : "border-border bg-background text-muted-foreground"
-                    )}
-                  >
-                    {compareIds.includes(model.id) ? "Added" : "Compare"}
-                  </button>
-                </div>
 
-                <div className="mt-4 grid grid-cols-2 gap-2">
-                  {mobileHighlightIds.map((benchmarkId) => {
-                    const benchmark = benchmarkById.get(benchmarkId);
-                    if (!benchmark) return null;
+                  <div className="mt-4 grid grid-cols-2 gap-2">
+                    {mobileHighlightIds.map((benchmarkId) => {
+                      const benchmark = benchmarkById.get(benchmarkId);
+                      if (!benchmark) return null;
 
-                    const score = model.scores[benchmarkId]?.score;
-                    return (
-                      <div key={benchmarkId} className="data-module rounded-md px-2.5 py-2">
-                        <p className="truncate text-[11px] font-mono tracking-wide text-muted-foreground">{benchmark.name}</p>
-                        <p className="mt-1 text-sm font-bold tabular-nums text-foreground">
-                          {score === null || score === undefined
-                            ? "--"
-                            : benchmark.maxScore > 100
-                            ? score.toFixed(0)
-                            : score.toFixed(1)}
-                        </p>
-                      </div>
-                    );
-                  })}
+                      const score = model.scores[benchmarkId]?.score;
+                      return (
+                        <div key={benchmarkId} className="data-module rounded-md px-2.5 py-2">
+                          <p className="truncate text-[11px] font-mono tracking-wide text-muted-foreground">{benchmark.name}</p>
+                          <p className="mt-1 text-sm font-bold tabular-nums text-foreground">
+                            {score === null || score === undefined
+                              ? "--"
+                              : benchmark.maxScore > 100
+                              ? score.toFixed(0)
+                              : score.toFixed(1)}
+                          </p>
+                        </div>
+                      );
+                    })}
+                  </div>
                 </div>
-              </div>
-            );
-          })
-        )}
-      </div>
+              );
+            })
+          )}
+        </div>
+      )}
       
       {/* Maximized Overlay with Animations */}
-      {(isMaximized || isAnimatingOut) && (
+      {isDesktopViewport && (isMaximized || isAnimatingOut) && (
         <div 
           className={cn(
             "fixed inset-0 z-[9999] bg-background flex flex-col",
@@ -775,7 +792,7 @@ export function DataTable({
                 <h2 className="font-display text-lg font-bold tracking-tight">Leaderboard</h2>
                 {searchQuery && (
                   <span className="text-sm text-muted-foreground">
-                    Search: "{searchQuery}"
+                    Search: &quot;{searchQuery}&quot;
                   </span>
                 )}
               </div>
@@ -950,6 +967,7 @@ export function DataTable({
                 className="h-8 w-8 rounded-full p-0 hover:bg-muted"
                 onClick={() => goToPage(currentPage - 1)}
                 disabled={currentPage <= 1}
+                aria-label="Go to previous page"
               >
                 <ChevronLeft className="h-4 w-4" />
               </Button>
@@ -959,6 +977,7 @@ export function DataTable({
                 className="h-8 w-8 rounded-full p-0 hover:bg-muted"
                 onClick={() => goToPage(currentPage + 1)}
                 disabled={currentPage >= totalPages}
+                aria-label="Go to next page"
               >
                 <ChevronRight className="h-4 w-4" />
               </Button>
@@ -980,10 +999,11 @@ export function DataTable({
       )}
 
       {/* Normal Table Container - Hidden when maximized */}
-      <div className={cn(
-        "relative hidden max-h-[70vh] overflow-auto rounded-2xl border border-border bg-card md:block shadow-sm",
-        (isMaximized || isAnimatingOut) && "md:hidden"
-      )}>
+      {isDesktopViewport && (
+        <div className={cn(
+          "relative hidden max-h-[70vh] overflow-auto rounded-2xl border border-border bg-card md:block shadow-sm",
+          (isMaximized || isAnimatingOut) && "md:hidden"
+        )}>
         <div className="pointer-events-none absolute inset-y-0 left-0 z-30 w-8 bg-gradient-to-r from-card to-transparent opacity-0 transition-opacity group-hover/table:opacity-100" />
         <div className="pointer-events-none absolute inset-y-0 right-0 z-30 w-8 bg-gradient-to-l from-card to-transparent" />
         <Table>
@@ -1065,13 +1085,15 @@ export function DataTable({
             )}
           </TableBody>
         </Table>
-      </div>
+        </div>
+      )}
 
       {/* Normal Pagination - Hidden when maximized */}
-      <div className={cn(
-        "flex flex-wrap items-center justify-between gap-4 px-2 py-2",
-        (isMaximized || isAnimatingOut) && "md:hidden"
-      )}>
+      {isDesktopViewport && (
+        <div className={cn(
+          "flex flex-wrap items-center justify-between gap-4 px-2 py-2",
+          (isMaximized || isAnimatingOut) && "md:hidden"
+        )}>
         <div className="flex items-center gap-4 text-[10px] font-bold uppercase tracking-widest text-muted-foreground/50">
           <span>{totalRows} Models Registered</span>
           <span className="h-1 w-1 rounded-full bg-border" />
@@ -1110,6 +1132,7 @@ export function DataTable({
             className="h-8 w-8 rounded-full p-0 hover:bg-muted"
             onClick={() => goToPage(currentPage - 1)}
             disabled={currentPage <= 1}
+            aria-label="Go to previous page"
           >
             <ChevronLeft className="h-4 w-4" />
           </Button>
@@ -1119,11 +1142,13 @@ export function DataTable({
             className="h-8 w-8 rounded-full p-0 hover:bg-muted"
             onClick={() => goToPage(currentPage + 1)}
             disabled={currentPage >= totalPages}
+            aria-label="Go to next page"
           >
             <ChevronRight className="h-4 w-4" />
           </Button>
         </div>
-      </div>
+        </div>
+      )}
 
       {compareIds.length > 0 && (
         <div className="fixed bottom-4 inset-x-4 z-50 md:hidden">

@@ -1,12 +1,34 @@
 import type { Metadata } from "next";
 import { models, benchmarks, sources } from "@/lib/registry-data";
 import { benchmarkCategories } from "@/lib/categories";
+import { siteName, siteUrl } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "API Documentation",
   description: "REST API documentation for LLM Registry. Access models, benchmarks, scores, and leaderboard data programmatically.",
+  keywords: ["llm registry api", "llm benchmark api", "model scores api", "leaderboard api"],
   alternates: {
     canonical: "/api-docs",
+  },
+  openGraph: {
+    title: `LLM Registry API Documentation | ${siteName}`,
+    description: "REST API documentation for LLM Registry. Access models, benchmarks, scores, and leaderboard data programmatically.",
+    url: `${siteUrl}/api-docs`,
+    type: "website",
+    images: [
+      {
+        url: `${siteUrl}/opengraph-image.png`,
+        width: 1200,
+        height: 630,
+        alt: "LLM Registry API documentation",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `LLM Registry API Documentation | ${siteName}`,
+    description: "REST API documentation for LLM Registry. Access models, benchmarks, scores, and leaderboard data programmatically.",
+    images: [`${siteUrl}/opengraph-image.png`],
   },
 };
 

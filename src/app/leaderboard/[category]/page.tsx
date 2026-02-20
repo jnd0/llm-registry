@@ -6,6 +6,7 @@ import { DataTable } from "@/components/dashboard/leaderboard";
 import { benchmarkCategories, categoryToSlug, slugToCategory } from "@/lib/categories";
 import { parseLeaderboardQueryParams, queryLeaderboardModels } from "@/lib/leaderboard-query";
 import { benchmarks, models } from "@/lib/registry-data";
+import { siteName, siteUrl } from "@/lib/site";
 
 interface CategoryPageProps {
   params: Promise<{ category: string }>;
@@ -36,14 +37,45 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
     return {
       title: "Category",
       description: "Category leaderboard in LLM Registry.",
+      robots: {
+        index: false,
+        follow: false,
+      },
     };
   }
 
+  const description = `Normalized rankings and benchmark coverage for ${activeCategory} models in LLM Registry.`;
+
   return {
     title: `${activeCategory} Leaderboard`,
-    description: `Normalized rankings and benchmark coverage for ${activeCategory} models in LLM Registry.`,
+    description,
+    keywords: [
+      `${activeCategory.toLowerCase()} leaderboard`,
+      `${activeCategory.toLowerCase()} llm benchmark`,
+      "llm category rankings",
+    ],
     alternates: {
       canonical: `/leaderboard/${categorySlug}`,
+    },
+    openGraph: {
+      title: `${activeCategory} Leaderboard | ${siteName}`,
+      description,
+      url: `${siteUrl}/leaderboard/${categorySlug}`,
+      type: "website",
+      images: [
+        {
+          url: `${siteUrl}/opengraph-image.png`,
+          width: 1200,
+          height: 630,
+          alt: `${activeCategory} leaderboard`,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${activeCategory} Leaderboard | ${siteName}`,
+      description,
+      images: [`${siteUrl}/opengraph-image.png`],
     },
   };
 }

@@ -5,6 +5,9 @@ import { benchmarks } from "@/data/benchmarks";
 import { normalizeScore } from "./stats";
 
 const benchmarkMap = new Map(benchmarks.map((b) => [b.id, b]));
+const domainScoreCache = new Map<string, { average: number; count: number; benchmarks: string[] } | null>();
+const topModelCache = new Map<CapabilityDomain, { modelId: string; modelName: string; average: number } | null>();
+const averageDomainScoreCache = new Map<CapabilityDomain, number>();
 
 export interface FrontierDataPoint {
   modelId: string;
@@ -112,6 +115,11 @@ export function getDomainScoreForModel(
   model: Model,
   domainId: CapabilityDomain
 ): { average: number; count: number; benchmarks: string[] } | null {
+  const cacheKey = `${model.id}::${domainId}`;
+  if (domainScoreCache.has(cacheKey)) {
+    return domainScoreCache.get(cacheKey) ?? null;
+  }
+
   const benchmarkIds = getBenchmarkIdsForDomain(domainId);
 
   const normalizedScores: number[] = [];
@@ -129,21 +137,29 @@ export function getDomainScoreForModel(
   }
 
   if (normalizedScores.length === 0) {
+    domainScoreCache.set(cacheKey, null);
     return null;
   }
 
   const average = normalizedScores.reduce((sum, s) => sum + s, 0) / normalizedScores.length;
 
-  return {
+  const result = {
     average: Math.round(average * 10) / 10,
     count: normalizedScores.length,
     benchmarks: benchmarksWithScores,
   };
+
+  domainScoreCache.set(cacheKey, result);
+  return result;
 }
 
 export function getTopModelForDomain(
   domainId: CapabilityDomain
 ): { modelId: string; modelName: string; average: number } | null {
+  if (topModelCache.has(domainId)) {
+    return topModelCache.get(domainId) ?? null;
+  }
+
   const allModels = flattenedModels;
   let topModel: { modelId: string; modelName: string; average: number } | null = null;
   let topAverage = 0;
@@ -160,10 +176,14 @@ export function getTopModelForDomain(
     }
   }
 
+  topModelCache.set(domainId, topModel);
   return topModel;
 }
 
 export function getAverageDomainScore(domainId: CapabilityDomain): number {
+  const cached = averageDomainScoreCache.get(domainId);
+  if (cached !== undefined) return cached;
+
   const allModels = flattenedModels;
   const averages: number[] = [];
 
@@ -174,7 +194,12 @@ export function getAverageDomainScore(domainId: CapabilityDomain): number {
     }
   }
 
-  if (averages.length === 0) return 0;
+  if (averages.length === 0) {
+    averageDomainScoreCache.set(domainId, 0);
+    return 0;
+  }
 
-  return Math.round((averages.reduce((sum, a) => sum + a, 0) / averages.length) * 10) / 10;
+  const result = Math.round((averages.reduce((sum, a) => sum + a, 0) / averages.length) * 10) / 10;
+  averageDomainScoreCache.set(domainId, result);
+  return result;
 }

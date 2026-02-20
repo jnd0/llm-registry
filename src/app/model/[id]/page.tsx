@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { getProviderTheme } from "@/lib/provider-identity";
 import { ModelFamilyCompare } from "@/components/dashboard/model-compare-selector";
 import { ShareButton } from "@/components/benchmark/share-button";
-import { siteUrl } from "@/lib/site";
+import { siteName, siteUrl } from "@/lib/site";
 
 const sourceMap = new Map(sources.map((source) => [source.id, source]));
 
@@ -48,23 +48,29 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     return {
       title: "Model",
       description: "Model details and benchmark performance.",
+      robots: {
+        index: false,
+        follow: false,
+      },
     };
   }
 
+  const description = `${model.name} by ${model.provider}: pricing, specs, and benchmark-level provenance in LLM Registry.`;
+
   return {
     title: model.name,
-    description: `${model.name} by ${model.provider}: pricing, specs, and benchmark-level provenance in LLM Registry.`,
+    description,
     alternates: {
       canonical: `/model/${model.id}`,
     },
     openGraph: {
       title: `${model.name} by ${model.provider}`,
-      description: `${model.name} benchmark performance, pricing, and specs in LLM Registry.`,
+      description,
       url: `${siteUrl}/model/${model.id}`,
       type: "article",
       images: [
         {
-          url: `${siteUrl}/og-image.png`,
+          url: `${siteUrl}/opengraph-image.png`,
           width: 1200,
           height: 630,
           alt: `${model.name} - LLM Registry`,
@@ -74,7 +80,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     twitter: {
       card: "summary_large_image",
       title: `${model.name} by ${model.provider}`,
-      description: `${model.name} benchmark performance, pricing, and specs in LLM Registry.`,
+      description,
+      images: [`${siteUrl}/opengraph-image.png`],
     },
   };
 }
@@ -153,8 +160,105 @@ export default async function ModelPage({ params }: PageProps) {
     new Set([...(model.modalities?.input ?? []), ...(model.modalities?.output ?? []), ...model.capabilities])
   ).slice(0, 4);
 
+  const modelPageUrl = `${siteUrl}/model/${model.id}`;
+  const scoredBenchmarkCount = scoreEntries.filter((entry) => entry.score !== null && entry.score !== undefined).length;
+  const modelBreadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Leaderboard",
+        item: `${siteUrl}/`,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Models",
+        item: `${siteUrl}/`,
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: model.name,
+        item: modelPageUrl,
+      },
+    ],
+  };
+
+  const modelEntityJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: model.name,
+    applicationCategory: "AIModel",
+    operatingSystem: "Cloud",
+    datePublished: model.releaseDate,
+    url: modelPageUrl,
+    creator: {
+      "@type": "Organization",
+      name: model.provider,
+    },
+    featureList: modalityTags,
+    offers: [
+      {
+        "@type": "Offer",
+        name: "Input pricing",
+        price: model.specs.pricing.input,
+        priceCurrency: "USD",
+        description: "USD per 1M input tokens",
+      },
+      {
+        "@type": "Offer",
+        name: "Output pricing",
+        price: model.specs.pricing.output,
+        priceCurrency: "USD",
+        description: "USD per 1M output tokens",
+      },
+    ],
+    additionalProperty: [
+      {
+        "@type": "PropertyValue",
+        name: "Context window",
+        value: `${model.specs.contextWindow}`,
+      },
+      {
+        "@type": "PropertyValue",
+        name: "Parameters",
+        value: model.specs.parameters,
+      },
+      {
+        "@type": "PropertyValue",
+        name: "Benchmarks with scores",
+        value: `${scoredBenchmarkCount}`,
+      },
+    ],
+  };
+
+  const modelDatasetJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Dataset",
+    name: `${model.name} benchmark scores`,
+    description: `Benchmark-level scores and provenance metadata for ${model.name}.`,
+    url: modelPageUrl,
+    creator: {
+      "@type": "Organization",
+      name: siteName,
+      url: siteUrl,
+    },
+    isAccessibleForFree: true,
+    distribution: {
+      "@type": "DataDownload",
+      contentUrl: `${siteUrl}/api/v1/scores?modelId=${encodeURIComponent(model.id)}`,
+      encodingFormat: "application/json",
+    },
+  };
+
   return (
     <div className="animate-in fade-in duration-700 space-y-4 pb-12">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(modelBreadcrumbJsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(modelEntityJsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(modelDatasetJsonLd) }} />
       <nav className="hidden sm:flex items-center gap-1 text-xs text-muted-foreground">
         <Link href="/" className="hover:text-foreground transition-colors">
           Leaderboard
@@ -532,7 +636,7 @@ export default async function ModelPage({ params }: PageProps) {
           </section>
 
           <section className="surface-card rounded-2xl p-5">
-            <h4 className="font-display text-xl font-semibold tracking-tight text-foreground">Compare With</h4>
+            <h3 className="font-display text-xl font-semibold tracking-tight text-foreground">Compare With</h3>
             <div className="mt-3 space-y-2">
               {compareCandidates.map((candidate) => (
                 <Link

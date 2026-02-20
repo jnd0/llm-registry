@@ -11,7 +11,7 @@ import { FrontierChart } from "@/components/benchmark/frontier-chart";
 import { BenchmarkInsights } from "@/components/benchmark/benchmark-insights";
 import { SimilarBenchmarks } from "@/components/benchmark/similar-benchmarks";
 import { ShareButton } from "@/components/benchmark/share-button";
-import { siteUrl } from "@/lib/site";
+import { siteName, siteUrl } from "@/lib/site";
 
 interface BenchmarkPageProps {
   params: Promise<{ id: string }>;
@@ -37,7 +37,13 @@ export async function generateMetadata({ params }: BenchmarkPageProps): Promise<
   const benchmark = benchmarks.find((b) => b.id === id);
   
   if (!benchmark) {
-    return { title: "Benchmark Not Found" };
+    return {
+      title: "Benchmark Not Found",
+      robots: {
+        index: false,
+        follow: false,
+      },
+    };
   }
 
   return {
@@ -53,7 +59,7 @@ export async function generateMetadata({ params }: BenchmarkPageProps): Promise<
       type: "article",
       images: [
         {
-          url: `${siteUrl}/og-image.png`,
+          url: `${siteUrl}/opengraph-image.png`,
           width: 1200,
           height: 630,
           alt: `${benchmark.name} - LLM Registry`,
@@ -64,6 +70,7 @@ export async function generateMetadata({ params }: BenchmarkPageProps): Promise<
       card: "summary_large_image",
       title: `${benchmark.name} Benchmark Leaderboard`,
       description: benchmark.description,
+      images: [`${siteUrl}/opengraph-image.png`],
     },
   };
 }
@@ -105,8 +112,82 @@ export default async function BenchmarkPage({ params, searchParams }: BenchmarkP
     max: asOfDates.sort()[asOfDates.length - 1],
   } : null;
 
+  const benchmarkPageUrl = `${siteUrl}/benchmark/${benchmark.id}`;
+  const benchmarkBreadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Leaderboard",
+        item: `${siteUrl}/`,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Benchmarks",
+        item: `${siteUrl}/benchmarks`,
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: benchmark.category,
+        item: `${siteUrl}/leaderboard/${categorySlug}`,
+      },
+      {
+        "@type": "ListItem",
+        position: 4,
+        name: benchmark.name,
+        item: benchmarkPageUrl,
+      },
+    ],
+  };
+
+  const benchmarkDatasetJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Dataset",
+    name: `${benchmark.name} leaderboard dataset`,
+    description: `Scores, rankings, and provenance for the ${benchmark.name} benchmark in LLM Registry.`,
+    url: benchmarkPageUrl,
+    creator: {
+      "@type": "Organization",
+      name: siteName,
+      url: siteUrl,
+    },
+    isAccessibleForFree: true,
+    variableMeasured: benchmark.category,
+    temporalCoverage: asOfRange ? `${asOfRange.min}/${asOfRange.max}` : undefined,
+    distribution: {
+      "@type": "DataDownload",
+      contentUrl: `${siteUrl}/api/v1/scores?benchmarkId=${encodeURIComponent(benchmark.id)}`,
+      encodingFormat: "application/json",
+    },
+  };
+
+  const benchmarkArticleJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    headline: `${benchmark.name} benchmark leaderboard`,
+    description: benchmark.description,
+    url: benchmarkPageUrl,
+    author: {
+      "@type": "Organization",
+      name: siteName,
+    },
+    about: [benchmark.category, domain ?? "Benchmark"],
+    dateModified: asOfRange?.max,
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": benchmarkPageUrl,
+    },
+  };
+
   return (
     <div className="space-y-4">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(benchmarkBreadcrumbJsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(benchmarkDatasetJsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(benchmarkArticleJsonLd) }} />
       <nav className="hidden sm:flex items-center gap-1 text-xs text-muted-foreground">
         <Link href="/benchmarks" className="hover:text-foreground transition-colors">
           Benchmarks
