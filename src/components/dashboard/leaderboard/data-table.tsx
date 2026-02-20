@@ -93,7 +93,7 @@ export function DataTable({
   const [summaryView, setSummaryView] = React.useState(() => !activeCategory);
   const [benchmarkWindowPage, setBenchmarkWindowPage] = React.useState(0);
   const [queuedParamUpdates, setQueuedParamUpdates] = React.useState<Record<string, string | null> | null>(null);
-  const { isMaximized, toggleMaximized, exitMaximized } = useMaximizedView();
+  const { isMaximized, isAnimatingOut, toggleMaximized, exitMaximized } = useMaximizedView();
 
   const setColumnOrderSafely = React.useCallback((nextOrder: string[]) => {
     setColumnOrder((prev) => (areStringArraysEqual(prev, nextOrder) ? prev : nextOrder));
@@ -700,11 +700,14 @@ export function DataTable({
       </div>
       
       {/* Maximized Overlay with Animations */}
-      {isMaximized && (
+      {(isMaximized || isAnimatingOut) && (
         <div 
-          className="fixed inset-0 z-[100] bg-background/95 backdrop-blur-sm flex flex-col animate-in fade-in duration-200"
+          className={cn(
+            "fixed inset-0 z-[9999] bg-background flex flex-col",
+            isAnimatingOut && "animate-out fade-out duration-200"
+          )}
           style={{
-            animation: 'fadeIn 200ms ease-out'
+            animation: isAnimatingOut ? 'fadeOut 200ms ease-in forwards' : 'fadeIn 200ms ease-out'
           }}
         >
           <style jsx>{`
@@ -712,20 +715,36 @@ export function DataTable({
               from { opacity: 0; }
               to { opacity: 1; }
             }
+            @keyframes fadeOut {
+              from { opacity: 1; }
+              to { opacity: 0; }
+            }
             @keyframes slideDown {
               from { opacity: 0; transform: translateY(-10px); }
               to { opacity: 1; transform: translateY(0); }
             }
+            @keyframes slideUp {
+              from { opacity: 1; transform: translateY(0); }
+              to { opacity: 0; transform: translateY(-10px); }
+            }
             @keyframes scaleIn {
               from { opacity: 0; transform: scale(0.98); }
               to { opacity: 1; transform: scale(1); }
+            }
+            @keyframes scaleOut {
+              from { opacity: 1; transform: scale(1); }
+              to { opacity: 0; transform: scale(0.98); }
             }
           `}</style>
 
           {/* Floating Header with Toolbar */}
           <div 
             className="flex flex-col border-b border-border bg-card shrink-0"
-            style={{ animation: 'slideDown 300ms ease-out 50ms backwards' }}
+            style={{ 
+              animation: isAnimatingOut 
+                ? 'slideUp 200ms ease-in forwards' 
+                : 'slideDown 300ms ease-out 50ms backwards' 
+            }}
           >
             {/* Title Bar with Exit Button */}
             <div className="flex items-center justify-between px-6 py-3 border-b border-border/50">
@@ -777,7 +796,11 @@ export function DataTable({
           {/* Table Content */}
           <div 
             className="flex-1 overflow-hidden p-6"
-            style={{ animation: 'scaleIn 300ms ease-out 100ms backwards' }}
+            style={{ 
+              animation: isAnimatingOut 
+                ? 'scaleOut 200ms ease-in forwards' 
+                : 'scaleIn 300ms ease-out 100ms backwards' 
+            }}
           >
             <div className="relative h-full overflow-auto rounded-2xl border border-border bg-card shadow-sm">
               <div className="pointer-events-none absolute inset-y-0 left-0 z-30 w-8 bg-gradient-to-r from-card to-transparent opacity-0 transition-opacity group-hover/table:opacity-100" />
@@ -900,7 +923,7 @@ export function DataTable({
           {/* Floating Exit Button (Bottom Right) */}
           <button
             onClick={exitMaximized}
-            className="fixed bottom-6 right-6 z-[101] flex items-center justify-center w-12 h-12 rounded-full bg-card border border-border shadow-lg hover:bg-destructive hover:text-destructive-foreground hover:border-destructive transition-all duration-200 group"
+            className="fixed bottom-6 right-6 z-[10000] flex items-center justify-center w-12 h-12 rounded-full bg-card border border-border shadow-lg hover:bg-destructive hover:text-destructive-foreground hover:border-destructive transition-all duration-200 group"
             aria-label="Exit maximized view"
           >
             <X className="h-5 w-5" />
