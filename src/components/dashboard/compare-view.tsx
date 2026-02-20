@@ -10,6 +10,7 @@ import { cn } from "@/lib/utils";
 import { normalizeScore } from "@/lib/stats";
 import { ALL_CATEGORY_SLUG, categoryToSlug, slugToCategory } from "@/lib/categories";
 import dynamic from "next/dynamic";
+import Link from "next/link";
 import { getProviderTheme } from "@/lib/provider-identity";
 
 const RadarComparison = dynamic(
@@ -467,7 +468,14 @@ export function CompareView({ modelOptions, initialSelectedModels, benchmarks }:
               <div className="flex items-start justify-between gap-3">
                 <div className="min-w-0 space-y-1">
                   <p className="font-mono text-[10px] font-bold text-primary uppercase tracking-widest">Model 0{idx + 1}</p>
-                  <h3 className="truncate text-2xl font-display font-bold tracking-tight text-foreground" title={model.name}>{model.name}</h3>
+                  <h3 className="truncate text-2xl font-display font-bold tracking-tight text-foreground" title={model.name}>
+                    <Link 
+                      href={`/model/${model.id}`}
+                      className="hover:text-primary transition-colors"
+                    >
+                      {model.name}
+                    </Link>
+                  </h3>
                   <div className="pt-1">
                     <span className={cn("rounded-full px-2 py-0.5 font-mono text-[9px] font-bold uppercase tracking-widest", providerTheme.border, providerTheme.bg, providerTheme.text)}>
                       {model.provider}
