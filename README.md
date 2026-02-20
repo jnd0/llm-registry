@@ -4,11 +4,14 @@ The Source of Truth for LLM Benchmarks. Compare top models like **DeepSeek V3**,
 
 ## Features
 
-- **Global Leaderboard**: Sortable, filterable index of top LLMs.
-- **Interactive Comparison**: "Versus Mode" with Radar Charts and Delta tables.
-- **Deep Specs**: Detailed context window, pricing, and parameter data.
-- **Verified Scores**: Distinguishes between self-reported and verified benchmark results.
-- **Data Validation**: Built-in scripts to prevent broken IDs and out-of-range scores.
+- **Global Leaderboard**: Sortable, filterable index of top LLMs with pagination and column selection
+- **Interactive Comparison**: "Versus Mode" with Radar Charts and Delta tables
+- **Deep Specs**: Detailed context window, pricing, and parameter data
+- **Verified Scores**: Distinguishes between self-reported and verified benchmark results
+- **Data Freshness**: Visual indicators showing score age (amber for aging, red for stale)
+- **Coverage-Assisted Mode**: Family-proxy estimation for sparse models with clear attribution
+- **API Access**: REST API for programmatic access to benchmark data
+- **Data Validation**: Built-in scripts to prevent broken IDs and out-of-range scores
 
 ## Stack
 
@@ -49,6 +52,10 @@ Leaderboard filtering/sorting/pagination is URL-driven and server-applied, so th
   ```bash
   npm run report:coverage
   ```
+- Run tests:
+  ```bash
+  npm test
+  ```
 
 ## Methodology
 
@@ -64,12 +71,58 @@ Leaderboard filtering/sorting/pagination is URL-driven and server-applied, so th
 
 ## Project Structure
 
-- `src/data`: The source of truth for models and benchmarks.
-- `src/components/dashboard`: Core interactive components (Table, Radar).
-- `src/types`: Strict TypeScript definitions.
+```
+src/
+├── app/                    # Next.js App Router pages
+├── components/
+│   ├── dashboard/          # Leaderboard, compare, and data viz components
+│   └── ui/                 # Shadcn UI components
+├── data/
+│   ├── models.ts           # Model definitions and scores
+│   ├── benchmarks.ts       # Benchmark taxonomy and metadata
+│   ├── aa-overrides.ts     # Artificial Analysis data imports
+│   ├── sources.ts          # Data source registry
+│   └── changelog.ts        # Version history
+├── lib/
+│   ├── registry-data.ts    # Data processing and queries
+│   └── leaderboard-query.ts # Leaderboard filtering logic
+├── types/                  # TypeScript type definitions
+└── scripts/                # Data validation and import scripts
+```
+
+## API
+
+The registry provides a REST API for programmatic access:
+
+- `GET /api/v1/models` - List all models
+- `GET /api/v1/models/[id]` - Get specific model details
+- `GET /api/v1/benchmarks` - List all benchmarks
+- `GET /api/v1/leaderboard` - Get leaderboard data with filtering
+- `GET /api/v1/export?format=json|csv` - Export data for research workflows
+
+Full API documentation available at `/api-docs`
 
 ## Adding a Model
 
 1. Open `src/data/models.ts`
-2. Add a new object to the `models` array following the `Model` interface.
-3. Add scores for existing benchmarks.
+2. Add a new object to the `models` array following the `Model` interface
+3. Add scores for existing benchmarks
+4. Include provenance metadata (source, verification level, as-of date)
+5. Run validation: `npm run validate:data:strict`
+
+## Contributing
+
+We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+
+## License
+
+This project is licensed under the MIT License - see [LICENSE](LICENSE) for details.
+
+## Data Attribution
+
+Benchmark data includes contributions from:
+- **Artificial Analysis** (https://artificialanalysis.ai/) - Imported under current policy with explicit attribution
+- Provider-reported scores from model publishers
+- Third-party evaluation results
+
+All imported data includes provenance tracking with source IDs, verification levels, and as-of dates.
