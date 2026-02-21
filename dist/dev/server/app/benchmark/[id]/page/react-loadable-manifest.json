@@ -1,0 +1,30 @@
+{
+  "[project]/src/components/layout/theme-toggle.tsx [app-client] (ecmascript, next/dynamic entry)": {
+    "id": "[project]/src/components/layout/theme-toggle.tsx [app-client] (ecmascript, next/dynamic entry)",
+    "files": [
+      "static/chunks/_d1746354._.js",
+      "static/chunks/src_components_layout_theme-toggle_tsx_d37c7f88._.js"
+    ]
+  },
+  "[project]/src/components/layout/command-palette.tsx [app-client] (ecmascript, next/dynamic entry)": {
+    "id": "[project]/src/components/layout/command-palette.tsx [app-client] (ecmascript, next/dynamic entry)",
+    "files": [
+      "static/chunks/_91853212._.js",
+      "static/chunks/src_components_layout_command-palette_tsx_d37c7f88._.js"
+    ]
+  },
+  "[project]/src/components/benchmark/frontier-chart.tsx [app-client] (ecmascript, next/dynamic entry)": {
+    "id": "[project]/src/components/benchmark/frontier-chart.tsx [app-client] (ecmascript, next/dynamic entry)",
+    "files": [
+      "static/chunks/src_6f098962._.js",
+      "static/chunks/src_components_benchmark_frontier-chart_tsx_cb7af384._.js"
+    ]
+  },
+  "[project]/src/components/benchmark/benchmark-leaderboard.tsx [app-client] (ecmascript, next/dynamic entry)": {
+    "id": "[project]/src/components/benchmark/benchmark-leaderboard.tsx [app-client] (ecmascript, next/dynamic entry)",
+    "files": [
+      "static/chunks/_a6beb648._.js",
+      "static/chunks/src_components_benchmark_benchmark-leaderboard_tsx_cb7af384._.js"
+    ]
+  }
+}

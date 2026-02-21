@@ -1,0 +1,12 @@
+{
+  "/api/v1/models/[id]/route": "app/api/v1/models/[id]/route.js",
+  "/benchmark/[id]/page": "app/benchmark/[id]/page.js",
+  "/benchmarks/page": "app/benchmarks/page.js",
+  "/compare/page": "app/compare/page.js",
+  "/domain/[slug]/page": "app/domain/[slug]/page.js",
+  "/explore/page": "app/explore/page.js",
+  "/manifest.webmanifest/route": "app/manifest.webmanifest/route.js",
+  "/model/[id]/page": "app/model/[id]/page.js",
+  "/page": "app/page.js",
+  "/robots.txt/route": "app/robots.txt/route.js"
+}

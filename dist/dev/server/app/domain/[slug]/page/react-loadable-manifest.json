@@ -1,0 +1,16 @@
+{
+  "[project]/src/components/layout/theme-toggle.tsx [app-client] (ecmascript, next/dynamic entry)": {
+    "id": "[project]/src/components/layout/theme-toggle.tsx [app-client] (ecmascript, next/dynamic entry)",
+    "files": [
+      "static/chunks/_d1746354._.js",
+      "static/chunks/src_components_layout_theme-toggle_tsx_d37c7f88._.js"
+    ]
+  },
+  "[project]/src/components/layout/command-palette.tsx [app-client] (ecmascript, next/dynamic entry)": {
+    "id": "[project]/src/components/layout/command-palette.tsx [app-client] (ecmascript, next/dynamic entry)",
+    "files": [
+      "static/chunks/_91853212._.js",
+      "static/chunks/src_components_layout_command-palette_tsx_d37c7f88._.js"
+    ]
+  }
+}

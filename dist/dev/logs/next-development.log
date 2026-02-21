@@ -1,0 +1,117 @@
+[00:00:03.236] Server  LOG     ✓ Ready in 2.3s
+[00:00:06.256] Server  LOG     ○ Compiling / ...
+[00:00:10.434] Server  ERROR   (node:9425) Warning: `--localstorage-file` was provided without a valid path
+(Use `node --trace-warnings ...` to show where the warning was created)
+[00:00:11.137] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:17.910] Browser WARN    Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
+[00:00:30.729] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:35.761] Server  LOG     ✓ Finished writing to filesystem cache in 10.4s
+[00:00:37.139] Browser WARN    The width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width.
+[00:00:37.139] Browser WARN    The width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width.
+[00:01:17.938] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:01:18.340] Browser ERROR   uncaughtError: Error: Hydration failed because the server rendered HTML didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+https://react.dev/link/hydration-mismatch
+
+  ...
+    <RedirectBoundary>
+      <RedirectErrorBoundary router={{...}}>
+        <InnerLayoutRouter url="/" tree={[...]} params={{}} cacheNode={{rsc:<Fragment>, ...}} segmentPath={[...]} ...>
+          <SegmentViewNode type="page" pagePath="page.tsx">
+            <SegmentTrieNode>
+            <Home>
+              <div className="space-y-5">
+                <script>
+                <section>
+                <section>
+                <article>
+                <Suspense fallback={<div>}>
+                  <ClientLeaderboard models={[...]} benchmarks={[...]}>
+                    <Suspense fallback={<LoadingShell>}>
+                      <ClientLeaderboardInner models={[...]} benchmarks={[...]}>
+                        <DataTable data={[...]} benchmarks={[...]} activeCategory={null} activeCategorySlug={null} ...>
+                          <div className="space-y-6 ...">
+                            <div>
+                            <LeaderboardToolbar>
+                            <p>
+                            <div
++                             className="space-y-3"
+-                             className="relative hidden max-h-[70vh] overflow-auto rounded-2xl border border-border b..."
+                            >
+                              <div
++                               className="surface-card rounded-lg p-4"
+-                               className="pointer-events-none absolute inset-y-0 left-0 z-30 w-8 bg-gradient-to-r fro..."
+                              >
++                               <div className="flex items-start justify-between gap-3">
+                                ...
+                              ...
+          ...
+        ...
+
+[00:01:30.051] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:01:30.398] Browser ERROR   uncaughtError: Error: Hydration failed because the server rendered HTML didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+https://react.dev/link/hydration-mismatch
+
+  ...
+    <RedirectBoundary>
+      <RedirectErrorBoundary router={{...}}>
+        <InnerLayoutRouter url="/" tree={[...]} params={{}} cacheNode={{rsc:<Fragment>, ...}} segmentPath={[...]} ...>
+          <SegmentViewNode type="page" pagePath="page.tsx">
+            <SegmentTrieNode>
+            <Home>
+              <div className="space-y-5">
+                <script>
+                <section>
+                <section>
+                <article>
+                <Suspense fallback={<div>}>
+                  <ClientLeaderboard models={[...]} benchmarks={[...]}>
+                    <Suspense fallback={<LoadingShell>}>
+                      <ClientLeaderboardInner models={[...]} benchmarks={[...]}>
+                        <DataTable data={[...]} benchmarks={[...]} activeCategory={null} activeCategorySlug={null} ...>
+                          <div className="space-y-6 ...">
+                            <div>
+                            <LeaderboardToolbar>
+                            <p>
+                            <div
++                             className="space-y-3"
+-                             className="relative hidden max-h-[70vh] overflow-auto rounded-2xl border border-border b..."
+                            >
+                              <div
++                               className="surface-card rounded-lg p-4"
+-                               className="pointer-events-none absolute inset-y-0 left-0 z-30 w-8 bg-gradient-to-r fro..."
+                              >
++                               <div className="flex items-start justify-between gap-3">
+                                ...
+                              ...
+          ...
+        ...
+
+[00:01:33.342] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:01:42.350] Browser WARN    Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
+[00:02:06.827] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:02:09.700] Browser WARN    Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
+[00:18:06.947] Server  LOG     ✓ Compiled in 6.4s
