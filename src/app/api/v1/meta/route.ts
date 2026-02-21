@@ -1,17 +1,20 @@
-import { NextRequest } from "next/server";
 import { benchmarkCategories } from "@/lib/categories";
 import { apiAttribution, getLatestScoreDate, jsonWithCache } from "@/lib/api";
 import { benchmarks, models, sources } from "@/lib/registry-data";
 
-export function GET(request: NextRequest) {
-  const latestScoreDate = getLatestScoreDate();
+// Force static generation
+export const dynamic = "force-static";
+export const revalidate = 3600;
 
+const staticLastModified = getLatestScoreDate();
+
+export function GET() {
   return jsonWithCache(
-    request,
+    null,
     {
       apiVersion: "v1",
       generatedAt: new Date().toISOString(),
-      latestScoreDate,
+      latestScoreDate: staticLastModified,
       counts: {
         models: models.length,
         benchmarks: benchmarks.length,
@@ -30,7 +33,7 @@ export function GET(request: NextRequest) {
       ],
     },
     {
-      lastModified: latestScoreDate,
+      lastModified: staticLastModified,
     }
   );
 }

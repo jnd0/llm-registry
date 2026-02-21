@@ -3,32 +3,14 @@ import type { Metadata } from "next";
 import { Button } from "@/components/ui/button";
 import { Suspense } from "react";
 import Link from "next/link";
-import { categoryToSlug, slugToCategory } from "@/lib/categories";
 import { getHomeMetrics } from "@/lib/home-metrics";
 import { DomainCards } from "@/components/dashboard/domain-cards";
 import { Skeleton } from "@/components/ui/skeleton";
-import { redirect } from "next/navigation";
 import { HomeStatsCard } from "@/components/dashboard/home-stats-card";
 import { LatestArrivalCard } from "@/components/dashboard/latest-arrival-card";
 import { siteName, siteUrl } from "@/lib/site";
-import { HomeLeaderboardServer } from "@/components/dashboard/home-leaderboard-server";
+import { ClientLeaderboard } from "@/components/dashboard/client-leaderboard";
 import { toSafeJsonLd } from "@/lib/security";
-
-interface HomePageProps {
-  searchParams: Promise<{
-    category?: string;
-    domain?: string;
-    license?: string;
-    q?: string;
-    sort?: string;
-    dir?: string;
-    page?: string;
-    pageSize?: string;
-    source?: string;
-    verification?: string;
-    coverageMode?: string;
-  }>;
-}
 
 export const metadata: Metadata = {
   title: "Leaderboard",
@@ -64,30 +46,24 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function Home({ searchParams }: HomePageProps) {
-  const params = await searchParams;
+function LoadingShell() {
+  return (
+    <div className="space-y-4 rounded-xl border border-border/40 bg-card/30 p-4">
+      <div className="flex items-center justify-between">
+        <Skeleton className="h-8 w-48" />
+        <Skeleton className="h-8 w-64" />
+      </div>
+      <div className="space-y-2">
+        <Skeleton className="h-10 w-full" />
+        <Skeleton className="h-16 w-full" />
+        <Skeleton className="h-16 w-full" />
+        <Skeleton className="h-16 w-full" />
+      </div>
+    </div>
+  );
+}
 
-  // Redirect old /?category=... URLs to /leaderboard/[category]
-  if (params?.category) {
-    const category = slugToCategory(params.category);
-    if (category) {
-      const slug = categoryToSlug(category);
-      const remainingParams = new URLSearchParams();
-      if (params.q) remainingParams.set("q", params.q);
-      if (params.sort) remainingParams.set("sort", params.sort);
-      if (params.dir) remainingParams.set("dir", params.dir);
-      if (params.page) remainingParams.set("page", params.page);
-      if (params.pageSize) remainingParams.set("pageSize", params.pageSize);
-      if (params.domain) remainingParams.set("domain", params.domain);
-      if (params.license) remainingParams.set("license", params.license);
-      if (params.source) remainingParams.set("source", params.source);
-      if (params.verification) remainingParams.set("verification", params.verification);
-      if (params.coverageMode) remainingParams.set("coverageMode", params.coverageMode);
-      const queryString = remainingParams.toString();
-      redirect(`/leaderboard/${slug}${queryString ? `?${queryString}` : ""}`);
-    }
-  }
-
+export default function Home() {
   const { totalScores, latestScoreDate } = getHomeMetrics(models, benchmarks);
 
   const latestArrival = [...models].sort((a, b) => b.releaseDate.localeCompare(a.releaseDate))[0];
@@ -156,23 +132,8 @@ export default async function Home({ searchParams }: HomePageProps) {
         <DomainCards />
       </article>
 
-      <Suspense
-        fallback={
-          <div className="space-y-4 rounded-xl border border-border/40 bg-card/30 p-4">
-            <div className="flex items-center justify-between">
-              <Skeleton className="h-8 w-48" />
-              <Skeleton className="h-8 w-64" />
-            </div>
-            <div className="space-y-2">
-              <Skeleton className="h-10 w-full" />
-              <Skeleton className="h-16 w-full" />
-              <Skeleton className="h-16 w-full" />
-              <Skeleton className="h-16 w-full" />
-            </div>
-          </div>
-        }
-      >
-        <HomeLeaderboardServer params={params} />
+      <Suspense fallback={<LoadingShell />}>
+        <ClientLeaderboard models={models} benchmarks={benchmarks} />
       </Suspense>
     </div>
   );

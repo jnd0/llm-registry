@@ -1,9 +1,14 @@
-import { NextRequest } from "next/server";
 import { apiAttribution, getLatestScoreDate, jsonWithCache } from "@/lib/api";
 
-export function GET(request: NextRequest) {
+// Force static generation
+export const dynamic = "force-static";
+export const revalidate = 3600;
+
+const staticLastModified = getLatestScoreDate();
+
+export function GET() {
   return jsonWithCache(
-    request,
+    null,
     {
       apiVersion: "v1",
       endpoints: {
@@ -17,7 +22,7 @@ export function GET(request: NextRequest) {
       attribution: apiAttribution,
     },
     {
-      lastModified: getLatestScoreDate(),
+      lastModified: staticLastModified,
     }
   );
 }

@@ -1,25 +1,24 @@
-import { NextRequest } from "next/server";
 import { benchmarkCategories } from "@/lib/categories";
 import { apiAttribution, getLatestScoreDate, jsonWithCache } from "@/lib/api";
 import { benchmarks } from "@/lib/registry-data";
 
-export function GET(request: NextRequest) {
-  const category = request.nextUrl.searchParams.get("category");
+// Force static generation
+export const dynamic = "force-static";
+export const revalidate = 3600;
 
-  const data = category
-    ? benchmarks.filter((benchmark) => benchmark.category.toLowerCase() === category.toLowerCase())
-    : benchmarks;
+const staticLastModified = getLatestScoreDate();
 
+export function GET() {
   return jsonWithCache(
-    request,
+    null,
     {
-      total: data.length,
+      total: benchmarks.length,
       categories: benchmarkCategories,
-      benchmarks: data,
+      benchmarks,
       attribution: apiAttribution,
     },
     {
-      lastModified: getLatestScoreDate(),
+      lastModified: staticLastModified,
     }
   );
 }

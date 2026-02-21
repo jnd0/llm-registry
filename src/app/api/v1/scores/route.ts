@@ -1,32 +1,21 @@
-import { NextRequest } from "next/server";
 import { normalizeScore } from "@/lib/stats";
 import { apiAttribution, getLatestScoreDate, jsonWithCache } from "@/lib/api";
 import { benchmarks, models } from "@/lib/registry-data";
 
-export function GET(request: NextRequest) {
-  const modelId = request.nextUrl.searchParams.get("modelId");
-  const benchmarkId = request.nextUrl.searchParams.get("benchmarkId");
-  const category = request.nextUrl.searchParams.get("category");
-  const sourceId = request.nextUrl.searchParams.get("sourceId");
-  const limit = Number.parseInt(request.nextUrl.searchParams.get("limit") ?? "500", 10);
-  const offset = Number.parseInt(request.nextUrl.searchParams.get("offset") ?? "0", 10);
+// Force static generation - no request object needed
+export const dynamic = "force-static";
+export const revalidate = 3600; // Revalidate every hour
 
-  const safeLimit = Number.isFinite(limit) ? Math.max(1, Math.min(1000, limit)) : 500;
-  const safeOffset = Number.isFinite(offset) ? Math.max(0, offset) : 0;
-
+// Generate static data at build time
+function generateStaticScores() {
   const benchmarkById = new Map(benchmarks.map((benchmark) => [benchmark.id, benchmark]));
 
   const rows = models.flatMap((model) => {
-    if (modelId && model.id !== modelId) return [];
-
     return Object.entries(model.scores).flatMap(([id, scoreEntry]) => {
       if (scoreEntry.score === null || scoreEntry.score === undefined) return [];
-      if (benchmarkId && id !== benchmarkId) return [];
-      if (sourceId && scoreEntry.sourceId !== sourceId) return [];
 
       const benchmark = benchmarkById.get(id);
       if (!benchmark) return [];
-      if (category && benchmark.category.toLowerCase() !== category.toLowerCase()) return [];
 
       return {
         modelId: model.id,
@@ -47,25 +36,27 @@ export function GET(request: NextRequest) {
     });
   });
 
-  const sorted = rows.sort((a, b) => {
+  return rows.sort((a, b) => {
     const modelCmp = a.modelName.localeCompare(b.modelName);
     if (modelCmp !== 0) return modelCmp;
     return a.benchmarkName.localeCompare(b.benchmarkName);
   });
+}
 
-  const page = sorted.slice(safeOffset, safeOffset + safeLimit);
+// Static data generated at build time
+const staticScores = generateStaticScores();
+const staticLastModified = getLatestScoreDate();
 
+export function GET() {
   return jsonWithCache(
-    request,
+    null, // No request object in static mode
     {
-      total: sorted.length,
-      offset: safeOffset,
-      limit: safeLimit,
-      scores: page,
+      total: staticScores.length,
+      scores: staticScores,
       attribution: apiAttribution,
     },
     {
-      lastModified: getLatestScoreDate(),
+      lastModified: staticLastModified,
     }
   );
 }

@@ -30,14 +30,16 @@ export function getLatestScoreDate(): string | null {
 }
 
 export function jsonWithCache(
-  request: NextRequest,
+  request: NextRequest | null,
   payload: unknown,
   options?: { status?: number; lastModified?: string | null }
 ) {
   const status = options?.status ?? 200;
   const body = JSON.stringify(payload);
   const etag = `W/"${createHash("sha1").update(body).digest("base64url")}"`;
-  const ifNoneMatch = request.headers.get("if-none-match");
+  
+  // In static mode (null request), skip ETag comparison
+  const ifNoneMatch = request?.headers.get("if-none-match");
 
   const headers = new Headers({
     "Content-Type": "application/json; charset=utf-8",
