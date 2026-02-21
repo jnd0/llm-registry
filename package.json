@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "build:cf": "opennextjs-cloudflare build",
+    "build:cf": "bun install && bunx opennextjs-cloudflare build",
     "start": "next start",
     "lint": "eslint",
     "test": "node --test 'tests/**/*.test.mjs'",
