@@ -4,6 +4,8 @@ import { benchmarkCategories, categoryToSlug } from "@/lib/categories";
 import { domainDefinitions, domainToSlug } from "@/lib/domains";
 import { siteUrl } from "@/lib/site";
 
+export const dynamic = "force-static";
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
 

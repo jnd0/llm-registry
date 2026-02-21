@@ -6,25 +6,15 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { ExternalLink, ChevronRight } from "lucide-react";
-import { BenchmarkLeaderboard } from "@/components/benchmark/benchmark-leaderboard";
-import { FrontierChart } from "@/components/benchmark/frontier-chart";
 import { BenchmarkInsights } from "@/components/benchmark/benchmark-insights";
 import { SimilarBenchmarks } from "@/components/benchmark/similar-benchmarks";
 import { ShareButton } from "@/components/benchmark/share-button";
 import { siteName, siteUrl } from "@/lib/site";
 import { safeExternalHref, toSafeJsonLd } from "@/lib/security";
+import { BenchmarkClientComponents } from "@/components/benchmark/benchmark-client-components";
 
 interface BenchmarkPageProps {
   params: Promise<{ id: string }>;
-  searchParams: Promise<{
-    view?: string;
-    variants?: string;
-    range?: string;
-    q?: string;
-    license?: string;
-    sort?: string;
-    dir?: string;
-  }>;
 }
 
 export async function generateStaticParams() {
@@ -76,9 +66,8 @@ export async function generateMetadata({ params }: BenchmarkPageProps): Promise<
   };
 }
 
-export default async function BenchmarkPage({ params, searchParams }: BenchmarkPageProps) {
+export default async function BenchmarkPage({ params }: BenchmarkPageProps) {
   const { id } = await params;
-  const rawSearchParams = await searchParams;
   const benchmark = benchmarks.find((b) => b.id === id);
 
   if (!benchmark) {
@@ -259,16 +248,12 @@ export default async function BenchmarkPage({ params, searchParams }: BenchmarkP
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         <div className="md:col-span-1 lg:col-span-2">
-          <div className="surface-card rounded-xl border border-border/40 p-3 sm:p-4">
-            <FrontierChart 
-              benchmark={benchmark} 
-              models={modelsWithScores}
-              variantIds={variantIds}
-              initialView={rawSearchParams.view as "all" | "frontier" | undefined}
-              initialVariants={rawSearchParams.variants === "1"}
-              initialRange={rawSearchParams.range as "all" | "6m" | undefined}
-            />
-          </div>
+          <BenchmarkClientComponents
+            benchmark={benchmark}
+            models={modelsWithScores}
+            variantIds={variantIds}
+            sotaScore={sotaScore}
+          />
         </div>
 
         <div className="space-y-3">
@@ -320,18 +305,6 @@ export default async function BenchmarkPage({ params, searchParams }: BenchmarkP
             bestOpenScore={bestOpenScore}
           />
         </div>
-      </div>
-
-      <div className="surface-card rounded-xl border border-border/40 overflow-hidden">
-        <BenchmarkLeaderboard 
-          benchmark={benchmark} 
-          models={modelsWithScores}
-          sotaScore={sotaScore}
-          initialSearch={rawSearchParams.q}
-          initialLicense={rawSearchParams.license as "all" | "open" | "proprietary" | undefined}
-          initialSort={rawSearchParams.sort}
-          initialDir={rawSearchParams.dir as "asc" | "desc" | undefined}
-        />
       </div>
 
       <SimilarBenchmarks currentBenchmark={benchmark} />

@@ -3,10 +3,7 @@ import { benchmarks, flattenedModels } from "@/lib/registry-data";
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import { siteName, siteUrl } from "@/lib/site";
-
-interface ComparePageProps {
-  searchParams: Promise<{ models?: string }>;
-}
+import { Skeleton } from "@/components/ui/skeleton";
 
 export const metadata: Metadata = {
   title: "Compare",
@@ -37,18 +34,15 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function ComparePage({ searchParams }: ComparePageProps) {
-  const params = await searchParams;
-  const selectedIds = Array.from(
-    new Set(
-      (params.models ?? "")
-        .split(",")
-        .map((value) => value.trim())
-        .filter(Boolean)
-    )
-  ).slice(0, 3);
+function LoadingShell() {
+  return (
+    <div className="surface-card rounded-xl px-6 py-10 text-sm font-mono uppercase tracking-widest text-muted-foreground">
+      Loading comparison…
+    </div>
+  );
+}
 
-  const initialSelectedModels = flattenedModels.filter((model) => selectedIds.includes(model.id));
+export default function ComparePage() {
   const modelOptions = flattenedModels.map((model) => ({
     id: model.id,
     name: model.name,
@@ -72,11 +66,11 @@ export default async function ComparePage({ searchParams }: ComparePageProps) {
       </section>
 
       <div className="py-2 sm:py-4">
-        <Suspense fallback={<div className="surface-card rounded-xl px-6 py-10 text-sm font-mono uppercase tracking-widest text-muted-foreground">Loading comparison…</div>}>
+        <Suspense fallback={<LoadingShell />}>
           <CompareView
             benchmarks={benchmarks}
             modelOptions={modelOptions}
-            initialSelectedModels={initialSelectedModels}
+            initialSelectedModels={[]}
           />
         </Suspense>
       </div>

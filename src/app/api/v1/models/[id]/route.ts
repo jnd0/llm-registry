@@ -1,18 +1,23 @@
-import { NextRequest } from "next/server";
 import { apiAttribution, getLatestScoreDate, jsonWithCache } from "@/lib/api";
-import { findModel } from "@/lib/registry-data";
+import { findModel, flattenedModels } from "@/lib/registry-data";
 
-interface RouteContext {
-  params: Promise<{ id: string }>;
+// Generate static params for all models
+export function generateStaticParams() {
+  return flattenedModels.map((model) => ({
+    id: model.id,
+  }));
 }
 
-export async function GET(request: NextRequest, context: RouteContext) {
+// Static export
+export const dynamic = "force-static";
+
+export async function GET(_request: Request, context: { params: Promise<{ id: string }> }) {
   const { id } = await context.params;
   const model = findModel(id);
 
   if (!model) {
     return jsonWithCache(
-      request,
+      null,
       {
         error: "Model not found",
       },
@@ -21,7 +26,7 @@ export async function GET(request: NextRequest, context: RouteContext) {
   }
 
   return jsonWithCache(
-    request,
+    null,
     {
       model,
       attribution: apiAttribution,

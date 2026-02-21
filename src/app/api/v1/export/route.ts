@@ -1,8 +1,11 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { normalizeScore } from "@/lib/stats";
 import { apiAttribution, getLatestScoreDate } from "@/lib/api";
 import { benchmarks, models } from "@/lib/registry-data";
 import { neutralizeCsvFormula } from "@/lib/security";
+
+// Static export - full dataset only (no query parameter filtering)
+export const dynamic = "force-static";
 
 interface ExportRow {
   modelId: string;
@@ -21,27 +24,15 @@ interface ExportRow {
   isArtificialAnalysis: boolean;
 }
 
-function getExportData(filters: {
-  modelId?: string;
-  benchmarkId?: string;
-  category?: string;
-  sourceId?: string;
-  limit?: number;
-  offset?: number;
-}): ExportRow[] {
+function getExportData(): ExportRow[] {
   const benchmarkById = new Map(benchmarks.map((benchmark) => [benchmark.id, benchmark]));
 
   const rows = models.flatMap((model) => {
-    if (filters.modelId && model.id !== filters.modelId) return [];
-
     return Object.entries(model.scores).flatMap(([id, scoreEntry]) => {
       if (scoreEntry.score === null || scoreEntry.score === undefined) return [];
-      if (filters.benchmarkId && id !== filters.benchmarkId) return [];
-      if (filters.sourceId && scoreEntry.sourceId !== filters.sourceId) return [];
 
       const benchmark = benchmarkById.get(id);
       if (!benchmark) return [];
-      if (filters.category && benchmark.category.toLowerCase() !== filters.category.toLowerCase()) return [];
 
       return {
         modelId: model.id,
@@ -62,15 +53,11 @@ function getExportData(filters: {
     });
   });
 
-  const sorted = rows.sort((a, b) => {
+  return rows.sort((a, b) => {
     const modelCmp = a.modelName.localeCompare(b.modelName);
     if (modelCmp !== 0) return modelCmp;
     return a.benchmarkName.localeCompare(b.benchmarkName);
   });
-
-  const offset = Math.max(0, filters.offset ?? 0);
-  const limit = Math.max(1, Math.min(10_000, filters.limit ?? 5_000));
-  return sorted.slice(offset, offset + limit);
 }
 
 function rowsToCsv(rows: ExportRow[]): string {
@@ -110,38 +97,15 @@ function rowsToCsv(rows: ExportRow[]): string {
   return lines.join("\n");
 }
 
-export function GET(request: NextRequest) {
-  const format = request.nextUrl.searchParams.get("format") ?? "json";
-  const modelId = request.nextUrl.searchParams.get("modelId") ?? undefined;
-  const benchmarkId = request.nextUrl.searchParams.get("benchmarkId") ?? undefined;
-  const category = request.nextUrl.searchParams.get("category") ?? undefined;
-  const sourceId = request.nextUrl.searchParams.get("sourceId") ?? undefined;
-  const limitParam = Number.parseInt(request.nextUrl.searchParams.get("limit") ?? "5000", 10);
-  const offsetParam = Number.parseInt(request.nextUrl.searchParams.get("offset") ?? "0", 10);
-  const limit = Number.isFinite(limitParam) ? Math.max(1, Math.min(10_000, limitParam)) : 5_000;
-  const offset = Number.isFinite(offsetParam) ? Math.max(0, offsetParam) : 0;
-
-  const rows = getExportData({ modelId, benchmarkId, category, sourceId, limit, offset });
+// Static export only supports JSON (CSV would need client-side generation)
+export function GET() {
+  const rows = getExportData();
   const lastModified = getLatestScoreDate() ?? new Date().toISOString();
-
-  if (format === "csv") {
-    const csv = rowsToCsv(rows);
-    return new NextResponse(csv, {
-      status: 200,
-      headers: {
-        "Content-Type": "text/csv; charset=utf-8",
-        "Content-Disposition": `attachment; filename="llm-registry-export-${new Date().toISOString().split("T")[0]}.csv"`,
-        "Cache-Control": "public, max-age=300, stale-while-revalidate=3600",
-        "Last-Modified": lastModified,
-      },
-    });
-  }
 
   return NextResponse.json(
     {
       total: rows.length,
       exportedAt: new Date().toISOString(),
-      filters: { modelId, benchmarkId, category, sourceId, limit, offset },
       scores: rows,
       attribution: apiAttribution,
     },

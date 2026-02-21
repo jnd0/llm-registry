@@ -1,22 +1,29 @@
-import { NextRequest } from "next/server";
-import { ALL_CATEGORY_SLUG, slugToCategory } from "@/lib/categories";
+import { ALL_CATEGORY_SLUG, benchmarkCategories, categoryToSlug, slugToCategory } from "@/lib/categories";
 import { calculateCoverage, normalizeScore } from "@/lib/stats";
 import { apiAttribution, getLatestScoreDate, jsonWithCache } from "@/lib/api";
 import { benchmarks, models } from "@/lib/registry-data";
 
-interface RouteContext {
-  params: Promise<{ category: string }>;
+// Generate static params for all categories
+export function generateStaticParams() {
+  return [
+    { category: ALL_CATEGORY_SLUG },
+    ...benchmarkCategories.map((category) => ({
+      category: categoryToSlug(category),
+    })),
+  ];
 }
 
-export async function GET(request: NextRequest, context: RouteContext) {
+// Static export
+export const dynamic = "force-static";
+
+export async function GET(_request: Request, context: { params: Promise<{ category: string }> }) {
   const { category: categorySlug } = await context.params;
-  const limitParam = Number.parseInt(request.nextUrl.searchParams.get("limit") ?? "100", 10);
-  const limit = Number.isFinite(limitParam) ? Math.max(1, Math.min(500, limitParam)) : 100;
+  const limit = 100;
 
   const resolvedCategory = categorySlug === ALL_CATEGORY_SLUG ? null : slugToCategory(categorySlug);
   if (categorySlug !== ALL_CATEGORY_SLUG && !resolvedCategory) {
     return jsonWithCache(
-      request,
+      null,
       {
         error: "Unknown category",
         category: categorySlug,
@@ -72,7 +79,7 @@ export async function GET(request: NextRequest, context: RouteContext) {
     }));
 
   return jsonWithCache(
-    request,
+    null,
     {
       category: resolvedCategory ?? "All",
       categorySlug,

@@ -2,26 +2,14 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { Suspense } from "react";
-import { DataTable } from "@/components/dashboard/leaderboard";
 import { benchmarkCategories, categoryToSlug, slugToCategory } from "@/lib/categories";
-import { parseLeaderboardQueryParams, queryLeaderboardModels } from "@/lib/leaderboard-query";
 import { benchmarks, models } from "@/lib/registry-data";
 import { siteName, siteUrl } from "@/lib/site";
+import { ClientCategoryLeaderboard } from "@/components/dashboard/client-category-leaderboard";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface CategoryPageProps {
   params: Promise<{ category: string }>;
-  searchParams: Promise<{
-    q?: string;
-    sort?: string;
-    dir?: string;
-    page?: string;
-    pageSize?: string;
-    license?: string;
-    domain?: string;
-    source?: string;
-    verification?: string;
-    coverageMode?: string;
-  }>;
 }
 
 export async function generateStaticParams() {
@@ -81,15 +69,19 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
   };
 }
 
-export default async function CategoryLeaderboardPage({ params, searchParams }: CategoryPageProps) {
+function LoadingShell() {
+  return (
+    <div className="surface-card flex h-96 items-center justify-center rounded-xl font-mono text-xs uppercase tracking-[0.14em] text-muted-foreground">
+      Loading Category Leaderboard…
+    </div>
+  );
+}
+
+export default async function CategoryLeaderboardPage({ params }: CategoryPageProps) {
   const { category: categorySlug } = await params;
-  const rawSearchParams = await searchParams;
   const activeCategory = slugToCategory(categorySlug);
 
   if (!activeCategory) return notFound();
-
-  const queryParams = parseLeaderboardQueryParams(rawSearchParams, benchmarks, { activeCategory });
-  const leaderboard = queryLeaderboardModels(models, benchmarks, queryParams);
 
   return (
     <div className="animate-in fade-in duration-500 space-y-8">
@@ -127,24 +119,12 @@ export default async function CategoryLeaderboardPage({ params, searchParams }: 
         </div>
       </section>
 
-      <Suspense fallback={<div className="surface-card flex h-96 items-center justify-center rounded-xl font-mono text-xs uppercase tracking-[0.14em] text-muted-foreground">Loading Category Leaderboard…</div>}>
-        <DataTable
-          data={leaderboard.rows}
+      <Suspense fallback={<LoadingShell />}>
+        <ClientCategoryLeaderboard
+          models={models}
           benchmarks={benchmarks}
           activeCategory={activeCategory}
           activeCategorySlug={categorySlug}
-          totalRows={leaderboard.total}
-          currentPage={leaderboard.page}
-          totalPages={leaderboard.totalPages}
-          pageSize={leaderboard.pageSize}
-          sortBy={leaderboard.sortBy}
-          sortDir={leaderboard.sortDir}
-          searchQuery={leaderboard.query}
-          license={leaderboard.license}
-          domain={leaderboard.domain}
-          sourcesFilter={leaderboard.sources}
-          verificationFilter={leaderboard.verification}
-          coverageMode={leaderboard.coverageMode}
         />
       </Suspense>
     </div>
