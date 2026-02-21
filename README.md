@@ -74,6 +74,21 @@ This project deploys with OpenNext to **Cloudflare Workers** (not Cloudflare Pag
   bun run deploy
   ```
 
+### Automated Deploys (Cloudflare Git Integration)
+
+Use **Workers Builds** (not Pages) for fully automated deploys on every push.
+
+- Project type: `Workers`
+- Worker name: `llm-registry` (must match `wrangler.jsonc`)
+- Root directory: `/`
+- Build command: leave empty (or `true`)
+- Deploy command:
+  ```bash
+  bun run deploy
+  ```
+
+This gives a single automated pipeline step per commit: build + deploy.
+
 ## Methodology
 
 - Global and category views use normalized benchmark scores (0-100).
