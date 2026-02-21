@@ -42,19 +42,36 @@ Leaderboard filtering/sorting/pagination is URL-driven and server-applied, so th
 
 - Validate registry integrity:
   ```bash
-  npm run validate:data
+  bun run validate:data
   ```
 - Run strict validation (CI parity):
   ```bash
-  npm run validate:data:strict
+  bun run validate:data:strict
   ```
 - Generate a category and benchmark coverage report:
   ```bash
-  npm run report:coverage
+  bun run report:coverage
   ```
 - Run tests:
   ```bash
-  npm test
+  bun run test
+  ```
+
+## Deploy (Cloudflare Workers)
+
+This project deploys with OpenNext to **Cloudflare Workers** (not Cloudflare Pages).
+
+- One-time auth:
+  ```bash
+  bunx wrangler login
+  ```
+- Build and preview locally in the Workers runtime:
+  ```bash
+  bun run preview
+  ```
+- Deploy to production:
+  ```bash
+  bun run deploy
   ```
 
 ## Methodology
@@ -108,7 +125,7 @@ Full API documentation available at `/api-docs`
 2. Add a new object to the `models` array following the `Model` interface
 3. Add scores for existing benchmarks
 4. Include provenance metadata (source, verification level, as-of date)
-5. Run validation: `npm run validate:data:strict`
+5. Run validation: `bun run validate:data:strict`
 
 ## Contributing
 

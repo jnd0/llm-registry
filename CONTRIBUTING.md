@@ -32,7 +32,7 @@ When adding model data:
    - `verificationLevel`: One of `third-party`, `provider`, `community`, or `estimated`
    - `asOfDate`: When the score was recorded (ISO 8601 format)
 3. **Variant Handling**: Keep model variants as separate entries when they represent distinct offerings
-4. **Validation**: Run `npm run validate:data:strict` before submitting
+4. **Validation**: Run `bun run validate:data:strict` before submitting
 
 ### Code Contributions
 
@@ -41,11 +41,11 @@ When adding model data:
 3. Make your changes
 4. Run all validation and build commands:
    ```bash
-   npm run validate:data
-   npm run validate:data:strict
-   npm run lint
-   npm run build
-   npm test
+   bun run validate:data
+   bun run validate:data:strict
+   bun run lint
+   bun run build
+   bun run test
    ```
 5. Commit your changes with a clear message
 6. Push to your fork and create a Pull Request
@@ -69,8 +69,8 @@ When adding model data:
 
 1. Install dependencies: `bun install`
 2. Run dev server: `bun dev`
-3. Run validation: `npm run validate:data`
-4. Run tests: `npm test`
+3. Run validation: `bun run validate:data`
+4. Run tests: `bun run test`
 
 ## Questions?
 

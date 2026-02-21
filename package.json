@@ -13,8 +13,8 @@
     "validate:data:strict": "node scripts/validate-registry.mjs --strict",
     "report:coverage": "node scripts/coverage-report.mjs",
     "import:yaman:metadata": "node scripts/import-yaman-metadata.mjs",
-    "deploy": "bun run build:cf && wrangler deploy",
-    "preview": "wrangler dev"
+    "preview": "bunx opennextjs-cloudflare build && bunx opennextjs-cloudflare preview",
+    "deploy": "bunx opennextjs-cloudflare build && bunx opennextjs-cloudflare deploy"
   },
   "dependencies": {
     "@tanstack/react-table": "^8.21.3",
@@ -33,7 +33,6 @@
     "zod": "^4.3.6"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20260227.0",
     "@opennextjs/cloudflare": "^1.16.5",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
