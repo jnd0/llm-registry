@@ -12,6 +12,10 @@
 
 # testing
 /coverage
+reports/gap-inventory-*.json
+reports/gap-inventory-*.md
+reports/web-research-backfill-*.json
+reports/web-research-backfill-*.md
 
 # next.js
 /.next/
@@ -41,4 +45,5 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 dist/
+dist/dev/
 .next/
