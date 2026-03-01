@@ -62,6 +62,10 @@ export interface ModelApiSupport {
   maxTokens?: boolean;
   temperature?: boolean;
   topP?: boolean;
+  reasoning?: boolean;
+  structuredOutput?: boolean;
+  attachment?: boolean;
+  toolCall?: boolean;
 }
 
 export interface ModelModalities {
@@ -76,6 +80,12 @@ export interface ModelPricingDimension {
   unit: PricingUnit;
   priceUsd: number;
   notes?: string;
+}
+
+export interface ModelContextSurcharge {
+  input: number;
+  output: number;
+  cacheRead?: number;
 }
 
 export type ModelType = 
@@ -94,6 +104,12 @@ export type ScoreVerification =
   | "community"
   | "estimated";
 
+export type ModelStatus =
+  | "active"
+  | "alpha"
+  | "beta"
+  | "deprecated";
+
 export type BenchmarkNormalization =
   | "max"
   | "minmax"
@@ -105,19 +121,29 @@ export interface Model {
   id: string;                    // e.g., "claude-3-5-sonnet-20241022"
   name: string;                  // Display name
   provider: string;              // Changed to string for flexibility
+  family?: string;               // Model family grouping (e.g., "llama", "gpt", "claude")
   releaseDate: string;           // ISO 8601 (YYYY-MM-DD)
   capabilities: ModelCapability[];
   isOpenSource: boolean;         // True if weights are available (Llama, DeepSeek)
   modelType?: ModelType;         // Primary modality (for future filtering)
+  status?: ModelStatus;          // Model lifecycle status
+  knowledgeCutoff?: string;      // Training data cutoff (YYYY-MM or YYYY-MM-DD)
+  lastUpdated?: string;          // Last metadata update (ISO 8601)
+  interleavedReasoningField?: string; // Field name for reasoning content
   
   specs: {
     contextWindow: number;       // Tokens (e.g., 200000)
+    maxOutputTokens?: number;    // Maximum output tokens
     parameters: string;          // e.g., "70B", "Unknown", "Mixture-of-Experts"
     pricing: {
       input: number;             // USD per 1M tokens
       output: number;            // USD per 1M tokens
-      cacheInput?: number;
-      cacheOutput?: number;
+      cacheInput?: number;       // USD per 1M cached read tokens
+      cacheOutput?: number;      // USD per 1M cached write tokens
+      reasoning?: number;        // USD per 1M reasoning tokens
+      inputAudio?: number;       // USD per 1M audio input tokens
+      outputAudio?: number;      // USD per 1M audio output tokens
+      contextOver200k?: ModelContextSurcharge; // Surcharge for large contexts
     };
   };
 

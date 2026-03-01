@@ -1,6 +1,7 @@
 import { Model } from "@/types";
 import { aaScoreOverrides } from "@/data/aa-overrides";
 import { modelMetadataOverrides, type ModelMetadataOverride } from "@/data/model-metadata-overrides";
+import { modelsDevMetadata } from "@/data/models-dev-import";
 
 const PROVIDER_SOURCE_MAP: Record<string, string> = {
   "OpenAI": "openai-blog",
@@ -2382,6 +2383,14 @@ const modelScoreOverrides: Record<string, Model["scores"]> =
   typeof aaScoreOverrides === "undefined" ? {} : aaScoreOverrides;
 const metadataOverrides: Record<string, ModelMetadataOverride> =
   typeof modelMetadataOverrides === "undefined" ? {} : modelMetadataOverrides;
+const modelsDevOverrides: Record<string, ModelMetadataOverride> =
+  typeof modelsDevMetadata === "undefined" ? {} : modelsDevMetadata;
+
+// Merge metadata overrides (models.dev takes precedence for conflicting fields)
+const mergedMetadataOverrides = {
+  ...metadataOverrides,
+  ...modelsDevOverrides,
+};
 
 function addDefaultModelType(input: Model[]): Model[] {
   return input.map((model) => ({
@@ -2391,7 +2400,7 @@ function addDefaultModelType(input: Model[]): Model[] {
   }));
 }
 
-const withMetadata = applyMetadataOverrides(rawModels, metadataOverrides);
+const withMetadata = applyMetadataOverrides(rawModels, mergedMetadataOverrides);
 const withOverrides = applyScoreOverrides(withMetadata, modelScoreOverrides);
 const withModelType = addDefaultModelType(withOverrides);
 

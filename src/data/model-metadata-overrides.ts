@@ -1,6 +1,11 @@
-import { Model } from "@/types";
+import { Model, ModelStatus } from "@/types";
 
 export interface ModelMetadataOverride {
+  family?: string;
+  status?: ModelStatus;
+  knowledgeCutoff?: string;
+  lastUpdated?: string;
+  interleavedReasoningField?: string;
   capabilities?: Model["capabilities"];
   modelType?: Model["modelType"];
   providers?: string[];
@@ -16,11 +21,15 @@ export interface ModelMetadataOverride {
   modelUrl?: string;
   specs?: {
     contextWindow?: number;
+    maxOutputTokens?: number;
     pricing?: {
       input?: number;
       output?: number;
       cacheInput?: number;
       cacheOutput?: number;
+      reasoning?: number;
+      inputAudio?: number;
+      outputAudio?: number;
     };
   };
 }

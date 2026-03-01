@@ -1,6 +1,6 @@
 "use client";
 
-import { Benchmark, Model } from "@/types";
+import { Benchmark, Model, ScoreVerification } from "@/types";
 import { useMemo, useState, useEffect, useCallback } from "react";
 import { cn } from "@/lib/utils";
 import { useMergedSearchParams } from "@/hooks/use-merged-search-params";
@@ -30,7 +30,7 @@ interface ChartPoint {
   provider: string;
   isVariant: boolean;
   sourceId?: string;
-  verificationLevel?: string;
+  verificationLevel?: ScoreVerification;
   asOfDate?: string;
 }
 
@@ -152,7 +152,7 @@ export function FrontierChart({
       filtered = filtered.filter((model) => model.releaseDate >= sixMonthsAgo);
     }
 
-    const points: ChartPoint[] = filtered
+    const points = filtered
       .map((model) => {
         const scoreEntry = model.scores[benchmark.id];
         const score = scoreEntry?.score;
@@ -170,9 +170,9 @@ export function FrontierChart({
           sourceId: scoreEntry?.sourceId,
           verificationLevel: scoreEntry?.verificationLevel,
           asOfDate: scoreEntry?.asOfDate,
-        };
+        } as ChartPoint;
       })
-      .filter((point): point is ChartPoint => Boolean(point))
+      .filter((point): point is ChartPoint => point != null)
       .sort((a, b) => {
         if (a.timestamp !== b.timestamp) return a.timestamp - b.timestamp;
         return benchmark.higherIsBetter ? b.score - a.score : a.score - b.score;
