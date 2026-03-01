@@ -1,7 +1,7 @@
 // Script to import model metadata from models.dev API
 // Usage: bun run scripts/import-models-dev.mjs
 
-import { writeFileSync, readFileSync, existsSync } from 'fs';
+import { writeFileSync, readFileSync, existsSync, mkdirSync } from 'fs';
 import { join } from 'path';
 
 const MODELS_DEV_API_URL = 'https://models.dev/api.json';
@@ -272,17 +272,35 @@ async function main() {
     }
   }
   
+  // Ensure public/api/data directory exists
+  const publicDir = join(process.cwd(), 'public', 'api', 'data');
+  if (!existsSync(publicDir)) {
+    mkdirSync(publicDir, { recursive: true });
+  }
+  
+  // Write JSON file for runtime fetching
+  const jsonOutput = JSON.stringify(overrides, null, 2);
+  const jsonPath = join(publicDir, 'models-dev-metadata.json');
+  writeFileSync(jsonPath, jsonOutput);
+  
+  // Write ID map as JSON
+  const idMapPath = join(process.cwd(), 'src', 'data', 'models-dev-id-map.json');
+  writeFileSync(idMapPath, JSON.stringify(MODELS_DEV_ID_MAP, null, 2));
+  
   const output = `// Auto-generated from models.dev API
 // Generated: ${new Date().toISOString()}
 // Source: https://models.dev
 // License: MIT
 // 
 // Note: IDs are normalized to match internal llm-registry conventions.
-// Use scripts/models-dev-id-map.ts for ID mapping reference.
+// Use src/data/models-dev-id-map.json for ID mapping reference.
+//
+// This file is auto-generated. Do not edit manually.
+// Run: bun run import:models-dev
 
 import { ModelMetadataOverride } from "@/data/model-metadata-overrides";
 
-export const modelsDevMetadata: Record<string, ModelMetadataOverride> = ${JSON.stringify(overrides, null, 2)};
+export const modelsDevMetadata: Record<string, ModelMetadataOverride> = ${jsonOutput};
 `;
   
   const outputPath = join(process.cwd(), 'src', 'data', 'models-dev-import.ts');
@@ -297,9 +315,12 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = ${JSON.s
   console.log(`   - Cache pricing: ${stats.withCachePricing.toLocaleString()}`);
   console.log(`   - Audio pricing: ${stats.withAudioPricing.toLocaleString()}`);
   console.log(`   - Max output tokens: ${stats.withMaxOutput.toLocaleString()}`);
-  console.log(`\n✅ Output written to: ${outputPath}`);
+  console.log(`\n✅ Output files:`);
+  console.log(`   - ${jsonPath} (${(jsonOutput.length / 1024).toFixed(1)} KB)`);
+  console.log(`   - ${outputPath} (${(output.length / 1024).toFixed(1)} KB)`);
+  console.log(`   - ${idMapPath} (${(JSON.stringify(MODELS_DEV_ID_MAP).length / 1024).toFixed(1)} KB)`);
   console.log(`\n💡 Next steps:`);
-  console.log(`   1. Review the generated file`);
+  console.log(`   1. Review the generated files`);
   console.log(`   2. Run: bun run validate:data`);
   console.log(`   3. Run: bun run build`);
 }

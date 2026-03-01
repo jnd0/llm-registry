@@ -1,17 +1,4 @@
-// Auto-generated from models.dev API
-// Generated: 2026-03-01T15:23:24.963Z
-// Source: https://models.dev
-// License: MIT
-// 
-// Note: IDs are normalized to match internal llm-registry conventions.
-// Use src/data/models-dev-id-map.json for ID mapping reference.
-//
-// This file is auto-generated. Do not edit manually.
-// Run: bun run import:models-dev
-
-import { ModelMetadataOverride } from "@/data/model-metadata-overrides";
-
-export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
+{
   "nvidia-llama-3-3-70b-instruct-fp8": {
     "family": "llama",
     "lastUpdated": "2024-12-01",
@@ -39218,4 +39205,4 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   }
-};
+}
