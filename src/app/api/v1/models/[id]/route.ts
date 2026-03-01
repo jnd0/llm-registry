@@ -10,8 +10,8 @@ export function generateStaticParams() {
   }));
 }
 
-// Static export
-export const dynamic = "force-static";
+// Dynamic export (rate limiting requires request access)
+export const dynamic = "force-dynamic";
 
 export async function GET(request: NextRequest, context: { params: Promise<{ id: string }> }) {
   const { id } = await context.params;
