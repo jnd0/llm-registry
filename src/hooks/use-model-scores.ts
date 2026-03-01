@@ -28,7 +28,7 @@ export interface ModelScores {
  */
 export function useModelScores(modelId: string | null) {
   const { data, error, isLoading, mutate } = useSWR<ModelScores>(
-    modelId ? `/api/v1/scores/${modelId}.json` : null,
+    modelId ? `/scores/${modelId}.json` : null,
     fetcher,
     {
       revalidateIfStale: false,

@@ -1,11 +1,10 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { Suspense } from "react";
 import { benchmarkCategories, categoryToSlug, slugToCategory } from "@/lib/categories";
-import { benchmarks, models } from "@/lib/registry-data";
 import { siteName, siteUrl } from "@/lib/site";
-import { ClientCategoryLeaderboard } from "@/components/dashboard/client-category-leaderboard";
+import { Suspense } from "react";
+import { RefactoredCategoryLeaderboard } from "@/components/dashboard/refactored-leaderboard";
 import { Skeleton } from "@/components/ui/skeleton";
 
 interface CategoryPageProps {
@@ -120,12 +119,7 @@ export default async function CategoryLeaderboardPage({ params }: CategoryPagePr
       </section>
 
       <Suspense fallback={<LoadingShell />}>
-        <ClientCategoryLeaderboard
-          models={models}
-          benchmarks={benchmarks}
-          activeCategory={activeCategory}
-          activeCategorySlug={categorySlug}
-        />
+        <RefactoredCategoryLeaderboard />
       </Suspense>
     </div>
   );

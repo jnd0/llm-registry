@@ -2,7 +2,7 @@
 // Creates a lightweight, searchable manifest with tier information
 // Usage: bun run generate:manifest
 
-import { readFileSync, writeFileSync, existsSync, mkdirSync, readdirSync } from 'fs';
+import { readFileSync, writeFileSync, existsSync, mkdirSync, readdirSync, copyFileSync } from 'fs';
 import { join } from 'path';
 
 console.log('🔧 Generating registry manifest...');
@@ -131,19 +131,19 @@ if (!existsSync(outputDir)) {
 writeFileSync(outputPath, JSON.stringify(manifest, null, 2));
 
 // Copy score files to public directory for runtime access
-const publicScoresDir = join(process.cwd(), 'public', 'api', 'v1', 'scores');
+const publicScoresDir = join(process.cwd(), 'public', 'scores');
 if (!existsSync(publicScoresDir)) {
   mkdirSync(publicScoresDir, { recursive: true });
 }
 
 if (existsSync(sourceScoresDir)) {
-  const scoreFiles = require('fs').readdirSync(sourceScoresDir)
+  const scoreFiles = readdirSync(sourceScoresDir)
     .filter(name => name.endsWith('.json'));
   
   scoreFiles.forEach(file => {
     const srcPath = join(sourceScoresDir, file);
     const destPath = join(publicScoresDir, file);
-    require('fs').copyFileSync(srcPath, destPath);
+    copyFileSync(srcPath, destPath);
   });
   
   console.log(`📊 Copied ${scoreFiles.length} score files to ${publicScoresDir}`);
