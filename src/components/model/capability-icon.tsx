@@ -35,65 +35,75 @@ interface CapabilityIconProps {
 
 const capabilityConfig: Record<
   CapabilityType,
-  { icon: any; label: string; color: string; bgColor: string }
+  { icon: any; label: string; description: string; color: string; bgColor: string }
 > = {
   reasoning: {
     icon: Brain,
     label: "Reasoning",
+    description: "Supports chain-of-thought reasoning and step-by-step problem solving",
     color: "text-purple-600",
     bgColor: "bg-purple-100",
   },
   vision: {
     icon: Eye,
     label: "Vision",
+    description: "Can analyze and understand images, charts, and diagrams",
     color: "text-blue-600",
     bgColor: "bg-blue-100",
   },
   tools: {
     icon: Wand2,
     label: "Tools",
+    description: "Supports function calling and external tool integration",
     color: "text-amber-600",
     bgColor: "bg-amber-100",
   },
   audio: {
     icon: Mic,
     label: "Audio",
+    description: "Can process and/or generate audio content",
     color: "text-pink-600",
     bgColor: "bg-pink-100",
   },
   text: {
     icon: FileText,
     label: "Text",
+    description: "Standard text input/output capabilities",
     color: "text-slate-600",
     bgColor: "bg-slate-100",
   },
   video: {
     icon: Video,
     label: "Video",
+    description: "Can analyze and understand video content",
     color: "text-red-600",
     bgColor: "bg-red-100",
   },
   code: {
     icon: Code,
     label: "Code",
+    description: "Specialized in code generation and analysis",
     color: "text-green-600",
     bgColor: "bg-green-100",
   },
   json: {
     icon: Database,
     label: "JSON Mode",
+    description: "Supports structured JSON output for reliable parsing",
     color: "text-indigo-600",
     bgColor: "bg-indigo-100",
   },
   attachment: {
     icon: Zap,
     label: "File Upload",
+    description: "Can process uploaded files (PDF, documents, etc.)",
     color: "text-orange-600",
     bgColor: "bg-orange-100",
   },
   temperature: {
     icon: Cpu,
     label: "Temperature",
+    description: "Supports temperature control for output randomness",
     color: "text-cyan-600",
     bgColor: "bg-cyan-100",
   },
@@ -117,11 +127,11 @@ export function CapabilityIcon({
   return (
     <div
       className={cn(
-        "inline-flex items-center gap-1.5 px-2 py-1 rounded-full",
+        "relative inline-flex items-center gap-1.5 px-2 py-1 rounded-full group cursor-help",
         config.bgColor,
         className
       )}
-      title={config.label}
+      title={config.description}
     >
       <Icon className={cn(sizeClasses[size], config.color)} />
       {showLabel && (
@@ -129,6 +139,14 @@ export function CapabilityIcon({
           {config.label}
         </span>
       )}
+      {/* Tooltip on hover */}
+      <div className="absolute invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all duration-200 -bottom-10 left-1/2 -translate-x-1/2 z-50 pointer-events-none min-w-max">
+        <div className="whitespace-nowrap rounded-md bg-popover px-3 py-2 text-xs font-medium text-popover-foreground shadow-lg border border-border">
+          {config.description}
+          {/* Arrow */}
+          <div className="absolute -top-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-popover border-l border-t border-border rotate-45" />
+        </div>
+      </div>
     </div>
   );
 }
