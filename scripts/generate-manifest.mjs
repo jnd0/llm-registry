@@ -2,7 +2,7 @@
 // Creates a lightweight, searchable manifest with tier information
 // Usage: bun run generate:manifest
 
-import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'fs';
+import { readFileSync, writeFileSync, existsSync, mkdirSync, readdirSync } from 'fs';
 import { join } from 'path';
 
 console.log('🔧 Generating registry manifest...');
@@ -51,37 +51,44 @@ if (existsSync(modelsDevMetadataPath)) {
 
 // Read score files to count scores per model
 const scoreCounts = {};
-if (existsSync(scoresDir)) {
-  const files = readFileSync(scoresDir, { withFileTypes: true })
-    .filter(dirent => dirent.isFile() && dirent.name.endsWith('.json'))
-    .map(dirent => dirent.name.replace('.json', ''));
+const sourceScoresDir = join(process.cwd(), 'src', 'data', 'scores');
+if (existsSync(sourceScoresDir)) {
+  const files = readdirSync(sourceScoresDir)
+    .filter(name => name.endsWith('.json'));
   
   files.forEach(modelId => {
     try {
-      const scoreData = JSON.parse(readFileSync(join(scoresDir, `${modelId}.json`), 'utf-8'));
-      scoreCounts[modelId] = Object.keys(scoreData.scores || {}).length;
+      // modelId is already the full filename (e.g., "o1.json"), don't append .json again
+      const scoreData = JSON.parse(readFileSync(join(sourceScoresDir, modelId), 'utf-8'));
+      const key = modelId.replace('.json', '');
+      scoreCounts[key] = Object.keys(scoreData.scores || {}).length;
     } catch (error) {
-      scoreCounts[modelId] = 0;
+      scoreCounts[modelId.replace('.json', '')] = 0;
     }
   });
 }
 
 // Build the manifest
 const manifestModels = manualModels.map(model => {
-  const hasScores = scoreCounts[model.id] > 0;
   const metadata = modelsDevMetadata[model.id] || {};
+  const modelScoreCount = scoreCounts[model.id] || 0;
+  const modelHasScores = modelScoreCount > 0;
   
-  return {
+  const manifestModel = {
     id: model.id,
     name: model.name,
     provider: model.provider,
     releaseDate: model.releaseDate,
     tier: 'verified',
-    hasScores,
-    scoreCount: scoreCounts[model.id] || 0,
     family: metadata.family || null,
     ...metadata
   };
+  
+  // Explicitly set score fields AFTER spreading metadata to prevent overwrite
+  manifestModel.hasScores = modelHasScores;
+  manifestModel.scoreCount = modelScoreCount;
+  
+  return manifestModel;
 });
 
 // Add discovered-only models from models.dev (not in manual list)
@@ -122,6 +129,25 @@ if (!existsSync(outputDir)) {
 
 // Write manifest
 writeFileSync(outputPath, JSON.stringify(manifest, null, 2));
+
+// Copy score files to public directory for runtime access
+const publicScoresDir = join(process.cwd(), 'public', 'api', 'v1', 'scores');
+if (!existsSync(publicScoresDir)) {
+  mkdirSync(publicScoresDir, { recursive: true });
+}
+
+if (existsSync(sourceScoresDir)) {
+  const scoreFiles = require('fs').readdirSync(sourceScoresDir)
+    .filter(name => name.endsWith('.json'));
+  
+  scoreFiles.forEach(file => {
+    const srcPath = join(sourceScoresDir, file);
+    const destPath = join(publicScoresDir, file);
+    require('fs').copyFileSync(srcPath, destPath);
+  });
+  
+  console.log(`📊 Copied ${scoreFiles.length} score files to ${publicScoresDir}`);
+}
 
 console.log(`✅ Generated manifest with ${manifest.totalModels} models`);
 console.log(`   - Verified: ${manifest.verifiedModels}`);
