@@ -10,7 +10,7 @@ export interface ModelFilter {
   capabilities: string[];
   providers: string[];
   openSource: "all" | "open" | "proprietary";
-  sortBy: "releaseDate" | "knowledgeCutoff" | "name" | "contextWindow";
+  sortBy: "releaseDate" | "trainingCutoff" | "name" | "contextWindow";
   sortOrder: "asc" | "desc";
 }
 
@@ -264,7 +264,7 @@ export function FilterPanel({ models, filter, onFilterChange, isOpen, onToggle }
                   className="flex-1 px-2 py-1.5 text-xs rounded-md border border-border bg-background"
                 >
                   <option value="releaseDate">Release Date</option>
-                  <option value="knowledgeCutoff">Knowledge Cutoff</option>
+                  <option value="trainingCutoff">Training Cutoff</option>
                   <option value="name">Name</option>
                   <option value="contextWindow">Context Window</option>
                 </select>
@@ -331,9 +331,9 @@ export function applyModelFilters(models: Model[], filter: ModelFilter): Model[]
         case "releaseDate":
           comparison = new Date(a.releaseDate).getTime() - new Date(b.releaseDate).getTime();
           break;
-        case "knowledgeCutoff":
-          const aCutoff = a.knowledgeCutoff ? new Date(a.knowledgeCutoff).getTime() : 0;
-          const bCutoff = b.knowledgeCutoff ? new Date(b.knowledgeCutoff).getTime() : 0;
+        case "trainingCutoff":
+          const aCutoff = a.trainingCutoff ? new Date(a.trainingCutoff).getTime() : 0;
+          const bCutoff = b.trainingCutoff ? new Date(b.trainingCutoff).getTime() : 0;
           comparison = aCutoff - bCutoff;
           break;
         case "name":
