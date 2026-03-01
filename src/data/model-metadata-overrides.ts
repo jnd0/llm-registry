@@ -1,13 +1,17 @@
-import { Model } from "@/types";
+import { Model, ModelStatus, ModelContextSurcharge } from "@/types";
 
 export interface ModelMetadataOverride {
+  family?: string;
+  status?: ModelStatus;
+  trainingCutoff?: string;
+  lastUpdated?: string;
+  interleavedReasoningField?: string;
   capabilities?: Model["capabilities"];
   modelType?: Model["modelType"];
   providers?: string[];
   apiSupport?: Model["apiSupport"];
   modalities?: Model["modalities"];
   pricingDimensions?: Model["pricingDimensions"];
-  trainingCutoff?: string;
   metadataSourceId?: string;
   metadataSourceUrl?: string;
   metadataAsOfDate?: string;
@@ -16,11 +20,16 @@ export interface ModelMetadataOverride {
   modelUrl?: string;
   specs?: {
     contextWindow?: number;
+    maxOutputTokens?: number;
     pricing?: {
       input?: number;
       output?: number;
       cacheInput?: number;
       cacheOutput?: number;
+      reasoning?: number;
+      inputAudio?: number;
+      outputAudio?: number;
+      contextOver200k?: ModelContextSurcharge;
     };
   };
 }

@@ -1,6 +1,0 @@
-User-Agent: *
-Allow: /
-Disallow: /api/
-
-Host: https://llm-registry.com
-Sitemap: https://llm-registry.com/sitemap.xml
