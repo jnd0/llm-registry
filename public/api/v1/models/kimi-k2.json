@@ -2,6 +2,7 @@
   "family": "kimi",
   "trainingCutoff": "2024-10",
   "lastUpdated": "2025-09-05",
+  "status": "deprecated",
   "apiSupport": {
     "reasoning": false,
     "toolCall": true,

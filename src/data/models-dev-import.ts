@@ -1,5 +1,5 @@
 // Auto-generated from models.dev API
-// Generated: 2026-03-01T17:51:41.587Z
+// Generated: 2026-03-01T21:30:09.255Z
 // Source: https://models.dev
 // License: MIT
 // 
@@ -4440,6 +4440,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "family": "kimi",
     "trainingCutoff": "2024-10",
     "lastUpdated": "2025-09-05",
+    "status": "deprecated",
     "apiSupport": {
       "reasoning": false,
       "toolCall": true,

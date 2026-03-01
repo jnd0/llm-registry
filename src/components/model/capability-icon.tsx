@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { cn } from "@/lib/utils";
 import {
   Brain,
@@ -31,6 +32,7 @@ interface CapabilityIconProps {
   className?: string;
   showLabel?: boolean;
   size?: "sm" | "md" | "lg";
+  description?: string;
 }
 
 const capabilityConfig: Record<
@@ -120,18 +122,33 @@ export function CapabilityIcon({
   className,
   showLabel = false,
   size = "md",
+  description,
 }: CapabilityIconProps) {
+  const [showTooltip, setShowTooltip] = useState(false);
   const config = capabilityConfig[capability];
   const Icon = config.icon;
+  const tooltipText = description || config.description;
 
   return (
     <div
       className={cn(
-        "relative inline-flex items-center gap-1.5 px-2 py-1 rounded-full group cursor-help",
+        "relative inline-flex items-center gap-1.5 px-2 py-1 rounded-full cursor-help focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2",
         config.bgColor,
         className
       )}
-      title={config.description}
+      title={tooltipText}
+      tabIndex={0}
+      role="button"
+      aria-label={tooltipText}
+      onMouseEnter={() => setShowTooltip(true)}
+      onMouseLeave={() => setShowTooltip(false)}
+      onFocus={() => setShowTooltip(true)}
+      onBlur={() => setShowTooltip(false)}
+      onClick={() => setShowTooltip(!showTooltip)}
+      onTouchStart={(e) => {
+        e.preventDefault();
+        setShowTooltip(!showTooltip);
+      }}
     >
       <Icon className={cn(sizeClasses[size], config.color)} />
       {showLabel && (
@@ -139,14 +156,16 @@ export function CapabilityIcon({
           {config.label}
         </span>
       )}
-      {/* Tooltip on hover */}
-      <div className="absolute invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all duration-200 -bottom-10 left-1/2 -translate-x-1/2 z-50 pointer-events-none min-w-max">
-        <div className="whitespace-nowrap rounded-md bg-popover px-3 py-2 text-xs font-medium text-popover-foreground shadow-lg border border-border">
-          {config.description}
-          {/* Arrow */}
-          <div className="absolute -top-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-popover border-l border-t border-border rotate-45" />
+      {/* Tooltip */}
+      {showTooltip && (
+        <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 z-50 min-w-max animate-in fade-in slide-in-from-top-2 duration-200">
+          <div className="whitespace-nowrap rounded-md bg-popover px-3 py-2 text-xs font-medium text-popover-foreground shadow-lg border border-border">
+            {tooltipText}
+            {/* Arrow */}
+            <div className="absolute -top-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-popover border-l border-t border-border rotate-45" />
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }
@@ -182,8 +201,7 @@ export function CapabilityBadges({
   if (apiSupport?.reasoning) capabilities.push("reasoning");
   if (apiSupport?.tools || apiSupport?.toolCall) capabilities.push("tools");
   if (apiSupport?.vision) capabilities.push("vision");
-  if (apiSupport?.jsonMode || apiSupport?.structuredOutput)
-    capabilities.push("json");
+  if (apiSupport?.jsonMode || apiSupport?.structuredOutput) capabilities.push("json");
   if (apiSupport?.attachment) capabilities.push("attachment");
   if (apiSupport?.temperature) capabilities.push("temperature");
 
