@@ -2,8 +2,6 @@ import { benchmarks, models, sources } from "@/lib/registry-data";
 import { changelog } from "@/data/changelog";
 import type { Metadata } from "next";
 import { siteName, siteUrl } from "@/lib/site";
-import { Shield, Sparkles, Check, Clock } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
 
 const categories = Array.from(new Set(benchmarks.map((benchmark) => benchmark.category)));
 
@@ -54,10 +52,10 @@ export default function AboutPage() {
 
       <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {[
-          { label: "Total Models", value: "1,581" },
-          { label: "Verified Models", value: "83" },
+          { label: "Verified Models", value: models.length },
           { label: "Active Benchmarks", value: benchmarks.length },
           { label: "Evaluation Categories", value: categories.length },
+          { label: "Verified Sources", value: sources.length },
         ].map((stat) => (
           <article key={stat.label} className="relative overflow-hidden rounded-2xl border border-border bg-card/50 p-6">
             <p className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground/60">{stat.label}</p>
@@ -122,7 +120,7 @@ export default function AboutPage() {
                   </li>
                   <li className="m-0 border-l-2 border-primary/20 pl-4 py-1">
                     <p className="font-bold text-foreground text-xs uppercase tracking-widest">Metadata Source</p>
-                    <p className="text-xs mt-1">Foundational metadata sourced from <a href="https://github.com/yamanahlawat/llm-registry" className="hover:text-primary transition-colors underline">yamanahlawat/llm-registry</a>.</p>
+                    <p className="text-xs mt-1">Model metadata (pricing, specs, capabilities) imported from <a href="https://models.dev" className="hover:text-primary transition-colors underline">models.dev</a> (MIT License).</p>
                   </li>
                 </ul>
               </div>
@@ -319,129 +317,6 @@ export default function AboutPage() {
             </div>
           </section>
 
-          {/* Model Classification Section */}
-          <section className="space-y-8">
-            <h2 className="font-display text-3xl font-bold tracking-tight text-foreground">Model Classification</h2>
-            <div className="grid gap-6 md:grid-cols-2">
-              <article className="rounded-2xl border border-emerald-500/20 bg-emerald-500/5 p-6">
-                <div className="mb-4 flex items-center gap-2">
-                  <Shield className="h-6 w-6 text-emerald-600" />
-                  <h3 className="text-xl font-bold text-emerald-900 dark:text-emerald-100">Verified Models</h3>
-                </div>
-                <p className="mb-4 text-sm text-emerald-800 dark:text-emerald-200">
-                  Manually curated models with complete benchmark scores and provenance metadata.
-                </p>
-                <ul className="space-y-2 text-sm text-emerald-700 dark:text-emerald-300">
-                  <li className="flex items-start gap-2">
-                    <Check className="mt-0.5 h-4 w-4" />
-                    <span>Complete benchmark scores</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <Check className="mt-0.5 h-4 w-4" />
-                    <span>Score provenance tracking</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <Check className="mt-0.5 h-4 w-4" />
-                    <span>Manual curation &amp; review</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <Check className="mt-0.5 h-4 w-4" />
-                    <span>Full specification data</span>
-                  </li>
-                </ul>
-              </article>
-
-              <article className="rounded-2xl border border-slate-500/20 bg-slate-500/5 p-6">
-                <div className="mb-4 flex items-center gap-2">
-                  <Sparkles className="h-6 w-6 text-slate-600" />
-                  <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100">Discovered Models</h3>
-                </div>
-                <p className="mb-4 text-sm text-slate-800 dark:text-slate-200">
-                  Automatically imported models from models.dev with metadata pending evaluation.
-                </p>
-                <ul className="space-y-2 text-sm text-slate-700 dark:text-slate-300">
-                  <li className="flex items-start gap-2">
-                    <Check className="mt-0.5 h-4 w-4" />
-                    <span>Rich metadata (pricing, specs)</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <Check className="mt-0.5 h-4 w-4" />
-                    <span>Automated weekly updates</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <Check className="mt-0.5 h-4 w-4" />
-                    <span>Capability indicators</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <Clock className="mt-0.5 h-4 w-4" />
-                    <span>Benchmark scores pending</span>
-                  </li>
-                </ul>
-              </article>
-            </div>
-          </section>
-
-          {/* Data Sources Section */}
-          <section className="space-y-8">
-            <h2 className="font-display text-3xl font-bold tracking-tight text-foreground">Data Sources</h2>
-            <div className="space-y-4">
-              <article className="rounded-xl border border-border/40 bg-muted/20 p-4">
-                <div className="mb-2 flex items-center justify-between">
-                  <p className="font-mono text-[10px] font-bold uppercase tracking-widest text-foreground">Primary Metadata Source</p>
-                  <Badge variant="secondary" className="text-[10px]">MIT License</Badge>
-                </div>
-                <h3 className="mb-2 text-lg font-bold">
-                  <a href="https://models.dev" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
-                    models.dev
-                  </a>
-                </h3>
-                <p className="mb-3 text-sm text-muted-foreground">
-                  Community-driven database of LLM specifications, pricing, and capabilities. Automatically imported weekly.
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  <Badge variant="outline" className="text-[10px]">1,546 models</Badge>
-                  <Badge variant="outline" className="text-[10px]">97 providers</Badge>
-                  <Badge variant="outline" className="text-[10px]">Auto-sync</Badge>
-                </div>
-              </article>
-
-              <article className="rounded-xl border border-border/40 bg-muted/20 p-4">
-                <div className="mb-2 flex items-center justify-between">
-                  <p className="font-mono text-[10px] font-bold uppercase tracking-widest text-foreground">Score Overrides</p>
-                  <Badge variant="secondary" className="text-[10px]">Snapshot</Badge>
-                </div>
-                <h3 className="mb-2 text-lg font-bold">
-                  <a href="https://artificialanalysis.ai/" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
-                    Artificial Analysis
-                  </a>
-                </h3>
-                <p className="mb-3 text-sm text-muted-foreground">
-                  Comprehensive benchmark scores and performance metrics. Snapshot imported and maintained with provenance tracking.
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  <Badge variant="outline" className="text-[10px]">Score data</Badge>
-                  <Badge variant="outline" className="text-[10px]">Verified</Badge>
-                  <Badge variant="outline" className="text-[10px]">Attribution required</Badge>
-                </div>
-              </article>
-
-              <article className="rounded-xl border border-border/40 bg-muted/20 p-4">
-                <div className="mb-2 flex items-center justify-between">
-                  <p className="font-mono text-[10px] font-bold uppercase tracking-widest text-foreground">Manual Curation</p>
-                  <Badge variant="secondary" className="text-[10px]">Hand-picked</Badge>
-                </div>
-                <h3 className="mb-2 text-lg font-bold">LLM Registry Community</h3>
-                <p className="mb-3 text-sm text-muted-foreground">
-                  Manually curated benchmark scores with full provenance metadata. Each score includes source attribution and verification level.
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  <Badge variant="outline" className="text-[10px]">83 verified models</Badge>
-                  <Badge variant="outline" className="text-[10px]">206 benchmarks</Badge>
-                  <Badge variant="outline" className="text-[10px]">30 sources</Badge>
-                </div>
-              </article>
-            </div>
-          </section>
           <section className="space-y-8">
             <div className="flex items-center justify-between border-b border-border pb-4">
               <h2 className="font-display text-3xl font-bold tracking-tight text-foreground">Registry Changelog</h2>
