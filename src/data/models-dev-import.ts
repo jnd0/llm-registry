@@ -1,12 +1,15 @@
 // Auto-generated from models.dev API
-// Generated: 2026-03-01T13:30:21.958Z
+// Generated: 2026-03-01T15:13:32.486Z
 // Source: https://models.dev
 // License: MIT
+// 
+// Note: IDs are normalized to match internal llm-registry conventions.
+// Use scripts/models-dev-id-map.ts for ID mapping reference.
 
 import { ModelMetadataOverride } from "@/data/model-metadata-overrides";
 
 export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
-  "nvidia/Llama-3.3-70B-Instruct-FP8": {
+  "nvidia-llama-3-3-70b-instruct-fp8": {
     "family": "llama",
     "lastUpdated": "2024-12-01",
     "apiSupport": {
@@ -28,32 +31,36 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "microsoft/Phi-4-multimodal-instruct": {
+  "microsoft-phi-4-multimodal-instruct": {
     "family": "phi",
-    "lastUpdated": "2025-01-01",
+    "trainingCutoff": "2023-10",
+    "lastUpdated": "2024-12-11",
+    "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
-      "reasoning": false,
+      "reasoning": true,
       "toolCall": true,
+      "temperature": true,
       "attachment": false
     },
     "modalities": {
       "input": [
-        "text"
+        "text",
+        "image",
+        "audio"
       ],
       "output": [
-        "text",
-        "image"
+        "text"
       ]
     },
     "specs": {
-      "maxOutputTokens": 32000
+      "maxOutputTokens": 4096
     },
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "intfloat/multilingual-e5-large-instruct": {
+  "intfloat-multilingual-e5-large-instruct": {
     "family": "text-embedding",
-    "knowledgeCutoff": "2025-04",
+    "trainingCutoff": "2025-04",
     "lastUpdated": "2025-04-27",
     "apiSupport": {
       "reasoning": false,
@@ -75,39 +82,35 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "moonshotai/Kimi-K2.5": {
+  "moonshotai-kimi-k2-5": {
     "family": "kimi",
-    "knowledgeCutoff": "2025-01",
-    "lastUpdated": "2026-01-01",
+    "lastUpdated": "2026-01-26",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
       "reasoning": true,
       "toolCall": true,
+      "structuredOutput": false,
       "temperature": true,
       "attachment": true
     },
     "modalities": {
       "input": [
         "text",
-        "image",
-        "video"
+        "image"
       ],
       "output": [
         "text"
       ]
     },
     "specs": {
-      "maxOutputTokens": 262144,
-      "pricing": {
-        "cacheInput": 0.1
-      }
+      "maxOutputTokens": 65536
     },
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "KBLab/kb-whisper-large": {
+  "kblab-kb-whisper-large": {
     "family": "whisper",
-    "knowledgeCutoff": "2025-04",
+    "trainingCutoff": "2025-04",
     "lastUpdated": "2025-04-27",
     "apiSupport": {
       "reasoning": false,
@@ -129,7 +132,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "Qwen/Qwen3-30B-A3B-Instruct-2507-FP8": {
+  "qwen-qwen3-30b-a3b-instruct-2507-fp8": {
     "family": "qwen",
     "lastUpdated": "2025-07-30",
     "apiSupport": {
@@ -151,9 +154,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "Qwen/Qwen3-Embedding-8B": {
+  "qwen-qwen3-embedding-8b": {
     "family": "qwen",
-    "knowledgeCutoff": "2024-12",
+    "trainingCutoff": "2024-12",
     "lastUpdated": "2025-01-01",
     "apiSupport": {
       "reasoning": false,
@@ -175,13 +178,11 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "Qwen/Qwen3-VL-30B-A3B-Instruct": {
-    "family": "qwen",
+  "qwen-qwen3-vl-30b-a3b-instruct": {
     "lastUpdated": "2025-11-25",
     "apiSupport": {
       "reasoning": false,
       "toolCall": true,
-      "structuredOutput": true,
       "temperature": true,
       "attachment": true
     },
@@ -195,38 +196,35 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
       ]
     },
     "specs": {
-      "maxOutputTokens": 262000
+      "maxOutputTokens": 32768
     },
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "mistralai/Voxtral-Small-24B-2507": {
-    "family": "voxtral",
-    "lastUpdated": "2025-03-01",
+  "mistralai-voxtral-small-24b-2507": {
+    "lastUpdated": "2025-07-01",
     "apiSupport": {
       "reasoning": false,
-      "toolCall": false,
+      "toolCall": true,
+      "temperature": true,
       "attachment": false
     },
     "modalities": {
       "input": [
-        "audio",
-        "text"
+        "text",
+        "audio"
       ],
       "output": [
         "text"
       ]
     },
     "specs": {
-      "maxOutputTokens": 32000,
-      "pricing": {
-        "outputAudio": 2.36
-      }
+      "maxOutputTokens": 6400
     },
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "mistralai/devstral-small-2-24b-instruct-2512": {
+  "mistralai-devstral-small-2-24b-instruct-2512": {
     "family": "devstral",
     "lastUpdated": "2025-12-01",
     "apiSupport": {
@@ -248,7 +246,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "mistralai/Magistral-Small-2509": {
+  "mistralai-magistral-small-2509": {
     "family": "magistral-small",
     "lastUpdated": "2025-06-01",
     "apiSupport": {
@@ -270,9 +268,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "openai/gpt-oss-120b": {
+  "openai-gpt-oss-120b": {
     "family": "gpt",
-    "knowledgeCutoff": "2024-10",
+    "trainingCutoff": "2024-10",
     "lastUpdated": "2025-12-24",
     "apiSupport": {
       "reasoning": false,
@@ -295,9 +293,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "openai/whisper-large-v3": {
+  "openai-whisper-large-v3": {
     "family": "whisper",
-    "knowledgeCutoff": "2023-09",
+    "trainingCutoff": "2023-09",
     "lastUpdated": "2025-09-05",
     "apiSupport": {
       "reasoning": false,
@@ -321,7 +319,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "glm-5": {
     "family": "glm",
-    "knowledgeCutoff": "2025-04",
+    "trainingCutoff": "2025-04",
     "lastUpdated": "2026-02-11",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -347,9 +345,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "glm-4.5-air": {
+  "glm-4-5-air": {
     "family": "glm-air",
-    "knowledgeCutoff": "2025-04",
+    "trainingCutoff": "2025-04",
     "lastUpdated": "2025-07-28",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -376,9 +374,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "glm-4.5": {
+  "glm-4-5": {
     "family": "glm",
-    "knowledgeCutoff": "2025-04",
+    "trainingCutoff": "2025-04",
     "lastUpdated": "2025-07-28",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -405,9 +403,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "glm-4.5-flash": {
+  "glm-4-5-flash": {
     "family": "glm-flash",
-    "knowledgeCutoff": "2025-04",
+    "trainingCutoff": "2025-04",
     "lastUpdated": "2025-07-28",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -434,9 +432,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "glm-4.7-flash": {
+  "glm-4-7-flash": {
     "family": "glm-flash",
-    "knowledgeCutoff": "2025-04",
+    "trainingCutoff": "2025-04",
     "lastUpdated": "2026-01-19",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -463,9 +461,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "glm-4.6": {
+  "glm-4-6": {
     "family": "glm",
-    "knowledgeCutoff": "2024-07",
+    "trainingCutoff": "2024-07",
     "lastUpdated": "2024-07-18",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -488,9 +486,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "glm-4.7": {
+  "glm-4-7": {
     "family": "glm",
-    "knowledgeCutoff": "2025-04",
+    "trainingCutoff": "2025-04",
     "lastUpdated": "2025-12-22",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -508,18 +506,14 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
       ]
     },
     "specs": {
-      "maxOutputTokens": 131072,
-      "pricing": {
-        "cacheInput": 0,
-        "cacheOutput": 0
-      }
+      "maxOutputTokens": 131072
     },
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "glm-4.5v": {
+  "glm-4-5v": {
     "family": "glm",
-    "knowledgeCutoff": "2025-04",
+    "trainingCutoff": "2025-04",
     "lastUpdated": "2025-08-11",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -544,9 +538,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "glm-4.6v": {
+  "glm-4-6v": {
     "family": "glm",
-    "knowledgeCutoff": "2025-04",
+    "trainingCutoff": "2025-04",
     "lastUpdated": "2025-12-08",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -571,8 +565,8 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "xiaomi/mimo-v2-flash-free": {
-    "knowledgeCutoff": "2025-01-01",
+  "xiaomi-mimo-v2-flash-free": {
+    "trainingCutoff": "2025-01-01",
     "lastUpdated": "2025-12-17",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -595,7 +589,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "xiaomi/mimo-v2-flash": {
+  "xiaomi-mimo-v2-flash": {
     "lastUpdated": "2025-12-14",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -621,8 +615,8 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "kuaishou/kat-coder-pro-v1-free": {
-    "knowledgeCutoff": "2025-01-01",
+  "kuaishou-kat-coder-pro-v1-free": {
+    "trainingCutoff": "2025-01-01",
     "lastUpdated": "2025-10-23",
     "apiSupport": {
       "reasoning": false,
@@ -644,8 +638,8 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "kuaishou/kat-coder-pro-v1": {
-    "knowledgeCutoff": "2025-01-01",
+  "kuaishou-kat-coder-pro-v1": {
+    "trainingCutoff": "2025-01-01",
     "lastUpdated": "2025-10-23",
     "apiSupport": {
       "reasoning": false,
@@ -670,8 +664,8 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "stepfun/step-3.5-flash-free": {
-    "knowledgeCutoff": "2025-01-01",
+  "stepfun-step-3-5-flash-free": {
+    "trainingCutoff": "2025-01-01",
     "lastUpdated": "2026-02-02",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -694,7 +688,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "stepfun/step-3.5-flash": {
+  "stepfun-step-3-5-flash": {
     "lastUpdated": "2026-01-29",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -720,8 +714,8 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "stepfun/step-3": {
-    "knowledgeCutoff": "2025-01-01",
+  "stepfun-step-3": {
+    "trainingCutoff": "2025-01-01",
     "lastUpdated": "2025-07-31",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -745,8 +739,8 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "inclusionai/ling-1t": {
-    "knowledgeCutoff": "2025-01-01",
+  "inclusionai-ling-1t": {
+    "trainingCutoff": "2025-01-01",
     "lastUpdated": "2025-10-09",
     "apiSupport": {
       "reasoning": false,
@@ -771,8 +765,8 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "inclusionai/ring-1t": {
-    "knowledgeCutoff": "2025-01-01",
+  "inclusionai-ring-1t": {
+    "trainingCutoff": "2025-01-01",
     "lastUpdated": "2025-10-12",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -798,8 +792,8 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "volcengine/doubao-seed-1.8": {
-    "knowledgeCutoff": "2025-01-01",
+  "volcengine-doubao-seed-1-8": {
+    "trainingCutoff": "2025-01-01",
     "lastUpdated": "2025-12-18",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -828,8 +822,8 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "volcengine/doubao-seed-2.0-pro": {
-    "knowledgeCutoff": "2026-02-14",
+  "volcengine-doubao-seed-2-0-pro": {
+    "trainingCutoff": "2026-02-14",
     "lastUpdated": "2026-02-14",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -858,8 +852,8 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "volcengine/doubao-seed-2.0-mini": {
-    "knowledgeCutoff": "2026-02-14",
+  "volcengine-doubao-seed-2-0-mini": {
+    "trainingCutoff": "2026-02-14",
     "lastUpdated": "2026-02-14",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -888,8 +882,8 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "volcengine/doubao-seed-code": {
-    "knowledgeCutoff": "2025-01-01",
+  "volcengine-doubao-seed-code": {
+    "trainingCutoff": "2025-01-01",
     "lastUpdated": "2025-11-11",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -916,8 +910,8 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "volcengine/doubao-seed-2.0-lite": {
-    "knowledgeCutoff": "2026-02-14",
+  "volcengine-doubao-seed-2-0-lite": {
+    "trainingCutoff": "2026-02-14",
     "lastUpdated": "2026-02-14",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -946,7 +940,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "deepseek/deepseek-v3.2": {
+  "deepseek-deepseek-v3-2": {
     "lastUpdated": "2025-12-01",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -972,7 +966,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "deepseek/deepseek-chat": {
+  "deepseek-deepseek-chat": {
     "lastUpdated": "2026-01-10",
     "apiSupport": {
       "reasoning": false,
@@ -997,7 +991,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "deepseek/deepseek-v3.2-exp": {
+  "deepseek-deepseek-v3-2-exp": {
     "lastUpdated": "2025-09-29",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -1020,7 +1014,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "moonshotai/kimi-k2-0905": {
+  "moonshotai-kimi-k2-0905": {
     "lastUpdated": "2025-09-05",
     "apiSupport": {
       "reasoning": false,
@@ -1045,35 +1039,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "moonshotai/kimi-k2.5": {
-    "family": "kimi",
-    "lastUpdated": "2026-01-26",
-    "interleavedReasoningField": "reasoning_content",
-    "apiSupport": {
-      "reasoning": true,
-      "toolCall": true,
-      "structuredOutput": false,
-      "temperature": true,
-      "attachment": true
-    },
-    "modalities": {
-      "input": [
-        "text",
-        "image"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 65536
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "moonshotai/kimi-k2-thinking": {
+  "moonshotai-kimi-k2-thinking": {
     "family": "kimi-thinking",
-    "knowledgeCutoff": "2024-08",
+    "trainingCutoff": "2024-08",
     "lastUpdated": "2025-12-24",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -1097,9 +1065,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "moonshotai/kimi-k2-thinking-turbo": {
+  "moonshotai-kimi-k2-thinking-turbo": {
     "family": "kimi-thinking",
-    "knowledgeCutoff": "2024-08",
+    "trainingCutoff": "2024-08",
     "lastUpdated": "2025-11-06",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -1125,8 +1093,8 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "baidu/ernie-5.0-thinking-preview": {
-    "knowledgeCutoff": "2025-01-01",
+  "baidu-ernie-5-0-thinking-preview": {
+    "trainingCutoff": "2025-01-01",
     "lastUpdated": "2026-01-22",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -1151,7 +1119,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "google/gemini-2.5-flash": {
+  "google-gemini-2-5-flash": {
     "lastUpdated": "2025-07-17",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -1181,7 +1149,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "google/gemini-3-flash-preview": {
+  "google-gemini-3-flash-preview": {
     "lastUpdated": "2025-12-17",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -1211,7 +1179,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "google/gemini-2.5-flash-lite": {
+  "google-gemini-2-5-flash-lite": {
     "lastUpdated": "2025-06-17",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -1241,7 +1209,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "google/gemini-3-pro-preview": {
+  "google-gemini-3-pro-preview": {
     "lastUpdated": "2025-11",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -1271,7 +1239,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "google/gemini-2.5-pro": {
+  "google-gemini-2-5-pro": {
     "lastUpdated": "2025-06-05",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -1301,7 +1269,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "z-ai/glm-5": {
+  "z-ai-glm-5": {
     "lastUpdated": "2026-02-12",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -1324,8 +1292,8 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "z-ai/glm-4.7-flashx": {
-    "knowledgeCutoff": "2025-01-01",
+  "z-ai-glm-4-7-flashx": {
+    "trainingCutoff": "2025-01-01",
     "lastUpdated": "2026-01-19",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -1351,7 +1319,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "z-ai/glm-4.5-air": {
+  "z-ai-glm-4-5-air": {
     "lastUpdated": "2025-07-28",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -1377,7 +1345,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "z-ai/glm-4.5": {
+  "z-ai-glm-4-5": {
     "lastUpdated": "2025-07-28",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -1403,8 +1371,8 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "z-ai/glm-4.6v-flash-free": {
-    "knowledgeCutoff": "2025-01-01",
+  "z-ai-glm-4-6v-flash-free": {
+    "trainingCutoff": "2025-01-01",
     "lastUpdated": "2025-12-08",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -1429,7 +1397,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "z-ai/glm-4.6": {
+  "z-ai-glm-4-6": {
     "lastUpdated": "2025-09-30",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -1455,7 +1423,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "z-ai/glm-4.7": {
+  "z-ai-glm-4-7": {
     "lastUpdated": "2025-12-22",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -1481,8 +1449,8 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "z-ai/glm-4.7-flash-free": {
-    "knowledgeCutoff": "2025-01-01",
+  "z-ai-glm-4-7-flash-free": {
+    "trainingCutoff": "2025-01-01",
     "lastUpdated": "2026-01-19",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -1505,8 +1473,8 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "z-ai/glm-4.6v-flash": {
-    "knowledgeCutoff": "2025-01-01",
+  "z-ai-glm-4-6v-flash": {
+    "trainingCutoff": "2025-01-01",
     "lastUpdated": "2025-12-08",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -1534,7 +1502,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "z-ai/glm-4.6v": {
+  "z-ai-glm-4-6v": {
     "lastUpdated": "2026-01-10",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -1559,7 +1527,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "qwen/qwen3-max": {
+  "qwen-qwen3-max": {
     "lastUpdated": "2025-09-05",
     "apiSupport": {
       "reasoning": false,
@@ -1584,7 +1552,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "qwen/qwen3-coder-plus": {
+  "qwen-qwen3-coder-plus": {
     "lastUpdated": "2025-07-23",
     "apiSupport": {
       "reasoning": false,
@@ -1609,7 +1577,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "x-ai/grok-code-fast-1": {
+  "x-ai-grok-code-fast-1": {
     "lastUpdated": "2025-08-26",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -1635,7 +1603,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "x-ai/grok-4-fast": {
+  "x-ai-grok-4-fast": {
     "lastUpdated": "2025-08-19",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -1662,7 +1630,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "x-ai/grok-4": {
+  "x-ai-grok-4": {
     "lastUpdated": "2025-07-09",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -1689,7 +1657,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "x-ai/grok-4.1-fast-non-reasoning": {
+  "x-ai-grok-4-1-fast-non-reasoning": {
     "lastUpdated": "2025-12-19",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -1716,7 +1684,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "x-ai/grok-4.1-fast": {
+  "x-ai-grok-4-1-fast": {
     "lastUpdated": "2025-11-19",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -1743,7 +1711,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "openai/gpt-5-codex": {
+  "openai-gpt-5-codex": {
     "lastUpdated": "2025-09-15",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -1770,7 +1738,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "openai/gpt-5.2-codex": {
+  "openai-gpt-5-2-codex": {
     "lastUpdated": "2026-01-14",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -1797,7 +1765,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "openai/gpt-5.1": {
+  "openai-gpt-5-1": {
     "lastUpdated": "2025-11-13",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -1824,7 +1792,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "openai/gpt-5.1-chat": {
+  "openai-gpt-5-1-chat": {
     "lastUpdated": "2025-11-13",
     "apiSupport": {
       "reasoning": false,
@@ -1850,7 +1818,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "openai/gpt-5.1-codex-mini": {
+  "openai-gpt-5-1-codex-mini": {
     "lastUpdated": "2025-11-13",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -1877,7 +1845,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "openai/gpt-5.2": {
+  "openai-gpt-5-2": {
     "lastUpdated": "2025-12-11",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -1904,7 +1872,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "openai/gpt-5": {
+  "openai-gpt-5": {
     "lastUpdated": "2025-08-07",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -1931,7 +1899,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "openai/gpt-5.1-codex": {
+  "openai-gpt-5-1-codex": {
     "lastUpdated": "2025-11-13",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -1958,8 +1926,8 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "minimax/minimax-m2.5-lightning": {
-    "knowledgeCutoff": "2025-01-01",
+  "minimax-minimax-m2-5-lightning": {
+    "trainingCutoff": "2025-01-01",
     "lastUpdated": "2026-02-13",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -1986,7 +1954,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "minimax/minimax-m2.1": {
+  "minimax-minimax-m2-1": {
     "family": "minimax",
     "lastUpdated": "2025-12-24",
     "interleavedReasoningField": "reasoning_content",
@@ -2011,7 +1979,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "minimax/minimax-m2": {
+  "minimax-minimax-m2": {
     "lastUpdated": "2025-10-23",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -2037,7 +2005,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "minimax/minimax-m2.5": {
+  "minimax-minimax-m2-5": {
     "family": "minimax",
     "lastUpdated": "2026-02-12",
     "interleavedReasoningField": "reasoning_content",
@@ -2062,7 +2030,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "anthropic/claude-3.5-sonnet": {
+  "anthropic-claude-3-5-sonnet": {
     "lastUpdated": "2024-10-22",
     "apiSupport": {
       "reasoning": false,
@@ -2085,7 +2053,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "anthropic/claude-3.7-sonnet": {
+  "anthropic-claude-3-7-sonnet": {
     "lastUpdated": "2025-02-19",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -2113,7 +2081,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "anthropic/claude-opus-4.1": {
+  "anthropic-claude-opus-4-1": {
     "lastUpdated": "2025-08-05",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -2141,9 +2109,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "anthropic/claude-sonnet-4.6": {
+  "anthropic-claude-sonnet-4-6": {
     "family": "claude-sonnet",
-    "knowledgeCutoff": "2025-08",
+    "trainingCutoff": "2025-08",
     "lastUpdated": "2026-02-17",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -2177,7 +2145,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "anthropic/claude-haiku-4.5": {
+  "anthropic-claude-haiku-4-5": {
     "lastUpdated": "2025-10-15",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -2205,7 +2173,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "anthropic/claude-3.5-haiku": {
+  "anthropic-claude-3-5-haiku": {
     "lastUpdated": "2024-10-22",
     "apiSupport": {
       "reasoning": false,
@@ -2232,7 +2200,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "anthropic/claude-opus-4.5": {
+  "anthropic-claude-opus-4-5": {
     "lastUpdated": "2025-11-24",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -2260,8 +2228,10 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "anthropic/claude-opus-4": {
-    "lastUpdated": "2025-05-22",
+  "claude-opus-4-5": {
+    "family": "claude-opus",
+    "trainingCutoff": "2025-03-31",
+    "lastUpdated": "2025-08-01",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
       "reasoning": true,
@@ -2271,36 +2241,41 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     },
     "modalities": {
       "input": [
+        "text",
         "image",
-        "text"
+        "other"
       ],
       "output": [
         "text"
       ]
     },
     "specs": {
-      "maxOutputTokens": 32000,
+      "maxOutputTokens": 64000,
       "pricing": {
-        "cacheInput": 1.5,
-        "cacheOutput": 18.75
+        "cacheInput": 0.5,
+        "cacheOutput": 6.25
       }
     },
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "anthropic/claude-sonnet-4": {
-    "lastUpdated": "2025-05-22",
+  "claude-sonnet-4-5": {
+    "family": "claude-sonnet",
+    "trainingCutoff": "2025-07-31",
+    "lastUpdated": "2025-11-18",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
       "reasoning": true,
       "toolCall": true,
+      "structuredOutput": true,
       "temperature": true,
       "attachment": true
     },
     "modalities": {
       "input": [
+        "text",
         "image",
-        "text"
+        "other"
       ],
       "output": [
         "text"
@@ -2316,7 +2291,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "anthropic/claude-sonnet-4.5": {
+  "anthropic-claude-sonnet-4-5": {
     "lastUpdated": "2025-09-29",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -2344,7 +2319,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "anthropic/claude-opus-4.6": {
+  "anthropic-claude-opus-4-6": {
     "lastUpdated": "2026-02-05",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -2372,14 +2347,14 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "zai-org/GLM-4.6": {
+  "zai-org-glm-4-6": {
     "family": "glm",
-    "knowledgeCutoff": "2025-04",
-    "lastUpdated": "2025-09-30",
-    "interleavedReasoningField": "reasoning_content",
+    "trainingCutoff": "2024-10",
+    "lastUpdated": "2025-12-24",
     "apiSupport": {
-      "reasoning": true,
+      "reasoning": false,
       "toolCall": true,
+      "structuredOutput": true,
       "temperature": true,
       "attachment": false
     },
@@ -2392,14 +2367,14 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
       ]
     },
     "specs": {
-      "maxOutputTokens": 131072
+      "maxOutputTokens": 8192
     },
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "deepseek-ai/DeepSeek-R1-0528": {
+  "deepseek-ai-deepseek-r1-0528": {
     "family": "deepseek-thinking",
-    "knowledgeCutoff": "2025-05",
+    "trainingCutoff": "2025-05",
     "lastUpdated": "2025-05-28",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -2422,9 +2397,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "Intel/Qwen3-Coder-480B-A35B-Instruct-int4-mixed-ar": {
+  "intel-qwen3-coder-480b-a35b-instruct-int4-mixed-ar": {
     "family": "qwen",
-    "knowledgeCutoff": "2024-12",
+    "trainingCutoff": "2024-12",
     "lastUpdated": "2025-01-15",
     "apiSupport": {
       "reasoning": false,
@@ -2450,7 +2425,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "moonshotai/Kimi-K2-Instruct-0905": {
+  "moonshotai-kimi-k2-instruct-0905": {
     "family": "kimi",
     "lastUpdated": "2026-01-10",
     "apiSupport": {
@@ -2477,37 +2452,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "moonshotai/Kimi-K2-Thinking": {
-    "family": "kimi-thinking",
-    "knowledgeCutoff": "2024-08",
-    "lastUpdated": "2025-11-06",
-    "interleavedReasoningField": "reasoning_content",
-    "apiSupport": {
-      "reasoning": true,
-      "toolCall": true,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 262144,
-      "pricing": {
-        "cacheInput": 0.15
-      }
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "meta-llama/Llama-3.2-90B-Vision-Instruct": {
+  "meta-llama-llama-3-2-90b-vision-instruct": {
     "family": "llama",
-    "knowledgeCutoff": "2023-12",
+    "trainingCutoff": "2023-12",
     "lastUpdated": "2024-09-25",
     "apiSupport": {
       "reasoning": false,
@@ -2534,9 +2481,10 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "meta-llama/Llama-3.3-70B-Instruct": {
+  "meta-llama-llama-3-3-70b-instruct": {
     "family": "llama",
-    "lastUpdated": "2025-12-23",
+    "trainingCutoff": "2023-12",
+    "lastUpdated": "2025-12-24",
     "apiSupport": {
       "reasoning": false,
       "toolCall": true,
@@ -2553,14 +2501,14 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
       ]
     },
     "specs": {
-      "maxOutputTokens": 131072
+      "maxOutputTokens": 8192
     },
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "meta-llama/Llama-4-Maverick-17B-128E-Instruct-FP8": {
+  "meta-llama-llama-4-maverick-17b-128e-instruct-fp8": {
     "family": "llama",
-    "knowledgeCutoff": "2024-08",
+    "trainingCutoff": "2024-08",
     "lastUpdated": "2025-04-05",
     "apiSupport": {
       "reasoning": false,
@@ -2583,7 +2531,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "Qwen/Qwen3-Next-80B-A3B-Instruct": {
+  "qwen-qwen3-next-80b-a3b-instruct": {
     "family": "qwen",
     "lastUpdated": "2026-01-10",
     "apiSupport": {
@@ -2607,7 +2555,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "Qwen/Qwen3-235B-A22B-Thinking-2507": {
+  "qwen-qwen3-235b-a22b-thinking-2507": {
     "family": "qwen",
     "lastUpdated": "2026-01-10",
     "interleavedReasoningField": "reasoning_content",
@@ -2632,7 +2580,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "Qwen/Qwen2.5-VL-32B-Instruct": {
+  "qwen-qwen2-5-vl-32b-instruct": {
     "family": "qwen",
     "lastUpdated": "2026-01-10",
     "apiSupport": {
@@ -2657,7 +2605,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "mistralai/Mistral-Nemo-Instruct-2407": {
+  "mistralai-mistral-nemo-instruct-2407": {
     "family": "mistral",
     "lastUpdated": "2024-07-18",
     "apiSupport": {
@@ -2681,9 +2629,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "mistralai/Magistral-Small-2506": {
+  "mistralai-magistral-small-2506": {
     "family": "magistral-small",
-    "knowledgeCutoff": "2025-01",
+    "trainingCutoff": "2025-01",
     "lastUpdated": "2025-06-01",
     "apiSupport": {
       "reasoning": false,
@@ -2709,9 +2657,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "mistralai/Mistral-Large-Instruct-2411": {
+  "mistralai-mistral-large-instruct-2411": {
     "family": "mistral-large",
-    "knowledgeCutoff": "2024-10",
+    "trainingCutoff": "2024-10",
     "lastUpdated": "2024-11-01",
     "apiSupport": {
       "reasoning": false,
@@ -2738,10 +2686,10 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "mistralai/Devstral-Small-2505": {
+  "mistralai-devstral-small-2505": {
     "family": "devstral",
-    "knowledgeCutoff": "2024-12",
-    "lastUpdated": "2025-05-01",
+    "trainingCutoff": "2025-05",
+    "lastUpdated": "2025-05-07",
     "apiSupport": {
       "reasoning": false,
       "toolCall": true,
@@ -2757,16 +2705,12 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
       ]
     },
     "specs": {
-      "maxOutputTokens": 4096,
-      "pricing": {
-        "cacheInput": 0.025,
-        "cacheOutput": 0.1
-      }
+      "maxOutputTokens": 128000
     },
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "openai/gpt-oss-20b": {
+  "openai-gpt-oss-20b": {
     "family": "gpt-oss",
     "lastUpdated": "2026-01-10",
     "interleavedReasoningField": "reasoning_content",
@@ -2791,10 +2735,36 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "nvidia/llama-3.1-nemotron-70b-instruct": {
+  "llama-3-1-nemotron-70b-instruct": {
     "lastUpdated": "2024-10-12",
     "apiSupport": {
       "reasoning": false,
+      "toolCall": true,
+      "structuredOutput": true,
+      "temperature": true,
+      "attachment": false
+    },
+    "modalities": {
+      "input": [
+        "text"
+      ],
+      "output": [
+        "text"
+      ]
+    },
+    "specs": {
+      "maxOutputTokens": 4096
+    },
+    "metadataSourceId": "models-dev",
+    "metadataAsOfDate": "2026-03-01"
+  },
+  "llama-3-1-nemotron-ultra-253b-v1": {
+    "family": "llama",
+    "trainingCutoff": "2024-07",
+    "lastUpdated": "2025-09-05",
+    "interleavedReasoningField": "reasoning_content",
+    "apiSupport": {
+      "reasoning": true,
       "toolCall": true,
       "temperature": true,
       "attachment": false
@@ -2808,35 +2778,12 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
       ]
     },
     "specs": {
-      "maxOutputTokens": 16384
+      "maxOutputTokens": 8192
     },
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "nvidia/llama-3.1-nemotron-ultra-253b-v1": {
-    "lastUpdated": "2026-02-04",
-    "interleavedReasoningField": "reasoning_content",
-    "apiSupport": {
-      "reasoning": true,
-      "toolCall": false,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 26215
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "nvidia/llama-3.1-nemotron-51b-instruct": {
+  "llama-3-1-nemotron-51b-instruct": {
     "lastUpdated": "2024-09-22",
     "apiSupport": {
       "reasoning": false,
@@ -2859,9 +2806,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "nvidia/parakeet-tdt-0.6b-v2": {
+  "parakeet-tdt-0-6b-v2": {
     "family": "parakeet",
-    "knowledgeCutoff": "2024-01",
+    "trainingCutoff": "2024-01",
     "lastUpdated": "2025-09-05",
     "apiSupport": {
       "reasoning": false,
@@ -2883,57 +2830,8 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "nvidia/nvidia-nemotron-nano-9b-v2": {
-    "family": "nemotron",
-    "knowledgeCutoff": "2024-09",
+  "nvidia-nemotron-nano-9b-v2": {
     "lastUpdated": "2025-08-18",
-    "interleavedReasoningField": "reasoning_content",
-    "apiSupport": {
-      "reasoning": true,
-      "toolCall": true,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 131072
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "nvidia/llama-embed-nemotron-8b": {
-    "family": "llama",
-    "knowledgeCutoff": "2025-03",
-    "lastUpdated": "2025-03-18",
-    "apiSupport": {
-      "reasoning": false,
-      "toolCall": false,
-      "temperature": false,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 2048
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "nvidia/llama-3.3-nemotron-super-49b-v1.5": {
-    "lastUpdated": "2025-03-16",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
       "reasoning": true,
@@ -2955,7 +2853,31 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "nvidia/llama-3.3-nemotron-super-49b-v1": {
+  "llama-embed-nemotron-8b": {
+    "family": "llama",
+    "trainingCutoff": "2025-03",
+    "lastUpdated": "2025-03-18",
+    "apiSupport": {
+      "reasoning": false,
+      "toolCall": false,
+      "temperature": false,
+      "attachment": false
+    },
+    "modalities": {
+      "input": [
+        "text"
+      ],
+      "output": [
+        "text"
+      ]
+    },
+    "specs": {
+      "maxOutputTokens": 2048
+    },
+    "metadataSourceId": "models-dev",
+    "metadataAsOfDate": "2026-03-01"
+  },
+  "llama-3-3-nemotron-super-49b-v1-5": {
     "lastUpdated": "2025-03-16",
     "apiSupport": {
       "reasoning": false,
@@ -2978,7 +2900,30 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "nvidia/llama3-chatqa-1.5-70b": {
+  "llama-3-3-nemotron-super-49b-v1": {
+    "lastUpdated": "2025-03-16",
+    "apiSupport": {
+      "reasoning": false,
+      "toolCall": false,
+      "structuredOutput": false,
+      "temperature": true,
+      "attachment": false
+    },
+    "modalities": {
+      "input": [
+        "text"
+      ],
+      "output": [
+        "text"
+      ]
+    },
+    "specs": {
+      "maxOutputTokens": 4096
+    },
+    "metadataSourceId": "models-dev",
+    "metadataAsOfDate": "2026-03-01"
+  },
+  "llama3-chatqa-1-5-70b": {
     "lastUpdated": "2024-04-28",
     "apiSupport": {
       "reasoning": false,
@@ -3001,9 +2946,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "nvidia/cosmos-nemotron-34b": {
+  "cosmos-nemotron-34b": {
     "family": "nemotron",
-    "knowledgeCutoff": "2024-01",
+    "trainingCutoff": "2024-01",
     "lastUpdated": "2025-09-05",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -3028,9 +2973,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "nvidia/nemoretriever-ocr-v1": {
+  "nemoretriever-ocr-v1": {
     "family": "nemoretriever",
-    "knowledgeCutoff": "2024-01",
+    "trainingCutoff": "2024-01",
     "lastUpdated": "2025-09-05",
     "apiSupport": {
       "reasoning": false,
@@ -3052,7 +2997,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "nvidia/nemotron-4-340b-instruct": {
+  "nemotron-4-340b-instruct": {
     "lastUpdated": "2024-06-13",
     "apiSupport": {
       "reasoning": false,
@@ -3075,8 +3020,10 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "nvidia/nemotron-3-nano-30b-a3b": {
-    "lastUpdated": "2026-02-04",
+  "nemotron-3-nano-30b-a3b": {
+    "family": "nemotron",
+    "trainingCutoff": "2024-09",
+    "lastUpdated": "2024-12",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
       "reasoning": true,
@@ -3093,14 +3040,14 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
       ]
     },
     "specs": {
-      "maxOutputTokens": 52429
+      "maxOutputTokens": 131072
     },
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "microsoft/phi-3-small-128k-instruct": {
+  "microsoft-phi-3-small-128k-instruct": {
     "family": "phi",
-    "knowledgeCutoff": "2023-10",
+    "trainingCutoff": "2023-10",
     "lastUpdated": "2024-04-23",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -3123,9 +3070,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "microsoft/phi-3-medium-128k-instruct": {
+  "microsoft-phi-3-medium-128k-instruct": {
     "family": "phi",
-    "knowledgeCutoff": "2023-10",
+    "trainingCutoff": "2023-10",
     "lastUpdated": "2024-04-23",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -3148,9 +3095,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "microsoft/phi-3.5-moe-instruct": {
+  "microsoft-phi-3-5-moe-instruct": {
     "family": "phi",
-    "knowledgeCutoff": "2023-10",
+    "trainingCutoff": "2023-10",
     "lastUpdated": "2024-08-20",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -3173,7 +3120,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "microsoft/phi-3-vision-128k-instruct": {
+  "microsoft-phi-3-vision-128k-instruct": {
     "lastUpdated": "2024-05-19",
     "apiSupport": {
       "reasoning": false,
@@ -3197,9 +3144,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "microsoft/phi-4-mini-instruct": {
+  "microsoft-phi-4-mini-instruct": {
     "family": "phi",
-    "knowledgeCutoff": "2023-10",
+    "trainingCutoff": "2023-10",
     "lastUpdated": "2024-12-11",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -3222,9 +3169,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "microsoft/phi-3.5-vision-instruct": {
+  "microsoft-phi-3-5-vision-instruct": {
     "family": "phi",
-    "knowledgeCutoff": "2023-10",
+    "trainingCutoff": "2023-10",
     "lastUpdated": "2024-08-20",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -3248,9 +3195,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "microsoft/phi-3-medium-4k-instruct": {
+  "microsoft-phi-3-medium-4k-instruct": {
     "family": "phi",
-    "knowledgeCutoff": "2023-10",
+    "trainingCutoff": "2023-10",
     "lastUpdated": "2024-04-23",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -3273,9 +3220,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "microsoft/phi-3-small-8k-instruct": {
+  "microsoft-phi-3-small-8k-instruct": {
     "family": "phi",
-    "knowledgeCutoff": "2023-10",
+    "trainingCutoff": "2023-10",
     "lastUpdated": "2024-04-23",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -3298,83 +3245,8 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "minimaxai/minimax-m2.1": {
-    "family": "minimax",
-    "lastUpdated": "2025-12-23",
-    "interleavedReasoningField": "reasoning_content",
-    "apiSupport": {
-      "reasoning": true,
-      "toolCall": true,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 131072
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "minimaxai/minimax-m2": {
-    "family": "minimax",
-    "knowledgeCutoff": "2024-07",
-    "lastUpdated": "2025-10-31",
-    "interleavedReasoningField": "reasoning_content",
-    "apiSupport": {
-      "reasoning": true,
-      "toolCall": true,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 16384
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "deepseek-ai/deepseek-v3.1": {
-    "family": "deepseek",
-    "knowledgeCutoff": "2024-07",
-    "lastUpdated": "2025-08-26",
-    "interleavedReasoningField": "reasoning_content",
-    "apiSupport": {
-      "reasoning": true,
-      "toolCall": true,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 8192
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "deepseek-ai/deepseek-r1-0528": {
-    "knowledgeCutoff": "2025-11",
-    "lastUpdated": "2026-02-04",
+  "minimaxai-minimax-m2-1": {
+    "lastUpdated": "2026-01-29",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
       "reasoning": true,
@@ -3392,44 +3264,15 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
       ]
     },
     "specs": {
-      "maxOutputTokens": 32768,
-      "pricing": {
-        "cacheInput": 0.08,
-        "cacheOutput": 1,
-        "reasoning": 2.4
-      }
+      "maxOutputTokens": 196608
     },
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "deepseek-ai/deepseek-r1": {
-    "lastUpdated": "2025-01-20",
-    "interleavedReasoningField": "reasoning_content",
-    "apiSupport": {
-      "reasoning": true,
-      "toolCall": false,
-      "structuredOutput": false,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 4096
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "deepseek-ai/deepseek-v3.1-terminus": {
-    "family": "deepseek",
-    "knowledgeCutoff": "2025-01",
-    "lastUpdated": "2025-09-22",
+  "minimaxai-minimax-m2": {
+    "family": "minimax",
+    "trainingCutoff": "2024-10",
+    "lastUpdated": "2025-11-13",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
       "reasoning": true,
@@ -3446,12 +3289,86 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
       ]
     },
     "specs": {
-      "maxOutputTokens": 8192
+      "maxOutputTokens": 32768
     },
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "deepseek-ai/deepseek-coder-6.7b-instruct": {
+  "deepseek-ai-deepseek-v3-1": {
+    "family": "deepseek",
+    "lastUpdated": "2025-08-25",
+    "apiSupport": {
+      "reasoning": false,
+      "toolCall": true,
+      "structuredOutput": true,
+      "temperature": true,
+      "attachment": false
+    },
+    "modalities": {
+      "input": [
+        "text"
+      ],
+      "output": [
+        "text"
+      ]
+    },
+    "specs": {
+      "maxOutputTokens": 164000
+    },
+    "metadataSourceId": "models-dev",
+    "metadataAsOfDate": "2026-03-01"
+  },
+  "deepseek-ai-deepseek-r1": {
+    "family": "deepseek-thinking",
+    "lastUpdated": "2025-11-25",
+    "interleavedReasoningField": "reasoning_content",
+    "apiSupport": {
+      "reasoning": true,
+      "toolCall": true,
+      "structuredOutput": true,
+      "temperature": true,
+      "attachment": false
+    },
+    "modalities": {
+      "input": [
+        "text"
+      ],
+      "output": [
+        "text"
+      ]
+    },
+    "specs": {
+      "maxOutputTokens": 164000
+    },
+    "metadataSourceId": "models-dev",
+    "metadataAsOfDate": "2026-03-01"
+  },
+  "deepseek-ai-deepseek-v3-1-terminus": {
+    "family": "deepseek",
+    "lastUpdated": "2025-11-25",
+    "interleavedReasoningField": "reasoning_content",
+    "apiSupport": {
+      "reasoning": true,
+      "toolCall": true,
+      "structuredOutput": true,
+      "temperature": true,
+      "attachment": false
+    },
+    "modalities": {
+      "input": [
+        "text"
+      ],
+      "output": [
+        "text"
+      ]
+    },
+    "specs": {
+      "maxOutputTokens": 164000
+    },
+    "metadataSourceId": "models-dev",
+    "metadataAsOfDate": "2026-03-01"
+  },
+  "deepseek-ai-deepseek-coder-6-7b-instruct": {
     "lastUpdated": "2023-10-29",
     "apiSupport": {
       "reasoning": false,
@@ -3474,14 +3391,14 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "deepseek-ai/deepseek-v3.2": {
-    "knowledgeCutoff": "2025-11",
-    "lastUpdated": "2026-02-04",
+  "deepseek-ai-deepseek-v3-2": {
+    "family": "deepseek",
+    "trainingCutoff": "2024-07",
+    "lastUpdated": "2025-12-01",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
       "reasoning": true,
       "toolCall": true,
-      "structuredOutput": true,
       "temperature": true,
       "attachment": false
     },
@@ -3494,19 +3411,14 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
       ]
     },
     "specs": {
-      "maxOutputTokens": 8192,
-      "pricing": {
-        "cacheInput": 0.03,
-        "cacheOutput": 0.375,
-        "reasoning": 0.45
-      }
+      "maxOutputTokens": 65536
     },
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "moonshotai/kimi-k2-instruct": {
+  "moonshotai-kimi-k2-instruct": {
     "family": "kimi",
-    "knowledgeCutoff": "2024-10",
+    "trainingCutoff": "2024-10",
     "lastUpdated": "2025-12-24",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -3530,32 +3442,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "moonshotai/kimi-k2-instruct-0905": {
-    "family": "kimi",
-    "knowledgeCutoff": "2024-10",
-    "lastUpdated": "2025-09-05",
-    "apiSupport": {
-      "reasoning": false,
-      "toolCall": true,
-      "structuredOutput": true,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 16384
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "google/codegemma-7b": {
+  "google-codegemma-7b": {
     "lastUpdated": "2024-03-21",
     "apiSupport": {
       "reasoning": false,
@@ -3578,8 +3465,8 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "google/gemma-2-2b-it": {
-    "knowledgeCutoff": "2024-06",
+  "google-gemma-2-2b-it": {
+    "trainingCutoff": "2024-06",
     "lastUpdated": "2026-02-04",
     "apiSupport": {
       "reasoning": false,
@@ -3606,7 +3493,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "google/gemma-3-1b-it": {
+  "google-gemma-3-1b-it": {
     "lastUpdated": "2025-03-10",
     "apiSupport": {
       "reasoning": false,
@@ -3630,7 +3517,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "google/gemma-2-27b-it": {
+  "google-gemma-2-27b-it": {
     "lastUpdated": "2024-06-24",
     "apiSupport": {
       "reasoning": false,
@@ -3652,8 +3539,8 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "google/gemma-3n-e2b-it": {
-    "knowledgeCutoff": "2024-06",
+  "google-gemma-3n-e2b-it": {
+    "trainingCutoff": "2024-06",
     "lastUpdated": "2025-06-12",
     "apiSupport": {
       "reasoning": false,
@@ -3677,7 +3564,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "google/codegemma-1.1-7b": {
+  "google-codegemma-1-1-7b": {
     "lastUpdated": "2024-04-30",
     "apiSupport": {
       "reasoning": false,
@@ -3700,7 +3587,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "google/gemma-3n-e4b-it": {
+  "google-gemma-3n-e4b-it": {
     "lastUpdated": "2025-05-20",
     "apiSupport": {
       "reasoning": false,
@@ -3722,7 +3609,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "google/gemma-3-12b-it": {
+  "google-gemma-3-12b-it": {
     "lastUpdated": "2025-03-13",
     "apiSupport": {
       "reasoning": false,
@@ -3748,7 +3635,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "google/gemma-3-27b-it": {
+  "google-gemma-3-27b-it": {
     "lastUpdated": "2025-03-12",
     "apiSupport": {
       "reasoning": false,
@@ -3774,9 +3661,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "z-ai/glm4.7": {
+  "z-ai-glm4-7": {
     "family": "glm",
-    "knowledgeCutoff": "2025-04",
+    "trainingCutoff": "2025-04",
     "lastUpdated": "2025-12-22",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -3799,7 +3686,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "z-ai/glm5": {
+  "z-ai-glm5": {
     "family": "glm",
     "lastUpdated": "2026-02-12",
     "interleavedReasoningField": "reasoning_content",
@@ -3824,7 +3711,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "qwen/qwen3-next-80b-a3b-thinking": {
+  "qwen-qwen3-next-80b-a3b-thinking": {
     "lastUpdated": "2025-09-11",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -3847,13 +3734,13 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "qwen/qwen3-coder-480b-a35b-instruct": {
+  "qwen-qwen3-coder-480b-a35b-instruct": {
     "family": "qwen",
-    "lastUpdated": "2026-01",
+    "trainingCutoff": "2025-04",
+    "lastUpdated": "2025-07-23",
     "apiSupport": {
       "reasoning": false,
       "toolCall": true,
-      "structuredOutput": true,
       "temperature": true,
       "attachment": false
     },
@@ -3866,12 +3753,12 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
       ]
     },
     "specs": {
-      "maxOutputTokens": 65536
+      "maxOutputTokens": 66536
     },
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "qwen/qwq-32b": {
+  "qwen-qwq-32b": {
     "lastUpdated": "2025-04-11",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -3894,7 +3781,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "qwen/qwen2.5-coder-7b-instruct": {
+  "qwen-qwen2-5-coder-7b-instruct": {
     "lastUpdated": "2024-11",
     "apiSupport": {
       "reasoning": false,
@@ -3916,11 +3803,12 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "qwen/qwen2.5-coder-32b-instruct": {
-    "lastUpdated": "2024-11-06",
+  "qwen-qwen2-5-coder-32b-instruct": {
+    "family": "qwen",
+    "lastUpdated": "2026-01-10",
     "apiSupport": {
       "reasoning": false,
-      "toolCall": true,
+      "toolCall": false,
       "structuredOutput": true,
       "temperature": true,
       "attachment": false
@@ -3934,64 +3822,18 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
       ]
     },
     "specs": {
-      "maxOutputTokens": 4096
+      "maxOutputTokens": 32768
     },
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "qwen/qwen3-235b-a22b": {
-    "lastUpdated": "2026-01",
+  "qwen-qwen3-235b-a22b": {
+    "family": "qwen",
+    "lastUpdated": "2026-01-10",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
       "reasoning": true,
       "toolCall": true,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 40960,
-      "pricing": {
-        "cacheInput": 0.15
-      }
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "qwen/qwen3-next-80b-a3b-instruct": {
-    "lastUpdated": "2025-09-11",
-    "apiSupport": {
-      "reasoning": false,
-      "toolCall": true,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 52429
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "meta/llama-3.1-70b-instruct": {
-    "lastUpdated": "2024-07-16",
-    "apiSupport": {
-      "reasoning": false,
-      "toolCall": true,
       "structuredOutput": true,
       "temperature": true,
       "attachment": false
@@ -4005,18 +3847,17 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
       ]
     },
     "specs": {
-      "maxOutputTokens": 4096
+      "maxOutputTokens": 40960
     },
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "meta/llama-3.3-70b-instruct": {
+  "meta-llama-3-1-70b-instruct": {
     "family": "llama",
-    "knowledgeCutoff": "2023-12",
-    "lastUpdated": "2024-12-06",
-    "interleavedReasoningField": "reasoning_content",
+    "trainingCutoff": "2023-12",
+    "lastUpdated": "2024-07-23",
     "apiSupport": {
-      "reasoning": true,
+      "reasoning": false,
       "toolCall": true,
       "temperature": true,
       "attachment": false
@@ -4035,9 +3876,32 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "meta/llama-4-scout-17b-16e-instruct": {
+  "meta-llama-3-3-70b-instruct": {
+    "lastUpdated": "2025-04-01",
+    "apiSupport": {
+      "reasoning": false,
+      "toolCall": true,
+      "structuredOutput": true,
+      "temperature": true,
+      "attachment": false
+    },
+    "modalities": {
+      "input": [
+        "text"
+      ],
+      "output": [
+        "text"
+      ]
+    },
+    "specs": {
+      "maxOutputTokens": 131072
+    },
+    "metadataSourceId": "models-dev",
+    "metadataAsOfDate": "2026-03-01"
+  },
+  "meta-llama-4-scout-17b-16e-instruct": {
     "family": "llama",
-    "knowledgeCutoff": "2024-12",
+    "trainingCutoff": "2024-12",
     "lastUpdated": "2025-01-31",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -4061,9 +3925,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "meta/llama-3.2-11b-vision-instruct": {
+  "meta-llama-3-2-11b-vision-instruct": {
     "family": "llama",
-    "knowledgeCutoff": "2023-12",
+    "trainingCutoff": "2023-12",
     "lastUpdated": "2024-09-25",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -4088,7 +3952,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "meta/llama3-8b-instruct": {
+  "meta-llama3-8b-instruct": {
     "lastUpdated": "2024-04-17",
     "apiSupport": {
       "reasoning": false,
@@ -4111,7 +3975,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "meta/codellama-70b": {
+  "meta-codellama-70b": {
     "lastUpdated": "2024-01-29",
     "apiSupport": {
       "reasoning": false,
@@ -4134,9 +3998,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "meta/llama-3.2-1b-instruct": {
+  "meta-llama-3-2-1b-instruct": {
     "family": "llama",
-    "knowledgeCutoff": "2023-12",
+    "trainingCutoff": "2023-12",
     "lastUpdated": "2025-01-01",
     "apiSupport": {
       "reasoning": false,
@@ -4158,12 +4022,13 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "meta/llama-3.1-405b-instruct": {
-    "lastUpdated": "2024-07-16",
+  "meta-llama-3-1-405b-instruct": {
+    "family": "llama",
+    "trainingCutoff": "2023-12",
+    "lastUpdated": "2024-07-23",
     "apiSupport": {
       "reasoning": false,
       "toolCall": true,
-      "structuredOutput": true,
       "temperature": true,
       "attachment": false
     },
@@ -4176,12 +4041,12 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
       ]
     },
     "specs": {
-      "maxOutputTokens": 4096
+      "maxOutputTokens": 32768
     },
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "meta/llama3-70b-instruct": {
+  "meta-llama3-70b-instruct": {
     "lastUpdated": "2024-04-17",
     "apiSupport": {
       "reasoning": false,
@@ -4204,8 +4069,8 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "meta/llama-4-maverick-17b-128e-instruct": {
-    "knowledgeCutoff": "2024-02",
+  "meta-llama-4-maverick-17b-128e-instruct": {
+    "trainingCutoff": "2024-02",
     "lastUpdated": "2025-04-01",
     "apiSupport": {
       "reasoning": false,
@@ -4229,9 +4094,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "mistralai/mistral-large-3-675b-instruct-2512": {
+  "mistralai-mistral-large-3-675b-instruct-2512": {
     "family": "mistral",
-    "knowledgeCutoff": "2025-01",
+    "trainingCutoff": "2025-01",
     "lastUpdated": "2025-12-24",
     "apiSupport": {
       "reasoning": false,
@@ -4254,7 +4119,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "mistralai/mamba-codestral-7b-v0.1": {
+  "mistralai-mamba-codestral-7b-v0-1": {
     "lastUpdated": "2024-07-16",
     "apiSupport": {
       "reasoning": false,
@@ -4277,7 +4142,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "mistralai/codestral-22b-instruct-v0.1": {
+  "mistralai-codestral-22b-instruct-v0-1": {
     "lastUpdated": "2024-05-29",
     "apiSupport": {
       "reasoning": false,
@@ -4300,7 +4165,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "mistralai/mistral-large-2-instruct": {
+  "mistralai-mistral-large-2-instruct": {
     "lastUpdated": "2024-07-24",
     "apiSupport": {
       "reasoning": false,
@@ -4323,9 +4188,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "mistralai/ministral-14b-instruct-2512": {
+  "mistralai-ministral-14b-instruct-2512": {
     "family": "mistral",
-    "knowledgeCutoff": "2025-12",
+    "trainingCutoff": "2025-12",
     "lastUpdated": "2025-12-24",
     "apiSupport": {
       "reasoning": false,
@@ -4348,7 +4213,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "mistralai/mistral-small-3.1-24b-instruct-2503": {
+  "mistralai-mistral-small-3-1-24b-instruct-2503": {
     "lastUpdated": "2025-03-11",
     "apiSupport": {
       "reasoning": false,
@@ -4371,7 +4236,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "mistralai/devstral-2-123b-instruct-2512": {
+  "mistralai-devstral-2-123b-instruct-2512": {
     "family": "mistral",
     "lastUpdated": "2025-12-24",
     "apiSupport": {
@@ -4395,9 +4260,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "black-forest-labs/flux.1-dev": {
+  "black-forest-labs-flux-1-dev": {
     "family": "flux",
-    "knowledgeCutoff": "2024-08",
+    "trainingCutoff": "2024-08",
     "lastUpdated": "2025-09-05",
     "apiSupport": {
       "reasoning": false,
@@ -4416,14 +4281,14 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "deepseek-ai/deepseek-r1-distill-llama-70b": {
+  "deepseek-ai-deepseek-r1-distill-llama-70b": {
     "family": "deepseek-thinking",
-    "knowledgeCutoff": "2024-10",
-    "lastUpdated": "2025-01-23",
+    "lastUpdated": "2026-01-10",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
       "reasoning": true,
-      "toolCall": false,
+      "toolCall": true,
+      "structuredOutput": true,
       "temperature": true,
       "attachment": false
     },
@@ -4441,7 +4306,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "moonshotai/kimi-k2": {
+  "moonshotai-kimi-k2": {
     "lastUpdated": "2025-07-11",
     "apiSupport": {
       "reasoning": false,
@@ -4463,9 +4328,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "qwen/qwen3-coder": {
+  "qwen-qwen3-coder": {
     "family": "qwen",
-    "knowledgeCutoff": "2024-12",
+    "trainingCutoff": "2024-12",
     "lastUpdated": "2025-12-24",
     "apiSupport": {
       "reasoning": false,
@@ -4488,7 +4353,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "openai/gpt-4.1": {
+  "openai-gpt-4-1": {
     "lastUpdated": "2025-04-14",
     "apiSupport": {
       "reasoning": false,
@@ -4514,7 +4379,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "openai/gpt-5-mini": {
+  "openai-gpt-5-mini": {
     "lastUpdated": "2025-08-07",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -4541,7 +4406,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "openai/gpt-5-nano": {
+  "openai-gpt-5-nano": {
     "lastUpdated": "2025-08-07",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -4570,7 +4435,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "kimi-k2": {
     "family": "kimi",
-    "knowledgeCutoff": "2024-10",
+    "trainingCutoff": "2024-10",
     "lastUpdated": "2025-09-05",
     "apiSupport": {
       "reasoning": false,
@@ -4643,7 +4508,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "kimi-k2-0905": {
     "family": "kimi",
-    "knowledgeCutoff": "2025-09",
+    "trainingCutoff": "2025-09",
     "lastUpdated": "2025-09-05",
     "apiSupport": {
       "reasoning": false,
@@ -4670,7 +4535,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "qwen3-235b-a22b-instruct": {
     "family": "qwen",
-    "knowledgeCutoff": "2025-04",
+    "trainingCutoff": "2025-04",
     "lastUpdated": "2025-07-01",
     "apiSupport": {
       "reasoning": false,
@@ -4718,7 +4583,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "qwen3-32b": {
     "family": "qwen",
-    "knowledgeCutoff": "2025-04",
+    "trainingCutoff": "2025-04",
     "lastUpdated": "2025-04",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -4744,9 +4609,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "deepseek-v3.2": {
+  "deepseek-v3-2": {
     "family": "deepseek",
-    "knowledgeCutoff": "2024-07",
+    "trainingCutoff": "2024-07",
     "lastUpdated": "2025-12-01",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -4771,7 +4636,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "qwen3-235b": {
     "family": "qwen",
-    "knowledgeCutoff": "2024-10",
+    "trainingCutoff": "2024-10",
     "lastUpdated": "2024-12-01",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -4796,7 +4661,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "qwen3-vl-plus": {
     "family": "qwen",
-    "knowledgeCutoff": "2025-04",
+    "trainingCutoff": "2025-04",
     "lastUpdated": "2025-09-23",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -4825,7 +4690,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "qwen3-235b-a22b-thinking-2507": {
     "family": "qwen",
-    "knowledgeCutoff": "2025-07",
+    "trainingCutoff": "2025-07",
     "lastUpdated": "2026-01-28",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -4851,7 +4716,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "qwen3-max": {
     "family": "qwen",
-    "knowledgeCutoff": "2025-04",
+    "trainingCutoff": "2025-04",
     "lastUpdated": "2025-09-23",
     "apiSupport": {
       "reasoning": false,
@@ -4875,7 +4740,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "qwen3-coder-plus": {
     "family": "qwen",
-    "knowledgeCutoff": "2025-04",
+    "trainingCutoff": "2025-04",
     "lastUpdated": "2025-07-23",
     "apiSupport": {
       "reasoning": false,
@@ -4897,7 +4762,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "Qwen/Qwen3-30B-A3B-Instruct-2507": {
+  "qwen-qwen3-30b-a3b-instruct-2507": {
     "family": "qwen",
     "lastUpdated": "2026-01-10",
     "apiSupport": {
@@ -4921,14 +4786,12 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "Qwen/Qwen3-30B-A3B-Thinking-2507": {
-    "family": "qwen",
-    "lastUpdated": "2025-11-25",
+  "qwen-qwen3-30b-a3b-thinking-2507": {
+    "lastUpdated": "2025-07-29",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
       "reasoning": true,
       "toolCall": true,
-      "structuredOutput": true,
       "temperature": true,
       "attachment": false
     },
@@ -4941,18 +4804,16 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
       ]
     },
     "specs": {
-      "maxOutputTokens": 131000
+      "maxOutputTokens": 6554
     },
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "Qwen/Qwen3-Coder-30B-A3B-Instruct": {
-    "family": "qwen",
-    "lastUpdated": "2025-11-25",
+  "qwen-qwen3-coder-30b-a3b-instruct": {
+    "lastUpdated": "2025-07-31",
     "apiSupport": {
       "reasoning": false,
       "toolCall": true,
-      "structuredOutput": true,
       "temperature": true,
       "attachment": false
     },
@@ -4965,12 +4826,12 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
       ]
     },
     "specs": {
-      "maxOutputTokens": 262000
+      "maxOutputTokens": 32768
     },
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "Qwen/Qwen3-235B-A22B-Instruct-2507": {
+  "qwen-qwen3-235b-a22b-instruct-2507": {
     "family": "qwen",
     "lastUpdated": "2026-01-29",
     "apiSupport": {
@@ -4994,9 +4855,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "ZhipuAI/GLM-4.6": {
+  "zhipuai-glm-4-6": {
     "family": "glm",
-    "knowledgeCutoff": "2025-07",
+    "trainingCutoff": "2025-07",
     "lastUpdated": "2025-09-30",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -5019,9 +4880,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "ZhipuAI/GLM-4.5": {
+  "zhipuai-glm-4-5": {
     "family": "glm",
-    "knowledgeCutoff": "2025-04",
+    "trainingCutoff": "2025-04",
     "lastUpdated": "2025-07-28",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -5044,9 +4905,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "cerebras-llama-4-maverick-17b-128e-instruct": {
+  "cerebras-4-maverick-17b-128e-instruct": {
     "family": "llama",
-    "knowledgeCutoff": "2025-01",
+    "trainingCutoff": "2025-01",
     "lastUpdated": "2025-04-05",
     "apiSupport": {
       "reasoning": false,
@@ -5068,9 +4929,130 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "llama-4-scout-17b-16e-instruct-fp8": {
+  "4-scout-17b-16e-instruct-fp8": {
     "family": "llama",
-    "knowledgeCutoff": "2024-08",
+    "trainingCutoff": "2024-08",
+    "lastUpdated": "2025-04-05",
+    "apiSupport": {
+      "reasoning": false,
+      "toolCall": true,
+      "temperature": true,
+      "attachment": true
+    },
+    "modalities": {
+      "input": [
+        "text",
+        "image"
+      ],
+      "output": [
+        "text"
+      ]
+    },
+    "specs": {
+      "maxOutputTokens": 4096
+    },
+    "metadataSourceId": "models-dev",
+    "metadataAsOfDate": "2026-03-01"
+  },
+  "3-3-8b-instruct": {
+    "family": "llama",
+    "trainingCutoff": "2023-12",
+    "lastUpdated": "2024-12-06",
+    "apiSupport": {
+      "reasoning": false,
+      "toolCall": true,
+      "temperature": true,
+      "attachment": true
+    },
+    "modalities": {
+      "input": [
+        "text"
+      ],
+      "output": [
+        "text"
+      ]
+    },
+    "specs": {
+      "maxOutputTokens": 4096
+    },
+    "metadataSourceId": "models-dev",
+    "metadataAsOfDate": "2026-03-01"
+  },
+  "groq-4-maverick-17b-128e-instruct": {
+    "family": "llama",
+    "trainingCutoff": "2025-01",
+    "lastUpdated": "2025-04-05",
+    "apiSupport": {
+      "reasoning": false,
+      "toolCall": true,
+      "temperature": true,
+      "attachment": true
+    },
+    "modalities": {
+      "input": [
+        "text"
+      ],
+      "output": [
+        "text"
+      ]
+    },
+    "specs": {
+      "maxOutputTokens": 4096
+    },
+    "metadataSourceId": "models-dev",
+    "metadataAsOfDate": "2026-03-01"
+  },
+  "3-3-70b-instruct": {
+    "family": "llama",
+    "trainingCutoff": "2023-12",
+    "lastUpdated": "2024-12-06",
+    "apiSupport": {
+      "reasoning": false,
+      "toolCall": true,
+      "temperature": true,
+      "attachment": true
+    },
+    "modalities": {
+      "input": [
+        "text"
+      ],
+      "output": [
+        "text"
+      ]
+    },
+    "specs": {
+      "maxOutputTokens": 4096
+    },
+    "metadataSourceId": "models-dev",
+    "metadataAsOfDate": "2026-03-01"
+  },
+  "cerebras-4-scout-17b-16e-instruct": {
+    "family": "llama",
+    "trainingCutoff": "2025-01",
+    "lastUpdated": "2025-04-05",
+    "apiSupport": {
+      "reasoning": false,
+      "toolCall": true,
+      "temperature": true,
+      "attachment": true
+    },
+    "modalities": {
+      "input": [
+        "text"
+      ],
+      "output": [
+        "text"
+      ]
+    },
+    "specs": {
+      "maxOutputTokens": 4096
+    },
+    "metadataSourceId": "models-dev",
+    "metadataAsOfDate": "2026-03-01"
+  },
+  "4-maverick-17b-128e-instruct-fp8": {
+    "family": "llama",
+    "trainingCutoff": "2024-08",
     "lastUpdated": "2025-04-05",
     "apiSupport": {
       "reasoning": false,
@@ -5093,130 +5075,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "llama-3.3-8b-instruct": {
-    "family": "llama",
-    "knowledgeCutoff": "2023-12",
-    "lastUpdated": "2024-12-06",
-    "apiSupport": {
-      "reasoning": false,
-      "toolCall": true,
-      "temperature": true,
-      "attachment": true
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 4096
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "groq-llama-4-maverick-17b-128e-instruct": {
-    "family": "llama",
-    "knowledgeCutoff": "2025-01",
-    "lastUpdated": "2025-04-05",
-    "apiSupport": {
-      "reasoning": false,
-      "toolCall": true,
-      "temperature": true,
-      "attachment": true
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 4096
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "llama-3.3-70b-instruct": {
-    "family": "llama",
-    "knowledgeCutoff": "2023-12",
-    "lastUpdated": "2024-12-06",
-    "apiSupport": {
-      "reasoning": false,
-      "toolCall": true,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 32768
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "cerebras-llama-4-scout-17b-16e-instruct": {
-    "family": "llama",
-    "knowledgeCutoff": "2025-01",
-    "lastUpdated": "2025-04-05",
-    "apiSupport": {
-      "reasoning": false,
-      "toolCall": true,
-      "temperature": true,
-      "attachment": true
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 4096
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "llama-4-maverick-17b-128e-instruct-fp8": {
-    "family": "llama",
-    "knowledgeCutoff": "2024-08",
-    "lastUpdated": "2025-04-05",
-    "apiSupport": {
-      "reasoning": false,
-      "toolCall": true,
-      "temperature": true,
-      "attachment": true
-    },
-    "modalities": {
-      "input": [
-        "text",
-        "image"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 8192
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "mistral/mistral-nemo-12b-instruct": {
+  "mistral-mistral-nemo-12b-instruct": {
     "family": "mistral-nemo",
-    "knowledgeCutoff": "2024-12",
+    "trainingCutoff": "2024-12",
     "lastUpdated": "2025-01-01",
     "apiSupport": {
       "reasoning": false,
@@ -5238,9 +5099,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "google/gemma-3": {
+  "google-gemma-3": {
     "family": "gemma",
-    "knowledgeCutoff": "2024-12",
+    "trainingCutoff": "2024-12",
     "lastUpdated": "2025-01-01",
     "apiSupport": {
       "reasoning": false,
@@ -5263,9 +5124,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "qwen/qwen3-embedding-4b": {
+  "qwen-qwen3-embedding-4b": {
     "family": "qwen",
-    "knowledgeCutoff": "2024-12",
+    "trainingCutoff": "2024-12",
     "lastUpdated": "2025-01-01",
     "apiSupport": {
       "reasoning": false,
@@ -5287,9 +5148,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "qwen/qwen-2.5-7b-vision-instruct": {
+  "qwen-qwen-2-5-7b-vision-instruct": {
     "family": "qwen",
-    "knowledgeCutoff": "2024-12",
+    "trainingCutoff": "2024-12",
     "lastUpdated": "2025-01-01",
     "apiSupport": {
       "reasoning": false,
@@ -5312,9 +5173,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "meta/llama-3.2-3b-instruct": {
+  "meta-llama-3-2-3b-instruct": {
     "family": "llama",
-    "knowledgeCutoff": "2023-12",
+    "trainingCutoff": "2023-12",
     "lastUpdated": "2025-01-01",
     "apiSupport": {
       "reasoning": false,
@@ -5336,10 +5197,10 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "meta/llama-3.1-8b-instruct": {
+  "meta-llama-3-1-8b-instruct": {
     "family": "llama",
-    "knowledgeCutoff": "2023-12",
-    "lastUpdated": "2025-01-01",
+    "trainingCutoff": "2023-12",
+    "lastUpdated": "2024-07-23",
     "apiSupport": {
       "reasoning": false,
       "toolCall": true,
@@ -5355,14 +5216,14 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
       ]
     },
     "specs": {
-      "maxOutputTokens": 4096
+      "maxOutputTokens": 32768
     },
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "osmosis/osmosis-structure-0.6b": {
+  "osmosis-osmosis-structure-0-6b": {
     "family": "osmosis",
-    "knowledgeCutoff": "2024-12",
+    "trainingCutoff": "2024-12",
     "lastUpdated": "2025-01-01",
     "apiSupport": {
       "reasoning": false,
@@ -5384,7 +5245,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "zai-org/GLM-4.7-Flash": {
+  "zai-org-glm-4-7-flash": {
     "lastUpdated": "2026-01-27",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -5408,34 +5269,11 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "zai-org/GLM-4.7": {
+  "zai-org-glm-4-7": {
     "family": "glm",
-    "lastUpdated": "2026-01-29",
+    "trainingCutoff": "2025-04",
+    "lastUpdated": "2025-12-24",
     "interleavedReasoningField": "reasoning_content",
-    "apiSupport": {
-      "reasoning": true,
-      "toolCall": true,
-      "structuredOutput": true,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 202752
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "zai-org/GLM-4.5": {
-    "family": "glm",
-    "lastUpdated": "2025-11-25",
     "apiSupport": {
       "reasoning": false,
       "toolCall": true,
@@ -5452,38 +5290,14 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
       ]
     },
     "specs": {
-      "maxOutputTokens": 131000
+      "maxOutputTokens": 8192
     },
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "MiniMaxAI/MiniMax-M2": {
-    "family": "minimax",
-    "knowledgeCutoff": "2024-10",
-    "lastUpdated": "2025-11-13",
-    "interleavedReasoningField": "reasoning_content",
-    "apiSupport": {
-      "reasoning": true,
-      "toolCall": true,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 32768
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "MiniMaxAI/MiniMax-M2.1": {
-    "lastUpdated": "2026-01-29",
+  "zai-org-glm-4-5": {
+    "family": "glm",
+    "lastUpdated": "2026-01",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
       "reasoning": true,
@@ -5501,63 +5315,14 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
       ]
     },
     "specs": {
-      "maxOutputTokens": 196608
+      "maxOutputTokens": 98304
     },
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "deepseek-ai/DeepSeek-V3.2": {
-    "family": "deepseek",
-    "knowledgeCutoff": "2024-07",
-    "lastUpdated": "2025-12-01",
-    "interleavedReasoningField": "reasoning_content",
-    "apiSupport": {
-      "reasoning": true,
-      "toolCall": true,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 65536
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "moonshotai/Kimi-K2-Instruct": {
-    "family": "kimi",
-    "knowledgeCutoff": "2024-10",
-    "lastUpdated": "2025-07-14",
-    "apiSupport": {
-      "reasoning": false,
-      "toolCall": true,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 16384
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "Qwen/Qwen3-Coder-480B-A35B-Instruct-Turbo": {
+  "qwen-qwen3-coder-480b-a35b-instruct-turbo": {
     "family": "qwen",
-    "knowledgeCutoff": "2025-04",
+    "trainingCutoff": "2025-04",
     "lastUpdated": "2025-07-23",
     "apiSupport": {
       "reasoning": false,
@@ -5579,33 +5344,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "Qwen/Qwen3-Coder-480B-A35B-Instruct": {
-    "family": "qwen",
-    "knowledgeCutoff": "2025-04",
-    "lastUpdated": "2025-07-23",
-    "apiSupport": {
-      "reasoning": false,
-      "toolCall": true,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 66536
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "anthropic/claude-3-7-sonnet-latest": {
+  "anthropic-claude-3-7-sonnet-latest": {
     "family": "claude-sonnet",
-    "knowledgeCutoff": "2024-10-31",
+    "trainingCutoff": "2024-10-31",
     "lastUpdated": "2025-03-13",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -5632,9 +5373,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "anthropic/claude-4-opus": {
+  "anthropic-claude-4-opus": {
     "family": "claude-opus",
-    "knowledgeCutoff": "2025-03-31",
+    "trainingCutoff": "2025-03-31",
     "lastUpdated": "2025-06-12",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -5682,7 +5423,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "hf:MiniMaxAI/MiniMax-M2": {
+  "hf:minimaxai-minimax-m2": {
     "family": "minimax",
     "lastUpdated": "2025-10-27",
     "interleavedReasoningField": "reasoning_content",
@@ -5706,7 +5447,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "hf:MiniMaxAI/MiniMax-M2.1": {
+  "hf:minimaxai-minimax-m2-1": {
     "family": "minimax",
     "lastUpdated": "2025-12-23",
     "interleavedReasoningField": "reasoning_content",
@@ -5730,9 +5471,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "hf:deepseek-ai/DeepSeek-R1": {
+  "hf:deepseek-ai-deepseek-r1": {
     "family": "deepseek-thinking",
-    "knowledgeCutoff": "2025-01",
+    "trainingCutoff": "2025-01",
     "lastUpdated": "2025-01-20",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -5755,7 +5496,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "hf:deepseek-ai/DeepSeek-R1-0528": {
+  "hf:deepseek-ai-deepseek-r1-0528": {
     "family": "deepseek-thinking",
     "lastUpdated": "2025-08-01",
     "interleavedReasoningField": "reasoning_content",
@@ -5779,7 +5520,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "hf:deepseek-ai/DeepSeek-V3.1": {
+  "hf:deepseek-ai-deepseek-v3-1": {
     "family": "deepseek",
     "lastUpdated": "2025-08-21",
     "interleavedReasoningField": "reasoning_content",
@@ -5803,7 +5544,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "hf:deepseek-ai/DeepSeek-V3.2": {
+  "hf:deepseek-ai-deepseek-v3-2": {
     "family": "deepseek",
     "lastUpdated": "2025-12-01",
     "interleavedReasoningField": "reasoning_content",
@@ -5832,7 +5573,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "hf:deepseek-ai/DeepSeek-V3-0324": {
+  "hf:deepseek-ai-deepseek-v3-0324": {
     "family": "deepseek",
     "lastUpdated": "2025-08-01",
     "apiSupport": {
@@ -5855,9 +5596,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "hf:deepseek-ai/DeepSeek-V3": {
+  "hf:deepseek-ai-deepseek-v3": {
     "family": "deepseek",
-    "knowledgeCutoff": "2024-07",
+    "trainingCutoff": "2024-07",
     "lastUpdated": "2025-05-29",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -5880,7 +5621,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "hf:deepseek-ai/DeepSeek-V3.1-Terminus": {
+  "hf:deepseek-ai-deepseek-v3-1-terminus": {
     "family": "deepseek",
     "lastUpdated": "2025-09-25",
     "interleavedReasoningField": "reasoning_content",
@@ -5904,9 +5645,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "hf:moonshotai/Kimi-K2-Instruct-0905": {
+  "hf:moonshotai-kimi-k2-instruct-0905": {
     "family": "kimi",
-    "knowledgeCutoff": "2024-10",
+    "trainingCutoff": "2024-10",
     "lastUpdated": "2025-09-05",
     "apiSupport": {
       "reasoning": false,
@@ -5928,9 +5669,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "hf:moonshotai/Kimi-K2.5": {
+  "hf:moonshotai-kimi-k2-5": {
     "family": "kimi",
-    "knowledgeCutoff": "2025-01",
+    "trainingCutoff": "2025-01",
     "lastUpdated": "2026-01",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -5954,9 +5695,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "hf:moonshotai/Kimi-K2-Thinking": {
+  "hf:moonshotai-kimi-k2-thinking": {
     "family": "kimi-thinking",
-    "knowledgeCutoff": "2025-11",
+    "trainingCutoff": "2025-11",
     "lastUpdated": "2025-11-07",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -5979,7 +5720,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "hf:openai/gpt-oss-120b": {
+  "hf:openai-gpt-oss-120b": {
     "family": "gpt-oss",
     "lastUpdated": "2025-08-05",
     "interleavedReasoningField": "reasoning_content",
@@ -6003,9 +5744,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "hf:nvidia/Kimi-K2.5-NVFP4": {
+  "hf:nvidia-kimi-k2-5-nvfp4": {
     "family": "kimi",
-    "knowledgeCutoff": "2025-01",
+    "trainingCutoff": "2025-01",
     "lastUpdated": "2026-01",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -6029,9 +5770,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "hf:meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+  "hf:meta-llama-llama-4-scout-17b-16e-instruct": {
     "family": "llama",
-    "knowledgeCutoff": "2024-08",
+    "trainingCutoff": "2024-08",
     "lastUpdated": "2025-04-05",
     "apiSupport": {
       "reasoning": false,
@@ -6054,9 +5795,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "hf:meta-llama/Llama-3.1-405B-Instruct": {
+  "hf:meta-llama-llama-3-1-405b-instruct": {
     "family": "llama",
-    "knowledgeCutoff": "2023-12",
+    "trainingCutoff": "2023-12",
     "lastUpdated": "2024-07-23",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -6079,9 +5820,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "hf:meta-llama/Llama-3.1-70B-Instruct": {
+  "hf:meta-llama-llama-3-1-70b-instruct": {
     "family": "llama",
-    "knowledgeCutoff": "2023-12",
+    "trainingCutoff": "2023-12",
     "lastUpdated": "2024-07-23",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -6104,9 +5845,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "hf:meta-llama/Llama-3.1-8B-Instruct": {
+  "hf:meta-llama-llama-3-1-8b-instruct": {
     "family": "llama",
-    "knowledgeCutoff": "2023-12",
+    "trainingCutoff": "2023-12",
     "lastUpdated": "2024-07-23",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -6129,9 +5870,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "hf:meta-llama/Llama-3.3-70B-Instruct": {
+  "hf:meta-llama-llama-3-3-70b-instruct": {
     "family": "llama",
-    "knowledgeCutoff": "2023-12",
+    "trainingCutoff": "2023-12",
     "lastUpdated": "2024-12-06",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -6154,9 +5895,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "hf:meta-llama/Llama-4-Maverick-17B-128E-Instruct-FP8": {
+  "hf:meta-llama-llama-4-maverick-17b-128e-instruct-fp8": {
     "family": "llama",
-    "knowledgeCutoff": "2024-08",
+    "trainingCutoff": "2024-08",
     "lastUpdated": "2025-04-05",
     "apiSupport": {
       "reasoning": false,
@@ -6179,9 +5920,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "hf:zai-org/GLM-4.6": {
+  "hf:zai-org-glm-4-6": {
     "family": "glm",
-    "knowledgeCutoff": "2025-04",
+    "trainingCutoff": "2025-04",
     "lastUpdated": "2025-09-30",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -6204,9 +5945,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "hf:zai-org/GLM-4.7": {
+  "hf:zai-org-glm-4-7": {
     "family": "glm",
-    "knowledgeCutoff": "2025-04",
+    "trainingCutoff": "2025-04",
     "lastUpdated": "2025-12-22",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -6229,9 +5970,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "hf:Qwen/Qwen3-235B-A22B-Thinking-2507": {
+  "hf:qwen-qwen3-235b-a22b-thinking-2507": {
     "family": "qwen",
-    "knowledgeCutoff": "2025-04",
+    "trainingCutoff": "2025-04",
     "lastUpdated": "2025-07-25",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -6254,9 +5995,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "hf:Qwen/Qwen2.5-Coder-32B-Instruct": {
+  "hf:qwen-qwen2-5-coder-32b-instruct": {
     "family": "qwen",
-    "knowledgeCutoff": "2024-10",
+    "trainingCutoff": "2024-10",
     "lastUpdated": "2024-11-11",
     "apiSupport": {
       "reasoning": false,
@@ -6278,9 +6019,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "hf:Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+  "hf:qwen-qwen3-coder-480b-a35b-instruct": {
     "family": "qwen",
-    "knowledgeCutoff": "2025-04",
+    "trainingCutoff": "2025-04",
     "lastUpdated": "2025-07-23",
     "apiSupport": {
       "reasoning": false,
@@ -6302,9 +6043,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "hf:Qwen/Qwen3-235B-A22B-Instruct-2507": {
+  "hf:qwen-qwen3-235b-a22b-instruct-2507": {
     "family": "qwen",
-    "knowledgeCutoff": "2025-04",
+    "trainingCutoff": "2025-04",
     "lastUpdated": "2025-07-21",
     "apiSupport": {
       "reasoning": false,
@@ -6326,62 +6067,8 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "zai-org/glm-4.7-fp8": {
-    "knowledgeCutoff": "2025-12",
-    "lastUpdated": "2026-02-04",
-    "apiSupport": {
-      "reasoning": false,
-      "toolCall": true,
-      "structuredOutput": true,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 4096,
-      "pricing": {
-        "cacheInput": 0.04,
-        "cacheOutput": 0.5
-      }
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "zai-org/glm-4.5-air": {
-    "family": "glm",
-    "knowledgeCutoff": "2025-04",
-    "lastUpdated": "2025-12-24",
-    "apiSupport": {
-      "reasoning": false,
-      "toolCall": true,
-      "structuredOutput": true,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 8192
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "zai-org/glm-4.5": {
-    "family": "glm",
-    "lastUpdated": "2026-01",
+  "zai-org-glm-4-7-fp8": {
+    "lastUpdated": "2026-01-27",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
       "reasoning": true,
@@ -6399,16 +6086,17 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
       ]
     },
     "specs": {
-      "maxOutputTokens": 98304
+      "maxOutputTokens": 65535
     },
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "nvidia/llama-3_1-nemotron-ultra-253b-v1": {
-    "knowledgeCutoff": "2024-12",
-    "lastUpdated": "2026-02-04",
+  "zai-org-glm-4-5-air": {
+    "family": "glm",
+    "lastUpdated": "2026-01-10",
+    "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
-      "reasoning": false,
+      "reasoning": true,
       "toolCall": true,
       "structuredOutput": true,
       "temperature": true,
@@ -6423,17 +6111,36 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
       ]
     },
     "specs": {
-      "maxOutputTokens": 4096,
-      "pricing": {
-        "cacheInput": 0.06,
-        "cacheOutput": 0.75
-      }
+      "maxOutputTokens": 131072
     },
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "nvidia/nemotron-nano-v2-12b": {
-    "knowledgeCutoff": "2025-01",
+  "nvidia-llama-3-1-nemotron-ultra-253b-v1": {
+    "lastUpdated": "2026-02-04",
+    "interleavedReasoningField": "reasoning_content",
+    "apiSupport": {
+      "reasoning": true,
+      "toolCall": false,
+      "temperature": true,
+      "attachment": false
+    },
+    "modalities": {
+      "input": [
+        "text"
+      ],
+      "output": [
+        "text"
+      ]
+    },
+    "specs": {
+      "maxOutputTokens": 26215
+    },
+    "metadataSourceId": "models-dev",
+    "metadataAsOfDate": "2026-03-01"
+  },
+  "nvidia-nemotron-nano-v2-12b": {
+    "trainingCutoff": "2025-01",
     "lastUpdated": "2026-02-04",
     "apiSupport": {
       "reasoning": false,
@@ -6460,8 +6167,8 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "nvidia/nvidia-nemotron-3-nano-30b-a3b": {
-    "knowledgeCutoff": "2025-05",
+  "nvidia-nvidia-nemotron-3-nano-30b-a3b": {
+    "trainingCutoff": "2025-05",
     "lastUpdated": "2026-02-04",
     "apiSupport": {
       "reasoning": false,
@@ -6488,9 +6195,32 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "NousResearch/hermes-4-405b": {
-    "knowledgeCutoff": "2025-11",
-    "lastUpdated": "2026-02-04",
+  "nousresearch-hermes-4-405b": {
+    "lastUpdated": "2025-08-25",
+    "interleavedReasoningField": "reasoning_content",
+    "apiSupport": {
+      "reasoning": true,
+      "toolCall": false,
+      "temperature": true,
+      "attachment": false
+    },
+    "modalities": {
+      "input": [
+        "text"
+      ],
+      "output": [
+        "text"
+      ]
+    },
+    "specs": {
+      "maxOutputTokens": 26215
+    },
+    "metadataSourceId": "models-dev",
+    "metadataAsOfDate": "2026-03-01"
+  },
+  "nousresearch-hermes-4-70b": {
+    "family": "nousresearch",
+    "lastUpdated": "2026-01-10",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
       "reasoning": true,
@@ -6508,49 +6238,14 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
       ]
     },
     "specs": {
-      "maxOutputTokens": 8192,
-      "pricing": {
-        "cacheInput": 0.1,
-        "cacheOutput": 1.25,
-        "reasoning": 3
-      }
+      "maxOutputTokens": 131072
     },
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "NousResearch/hermes-4-70b": {
-    "knowledgeCutoff": "2025-11",
-    "lastUpdated": "2026-02-04",
-    "interleavedReasoningField": "reasoning_content",
-    "apiSupport": {
-      "reasoning": true,
-      "toolCall": true,
-      "structuredOutput": true,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 8192,
-      "pricing": {
-        "cacheInput": 0.013,
-        "cacheOutput": 0.16,
-        "reasoning": 0.4
-      }
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "BAAI/bge-en-icl": {
+  "baai-bge-en-icl": {
     "family": "text-embedding",
-    "knowledgeCutoff": "2024-06",
+    "trainingCutoff": "2024-06",
     "lastUpdated": "2026-02-04",
     "apiSupport": {
       "reasoning": false,
@@ -6570,9 +6265,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "BAAI/bge-multilingual-gemma2": {
+  "baai-bge-multilingual-gemma2": {
     "family": "text-embedding",
-    "knowledgeCutoff": "2024-06",
+    "trainingCutoff": "2024-06",
     "lastUpdated": "2026-02-04",
     "apiSupport": {
       "reasoning": false,
@@ -6592,8 +6287,8 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "PrimeIntellect/intellect-3": {
-    "knowledgeCutoff": "2025-10",
+  "primeintellect-intellect-3": {
+    "trainingCutoff": "2025-10",
     "lastUpdated": "2026-02-04",
     "apiSupport": {
       "reasoning": false,
@@ -6620,38 +6315,8 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "MiniMaxAI/minimax-m2.1": {
-    "knowledgeCutoff": "2025-10",
-    "lastUpdated": "2026-02-04",
-    "interleavedReasoningField": "reasoning_content",
-    "apiSupport": {
-      "reasoning": true,
-      "toolCall": true,
-      "structuredOutput": true,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 8192,
-      "pricing": {
-        "cacheInput": 0.03,
-        "cacheOutput": 0.375,
-        "reasoning": 1.2
-      }
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "deepseek-ai/deepseek-v3-0324-fast": {
-    "knowledgeCutoff": "2024-12",
+  "deepseek-ai-deepseek-v3-0324-fast": {
+    "trainingCutoff": "2024-12",
     "lastUpdated": "2026-02-04",
     "apiSupport": {
       "reasoning": false,
@@ -6678,9 +6343,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "deepseek-ai/deepseek-r1-0528-fast": {
+  "deepseek-ai-deepseek-r1-0528-fast": {
     "family": "deepseek",
-    "knowledgeCutoff": "2025-01",
+    "trainingCutoff": "2025-01",
     "lastUpdated": "2025-02-04",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -6703,13 +6368,12 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "deepseek-ai/deepseek-v3-0324": {
-    "knowledgeCutoff": "2024-12",
-    "lastUpdated": "2026-02-04",
+  "deepseek-ai-deepseek-v3-0324": {
+    "family": "deepseek",
+    "lastUpdated": "2025-03-24",
     "apiSupport": {
       "reasoning": false,
       "toolCall": true,
-      "structuredOutput": true,
       "temperature": true,
       "attachment": false
     },
@@ -6722,16 +6386,12 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
       ]
     },
     "specs": {
-      "maxOutputTokens": 8192,
-      "pricing": {
-        "cacheInput": 0.05,
-        "cacheOutput": 0.1875
-      }
+      "maxOutputTokens": 163840
     },
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "intfloat/e5-mistral-7b-instruct": {
+  "intfloat-e5-mistral-7b-instruct": {
     "family": "mistral",
     "lastUpdated": "2023-12-11",
     "apiSupport": {
@@ -6755,8 +6415,8 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "google/gemma-3-27b-it-fast": {
-    "knowledgeCutoff": "2025-10",
+  "google-gemma-3-27b-it-fast": {
+    "trainingCutoff": "2025-10",
     "lastUpdated": "2026-02-04",
     "apiSupport": {
       "reasoning": false,
@@ -6784,8 +6444,8 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "google/gemma-2-9b-it-fast": {
-    "knowledgeCutoff": "2024-06",
+  "google-gemma-2-9b-it-fast": {
+    "trainingCutoff": "2024-06",
     "lastUpdated": "2026-02-04",
     "apiSupport": {
       "reasoning": false,
@@ -6812,32 +6472,8 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "qwen/qwen3-235b-a22b-instruct-2507": {
-    "family": "qwen",
-    "lastUpdated": "2026-01",
-    "apiSupport": {
-      "reasoning": false,
-      "toolCall": true,
-      "structuredOutput": true,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 16384
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "qwen/qwen2.5-coder-7b-fast": {
-    "knowledgeCutoff": "2024-09",
+  "qwen-qwen2-5-coder-7b-fast": {
+    "trainingCutoff": "2024-09",
     "lastUpdated": "2026-02-04",
     "apiSupport": {
       "reasoning": false,
@@ -6864,34 +6500,14 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "qwen/qwen3-embedding-8b": {
-    "family": "text-embedding",
-    "knowledgeCutoff": "2025-10",
-    "lastUpdated": "2026-02-04",
-    "apiSupport": {
-      "reasoning": false,
-      "toolCall": false,
-      "structuredOutput": false,
-      "temperature": false,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "qwen/qwen3-32b": {
-    "lastUpdated": "2026-02-04",
+  "qwen-qwen3-32b": {
+    "family": "qwen",
+    "lastUpdated": "2026-01-10",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
       "reasoning": true,
       "toolCall": true,
+      "structuredOutput": true,
       "temperature": true,
       "attachment": false
     },
@@ -6912,32 +6528,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "qwen/qwen3-30b-a3b-instruct-2507": {
-    "lastUpdated": "2025-07-29",
-    "apiSupport": {
-      "reasoning": false,
-      "toolCall": true,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 262144,
-      "pricing": {
-        "cacheInput": 0.04
-      }
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "qwen/qwen2.5-vl-72b-instruct": {
+  "qwen-qwen2-5-vl-72b-instruct": {
     "lastUpdated": "2025-02-01",
     "apiSupport": {
       "reasoning": false,
@@ -6963,53 +6554,8 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "qwen/qwen3-coder-30b-a3b-instruct": {
-    "lastUpdated": "2025-07-31",
-    "apiSupport": {
-      "reasoning": false,
-      "toolCall": true,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 32768
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "qwen/qwen3-30b-a3b-thinking-2507": {
-    "lastUpdated": "2025-07-29",
-    "interleavedReasoningField": "reasoning_content",
-    "apiSupport": {
-      "reasoning": true,
-      "toolCall": true,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 6554
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "qwen/qwen3-32b-fast": {
-    "knowledgeCutoff": "2025-12",
+  "qwen-qwen3-32b-fast": {
+    "trainingCutoff": "2025-12",
     "lastUpdated": "2026-02-04",
     "apiSupport": {
       "reasoning": false,
@@ -7036,33 +6582,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "qwen/qwen3-235b-a22b-thinking-2507": {
-    "family": "qwen",
-    "knowledgeCutoff": "2024-12",
-    "lastUpdated": "2025-12-24",
-    "interleavedReasoningField": "reasoning_content",
-    "apiSupport": {
-      "reasoning": true,
-      "toolCall": true,
-      "structuredOutput": true,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 8192
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "meta-llama/llama-guard-3-8b": {
+  "meta-llama-llama-guard-3-8b": {
     "lastUpdated": "2026-02-04",
     "apiSupport": {
       "reasoning": false,
@@ -7084,9 +6604,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "meta-llama/meta-llama-3.1-8b-instruct": {
-    "knowledgeCutoff": "2024-12",
-    "lastUpdated": "2026-02-04",
+  "meta-llama-meta-llama-3-1-8b-instruct": {
+    "family": "llama",
+    "lastUpdated": "2025-11-25",
     "apiSupport": {
       "reasoning": false,
       "toolCall": true,
@@ -7103,17 +6623,13 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
       ]
     },
     "specs": {
-      "maxOutputTokens": 4096,
-      "pricing": {
-        "cacheInput": 0.002,
-        "cacheOutput": 0.025
-      }
+      "maxOutputTokens": 4000
     },
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "meta-llama/llama-3.3-70b-instruct-fast": {
-    "knowledgeCutoff": "2025-08",
+  "meta-llama-llama-3-3-70b-instruct-fast": {
+    "trainingCutoff": "2025-08",
     "lastUpdated": "2026-02-04",
     "apiSupport": {
       "reasoning": false,
@@ -7140,8 +6656,8 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "meta-llama/meta-llama-3.1-8b-instruct-fast": {
-    "knowledgeCutoff": "2024-12",
+  "meta-llama-meta-llama-3-1-8b-instruct-fast": {
+    "trainingCutoff": "2024-12",
     "lastUpdated": "2026-02-04",
     "apiSupport": {
       "reasoning": false,
@@ -7168,8 +6684,8 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "black-forest-labs/flux-dev": {
-    "knowledgeCutoff": "2024-07",
+  "black-forest-labs-flux-dev": {
+    "trainingCutoff": "2024-07",
     "lastUpdated": "2026-02-04",
     "apiSupport": {
       "reasoning": false,
@@ -7189,8 +6705,8 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "black-forest-labs/flux-schnell": {
-    "knowledgeCutoff": "2024-07",
+  "black-forest-labs-flux-schnell": {
+    "trainingCutoff": "2024-07",
     "lastUpdated": "2026-02-04",
     "apiSupport": {
       "reasoning": false,
@@ -7210,9 +6726,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "claude-4.5-haiku": {
+  "claude-4-5-haiku": {
     "family": "claude-haiku",
-    "knowledgeCutoff": "2025-10",
+    "trainingCutoff": "2025-10",
     "lastUpdated": "2025-10-01",
     "apiSupport": {
       "reasoning": false,
@@ -7239,7 +6755,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "claude-3.5-sonnet": {
+  "claude-3-5-sonnet": {
     "lastUpdated": "2025-09-09",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -7266,7 +6782,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "qwen3-235b-a22b-instruct-2507": {
     "family": "qwen",
-    "knowledgeCutoff": "2025-07",
+    "trainingCutoff": "2025-07",
     "lastUpdated": "2026-01-28",
     "apiSupport": {
       "reasoning": false,
@@ -7289,9 +6805,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "claude-3.7-sonnet": {
+  "claude-3-7-sonnet": {
     "family": "claude-sonnet",
-    "knowledgeCutoff": "2025-02",
+    "trainingCutoff": "2025-02",
     "lastUpdated": "2025-02-19",
     "apiSupport": {
       "reasoning": false,
@@ -7320,7 +6836,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "qwen3-next-80b-a3b-thinking": {
     "family": "qwen",
-    "knowledgeCutoff": "2025-04",
+    "trainingCutoff": "2025-04",
     "lastUpdated": "2025-09",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -7343,7 +6859,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "claude-4.0-sonnet": {
+  "claude-4-0-sonnet": {
     "lastUpdated": "2025-08-05",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -7394,7 +6910,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "doubao-seed-1.6-thinking": {
+  "doubao-seed-1-6-thinking": {
     "lastUpdated": "2025-08-15",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -7422,7 +6938,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "qwen3-coder-480b-a35b-instruct": {
     "family": "qwen",
-    "knowledgeCutoff": "2025-04",
+    "trainingCutoff": "2025-04",
     "lastUpdated": "2025-04",
     "apiSupport": {
       "reasoning": false,
@@ -7444,13 +6960,39 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "claude-4.5-sonnet": {
+  "claude-4-5-sonnet": {
     "family": "claude-sonnet",
-    "knowledgeCutoff": "2025-09",
+    "trainingCutoff": "2025-07-31",
     "lastUpdated": "2025-09-29",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
       "reasoning": true,
+      "toolCall": true,
+      "temperature": true,
+      "attachment": true
+    },
+    "modalities": {
+      "input": [
+        "text",
+        "image",
+        "other"
+      ],
+      "output": [
+        "text"
+      ]
+    },
+    "specs": {
+      "maxOutputTokens": 200000
+    },
+    "metadataSourceId": "models-dev",
+    "metadataAsOfDate": "2026-03-01"
+  },
+  "qwen2-5-vl-7b-instruct": {
+    "family": "qwen",
+    "trainingCutoff": "2024-04",
+    "lastUpdated": "2024-09",
+    "apiSupport": {
+      "reasoning": false,
       "toolCall": true,
       "temperature": true,
       "attachment": false
@@ -7465,42 +7007,12 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
       ]
     },
     "specs": {
-      "maxOutputTokens": 64000,
-      "pricing": {
-        "cacheInput": 0.30000000000000004,
-        "cacheOutput": 3.75
-      }
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "qwen2.5-vl-7b-instruct": {
-    "lastUpdated": "2025-08-05",
-    "apiSupport": {
-      "reasoning": false,
-      "toolCall": true,
-      "structuredOutput": false,
-      "temperature": true,
-      "attachment": true
-    },
-    "modalities": {
-      "input": [
-        "text",
-        "image",
-        "audio",
-        "video"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
       "maxOutputTokens": 8192
     },
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "gemini-2.5-flash": {
+  "gemini-2-5-flash": {
     "family": "gemini-flash",
     "lastUpdated": "2026-01",
     "apiSupport": {
@@ -7527,13 +7039,11 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "deepseek-v3.1": {
+  "deepseek-v3-1": {
     "family": "deepseek",
-    "knowledgeCutoff": "2024-07",
-    "lastUpdated": "2025-08-21",
-    "interleavedReasoningField": "reasoning_content",
+    "lastUpdated": "2025-01-01",
     "apiSupport": {
-      "reasoning": true,
+      "reasoning": false,
       "toolCall": true,
       "temperature": true,
       "attachment": false
@@ -7547,12 +7057,12 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
       ]
     },
     "specs": {
-      "maxOutputTokens": 131072
+      "maxOutputTokens": 65536
     },
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "doubao-seed-1.6": {
+  "doubao-seed-1-6": {
     "lastUpdated": "2025-08-15",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -7578,7 +7088,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "claude-4.0-opus": {
+  "claude-4-0-opus": {
     "lastUpdated": "2025-08-05",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -7605,7 +7115,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "qwen-turbo": {
     "family": "qwen",
-    "knowledgeCutoff": "2024-04",
+    "trainingCutoff": "2024-04",
     "lastUpdated": "2025-07-15",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -7631,7 +7141,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "gemini-3.0-pro-preview": {
+  "gemini-3-0-pro-preview": {
     "lastUpdated": "2025-11-19",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -7683,7 +7193,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "doubao-1.5-vision-pro": {
+  "doubao-1-5-vision-pro": {
     "lastUpdated": "2025-08-05",
     "apiSupport": {
       "reasoning": false,
@@ -7708,7 +7218,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "gemini-3.0-pro-image-preview": {
+  "gemini-3-0-pro-image-preview": {
     "lastUpdated": "2025-11-20",
     "apiSupport": {
       "reasoning": false,
@@ -7733,7 +7243,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "gemini-2.5-flash-lite": {
+  "gemini-2-5-flash-lite": {
     "family": "gemini-flash-lite",
     "lastUpdated": "2026-01",
     "apiSupport": {
@@ -7760,9 +7270,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "claude-3.5-haiku": {
+  "claude-3-5-haiku": {
     "family": "claude-haiku",
-    "knowledgeCutoff": "2024-10",
+    "trainingCutoff": "2024-10",
     "lastUpdated": "2024-10-22",
     "apiSupport": {
       "reasoning": false,
@@ -7791,7 +7301,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "gpt-oss-120b": {
     "family": "gpt-oss",
-    "knowledgeCutoff": "2024-01",
+    "trainingCutoff": "2024-01",
     "lastUpdated": "2025-08-05",
     "apiSupport": {
       "reasoning": false,
@@ -7815,7 +7325,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "deepseek-v3-0324": {
     "family": "deepseek",
-    "knowledgeCutoff": "2024-07",
+    "trainingCutoff": "2024-07",
     "lastUpdated": "2025-03-24",
     "apiSupport": {
       "reasoning": false,
@@ -7837,7 +7347,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "doubao-1.5-pro-32k": {
+  "doubao-1-5-pro-32k": {
     "lastUpdated": "2025-08-05",
     "apiSupport": {
       "reasoning": false,
@@ -7860,14 +7370,15 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "qwen2.5-vl-72b-instruct": {
-    "lastUpdated": "2025-03-31",
+  "qwen2-5-vl-72b-instruct": {
+    "family": "qwen",
+    "trainingCutoff": "2024-04",
+    "lastUpdated": "2024-09",
     "apiSupport": {
       "reasoning": false,
-      "toolCall": false,
-      "structuredOutput": true,
+      "toolCall": true,
       "temperature": true,
-      "attachment": true
+      "attachment": false
     },
     "modalities": {
       "input": [
@@ -7879,14 +7390,14 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
       ]
     },
     "specs": {
-      "maxOutputTokens": 32768
+      "maxOutputTokens": 8192
     },
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
   "qwen3-235b-a22b": {
     "family": "qwen",
-    "knowledgeCutoff": "2025-04",
+    "trainingCutoff": "2025-04",
     "lastUpdated": "2025-04",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -7912,7 +7423,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "claude-4.1-opus": {
+  "claude-4-1-opus": {
     "lastUpdated": "2025-08-06",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -7937,7 +7448,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "doubao-1.5-thinking-pro": {
+  "doubao-1-5-thinking-pro": {
     "lastUpdated": "2025-08-05",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -7961,9 +7472,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "gemini-2.5-flash-image": {
+  "gemini-2-5-flash-image": {
     "family": "gemini-flash",
-    "knowledgeCutoff": "2025-06",
+    "trainingCutoff": "2025-06",
     "lastUpdated": "2025-08-26",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -7991,7 +7502,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "MiniMax-M1": {
+  "minimax-m1": {
     "family": "minimax",
     "lastUpdated": "2025-06-16",
     "apiSupport": {
@@ -8014,7 +7525,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "doubao-seed-1.6-flash": {
+  "doubao-seed-1-6-flash": {
     "lastUpdated": "2025-08-15",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -8040,9 +7551,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "claude-4.5-opus": {
+  "claude-4-5-opus": {
     "family": "claude-opus",
-    "knowledgeCutoff": "2025-11",
+    "trainingCutoff": "2025-11",
     "lastUpdated": "2025-11-24",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -8070,9 +7581,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "gemini-2.0-flash-lite": {
+  "gemini-2-0-flash-lite": {
     "family": "gemini-flash-lite",
-    "knowledgeCutoff": "2024-06",
+    "trainingCutoff": "2024-06",
     "lastUpdated": "2024-12-11",
     "apiSupport": {
       "reasoning": false,
@@ -8101,7 +7612,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "qwen3-next-80b-a3b-instruct": {
     "family": "qwen",
-    "knowledgeCutoff": "2025-04",
+    "trainingCutoff": "2025-04",
     "lastUpdated": "2025-09",
     "apiSupport": {
       "reasoning": false,
@@ -8123,7 +7634,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "gemini-3.0-flash-preview": {
+  "gemini-3-0-flash-preview": {
     "lastUpdated": "2025-12-18",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -8153,7 +7664,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "qwen3-30b-a3b": {
     "family": "qwen",
-    "knowledgeCutoff": "2025-06",
+    "trainingCutoff": "2025-06",
     "lastUpdated": "2025-06-01",
     "apiSupport": {
       "reasoning": false,
@@ -8178,7 +7689,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "gpt-oss-20b": {
     "family": "gpt-oss",
-    "knowledgeCutoff": "2024-06",
+    "trainingCutoff": "2024-06",
     "lastUpdated": "2024-06-01",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -8226,9 +7737,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "gemini-2.5-pro": {
+  "gemini-2-5-pro": {
     "family": "gemini-pro",
-    "knowledgeCutoff": "2025-01",
+    "trainingCutoff": "2025-01",
     "lastUpdated": "2025-06-17",
     "apiSupport": {
       "reasoning": false,
@@ -8251,9 +7762,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "gemini-2.0-flash": {
+  "gemini-2-0-flash": {
     "family": "gemini-flash",
-    "knowledgeCutoff": "2024-06",
+    "trainingCutoff": "2024-06",
     "lastUpdated": "2024-12-11",
     "apiSupport": {
       "reasoning": false,
@@ -8306,7 +7817,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "deepseek/deepseek-v3.2-exp-thinking": {
+  "deepseek-deepseek-v3-2-exp-thinking": {
     "lastUpdated": "2025-09-29",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -8330,7 +7841,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "deepseek/deepseek-v3.1-terminus": {
+  "deepseek-deepseek-v3-1-terminus": {
     "lastUpdated": "2025-09-22",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -8356,7 +7867,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "deepseek/deepseek-v3.2-251201": {
+  "deepseek-deepseek-v3-2-251201": {
     "lastUpdated": "2025-12-01",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -8380,7 +7891,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "deepseek/deepseek-math-v2": {
+  "deepseek-deepseek-math-v2": {
     "lastUpdated": "2025-12-04",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -8404,7 +7915,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "deepseek/deepseek-v3.1-terminus-thinking": {
+  "deepseek-deepseek-v3-1-terminus-thinking": {
     "lastUpdated": "2025-09-22",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -8428,7 +7939,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "z-ai/autoglm-phone-9b": {
+  "z-ai-autoglm-phone-9b": {
     "lastUpdated": "2025-12-23",
     "apiSupport": {
       "reasoning": false,
@@ -8452,7 +7963,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "stepfun-ai/gelab-zero-4b-preview": {
+  "stepfun-ai-gelab-zero-4b-preview": {
     "lastUpdated": "2025-12-23",
     "apiSupport": {
       "reasoning": false,
@@ -8476,7 +7987,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "meituan/longcat-flash-chat": {
+  "meituan-longcat-flash-chat": {
     "lastUpdated": "2025-08-30",
     "apiSupport": {
       "reasoning": false,
@@ -8501,7 +8012,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "x-ai/grok-4-fast-reasoning": {
+  "x-ai-grok-4-fast-reasoning": {
     "lastUpdated": "2025-12-18",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -8528,7 +8039,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "x-ai/grok-4.1-fast-reasoning": {
+  "x-ai-grok-4-1-fast-reasoning": {
     "lastUpdated": "2025-12-19",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -8555,7 +8066,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "x-ai/grok-4-fast-non-reasoning": {
+  "x-ai-grok-4-fast-non-reasoning": {
     "lastUpdated": "2025-12-18",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -8767,10 +8278,10 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "minimax-m2.1": {
+  "minimax-m2-1": {
     "family": "minimax",
     "lastUpdated": "2025-12-23",
-    "interleavedReasoningField": "reasoning_details",
+    "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
       "reasoning": true,
       "toolCall": true,
@@ -8839,7 +8350,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "kimi-k2:1t": {
     "family": "kimi",
-    "knowledgeCutoff": "2024-10",
+    "trainingCutoff": "2024-10",
     "lastUpdated": "2026-01-19",
     "apiSupport": {
       "reasoning": false,
@@ -8883,7 +8394,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "kimi-k2.5": {
+  "kimi-k2-5": {
     "family": "kimi",
     "lastUpdated": "2025-01-27",
     "interleavedReasoningField": "reasoning_content",
@@ -8980,7 +8491,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "qwen3.5:397b": {
+  "qwen3-5:397b": {
     "family": "qwen",
     "lastUpdated": "2026-02-17",
     "interleavedReasoningField": "reasoning_details",
@@ -9029,7 +8540,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "minimax-m2": {
     "family": "minimax",
-    "knowledgeCutoff": "2024-11",
+    "trainingCutoff": "2024-11",
     "lastUpdated": "2025-10-27",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -9052,9 +8563,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "minimax-m2.5": {
+  "minimax-m2-5": {
     "family": "minimax",
-    "knowledgeCutoff": "2025-01",
+    "trainingCutoff": "2025-01",
     "lastUpdated": "2026-02-12",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -9130,7 +8641,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "cogito-2.1:671b": {
+  "cogito-2-1:671b": {
     "family": "cogito",
     "lastUpdated": "2026-01-19",
     "interleavedReasoningField": "reasoning_content",
@@ -9176,7 +8687,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "deepseek-v3.1:671b": {
+  "deepseek-v3-1:671b": {
     "family": "deepseek",
     "lastUpdated": "2026-01-19",
     "interleavedReasoningField": "reasoning_content",
@@ -9292,7 +8803,31 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "mistral-small-3.2-24b-instruct-2506": {
+  "llama-3-3-70b-instruct": {
+    "family": "llama",
+    "trainingCutoff": "2023-12",
+    "lastUpdated": "2024-12-06",
+    "apiSupport": {
+      "reasoning": false,
+      "toolCall": true,
+      "temperature": true,
+      "attachment": false
+    },
+    "modalities": {
+      "input": [
+        "text"
+      ],
+      "output": [
+        "text"
+      ]
+    },
+    "specs": {
+      "maxOutputTokens": 32768
+    },
+    "metadataSourceId": "models-dev",
+    "metadataAsOfDate": "2026-03-01"
+  },
+  "mistral-small-3-2-24b-instruct-2506": {
     "lastUpdated": "2025-07-16",
     "apiSupport": {
       "reasoning": false,
@@ -9365,7 +8900,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "qwen3-coder-30b-a3b-instruct": {
     "family": "qwen",
-    "knowledgeCutoff": "2025-04",
+    "trainingCutoff": "2025-04",
     "lastUpdated": "2025-04",
     "apiSupport": {
       "reasoning": false,
@@ -9389,7 +8924,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "whisper-large-v3": {
     "family": "whisper",
-    "knowledgeCutoff": "2023-09",
+    "trainingCutoff": "2023-09",
     "lastUpdated": "2023-09-01",
     "apiSupport": {
       "reasoning": false,
@@ -9412,9 +8947,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "llama-3.1-8b-instruct": {
+  "llama-3-1-8b-instruct": {
     "family": "llama",
-    "knowledgeCutoff": "2024-07",
+    "trainingCutoff": "2024-07",
     "lastUpdated": "2024-07-23",
     "apiSupport": {
       "reasoning": false,
@@ -9508,7 +9043,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "gemma-3-27b-it": {
     "family": "gemma",
-    "knowledgeCutoff": "2024-12",
+    "trainingCutoff": "2024-12",
     "lastUpdated": "2025-09-05",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -9532,7 +9067,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "workers-ai/@cf/ibm-granite/granite-4.0-h-micro": {
+  "workers-ai-@cf-ibm-granite-granite-4-0-h-micro": {
     "family": "granite",
     "lastUpdated": "2025-10-15",
     "apiSupport": {
@@ -9555,7 +9090,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "workers-ai/@cf/baai/bge-small-en-v1.5": {
+  "workers-ai-@cf-baai-bge-small-en-v1-5": {
     "family": "bge",
     "lastUpdated": "2025-04-03",
     "apiSupport": {
@@ -9578,7 +9113,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "workers-ai/@cf/baai/bge-large-en-v1.5": {
+  "workers-ai-@cf-baai-bge-large-en-v1-5": {
     "family": "bge",
     "lastUpdated": "2025-04-03",
     "apiSupport": {
@@ -9601,7 +9136,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "workers-ai/@cf/baai/bge-reranker-base": {
+  "workers-ai-@cf-baai-bge-reranker-base": {
     "family": "bge",
     "lastUpdated": "2025-04-09",
     "apiSupport": {
@@ -9624,7 +9159,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "workers-ai/@cf/baai/bge-m3": {
+  "workers-ai-@cf-baai-bge-m3": {
     "family": "bge",
     "lastUpdated": "2025-04-03",
     "apiSupport": {
@@ -9647,7 +9182,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "workers-ai/@cf/baai/bge-base-en-v1.5": {
+  "workers-ai-@cf-baai-bge-base-en-v1-5": {
     "family": "bge",
     "lastUpdated": "2025-04-03",
     "apiSupport": {
@@ -9670,7 +9205,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "workers-ai/@cf/pfnet/plamo-embedding-1b": {
+  "workers-ai-@cf-pfnet-plamo-embedding-1b": {
     "family": "plamo",
     "lastUpdated": "2025-09-25",
     "apiSupport": {
@@ -9693,7 +9228,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "workers-ai/@cf/deepseek-ai/deepseek-r1-distill-qwen-32b": {
+  "workers-ai-@cf-deepseek-ai-deepseek-r1-distill-qwen-32b": {
     "family": "deepseek-thinking",
     "lastUpdated": "2025-04-03",
     "apiSupport": {
@@ -9716,7 +9251,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "workers-ai/@cf/facebook/bart-large-cnn": {
+  "workers-ai-@cf-facebook-bart-large-cnn": {
     "family": "bart",
     "lastUpdated": "2025-04-09",
     "apiSupport": {
@@ -9739,7 +9274,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "workers-ai/@cf/mistral/mistral-7b-instruct-v0.1": {
+  "workers-ai-@cf-mistral-mistral-7b-instruct-v0-1": {
     "family": "mistral",
     "lastUpdated": "2025-04-03",
     "apiSupport": {
@@ -9762,7 +9297,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "workers-ai/@cf/myshell-ai/melotts": {
+  "workers-ai-@cf-myshell-ai-melotts": {
     "family": "melotts",
     "lastUpdated": "2025-11-14",
     "apiSupport": {
@@ -9785,7 +9320,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "workers-ai/@cf/pipecat-ai/smart-turn-v2": {
+  "workers-ai-@cf-pipecat-ai-smart-turn-v2": {
     "family": "smart-turn",
     "lastUpdated": "2025-11-14",
     "apiSupport": {
@@ -9808,7 +9343,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "workers-ai/@cf/google/gemma-3-12b-it": {
+  "workers-ai-@cf-google-gemma-3-12b-it": {
     "family": "gemma",
     "lastUpdated": "2025-04-11",
     "apiSupport": {
@@ -9831,7 +9366,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "workers-ai/@cf/qwen/qwq-32b": {
+  "workers-ai-@cf-qwen-qwq-32b": {
     "family": "qwen",
     "lastUpdated": "2025-04-11",
     "apiSupport": {
@@ -9854,7 +9389,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "workers-ai/@cf/qwen/qwen3-30b-a3b-fp8": {
+  "workers-ai-@cf-qwen-qwen3-30b-a3b-fp8": {
     "family": "qwen",
     "lastUpdated": "2025-11-14",
     "apiSupport": {
@@ -9877,7 +9412,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "workers-ai/@cf/qwen/qwen2.5-coder-32b-instruct": {
+  "workers-ai-@cf-qwen-qwen2-5-coder-32b-instruct": {
     "family": "qwen",
     "lastUpdated": "2025-04-11",
     "apiSupport": {
@@ -9900,7 +9435,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "workers-ai/@cf/qwen/qwen3-embedding-0.6b": {
+  "workers-ai-@cf-qwen-qwen3-embedding-0-6b": {
     "family": "qwen",
     "lastUpdated": "2025-11-14",
     "apiSupport": {
@@ -9923,7 +9458,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "workers-ai/@cf/meta/llama-3.1-8b-instruct-fp8": {
+  "workers-ai-@cf-meta-llama-3-1-8b-instruct-fp8": {
     "family": "llama",
     "lastUpdated": "2025-04-03",
     "apiSupport": {
@@ -9946,7 +9481,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "workers-ai/@cf/meta/llama-3-8b-instruct-awq": {
+  "workers-ai-@cf-meta-llama-3-8b-instruct-awq": {
     "family": "llama",
     "lastUpdated": "2025-04-03",
     "apiSupport": {
@@ -9969,7 +9504,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "workers-ai/@cf/meta/llama-3.1-8b-instruct-awq": {
+  "workers-ai-@cf-meta-llama-3-1-8b-instruct-awq": {
     "family": "llama",
     "lastUpdated": "2025-04-03",
     "apiSupport": {
@@ -9992,7 +9527,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "workers-ai/@cf/meta/llama-4-scout-17b-16e-instruct": {
+  "workers-ai-@cf-meta-llama-4-scout-17b-16e-instruct": {
     "family": "llama",
     "lastUpdated": "2025-04-16",
     "apiSupport": {
@@ -10015,7 +9550,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "workers-ai/@cf/meta/llama-3.2-11b-vision-instruct": {
+  "workers-ai-@cf-meta-llama-3-2-11b-vision-instruct": {
     "family": "llama",
     "lastUpdated": "2025-04-03",
     "apiSupport": {
@@ -10038,7 +9573,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "workers-ai/@cf/meta/llama-3.2-3b-instruct": {
+  "workers-ai-@cf-meta-llama-3-2-3b-instruct": {
     "family": "llama",
     "lastUpdated": "2025-04-03",
     "apiSupport": {
@@ -10061,7 +9596,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "workers-ai/@cf/meta/llama-guard-3-8b": {
+  "workers-ai-@cf-meta-llama-guard-3-8b": {
     "family": "llama",
     "lastUpdated": "2025-04-03",
     "apiSupport": {
@@ -10084,7 +9619,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "workers-ai/@cf/meta/llama-3.2-1b-instruct": {
+  "workers-ai-@cf-meta-llama-3-2-1b-instruct": {
     "family": "llama",
     "lastUpdated": "2025-04-03",
     "apiSupport": {
@@ -10107,7 +9642,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "workers-ai/@cf/meta/llama-3.3-70b-instruct-fp8-fast": {
+  "workers-ai-@cf-meta-llama-3-3-70b-instruct-fp8-fast": {
     "family": "llama",
     "lastUpdated": "2025-04-03",
     "apiSupport": {
@@ -10130,7 +9665,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "workers-ai/@cf/meta/llama-3.1-8b-instruct": {
+  "workers-ai-@cf-meta-llama-3-1-8b-instruct": {
     "family": "llama",
     "lastUpdated": "2025-04-03",
     "apiSupport": {
@@ -10153,7 +9688,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "workers-ai/@cf/meta/m2m100-1.2b": {
+  "workers-ai-@cf-meta-m2m100-1-2b": {
     "family": "m2m",
     "lastUpdated": "2025-04-03",
     "apiSupport": {
@@ -10176,7 +9711,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "workers-ai/@cf/meta/llama-2-7b-chat-fp16": {
+  "workers-ai-@cf-meta-llama-2-7b-chat-fp16": {
     "family": "llama",
     "lastUpdated": "2025-04-03",
     "apiSupport": {
@@ -10199,7 +9734,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "workers-ai/@cf/meta/llama-3-8b-instruct": {
+  "workers-ai-@cf-meta-llama-3-8b-instruct": {
     "family": "llama",
     "lastUpdated": "2025-04-03",
     "apiSupport": {
@@ -10222,7 +9757,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "workers-ai/@cf/mistralai/mistral-small-3.1-24b-instruct": {
+  "workers-ai-@cf-mistralai-mistral-small-3-1-24b-instruct": {
     "family": "mistral-small",
     "lastUpdated": "2025-04-11",
     "apiSupport": {
@@ -10245,7 +9780,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "workers-ai/@cf/deepgram/aura-2-es": {
+  "workers-ai-@cf-deepgram-aura-2-es": {
     "family": "aura",
     "lastUpdated": "2025-11-14",
     "apiSupport": {
@@ -10268,7 +9803,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "workers-ai/@cf/deepgram/nova-3": {
+  "workers-ai-@cf-deepgram-nova-3": {
     "family": "nova",
     "lastUpdated": "2025-11-14",
     "apiSupport": {
@@ -10291,7 +9826,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "workers-ai/@cf/deepgram/aura-2-en": {
+  "workers-ai-@cf-deepgram-aura-2-en": {
     "family": "aura",
     "lastUpdated": "2025-11-14",
     "apiSupport": {
@@ -10314,7 +9849,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "workers-ai/@cf/openai/gpt-oss-120b": {
+  "workers-ai-@cf-openai-gpt-oss-120b": {
     "lastUpdated": "2025-08-05",
     "apiSupport": {
       "reasoning": false,
@@ -10336,7 +9871,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "workers-ai/@cf/openai/gpt-oss-20b": {
+  "workers-ai-@cf-openai-gpt-oss-20b": {
     "lastUpdated": "2025-08-05",
     "apiSupport": {
       "reasoning": false,
@@ -10358,7 +9893,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "workers-ai/@cf/ai4bharat/indictrans2-en-indic-1B": {
+  "workers-ai-@cf-ai4bharat-indictrans2-en-indic-1b": {
     "family": "indictrans",
     "lastUpdated": "2025-09-25",
     "apiSupport": {
@@ -10381,7 +9916,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "workers-ai/@cf/huggingface/distilbert-sst-2-int8": {
+  "workers-ai-@cf-huggingface-distilbert-sst-2-int8": {
     "family": "distilbert",
     "lastUpdated": "2025-04-03",
     "apiSupport": {
@@ -10404,7 +9939,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "workers-ai/@cf/aisingapore/gemma-sea-lion-v4-27b-it": {
+  "workers-ai-@cf-aisingapore-gemma-sea-lion-v4-27b-it": {
     "family": "gemma",
     "lastUpdated": "2025-09-25",
     "apiSupport": {
@@ -10427,7 +9962,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "openai/gpt-5.3-codex": {
+  "openai-gpt-5-3-codex": {
     "family": "gpt",
     "lastUpdated": "2026-02-24",
     "interleavedReasoningField": "reasoning_content",
@@ -10456,7 +9991,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "openai/gpt-4o-mini": {
+  "openai-gpt-4o-mini": {
     "lastUpdated": "2024-07-18",
     "apiSupport": {
       "reasoning": false,
@@ -10482,13 +10017,16 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "openai/o1": {
-    "lastUpdated": "2025-01-01",
+  "o1": {
+    "family": "o",
+    "trainingCutoff": "2023-09",
+    "lastUpdated": "2024-12-05",
+    "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
-      "reasoning": false,
+      "reasoning": true,
       "toolCall": true,
       "temperature": false,
-      "attachment": true
+      "attachment": false
     },
     "modalities": {
       "input": [
@@ -10508,8 +10046,10 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "openai/o3": {
-    "lastUpdated": "2026-01",
+  "o3": {
+    "family": "o",
+    "trainingCutoff": "2024-05",
+    "lastUpdated": "2025-04-16",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
       "reasoning": true,
@@ -10519,8 +10059,8 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     },
     "modalities": {
       "input": [
-        "image",
-        "text"
+        "text",
+        "image"
       ],
       "output": [
         "text"
@@ -10535,7 +10075,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "openai/gpt-3.5-turbo": {
+  "openai-gpt-3-5-turbo": {
     "lastUpdated": "2023-11-06",
     "apiSupport": {
       "reasoning": false,
@@ -10557,7 +10097,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "openai/o3-pro": {
+  "openai-o3-pro": {
     "lastUpdated": "2025-06-10",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -10581,7 +10121,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "openai/gpt-4-turbo": {
+  "openai-gpt-4-turbo": {
     "lastUpdated": "2024-04-09",
     "apiSupport": {
       "reasoning": false,
@@ -10604,7 +10144,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "openai/o4-mini": {
+  "openai-o4-mini": {
     "lastUpdated": "2025-04-16",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -10631,7 +10171,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "openai/o3-mini": {
+  "openai-o3-mini": {
     "lastUpdated": "2026-01",
     "apiSupport": {
       "reasoning": false,
@@ -10656,7 +10196,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "openai/gpt-4": {
+  "openai-gpt-4": {
     "lastUpdated": "2024-04-09",
     "apiSupport": {
       "reasoning": false,
@@ -10678,7 +10218,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "openai/gpt-4o": {
+  "openai-gpt-4o": {
     "lastUpdated": "2024-08-06",
     "apiSupport": {
       "reasoning": false,
@@ -10704,40 +10244,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "anthropic/claude-opus-4-1": {
-    "family": "claude-opus",
-    "knowledgeCutoff": "2025-03-31",
-    "lastUpdated": "2025-08-05",
-    "interleavedReasoningField": "reasoning_content",
-    "apiSupport": {
-      "reasoning": true,
-      "toolCall": true,
-      "temperature": true,
-      "attachment": true
-    },
-    "modalities": {
-      "input": [
-        "text",
-        "image",
-        "other"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 32000,
-      "pricing": {
-        "cacheInput": 1.5,
-        "cacheOutput": 18.75
-      }
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "anthropic/claude-3-sonnet": {
+  "anthropic-claude-3-sonnet": {
     "family": "claude-sonnet",
-    "knowledgeCutoff": "2023-08-31",
+    "trainingCutoff": "2023-08-31",
     "lastUpdated": "2024-03-04",
     "apiSupport": {
       "reasoning": false,
@@ -10765,73 +10274,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "anthropic/claude-3-5-haiku": {
-    "family": "claude-haiku",
-    "knowledgeCutoff": "2024-07-31",
-    "lastUpdated": "2024-10-22",
-    "apiSupport": {
-      "reasoning": false,
-      "toolCall": true,
-      "temperature": true,
-      "attachment": true
-    },
-    "modalities": {
-      "input": [
-        "text",
-        "image",
-        "other"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 8192,
-      "pricing": {
-        "cacheInput": 0.08,
-        "cacheOutput": 1
-      }
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "anthropic/claude-opus-4-6": {
-    "family": "claude-opus",
-    "knowledgeCutoff": "2025-08-31",
-    "lastUpdated": "2026-02-05",
-    "interleavedReasoningField": "reasoning_content",
-    "apiSupport": {
-      "reasoning": true,
-      "toolCall": true,
-      "temperature": true,
-      "attachment": true
-    },
-    "modalities": {
-      "input": [
-        "text",
-        "image",
-        "other"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 128000,
-      "pricing": {
-        "cacheInput": 0.5,
-        "cacheOutput": 6.25,
-        "contextOver200k": {
-          "input": 10,
-          "output": 37.5,
-          "cacheRead": 1
-        }
-      }
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "anthropic/claude-3-haiku": {
+  "anthropic-claude-3-haiku": {
     "lastUpdated": "2024-03-07",
     "apiSupport": {
       "reasoning": false,
@@ -10858,107 +10301,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "anthropic/claude-sonnet-4-6": {
-    "family": "claude-sonnet",
-    "knowledgeCutoff": "2025-07-31",
-    "lastUpdated": "2026-02-17",
-    "interleavedReasoningField": "reasoning_content",
-    "apiSupport": {
-      "reasoning": true,
-      "toolCall": true,
-      "temperature": true,
-      "attachment": true
-    },
-    "modalities": {
-      "input": [
-        "text",
-        "image",
-        "other"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 64000,
-      "pricing": {
-        "cacheInput": 0.3,
-        "cacheOutput": 3.75,
-        "contextOver200k": {
-          "input": 6,
-          "output": 22.5,
-          "cacheRead": 0.6
-        }
-      }
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "anthropic/claude-haiku-4-5": {
-    "family": "claude-haiku",
-    "knowledgeCutoff": "2025-02-01",
-    "lastUpdated": "2025-10-15",
-    "interleavedReasoningField": "reasoning_content",
-    "apiSupport": {
-      "reasoning": true,
-      "toolCall": true,
-      "temperature": true,
-      "attachment": true
-    },
-    "modalities": {
-      "input": [
-        "text",
-        "image",
-        "other"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 62000,
-      "pricing": {
-        "cacheInput": 0.1,
-        "cacheOutput": 1.25
-      }
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "anthropic/claude-opus-4-5": {
+  "anthropic-claude-3-opus": {
     "family": "claude-opus",
-    "knowledgeCutoff": "2025-03-31",
-    "lastUpdated": "2025-11-24",
-    "interleavedReasoningField": "reasoning_content",
-    "apiSupport": {
-      "reasoning": true,
-      "toolCall": true,
-      "temperature": true,
-      "attachment": true
-    },
-    "modalities": {
-      "input": [
-        "text",
-        "image",
-        "other"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 64000,
-      "pricing": {
-        "cacheInput": 0.5,
-        "cacheOutput": 6.25
-      }
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "anthropic/claude-3-opus": {
-    "family": "claude-opus",
-    "knowledgeCutoff": "2023-08-31",
+    "trainingCutoff": "2023-08-31",
     "lastUpdated": "2024-02-29",
     "apiSupport": {
       "reasoning": false,
@@ -10986,65 +10331,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "anthropic/claude-sonnet-4-5": {
-    "family": "claude-sonnet",
-    "knowledgeCutoff": "2025-07-31",
-    "lastUpdated": "2025-09-29",
-    "interleavedReasoningField": "reasoning_content",
-    "apiSupport": {
-      "reasoning": true,
-      "toolCall": true,
-      "temperature": true,
-      "attachment": true
-    },
-    "modalities": {
-      "input": [
-        "text",
-        "image",
-        "other"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 64000,
-      "pricing": {
-        "cacheInput": 0.3,
-        "cacheOutput": 3.75
-      }
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "GLM-4.7": {
-    "family": "glm",
-    "knowledgeCutoff": "2025-04",
-    "lastUpdated": "2025-12-22",
-    "interleavedReasoningField": "reasoning_content",
-    "apiSupport": {
-      "reasoning": true,
-      "toolCall": true,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 131072
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
   "solar-pro2": {
     "family": "solar-pro",
-    "knowledgeCutoff": "2025-03",
+    "trainingCutoff": "2025-03",
     "lastUpdated": "2025-05-20",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -11069,7 +10358,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "solar-mini": {
     "family": "solar-mini",
-    "knowledgeCutoff": "2024-09",
+    "trainingCutoff": "2024-09",
     "lastUpdated": "2025-04-22",
     "apiSupport": {
       "reasoning": false,
@@ -11093,7 +10382,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "solar-pro3": {
     "family": "solar-pro",
-    "knowledgeCutoff": "2025-03",
+    "trainingCutoff": "2025-03",
     "lastUpdated": "2026-01",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -11118,7 +10407,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "mercury": {
     "family": "mercury",
-    "knowledgeCutoff": "2023-10",
+    "trainingCutoff": "2023-10",
     "lastUpdated": "2025-07-31",
     "apiSupport": {
       "reasoning": false,
@@ -11146,7 +10435,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "mercury-coder": {
     "family": "mercury",
-    "knowledgeCutoff": "2023-10",
+    "trainingCutoff": "2023-10",
     "lastUpdated": "2025-07-31",
     "apiSupport": {
       "reasoning": false,
@@ -11172,32 +10461,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "zai-org/GLM-4.5-Air": {
-    "family": "glm",
-    "lastUpdated": "2026-01-10",
-    "interleavedReasoningField": "reasoning_content",
-    "apiSupport": {
-      "reasoning": true,
-      "toolCall": true,
-      "structuredOutput": true,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 131072
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "zai-org/GLM-4.5-FP8": {
+  "zai-org-glm-4-5-fp8": {
     "lastUpdated": "2026-01-27",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -11221,56 +10485,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "deepseek-ai/DeepSeek-V3.1": {
-    "family": "deepseek",
-    "lastUpdated": "2025-08-25",
-    "apiSupport": {
-      "reasoning": false,
-      "toolCall": true,
-      "structuredOutput": true,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 164000
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "deepseek-ai/DeepSeek-V3-0324": {
-    "family": "deepseek",
-    "lastUpdated": "2025-03-24",
-    "apiSupport": {
-      "reasoning": false,
-      "toolCall": true,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 163840
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "Qwen/Qwen3-Coder-480B-A35B-Instruct-FP8": {
+  "qwen-qwen3-coder-480b-a35b-instruct-fp8": {
     "family": "qwen",
-    "knowledgeCutoff": "2025-04",
+    "trainingCutoff": "2025-04",
     "lastUpdated": "2025-07-23",
     "apiSupport": {
       "reasoning": false,
@@ -11292,59 +10509,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "MiniMax-M2.5": {
-    "family": "minimax",
-    "lastUpdated": "2026-02-12",
-    "interleavedReasoningField": "reasoning_content",
-    "apiSupport": {
-      "reasoning": true,
-      "toolCall": true,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 131072,
-      "pricing": {
-        "cacheInput": 0.03,
-        "cacheOutput": 0.375
-      }
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "MiniMax-M2": {
-    "family": "minimax",
-    "lastUpdated": "2025-10-27",
-    "interleavedReasoningField": "reasoning_content",
-    "apiSupport": {
-      "reasoning": true,
-      "toolCall": true,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 128000
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "MiniMax-M2.5-highspeed": {
+  "minimax-m2-5-highspeed": {
     "family": "minimax",
     "lastUpdated": "2026-02-13",
     "interleavedReasoningField": "reasoning_content",
@@ -11365,40 +10530,16 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "specs": {
       "maxOutputTokens": 131072,
       "pricing": {
-        "cacheInput": 0.06,
-        "cacheOutput": 0.375
+        "cacheInput": 0,
+        "cacheOutput": 0
       }
     },
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "MiniMax-M2.1": {
-    "family": "minimax",
-    "lastUpdated": "2025-12-23",
-    "interleavedReasoningField": "reasoning_content",
-    "apiSupport": {
-      "reasoning": true,
-      "toolCall": true,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 131072
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "zai-org/glm-5": {
+  "zai-org-glm-5": {
     "family": "glm",
-    "knowledgeCutoff": "2025-06",
+    "trainingCutoff": "2025-06",
     "lastUpdated": "2026-02-11",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -11422,83 +10563,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "zai-org/glm-4.7-flash": {
-    "family": "glm",
-    "lastUpdated": "2026-01",
-    "interleavedReasoningField": "reasoning_content",
-    "apiSupport": {
-      "reasoning": true,
-      "toolCall": true,
-      "structuredOutput": true,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 128000
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "zai-org/glm-4.6": {
-    "family": "glm",
-    "knowledgeCutoff": "2024-10",
-    "lastUpdated": "2025-12-24",
-    "apiSupport": {
-      "reasoning": false,
-      "toolCall": true,
-      "structuredOutput": true,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 8192
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "zai-org/glm-4.7": {
-    "family": "glm",
-    "knowledgeCutoff": "2025-04",
-    "lastUpdated": "2025-12-24",
-    "interleavedReasoningField": "reasoning_content",
-    "apiSupport": {
-      "reasoning": false,
-      "toolCall": true,
-      "structuredOutput": true,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 8192
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "zai-org/autoglm-phone-9b-multilingual": {
+  "zai-org-autoglm-phone-9b-multilingual": {
     "lastUpdated": "2025-12-10",
     "apiSupport": {
       "reasoning": false,
@@ -11521,7 +10586,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "zai-org/glm-4.5v": {
+  "zai-org-glm-4-5v": {
     "family": "glmv",
     "lastUpdated": "2026-01",
     "interleavedReasoningField": "reasoning_content",
@@ -11548,22 +10613,20 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "zai-org/glm-4.6v": {
-    "family": "glmv",
-    "knowledgeCutoff": "2025-04",
-    "lastUpdated": "2025-12-08",
+  "zai-org-glm-4-6v": {
+    "family": "glm",
+    "lastUpdated": "2026-01-10",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
       "reasoning": true,
       "toolCall": true,
       "structuredOutput": true,
       "temperature": true,
-      "attachment": true
+      "attachment": false
     },
     "modalities": {
       "input": [
         "text",
-        "video",
         "image"
       ],
       "output": [
@@ -11571,15 +10634,12 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
       ]
     },
     "specs": {
-      "maxOutputTokens": 32768,
-      "pricing": {
-        "cacheInput": 0.055
-      }
+      "maxOutputTokens": 65536
     },
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "microsoft/wizardlm-2-8x22b": {
+  "microsoft-wizardlm-2-8x22b": {
     "lastUpdated": "2024-04-24",
     "apiSupport": {
       "reasoning": false,
@@ -11601,7 +10661,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "minimaxai/minimax-m1-80k": {
+  "minimaxai-minimax-m1-80k": {
     "family": "minimax",
     "lastUpdated": "2026-01",
     "interleavedReasoningField": "reasoning_content",
@@ -11626,7 +10686,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "skywork/r1v4-lite": {
+  "skywork-r1v4-lite": {
     "family": "skywork",
     "lastUpdated": "2025-11-18",
     "apiSupport": {
@@ -11651,7 +10711,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "gryphe/mythomax-l2-13b": {
+  "gryphe-mythomax-l2-13b": {
     "lastUpdated": "2024-04-25",
     "apiSupport": {
       "reasoning": false,
@@ -11673,8 +10733,8 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "paddlepaddle/paddleocr-vl": {
-    "lastUpdated": "2025-10-22",
+  "paddlepaddle-paddleocr-vl": {
+    "lastUpdated": "2025-10-16",
     "apiSupport": {
       "reasoning": false,
       "toolCall": false,
@@ -11696,9 +10756,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "baichuan/baichuan-m2-32b": {
+  "baichuan-baichuan-m2-32b": {
     "family": "baichuan",
-    "knowledgeCutoff": "2024-12",
+    "trainingCutoff": "2024-12",
     "lastUpdated": "2025-08-13",
     "apiSupport": {
       "reasoning": false,
@@ -11721,7 +10781,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "kwaipilot/kat-coder-pro": {
+  "kwaipilot-kat-coder-pro": {
     "lastUpdated": "2025-10-24",
     "apiSupport": {
       "reasoning": false,
@@ -11746,7 +10806,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "kwaipilot/kat-coder": {
+  "kwaipilot-kat-coder": {
     "lastUpdated": "2025-09-30",
     "apiSupport": {
       "reasoning": false,
@@ -11769,7 +10829,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "deepseek/deepseek-v3-turbo": {
+  "deepseek-deepseek-v3-turbo": {
     "lastUpdated": "2025-03-05",
     "apiSupport": {
       "reasoning": false,
@@ -11791,7 +10851,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "deepseek/deepseek-prover-v2-671b": {
+  "deepseek-deepseek-prover-v2-671b": {
     "lastUpdated": "2025-04-30",
     "apiSupport": {
       "reasoning": false,
@@ -11813,7 +10873,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "deepseek/deepseek-r1-turbo": {
+  "deepseek-deepseek-r1-turbo": {
     "lastUpdated": "2025-03-05",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -11836,7 +10896,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "deepseek/deepseek-ocr-2": {
+  "deepseek-deepseek-ocr-2": {
     "lastUpdated": "2026-01-27",
     "apiSupport": {
       "reasoning": false,
@@ -11858,7 +10918,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "deepseek/deepseek-v3.1": {
+  "deepseek-deepseek-v3-1": {
     "family": "deepseek",
     "lastUpdated": "2026-01",
     "interleavedReasoningField": "reasoning_content",
@@ -11883,7 +10943,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "deepseek/deepseek-r1-0528": {
+  "deepseek-deepseek-r1-0528": {
     "lastUpdated": "2025-05-28",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -11909,7 +10969,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "deepseek/deepseek-r1-0528-qwen3-8b": {
+  "deepseek-deepseek-r1-0528-qwen3-8b": {
     "lastUpdated": "2025-05-29",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -11932,7 +10992,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "deepseek/deepseek-r1-distill-llama-70b": {
+  "deepseek-deepseek-r1-distill-llama-70b": {
     "lastUpdated": "2025-01-23",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -11958,7 +11018,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "deepseek/deepseek-v3-0324": {
+  "deepseek-deepseek-v3-0324": {
     "family": "deepseek",
     "lastUpdated": "2026-01",
     "apiSupport": {
@@ -11982,7 +11042,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "deepseek/deepseek-ocr": {
+  "deepseek-deepseek-ocr": {
     "lastUpdated": "2025-10-24",
     "apiSupport": {
       "reasoning": false,
@@ -12006,7 +11066,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "baidu/ernie-4.5-vl-28b-a3b-thinking": {
+  "baidu-ernie-4-5-vl-28b-a3b-thinking": {
     "lastUpdated": "2025-11-26",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -12032,7 +11092,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "baidu/ernie-4.5-vl-424b-a47b": {
+  "baidu-ernie-4-5-vl-424b-a47b": {
     "lastUpdated": "2026-01",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -12056,7 +11116,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "baidu/ernie-4.5-vl-28b-a3b": {
+  "baidu-ernie-4-5-vl-28b-a3b": {
     "lastUpdated": "2025-06-30",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -12080,7 +11140,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "baidu/ernie-4.5-300b-a47b-paddle": {
+  "baidu-ernie-4-5-300b-a47b-paddle": {
     "family": "ernie",
     "lastUpdated": "2026-01",
     "apiSupport": {
@@ -12104,9 +11164,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "baidu/ernie-4.5-21B-a3b": {
-    "family": "ernie",
-    "knowledgeCutoff": "2025-03",
+  "baidu-ernie-4-5-21b-a3b": {
     "lastUpdated": "2025-06-30",
     "apiSupport": {
       "reasoning": false,
@@ -12128,9 +11186,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "baidu/ernie-4.5-21B-a3b-thinking": {
-    "family": "ernie",
-    "knowledgeCutoff": "2025-03",
+  "baidu-ernie-4-5-21b-a3b-thinking": {
     "lastUpdated": "2025-09-19",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -12153,7 +11209,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "qwen/qwen3-4b-fp8": {
+  "qwen-qwen3-4b-fp8": {
     "lastUpdated": "2025-04-29",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -12176,7 +11232,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "qwen/qwen3-32b-fp8": {
+  "qwen-qwen3-32b-fp8": {
     "family": "qwen",
     "lastUpdated": "2026-01",
     "interleavedReasoningField": "reasoning_content",
@@ -12201,7 +11257,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "qwen/qwen3-30b-a3b-fp8": {
+  "qwen-qwen3-30b-a3b-fp8": {
     "family": "qwen",
     "lastUpdated": "2026-01",
     "interleavedReasoningField": "reasoning_content",
@@ -12226,11 +11282,13 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "qwen/qwen3-coder-next": {
-    "lastUpdated": "2026-02-08",
+  "qwen-qwen3-coder-next": {
+    "family": "qwen",
+    "lastUpdated": "2026-02-05",
     "apiSupport": {
       "reasoning": false,
       "toolCall": true,
+      "structuredOutput": true,
       "temperature": true,
       "attachment": false
     },
@@ -12243,15 +11301,12 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
       ]
     },
     "specs": {
-      "maxOutputTokens": 65536,
-      "pricing": {
-        "cacheInput": 0.035
-      }
+      "maxOutputTokens": 65536
     },
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "qwen/qwen3.5-397b-a17b": {
+  "qwen-qwen3-5-397b-a17b": {
     "family": "qwen",
     "lastUpdated": "2026-02-16",
     "apiSupport": {
@@ -12277,13 +11332,15 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "qwen/qwen3-vl-235b-a22b-instruct": {
+  "qwen-qwen3-vl-235b-a22b-instruct": {
+    "family": "qwen",
     "lastUpdated": "2026-01-10",
     "apiSupport": {
       "reasoning": false,
       "toolCall": true,
+      "structuredOutput": true,
       "temperature": true,
-      "attachment": true
+      "attachment": false
     },
     "modalities": {
       "input": [
@@ -12295,15 +11352,12 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
       ]
     },
     "specs": {
-      "maxOutputTokens": 52429,
-      "pricing": {
-        "cacheInput": 0.11
-      }
+      "maxOutputTokens": 262144
     },
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "qwen/qwen-mt-plus": {
+  "qwen-qwen-mt-plus": {
     "lastUpdated": "2025-09-03",
     "apiSupport": {
       "reasoning": false,
@@ -12325,10 +11379,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "qwen/qwen3-omni-30b-a3b-instruct": {
+  "qwen-qwen3-omni-30b-a3b-instruct": {
     "family": "qwen",
-    "knowledgeCutoff": "2024-04",
-    "lastUpdated": "2025-09-24",
+    "lastUpdated": "2025-11-25",
     "apiSupport": {
       "reasoning": false,
       "toolCall": true,
@@ -12339,26 +11392,20 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "modalities": {
       "input": [
         "text",
-        "video",
-        "audio",
-        "image"
+        "image",
+        "audio"
       ],
       "output": [
-        "text",
-        "audio"
+        "text"
       ]
     },
     "specs": {
-      "maxOutputTokens": 16384,
-      "pricing": {
-        "inputAudio": 2.2,
-        "outputAudio": 1.788
-      }
+      "maxOutputTokens": 66000
     },
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "qwen/qwen-2.5-72b-instruct": {
+  "qwen-qwen-2-5-72b-instruct": {
     "lastUpdated": "2026-01-10",
     "apiSupport": {
       "reasoning": false,
@@ -12380,7 +11427,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "qwen/qwen3-vl-30b-a3b-thinking": {
+  "qwen-qwen3-vl-30b-a3b-thinking": {
     "lastUpdated": "2025-11-25",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -12404,7 +11451,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "qwen/qwen3-vl-235b-a22b-thinking": {
+  "qwen-qwen3-vl-235b-a22b-thinking": {
     "lastUpdated": "2025-09-24",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -12428,8 +11475,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "qwen/qwen2.5-7b-instruct": {
-    "lastUpdated": "2025-04-16",
+  "qwen-qwen2-5-7b-instruct": {
+    "family": "qwen",
+    "lastUpdated": "2025-11-25",
     "apiSupport": {
       "reasoning": false,
       "toolCall": true,
@@ -12446,35 +11494,12 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
       ]
     },
     "specs": {
-      "maxOutputTokens": 32000
+      "maxOutputTokens": 4000
     },
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "qwen/qwen3-vl-30b-a3b-instruct": {
-    "lastUpdated": "2025-11-25",
-    "apiSupport": {
-      "reasoning": false,
-      "toolCall": true,
-      "temperature": true,
-      "attachment": true
-    },
-    "modalities": {
-      "input": [
-        "text",
-        "image"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 32768
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "qwen/qwen3-235b-a22b-fp8": {
+  "qwen-qwen3-235b-a22b-fp8": {
     "family": "qwen",
     "lastUpdated": "2026-01",
     "interleavedReasoningField": "reasoning_content",
@@ -12499,7 +11524,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "qwen/qwen3-vl-8b-instruct": {
+  "qwen-qwen3-vl-8b-instruct": {
     "lastUpdated": "2025-11-25",
     "apiSupport": {
       "reasoning": false,
@@ -12522,7 +11547,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "qwen/qwen3-8b-fp8": {
+  "qwen-qwen3-8b-fp8": {
     "lastUpdated": "2025-04-29",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -12545,8 +11570,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "qwen/qwen3-omni-30b-a3b-thinking": {
-    "lastUpdated": "2025-09-24",
+  "qwen-qwen3-omni-30b-a3b-thinking": {
+    "family": "qwen",
+    "lastUpdated": "2025-11-25",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
       "reasoning": true,
@@ -12558,57 +11584,27 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "modalities": {
       "input": [
         "text",
-        "audio",
-        "video",
-        "image"
+        "image",
+        "audio"
       ],
       "output": [
         "text"
       ]
     },
     "specs": {
-      "maxOutputTokens": 16384,
-      "pricing": {
-        "inputAudio": 2.2,
-        "outputAudio": 1.788
-      }
+      "maxOutputTokens": 66000
     },
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "meta-llama/llama-3.3-70b-instruct": {
+  "meta-llama-llama-4-scout-17b-16e-instruct": {
     "family": "llama",
-    "knowledgeCutoff": "2023-12",
-    "lastUpdated": "2025-12-24",
+    "trainingCutoff": "2024-12",
+    "lastUpdated": "2025-01-31",
+    "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
-      "reasoning": false,
+      "reasoning": true,
       "toolCall": true,
-      "structuredOutput": true,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 8192
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "meta-llama/llama-4-scout-17b-16e-instruct": {
-    "family": "llama",
-    "knowledgeCutoff": "2024-08",
-    "lastUpdated": "2025-04-05",
-    "apiSupport": {
-      "reasoning": false,
-      "toolCall": true,
-      "structuredOutput": true,
       "temperature": true,
       "attachment": false
     },
@@ -12627,7 +11623,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "meta-llama/llama-3-70b-instruct": {
+  "meta-llama-llama-3-70b-instruct": {
     "lastUpdated": "2024-07-23",
     "apiSupport": {
       "reasoning": false,
@@ -12649,7 +11645,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "meta-llama/llama-3.1-8b-instruct": {
+  "meta-llama-llama-3-1-8b-instruct": {
     "lastUpdated": "2025-12-23",
     "apiSupport": {
       "reasoning": false,
@@ -12671,7 +11667,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "meta-llama/llama-3-8b-instruct": {
+  "meta-llama-llama-3-8b-instruct": {
     "lastUpdated": "2025-04-03",
     "apiSupport": {
       "reasoning": false,
@@ -12693,30 +11689,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "meta-llama/llama-4-maverick-17b-128e-instruct-fp8": {
-    "lastUpdated": "2025-04-06",
-    "apiSupport": {
-      "reasoning": false,
-      "toolCall": false,
-      "temperature": true,
-      "attachment": true
-    },
-    "modalities": {
-      "input": [
-        "text",
-        "image"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 8192
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "mistralai/mistral-nemo": {
+  "mistralai-mistral-nemo": {
     "lastUpdated": "2024-07-30",
     "apiSupport": {
       "reasoning": false,
@@ -12738,7 +11711,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "sao10k/l3-70b-euryale-v2.1": {
+  "sao10k-l3-70b-euryale-v2-1": {
     "lastUpdated": "2024-06-18",
     "apiSupport": {
       "reasoning": false,
@@ -12760,7 +11733,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "sao10k/l31-70b-euryale-v2.2": {
+  "sao10k-l31-70b-euryale-v2-2": {
     "lastUpdated": "2024-09-19",
     "apiSupport": {
       "reasoning": false,
@@ -12782,7 +11755,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "sao10k/l3-8b-lunaris": {
+  "sao10k-l3-8b-lunaris": {
     "lastUpdated": "2024-11-28",
     "apiSupport": {
       "reasoning": false,
@@ -12805,7 +11778,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "sao10k/L3-8B-Stheno-v3.2": {
+  "sao10k-l3-8b-stheno-v3-2": {
     "lastUpdated": "2024-11-29",
     "apiSupport": {
       "reasoning": false,
@@ -12827,14 +11800,13 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "xiaomimimo/mimo-v2-flash": {
+  "xiaomimimo-mimo-v2-flash": {
     "family": "mimo",
-    "lastUpdated": "2026-01",
-    "interleavedReasoningField": "reasoning_content",
+    "lastUpdated": "2026-01-27",
     "apiSupport": {
-      "reasoning": true,
-      "toolCall": true,
-      "structuredOutput": true,
+      "reasoning": false,
+      "toolCall": false,
+      "structuredOutput": false,
       "temperature": true,
       "attachment": false
     },
@@ -12847,12 +11819,12 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
       ]
     },
     "specs": {
-      "maxOutputTokens": 131072
+      "maxOutputTokens": 8192
     },
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "nousresearch/hermes-2-pro-llama-3-8b": {
+  "nousresearch-hermes-2-pro-llama-3-8b": {
     "lastUpdated": "2024-06-27",
     "apiSupport": {
       "reasoning": false,
@@ -12874,9 +11846,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "gpt-5.3-codex": {
+  "gpt-5-3-codex": {
     "family": "gpt-codex",
-    "knowledgeCutoff": "2025-08-31",
+    "trainingCutoff": "2025-08-31",
     "lastUpdated": "2026-02-24",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -12905,7 +11877,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "gpt-5-codex": {
     "family": "gpt-codex",
-    "knowledgeCutoff": "2024-09-30",
+    "trainingCutoff": "2024-09-30",
     "lastUpdated": "2025-09-15",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -12932,9 +11904,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "gemini-3.1-pro": {
+  "gemini-3-1-pro": {
     "family": "gemini-pro",
-    "knowledgeCutoff": "2025-01",
+    "trainingCutoff": "2025-01",
     "lastUpdated": "2026-02-19",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -12972,7 +11944,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "trinity-large-preview-free": {
     "family": "trinity",
-    "knowledgeCutoff": "2025-06",
+    "trainingCutoff": "2025-06",
     "lastUpdated": "2026-01-28",
     "apiSupport": {
       "reasoning": false,
@@ -12994,9 +11966,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "gpt-5.1-codex-max": {
+  "gpt-5-1-codex-max": {
     "family": "gpt-codex",
-    "knowledgeCutoff": "2024-09-30",
+    "trainingCutoff": "2024-09-30",
     "lastUpdated": "2025-11-13",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -13024,9 +11996,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "kimi-k2.5-free": {
+  "kimi-k2-5-free": {
     "family": "kimi-free",
-    "knowledgeCutoff": "2024-10",
+    "trainingCutoff": "2024-10",
     "lastUpdated": "2026-01-27",
     "interleavedReasoningField": "reasoning_content",
     "status": "deprecated",
@@ -13057,7 +12029,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "claude-opus-4-1": {
     "family": "claude-opus",
-    "knowledgeCutoff": "2025-03-31",
+    "trainingCutoff": "2025-03-31",
     "lastUpdated": "2025-11-18",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -13116,39 +12088,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "claude-3-5-haiku": {
-    "family": "claude-haiku",
-    "knowledgeCutoff": "2024-07-31",
-    "lastUpdated": "2024-10-22",
-    "apiSupport": {
-      "reasoning": false,
-      "toolCall": true,
-      "temperature": true,
-      "attachment": true
-    },
-    "modalities": {
-      "input": [
-        "text",
-        "image",
-        "other"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 8192,
-      "pricing": {
-        "cacheInput": 0.08,
-        "cacheOutput": 1
-      }
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "gpt-5.2-codex": {
+  "gpt-5-2-codex": {
     "family": "gpt-codex",
-    "knowledgeCutoff": "2025-08-31",
+    "trainingCutoff": "2025-08-31",
     "lastUpdated": "2026-01-14",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -13177,7 +12119,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "claude-opus-4-6": {
     "family": "claude-opus",
-    "knowledgeCutoff": "2025-05",
+    "trainingCutoff": "2025-05",
     "lastUpdated": "2026-02-05",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -13213,13 +12155,12 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "gemini-3-flash": {
     "family": "gemini-flash",
-    "knowledgeCutoff": "2025-01",
+    "trainingCutoff": "2025-03",
     "lastUpdated": "2025-12-17",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
       "reasoning": true,
       "toolCall": true,
-      "structuredOutput": true,
       "temperature": true,
       "attachment": true
     },
@@ -13227,8 +12168,6 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
       "input": [
         "text",
         "image",
-        "video",
-        "audio",
         "other"
       ],
       "output": [
@@ -13236,7 +12175,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
       ]
     },
     "specs": {
-      "maxOutputTokens": 65536,
+      "maxOutputTokens": 64000,
       "pricing": {
         "cacheInput": 0.05
       }
@@ -13246,7 +12185,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "claude-sonnet-4-6": {
     "family": "claude-sonnet",
-    "knowledgeCutoff": "2025-08",
+    "trainingCutoff": "2025-08",
     "lastUpdated": "2026-02-17",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -13280,9 +12219,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "gpt-5.1": {
+  "gpt-5-1": {
     "family": "gpt",
-    "knowledgeCutoff": "2024-09-30",
+    "trainingCutoff": "2024-09-30",
     "lastUpdated": "2025-11-14",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -13314,7 +12253,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "qwen3-coder": {
     "family": "qwen",
-    "knowledgeCutoff": "2025-07",
+    "trainingCutoff": "2025-07",
     "lastUpdated": "2025-07-23",
     "apiSupport": {
       "reasoning": false,
@@ -13339,9 +12278,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "gpt-5.1-codex-mini": {
+  "gpt-5-1-codex-mini": {
     "family": "gpt-codex",
-    "knowledgeCutoff": "2024-09-30",
+    "trainingCutoff": "2024-09-30",
     "lastUpdated": "2025-11-14",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -13368,9 +12307,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "gpt-5.2": {
+  "gpt-5-2": {
     "family": "gpt",
-    "knowledgeCutoff": "2025-08-31",
+    "trainingCutoff": "2025-08-31",
     "lastUpdated": "2025-12-11",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -13397,9 +12336,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "minimax-m2.1-free": {
+  "minimax-m2-1-free": {
     "family": "minimax-free",
-    "knowledgeCutoff": "2025-01",
+    "trainingCutoff": "2025-01",
     "lastUpdated": "2025-12-23",
     "interleavedReasoningField": "reasoning_content",
     "status": "deprecated",
@@ -13428,7 +12367,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "gpt-5": {
     "family": "gpt",
-    "knowledgeCutoff": "2024-09-30",
+    "trainingCutoff": "2024-09-30",
     "lastUpdated": "2025-08-07",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -13457,7 +12396,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "glm-5-free": {
     "family": "glm-free",
-    "knowledgeCutoff": "2025-04",
+    "trainingCutoff": "2025-04",
     "lastUpdated": "2026-02-11",
     "interleavedReasoningField": "reasoning_content",
     "status": "deprecated",
@@ -13486,7 +12425,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "claude-haiku-4-5": {
     "family": "claude-haiku",
-    "knowledgeCutoff": "2025-02-31",
+    "trainingCutoff": "2025-02-31",
     "lastUpdated": "2025-11-18",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -13516,9 +12455,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "gpt-5.1-codex": {
+  "gpt-5-1-codex": {
     "family": "gpt-codex",
-    "knowledgeCutoff": "2024-09-30",
+    "trainingCutoff": "2024-09-30",
     "lastUpdated": "2025-11-14",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -13550,7 +12489,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "big-pickle": {
     "family": "big-pickle",
-    "knowledgeCutoff": "2025-01",
+    "trainingCutoff": "2025-01",
     "lastUpdated": "2025-10-17",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -13577,9 +12516,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "minimax-m2.5-free": {
+  "minimax-m2-5-free": {
     "family": "minimax-free",
-    "knowledgeCutoff": "2025-01",
+    "trainingCutoff": "2025-01",
     "lastUpdated": "2026-02-12",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -13605,40 +12544,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "claude-opus-4-5": {
-    "family": "claude-opus",
-    "knowledgeCutoff": "2025-03-31",
-    "lastUpdated": "2025-08-01",
-    "interleavedReasoningField": "reasoning_content",
-    "apiSupport": {
-      "reasoning": true,
-      "toolCall": true,
-      "temperature": true,
-      "attachment": true
-    },
-    "modalities": {
-      "input": [
-        "text",
-        "image",
-        "other"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 64000,
-      "pricing": {
-        "cacheInput": 0.5,
-        "cacheOutput": 6.25
-      }
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
   "claude-sonnet-4": {
     "family": "claude-sonnet",
-    "knowledgeCutoff": "2025-03",
+    "trainingCutoff": "2025-03",
     "lastUpdated": "2025-05-22",
     "apiSupport": {
       "reasoning": false,
@@ -13662,9 +12570,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "glm-4.7-free": {
+  "glm-4-7-free": {
     "family": "glm-free",
-    "knowledgeCutoff": "2025-04",
+    "trainingCutoff": "2025-04",
     "lastUpdated": "2025-12-22",
     "interleavedReasoningField": "reasoning_content",
     "status": "deprecated",
@@ -13692,705 +12600,6 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataAsOfDate": "2026-03-01"
   },
   "gemini-3-pro": {
-    "family": "gemini-pro",
-    "knowledgeCutoff": "2025-01",
-    "lastUpdated": "2025-11-18",
-    "interleavedReasoningField": "reasoning_content",
-    "apiSupport": {
-      "reasoning": true,
-      "toolCall": true,
-      "structuredOutput": true,
-      "temperature": true,
-      "attachment": true
-    },
-    "modalities": {
-      "input": [
-        "text",
-        "image",
-        "video",
-        "audio",
-        "other"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 65536,
-      "pricing": {
-        "cacheInput": 0.2,
-        "contextOver200k": {
-          "input": 4,
-          "output": 18,
-          "cacheRead": 0.4
-        }
-      }
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "claude-sonnet-4-5": {
-    "family": "claude-sonnet",
-    "knowledgeCutoff": "2025-07-31",
-    "lastUpdated": "2025-11-18",
-    "interleavedReasoningField": "reasoning_content",
-    "apiSupport": {
-      "reasoning": true,
-      "toolCall": true,
-      "structuredOutput": true,
-      "temperature": true,
-      "attachment": true
-    },
-    "modalities": {
-      "input": [
-        "text",
-        "image",
-        "other"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 64000,
-      "pricing": {
-        "cacheInput": 0.3,
-        "cacheOutput": 3.75
-      }
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "gpt-5-nano": {
-    "family": "gpt-nano",
-    "knowledgeCutoff": "2024-05-30",
-    "lastUpdated": "2025-08-07",
-    "interleavedReasoningField": "reasoning_content",
-    "apiSupport": {
-      "reasoning": true,
-      "toolCall": true,
-      "temperature": false,
-      "attachment": true
-    },
-    "modalities": {
-      "input": [
-        "text",
-        "image"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 128000,
-      "pricing": {
-        "cacheInput": 0.01
-      }
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "stabilityai/stablediffusionxl": {
-    "family": "stable-diffusion",
-    "lastUpdated": "2023-07-09",
-    "apiSupport": {
-      "reasoning": false,
-      "toolCall": true,
-      "temperature": false,
-      "attachment": true
-    },
-    "modalities": {
-      "input": [
-        "text",
-        "image"
-      ],
-      "output": [
-        "image"
-      ]
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "ideogramai/ideogram-v2": {
-    "family": "ideogram",
-    "lastUpdated": "2024-08-21",
-    "apiSupport": {
-      "reasoning": false,
-      "toolCall": true,
-      "temperature": false,
-      "attachment": true
-    },
-    "modalities": {
-      "input": [
-        "text",
-        "image"
-      ],
-      "output": [
-        "image"
-      ]
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "ideogramai/ideogram": {
-    "family": "ideogram",
-    "lastUpdated": "2024-04-03",
-    "apiSupport": {
-      "reasoning": false,
-      "toolCall": true,
-      "temperature": false,
-      "attachment": true
-    },
-    "modalities": {
-      "input": [
-        "text",
-        "image"
-      ],
-      "output": [
-        "image"
-      ]
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "ideogramai/ideogram-v2a-turbo": {
-    "family": "ideogram",
-    "lastUpdated": "2025-02-27",
-    "apiSupport": {
-      "reasoning": false,
-      "toolCall": true,
-      "temperature": false,
-      "attachment": true
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "image"
-      ]
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "ideogramai/ideogram-v2a": {
-    "family": "ideogram",
-    "lastUpdated": "2025-02-27",
-    "apiSupport": {
-      "reasoning": false,
-      "toolCall": true,
-      "temperature": false,
-      "attachment": true
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "image"
-      ]
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "novita/glm-4.7-flash": {
-    "lastUpdated": "2026-01-19",
-    "interleavedReasoningField": "reasoning_content",
-    "apiSupport": {
-      "reasoning": true,
-      "toolCall": true,
-      "temperature": false,
-      "attachment": true
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 65500
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "novita/glm-4.7-n": {
-    "lastUpdated": "2025-12-22",
-    "interleavedReasoningField": "reasoning_content",
-    "apiSupport": {
-      "reasoning": true,
-      "toolCall": true,
-      "temperature": false,
-      "attachment": true
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 131072
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "novita/glm-4.6": {
-    "family": "glm",
-    "lastUpdated": "2025-09-30",
-    "apiSupport": {
-      "reasoning": false,
-      "toolCall": true,
-      "temperature": false,
-      "attachment": true
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "novita/minimax-m2.1": {
-    "lastUpdated": "2025-12-26",
-    "interleavedReasoningField": "reasoning_content",
-    "apiSupport": {
-      "reasoning": true,
-      "toolCall": true,
-      "temperature": false,
-      "attachment": true
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 131072
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "novita/kimi-k2.5": {
-    "lastUpdated": "2026-01-27",
-    "interleavedReasoningField": "reasoning_content",
-    "apiSupport": {
-      "reasoning": true,
-      "toolCall": true,
-      "temperature": false,
-      "attachment": true
-    },
-    "modalities": {
-      "input": [
-        "text",
-        "image",
-        "video"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 262144
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "novita/glm-4.7": {
-    "lastUpdated": "2025-12-22",
-    "interleavedReasoningField": "reasoning_content",
-    "apiSupport": {
-      "reasoning": true,
-      "toolCall": true,
-      "temperature": true,
-      "attachment": true
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 131072
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "novita/kimi-k2-thinking": {
-    "family": "kimi",
-    "lastUpdated": "2025-11-07",
-    "interleavedReasoningField": "reasoning_content",
-    "apiSupport": {
-      "reasoning": true,
-      "toolCall": true,
-      "temperature": false,
-      "attachment": true
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "novita/glm-4.6v": {
-    "lastUpdated": "2025-12-09",
-    "interleavedReasoningField": "reasoning_content",
-    "apiSupport": {
-      "reasoning": true,
-      "toolCall": true,
-      "temperature": false,
-      "attachment": true
-    },
-    "modalities": {
-      "input": [
-        "text",
-        "image"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 32768
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "google/lyria": {
-    "family": "lyria",
-    "lastUpdated": "2025-06-04",
-    "apiSupport": {
-      "reasoning": false,
-      "toolCall": true,
-      "temperature": false,
-      "attachment": true
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "audio"
-      ]
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "google/gemini-3-flash": {
-    "family": "gemini-flash",
-    "knowledgeCutoff": "2025-03",
-    "lastUpdated": "2025-12-17",
-    "interleavedReasoningField": "reasoning_content",
-    "apiSupport": {
-      "reasoning": true,
-      "toolCall": true,
-      "temperature": true,
-      "attachment": true
-    },
-    "modalities": {
-      "input": [
-        "text",
-        "image",
-        "other"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 64000,
-      "pricing": {
-        "cacheInput": 0.05
-      }
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "google/imagen-3": {
-    "family": "imagen",
-    "lastUpdated": "2024-10-15",
-    "apiSupport": {
-      "reasoning": false,
-      "toolCall": true,
-      "temperature": false,
-      "attachment": true
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "image"
-      ]
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "google/veo-3.1": {
-    "family": "veo",
-    "lastUpdated": "2025-10-15",
-    "apiSupport": {
-      "reasoning": false,
-      "toolCall": true,
-      "temperature": false,
-      "attachment": true
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "video"
-      ]
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "google/imagen-3-fast": {
-    "family": "imagen",
-    "lastUpdated": "2024-10-17",
-    "apiSupport": {
-      "reasoning": false,
-      "toolCall": true,
-      "temperature": false,
-      "attachment": true
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "image"
-      ]
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "google/nano-banana-pro": {
-    "family": "nano-banana",
-    "lastUpdated": "2025-11-19",
-    "apiSupport": {
-      "reasoning": false,
-      "toolCall": true,
-      "temperature": false,
-      "attachment": true
-    },
-    "modalities": {
-      "input": [
-        "text",
-        "image"
-      ],
-      "output": [
-        "image"
-      ]
-    },
-    "specs": {
-      "pricing": {
-        "cacheInput": 0.2
-      }
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "google/veo-2": {
-    "family": "veo",
-    "lastUpdated": "2024-12-02",
-    "apiSupport": {
-      "reasoning": false,
-      "toolCall": true,
-      "temperature": false,
-      "attachment": true
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "video"
-      ]
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "google/imagen-4-ultra": {
-    "family": "imagen",
-    "lastUpdated": "2025-05-24",
-    "apiSupport": {
-      "reasoning": false,
-      "toolCall": true,
-      "temperature": false,
-      "attachment": true
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "image"
-      ]
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "google/nano-banana": {
-    "family": "nano-banana",
-    "lastUpdated": "2025-08-21",
-    "apiSupport": {
-      "reasoning": false,
-      "toolCall": true,
-      "temperature": false,
-      "attachment": true
-    },
-    "modalities": {
-      "input": [
-        "text",
-        "image"
-      ],
-      "output": [
-        "text",
-        "image"
-      ]
-    },
-    "specs": {
-      "pricing": {
-        "cacheInput": 0.021
-      }
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "google/veo-3.1-fast": {
-    "family": "veo",
-    "lastUpdated": "2025-10-15",
-    "apiSupport": {
-      "reasoning": false,
-      "toolCall": true,
-      "temperature": false,
-      "attachment": true
-    },
-    "modalities": {
-      "input": [
-        "text",
-        "image"
-      ],
-      "output": [
-        "video"
-      ]
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "google/gemini-deep-research": {
-    "lastUpdated": "2025-12-11",
-    "interleavedReasoningField": "reasoning_content",
-    "apiSupport": {
-      "reasoning": true,
-      "toolCall": true,
-      "temperature": false,
-      "attachment": true
-    },
-    "modalities": {
-      "input": [
-        "text",
-        "image",
-        "video"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "google/veo-3": {
-    "family": "veo",
-    "lastUpdated": "2025-05-21",
-    "apiSupport": {
-      "reasoning": false,
-      "toolCall": true,
-      "temperature": false,
-      "attachment": true
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "video"
-      ]
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "google/imagen-4": {
-    "family": "imagen",
-    "lastUpdated": "2025-05-22",
-    "apiSupport": {
-      "reasoning": false,
-      "toolCall": true,
-      "temperature": false,
-      "attachment": true
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "image"
-      ]
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "google/gemini-2.0-flash-lite": {
-    "family": "gemini-flash-lite",
-    "knowledgeCutoff": "2024-06",
-    "lastUpdated": "2024-12-11",
-    "apiSupport": {
-      "reasoning": false,
-      "toolCall": true,
-      "structuredOutput": true,
-      "temperature": true,
-      "attachment": true
-    },
-    "modalities": {
-      "input": [
-        "text",
-        "image",
-        "audio",
-        "video",
-        "other"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 8192
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "google/gemini-3-pro": {
     "family": "gemini-pro",
     "lastUpdated": "2025-10-22",
     "interleavedReasoningField": "reasoning_content",
@@ -14420,9 +12629,608 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "google/gemini-2.0-flash": {
+  "gpt-5-nano": {
+    "family": "gpt-nano",
+    "trainingCutoff": "2024-05-30",
+    "lastUpdated": "2025-08-07",
+    "interleavedReasoningField": "reasoning_content",
+    "apiSupport": {
+      "reasoning": true,
+      "toolCall": true,
+      "temperature": false,
+      "attachment": true
+    },
+    "modalities": {
+      "input": [
+        "text",
+        "image"
+      ],
+      "output": [
+        "text"
+      ]
+    },
+    "specs": {
+      "maxOutputTokens": 128000,
+      "pricing": {
+        "cacheInput": 0.01
+      }
+    },
+    "metadataSourceId": "models-dev",
+    "metadataAsOfDate": "2026-03-01"
+  },
+  "stabilityai-stablediffusionxl": {
+    "family": "stable-diffusion",
+    "lastUpdated": "2023-07-09",
+    "apiSupport": {
+      "reasoning": false,
+      "toolCall": true,
+      "temperature": false,
+      "attachment": true
+    },
+    "modalities": {
+      "input": [
+        "text",
+        "image"
+      ],
+      "output": [
+        "image"
+      ]
+    },
+    "metadataSourceId": "models-dev",
+    "metadataAsOfDate": "2026-03-01"
+  },
+  "ideogramai-ideogram-v2": {
+    "family": "ideogram",
+    "lastUpdated": "2024-08-21",
+    "apiSupport": {
+      "reasoning": false,
+      "toolCall": true,
+      "temperature": false,
+      "attachment": true
+    },
+    "modalities": {
+      "input": [
+        "text",
+        "image"
+      ],
+      "output": [
+        "image"
+      ]
+    },
+    "metadataSourceId": "models-dev",
+    "metadataAsOfDate": "2026-03-01"
+  },
+  "ideogramai-ideogram": {
+    "family": "ideogram",
+    "lastUpdated": "2024-04-03",
+    "apiSupport": {
+      "reasoning": false,
+      "toolCall": true,
+      "temperature": false,
+      "attachment": true
+    },
+    "modalities": {
+      "input": [
+        "text",
+        "image"
+      ],
+      "output": [
+        "image"
+      ]
+    },
+    "metadataSourceId": "models-dev",
+    "metadataAsOfDate": "2026-03-01"
+  },
+  "ideogramai-ideogram-v2a-turbo": {
+    "family": "ideogram",
+    "lastUpdated": "2025-02-27",
+    "apiSupport": {
+      "reasoning": false,
+      "toolCall": true,
+      "temperature": false,
+      "attachment": true
+    },
+    "modalities": {
+      "input": [
+        "text"
+      ],
+      "output": [
+        "image"
+      ]
+    },
+    "metadataSourceId": "models-dev",
+    "metadataAsOfDate": "2026-03-01"
+  },
+  "ideogramai-ideogram-v2a": {
+    "family": "ideogram",
+    "lastUpdated": "2025-02-27",
+    "apiSupport": {
+      "reasoning": false,
+      "toolCall": true,
+      "temperature": false,
+      "attachment": true
+    },
+    "modalities": {
+      "input": [
+        "text"
+      ],
+      "output": [
+        "image"
+      ]
+    },
+    "metadataSourceId": "models-dev",
+    "metadataAsOfDate": "2026-03-01"
+  },
+  "novita-glm-4-7-flash": {
+    "lastUpdated": "2026-01-19",
+    "interleavedReasoningField": "reasoning_content",
+    "apiSupport": {
+      "reasoning": true,
+      "toolCall": true,
+      "temperature": false,
+      "attachment": true
+    },
+    "modalities": {
+      "input": [
+        "text"
+      ],
+      "output": [
+        "text"
+      ]
+    },
+    "specs": {
+      "maxOutputTokens": 65500
+    },
+    "metadataSourceId": "models-dev",
+    "metadataAsOfDate": "2026-03-01"
+  },
+  "novita-glm-4-7-n": {
+    "lastUpdated": "2025-12-22",
+    "interleavedReasoningField": "reasoning_content",
+    "apiSupport": {
+      "reasoning": true,
+      "toolCall": true,
+      "temperature": false,
+      "attachment": true
+    },
+    "modalities": {
+      "input": [
+        "text"
+      ],
+      "output": [
+        "text"
+      ]
+    },
+    "specs": {
+      "maxOutputTokens": 131072
+    },
+    "metadataSourceId": "models-dev",
+    "metadataAsOfDate": "2026-03-01"
+  },
+  "novita-glm-4-6": {
+    "family": "glm",
+    "lastUpdated": "2025-09-30",
+    "apiSupport": {
+      "reasoning": false,
+      "toolCall": true,
+      "temperature": false,
+      "attachment": true
+    },
+    "modalities": {
+      "input": [
+        "text"
+      ],
+      "output": [
+        "text"
+      ]
+    },
+    "metadataSourceId": "models-dev",
+    "metadataAsOfDate": "2026-03-01"
+  },
+  "novita-minimax-m2-1": {
+    "lastUpdated": "2025-12-26",
+    "interleavedReasoningField": "reasoning_content",
+    "apiSupport": {
+      "reasoning": true,
+      "toolCall": true,
+      "temperature": false,
+      "attachment": true
+    },
+    "modalities": {
+      "input": [
+        "text"
+      ],
+      "output": [
+        "text"
+      ]
+    },
+    "specs": {
+      "maxOutputTokens": 131072
+    },
+    "metadataSourceId": "models-dev",
+    "metadataAsOfDate": "2026-03-01"
+  },
+  "novita-kimi-k2-5": {
+    "lastUpdated": "2026-01-27",
+    "interleavedReasoningField": "reasoning_content",
+    "apiSupport": {
+      "reasoning": true,
+      "toolCall": true,
+      "temperature": false,
+      "attachment": true
+    },
+    "modalities": {
+      "input": [
+        "text",
+        "image",
+        "video"
+      ],
+      "output": [
+        "text"
+      ]
+    },
+    "specs": {
+      "maxOutputTokens": 262144
+    },
+    "metadataSourceId": "models-dev",
+    "metadataAsOfDate": "2026-03-01"
+  },
+  "novita-glm-4-7": {
+    "lastUpdated": "2025-12-22",
+    "interleavedReasoningField": "reasoning_content",
+    "apiSupport": {
+      "reasoning": true,
+      "toolCall": true,
+      "temperature": true,
+      "attachment": true
+    },
+    "modalities": {
+      "input": [
+        "text"
+      ],
+      "output": [
+        "text"
+      ]
+    },
+    "specs": {
+      "maxOutputTokens": 131072
+    },
+    "metadataSourceId": "models-dev",
+    "metadataAsOfDate": "2026-03-01"
+  },
+  "novita-kimi-k2-thinking": {
+    "family": "kimi",
+    "lastUpdated": "2025-11-07",
+    "interleavedReasoningField": "reasoning_content",
+    "apiSupport": {
+      "reasoning": true,
+      "toolCall": true,
+      "temperature": false,
+      "attachment": true
+    },
+    "modalities": {
+      "input": [
+        "text"
+      ],
+      "output": [
+        "text"
+      ]
+    },
+    "metadataSourceId": "models-dev",
+    "metadataAsOfDate": "2026-03-01"
+  },
+  "novita-glm-4-6v": {
+    "lastUpdated": "2025-12-09",
+    "interleavedReasoningField": "reasoning_content",
+    "apiSupport": {
+      "reasoning": true,
+      "toolCall": true,
+      "temperature": false,
+      "attachment": true
+    },
+    "modalities": {
+      "input": [
+        "text",
+        "image"
+      ],
+      "output": [
+        "text"
+      ]
+    },
+    "specs": {
+      "maxOutputTokens": 32768
+    },
+    "metadataSourceId": "models-dev",
+    "metadataAsOfDate": "2026-03-01"
+  },
+  "google-lyria": {
+    "family": "lyria",
+    "lastUpdated": "2025-06-04",
+    "apiSupport": {
+      "reasoning": false,
+      "toolCall": true,
+      "temperature": false,
+      "attachment": true
+    },
+    "modalities": {
+      "input": [
+        "text"
+      ],
+      "output": [
+        "audio"
+      ]
+    },
+    "metadataSourceId": "models-dev",
+    "metadataAsOfDate": "2026-03-01"
+  },
+  "google-imagen-3": {
+    "family": "imagen",
+    "lastUpdated": "2024-10-15",
+    "apiSupport": {
+      "reasoning": false,
+      "toolCall": true,
+      "temperature": false,
+      "attachment": true
+    },
+    "modalities": {
+      "input": [
+        "text"
+      ],
+      "output": [
+        "image"
+      ]
+    },
+    "metadataSourceId": "models-dev",
+    "metadataAsOfDate": "2026-03-01"
+  },
+  "google-veo-3-1": {
+    "family": "veo",
+    "lastUpdated": "2025-10-15",
+    "apiSupport": {
+      "reasoning": false,
+      "toolCall": true,
+      "temperature": false,
+      "attachment": true
+    },
+    "modalities": {
+      "input": [
+        "text"
+      ],
+      "output": [
+        "video"
+      ]
+    },
+    "metadataSourceId": "models-dev",
+    "metadataAsOfDate": "2026-03-01"
+  },
+  "google-imagen-3-fast": {
+    "family": "imagen",
+    "lastUpdated": "2024-10-17",
+    "apiSupport": {
+      "reasoning": false,
+      "toolCall": true,
+      "temperature": false,
+      "attachment": true
+    },
+    "modalities": {
+      "input": [
+        "text"
+      ],
+      "output": [
+        "image"
+      ]
+    },
+    "metadataSourceId": "models-dev",
+    "metadataAsOfDate": "2026-03-01"
+  },
+  "google-nano-banana-pro": {
+    "family": "nano-banana",
+    "lastUpdated": "2025-11-19",
+    "apiSupport": {
+      "reasoning": false,
+      "toolCall": true,
+      "temperature": false,
+      "attachment": true
+    },
+    "modalities": {
+      "input": [
+        "text",
+        "image"
+      ],
+      "output": [
+        "image"
+      ]
+    },
+    "specs": {
+      "pricing": {
+        "cacheInput": 0.2
+      }
+    },
+    "metadataSourceId": "models-dev",
+    "metadataAsOfDate": "2026-03-01"
+  },
+  "google-veo-2": {
+    "family": "veo",
+    "lastUpdated": "2024-12-02",
+    "apiSupport": {
+      "reasoning": false,
+      "toolCall": true,
+      "temperature": false,
+      "attachment": true
+    },
+    "modalities": {
+      "input": [
+        "text"
+      ],
+      "output": [
+        "video"
+      ]
+    },
+    "metadataSourceId": "models-dev",
+    "metadataAsOfDate": "2026-03-01"
+  },
+  "google-imagen-4-ultra": {
+    "family": "imagen",
+    "lastUpdated": "2025-05-24",
+    "apiSupport": {
+      "reasoning": false,
+      "toolCall": true,
+      "temperature": false,
+      "attachment": true
+    },
+    "modalities": {
+      "input": [
+        "text"
+      ],
+      "output": [
+        "image"
+      ]
+    },
+    "metadataSourceId": "models-dev",
+    "metadataAsOfDate": "2026-03-01"
+  },
+  "google-nano-banana": {
+    "family": "nano-banana",
+    "lastUpdated": "2025-08-21",
+    "apiSupport": {
+      "reasoning": false,
+      "toolCall": true,
+      "temperature": false,
+      "attachment": true
+    },
+    "modalities": {
+      "input": [
+        "text",
+        "image"
+      ],
+      "output": [
+        "text",
+        "image"
+      ]
+    },
+    "specs": {
+      "pricing": {
+        "cacheInput": 0.021
+      }
+    },
+    "metadataSourceId": "models-dev",
+    "metadataAsOfDate": "2026-03-01"
+  },
+  "google-veo-3-1-fast": {
+    "family": "veo",
+    "lastUpdated": "2025-10-15",
+    "apiSupport": {
+      "reasoning": false,
+      "toolCall": true,
+      "temperature": false,
+      "attachment": true
+    },
+    "modalities": {
+      "input": [
+        "text",
+        "image"
+      ],
+      "output": [
+        "video"
+      ]
+    },
+    "metadataSourceId": "models-dev",
+    "metadataAsOfDate": "2026-03-01"
+  },
+  "google-gemini-deep-research": {
+    "lastUpdated": "2025-12-11",
+    "interleavedReasoningField": "reasoning_content",
+    "apiSupport": {
+      "reasoning": true,
+      "toolCall": true,
+      "temperature": false,
+      "attachment": true
+    },
+    "modalities": {
+      "input": [
+        "text",
+        "image",
+        "video"
+      ],
+      "output": [
+        "text"
+      ]
+    },
+    "metadataSourceId": "models-dev",
+    "metadataAsOfDate": "2026-03-01"
+  },
+  "google-veo-3": {
+    "family": "veo",
+    "lastUpdated": "2025-05-21",
+    "apiSupport": {
+      "reasoning": false,
+      "toolCall": true,
+      "temperature": false,
+      "attachment": true
+    },
+    "modalities": {
+      "input": [
+        "text"
+      ],
+      "output": [
+        "video"
+      ]
+    },
+    "metadataSourceId": "models-dev",
+    "metadataAsOfDate": "2026-03-01"
+  },
+  "google-imagen-4": {
+    "family": "imagen",
+    "lastUpdated": "2025-05-22",
+    "apiSupport": {
+      "reasoning": false,
+      "toolCall": true,
+      "temperature": false,
+      "attachment": true
+    },
+    "modalities": {
+      "input": [
+        "text"
+      ],
+      "output": [
+        "image"
+      ]
+    },
+    "metadataSourceId": "models-dev",
+    "metadataAsOfDate": "2026-03-01"
+  },
+  "google-gemini-2-0-flash-lite": {
+    "family": "gemini-flash-lite",
+    "trainingCutoff": "2024-06",
+    "lastUpdated": "2024-12-11",
+    "apiSupport": {
+      "reasoning": false,
+      "toolCall": true,
+      "structuredOutput": true,
+      "temperature": true,
+      "attachment": true
+    },
+    "modalities": {
+      "input": [
+        "text",
+        "image",
+        "audio",
+        "video",
+        "other"
+      ],
+      "output": [
+        "text"
+      ]
+    },
+    "specs": {
+      "maxOutputTokens": 8192
+    },
+    "metadataSourceId": "models-dev",
+    "metadataAsOfDate": "2026-03-01"
+  },
+  "google-gemini-2-0-flash": {
     "family": "gemini-flash",
-    "knowledgeCutoff": "2024-06",
+    "trainingCutoff": "2024-06",
     "lastUpdated": "2024-12-11",
     "apiSupport": {
       "reasoning": false,
@@ -14452,7 +13260,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "google/veo-3-fast": {
+  "google-veo-3-fast": {
     "family": "veo",
     "lastUpdated": "2025-10-13",
     "apiSupport": {
@@ -14472,7 +13280,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "google/imagen-4-fast": {
+  "google-imagen-4-fast": {
     "family": "imagen",
     "lastUpdated": "2025-06-25",
     "apiSupport": {
@@ -14492,7 +13300,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "lumalabs/ray2": {
+  "lumalabs-ray2": {
     "family": "ray",
     "lastUpdated": "2025-02-20",
     "apiSupport": {
@@ -14513,7 +13321,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "poetools/claude-code": {
+  "poetools-claude-code": {
     "lastUpdated": "2025-11-27",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -14533,7 +13341,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "openai/gpt-5-pro": {
+  "openai-gpt-5-pro": {
     "lastUpdated": "2025-10-06",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -14557,7 +13365,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "openai/gpt-5.1-codex-max": {
+  "openai-gpt-5-1-codex-max": {
     "lastUpdated": "2025-11-13",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -14584,7 +13392,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "openai/o3-deep-research": {
+  "openai-o3-deep-research": {
     "lastUpdated": "2025-06-27",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -14611,7 +13419,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "openai/o4-mini-deep-research": {
+  "openai-o4-mini-deep-research": {
     "lastUpdated": "2025-06-27",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -14638,7 +13446,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "openai/gpt-5-chat": {
+  "openai-gpt-5-chat": {
     "lastUpdated": "2025-08-07",
     "apiSupport": {
       "reasoning": false,
@@ -14664,7 +13472,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "openai/gpt-4-classic": {
+  "openai-gpt-4-classic": {
     "family": "gpt",
     "lastUpdated": "2024-03-25",
     "apiSupport": {
@@ -14688,7 +13496,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "openai/gpt-image-1.5": {
+  "openai-gpt-image-1-5": {
     "lastUpdated": "2025-12-16",
     "apiSupport": {
       "reasoning": false,
@@ -14708,7 +13516,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "openai/gpt-4.1-nano": {
+  "openai-gpt-4-1-nano": {
     "lastUpdated": "2025-04-15",
     "apiSupport": {
       "reasoning": false,
@@ -14734,7 +13542,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "openai/gpt-image-1-mini": {
+  "openai-gpt-image-1-mini": {
     "family": "gpt",
     "lastUpdated": "2025-08-26",
     "apiSupport": {
@@ -14755,7 +13563,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "openai/sora-2-pro": {
+  "openai-sora-2-pro": {
     "family": "sora",
     "lastUpdated": "2025-10-06",
     "apiSupport": {
@@ -14776,7 +13584,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "openai/gpt-4o-aug": {
+  "openai-gpt-4o-aug": {
     "family": "gpt",
     "lastUpdated": "2024-11-21",
     "apiSupport": {
@@ -14803,7 +13611,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "openai/gpt-image-1": {
+  "openai-gpt-image-1": {
     "family": "gpt",
     "lastUpdated": "2025-03-31",
     "apiSupport": {
@@ -14824,7 +13632,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "openai/sora-2": {
+  "openai-sora-2": {
     "family": "sora",
     "lastUpdated": "2025-10-06",
     "apiSupport": {
@@ -14845,7 +13653,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "openai/gpt-3.5-turbo-raw": {
+  "openai-gpt-3-5-turbo-raw": {
     "family": "gpt",
     "lastUpdated": "2023-09-27",
     "apiSupport": {
@@ -14869,7 +13677,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "openai/gpt-4o-mini-search": {
+  "openai-gpt-4o-mini-search": {
     "family": "gpt-mini",
     "lastUpdated": "2025-03-11",
     "apiSupport": {
@@ -14892,7 +13700,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "openai/gpt-4.1-mini": {
+  "openai-gpt-4-1-mini": {
     "lastUpdated": "2025-04-14",
     "apiSupport": {
       "reasoning": false,
@@ -14918,7 +13726,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "openai/o1-pro": {
+  "openai-o1-pro": {
     "lastUpdated": "2025-03-19",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -14942,7 +13750,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "openai/chatgpt-4o-latest": {
+  "openai-chatgpt-4o-latest": {
     "lastUpdated": "2024-08-14",
     "apiSupport": {
       "reasoning": false,
@@ -14965,7 +13773,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "openai/gpt-5.2-pro": {
+  "openai-gpt-5-2-pro": {
     "lastUpdated": "2025-12-11",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -14989,7 +13797,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "openai/dall-e-3": {
+  "openai-dall-e-3": {
     "family": "dall-e",
     "lastUpdated": "2023-11-06",
     "apiSupport": {
@@ -15009,7 +13817,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "openai/gpt-4o-search": {
+  "openai-gpt-4o-search": {
     "family": "gpt",
     "lastUpdated": "2025-03-11",
     "apiSupport": {
@@ -15032,7 +13840,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "openai/gpt-4-classic-0314": {
+  "openai-gpt-4-classic-0314": {
     "family": "gpt",
     "lastUpdated": "2024-08-26",
     "apiSupport": {
@@ -15056,7 +13864,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "openai/gpt-3.5-turbo-instruct": {
+  "openai-gpt-3-5-turbo-instruct": {
     "lastUpdated": "2023-09-21",
     "apiSupport": {
       "reasoning": false,
@@ -15078,7 +13886,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "openai/gpt-5.2-instant": {
+  "openai-gpt-5-2-instant": {
     "lastUpdated": "2025-12-11",
     "apiSupport": {
       "reasoning": false,
@@ -15104,7 +13912,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "openai/o3-mini-high": {
+  "openai-o3-mini-high": {
     "lastUpdated": "2025-01-31",
     "apiSupport": {
       "reasoning": false,
@@ -15129,9 +13937,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "openai/gpt-5.1-instant": {
+  "openai-gpt-5-1-instant": {
     "family": "gpt",
-    "knowledgeCutoff": "2024-10",
+    "trainingCutoff": "2024-10",
     "lastUpdated": "2025-08-07",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -15160,7 +13968,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "topazlabs-co/topazlabs": {
+  "topazlabs-co-topazlabs": {
     "family": "topazlabs",
     "lastUpdated": "2024-12-03",
     "apiSupport": {
@@ -15180,7 +13988,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "runwayml/runway": {
+  "runwayml-runway": {
     "family": "runway",
     "lastUpdated": "2024-10-11",
     "apiSupport": {
@@ -15201,7 +14009,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "runwayml/runway-gen-4-turbo": {
+  "runwayml-runway-gen-4-turbo": {
     "family": "runway",
     "lastUpdated": "2025-05-09",
     "apiSupport": {
@@ -15222,7 +14030,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "anthropic/claude-sonnet-3.5-june": {
+  "anthropic-claude-sonnet-3-5-june": {
     "family": "claude-sonnet",
     "lastUpdated": "2024-11-18",
     "apiSupport": {
@@ -15251,7 +14059,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "anthropic/claude-sonnet-3.5": {
+  "anthropic-claude-sonnet-3-5": {
     "family": "claude-sonnet",
     "lastUpdated": "2024-06-05",
     "apiSupport": {
@@ -15280,7 +14088,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "anthropic/claude-haiku-3": {
+  "anthropic-claude-haiku-3": {
     "family": "claude-haiku",
     "lastUpdated": "2024-03-09",
     "apiSupport": {
@@ -15309,7 +14117,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "anthropic/claude-haiku-3.5": {
+  "anthropic-claude-haiku-3-5": {
     "family": "claude-haiku",
     "lastUpdated": "2024-10-01",
     "apiSupport": {
@@ -15338,7 +14146,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "anthropic/claude-sonnet-3.7": {
+  "anthropic-claude-sonnet-3-7": {
     "family": "claude-sonnet",
     "lastUpdated": "2025-02-19",
     "interleavedReasoningField": "reasoning_content",
@@ -15368,7 +14176,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "trytako/tako": {
+  "trytako-tako": {
     "family": "tako",
     "lastUpdated": "2024-08-15",
     "apiSupport": {
@@ -15388,7 +14196,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "elevenlabs/elevenlabs-music": {
+  "elevenlabs-elevenlabs-music": {
     "family": "elevenlabs",
     "lastUpdated": "2025-08-29",
     "apiSupport": {
@@ -15408,7 +14216,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "elevenlabs/elevenlabs-v3": {
+  "elevenlabs-elevenlabs-v3": {
     "family": "elevenlabs",
     "lastUpdated": "2025-06-05",
     "apiSupport": {
@@ -15428,7 +14236,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "elevenlabs/elevenlabs-v2.5-turbo": {
+  "elevenlabs-elevenlabs-v2-5-turbo": {
     "family": "elevenlabs",
     "lastUpdated": "2024-10-28",
     "apiSupport": {
@@ -15448,7 +14256,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "cerebras/llama-3.1-8b-cs": {
+  "cerebras-llama-3-1-8b-cs": {
     "lastUpdated": "2025-05-13",
     "apiSupport": {
       "reasoning": false,
@@ -15467,7 +14275,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "cerebras/gpt-oss-120b-cs": {
+  "cerebras-gpt-oss-120b-cs": {
     "lastUpdated": "2025-08-06",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -15487,7 +14295,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "cerebras/qwen3-235b-2507-cs": {
+  "cerebras-qwen3-235b-2507-cs": {
     "lastUpdated": "2025-08-06",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -15507,7 +14315,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "cerebras/llama-3.3-70b-cs": {
+  "cerebras-llama-3-3-70b-cs": {
     "lastUpdated": "2025-05-13",
     "apiSupport": {
       "reasoning": false,
@@ -15526,7 +14334,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "cerebras/qwen3-32b-cs": {
+  "cerebras-qwen3-32b-cs": {
     "lastUpdated": "2025-05-15",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -15546,9 +14354,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "xai/grok-4-fast-reasoning": {
+  "xai-grok-4-fast-reasoning": {
     "family": "grok",
-    "knowledgeCutoff": "2024-10",
+    "trainingCutoff": "2024-10",
     "lastUpdated": "2025-07-09",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -15574,9 +14382,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "xai/grok-3": {
+  "grok-3": {
     "family": "grok",
-    "knowledgeCutoff": "2024-11",
+    "trainingCutoff": "2024-11",
     "lastUpdated": "2025-02-17",
     "apiSupport": {
       "reasoning": false,
@@ -15601,9 +14409,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "xai/grok-code-fast-1": {
+  "xai-grok-code-fast-1": {
     "family": "grok",
-    "knowledgeCutoff": "2023-10",
+    "trainingCutoff": "2023-10",
     "lastUpdated": "2025-08-28",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -15629,9 +14437,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "xai/grok-4.1-fast-reasoning": {
+  "xai-grok-4-1-fast-reasoning": {
     "family": "grok",
-    "knowledgeCutoff": "2024-10",
+    "trainingCutoff": "2024-10",
     "lastUpdated": "2025-07-09",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -15657,9 +14465,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "xai/grok-4": {
+  "grok-4": {
     "family": "grok",
-    "knowledgeCutoff": "2025-07",
+    "trainingCutoff": "2025-07",
     "lastUpdated": "2025-07-09",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -15686,9 +14494,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "xai/grok-4.1-fast-non-reasoning": {
+  "xai-grok-4-1-fast-non-reasoning": {
     "family": "grok",
-    "knowledgeCutoff": "2024-10",
+    "trainingCutoff": "2024-10",
     "lastUpdated": "2025-07-09",
     "apiSupport": {
       "reasoning": false,
@@ -15713,9 +14521,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "xai/grok-3-mini": {
+  "xai-grok-3-mini": {
     "family": "grok",
-    "knowledgeCutoff": "2024-11",
+    "trainingCutoff": "2024-11",
     "lastUpdated": "2025-02-17",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -15742,9 +14550,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "xai/grok-4-fast-non-reasoning": {
+  "xai-grok-4-fast-non-reasoning": {
     "family": "grok",
-    "knowledgeCutoff": "2025-07",
+    "trainingCutoff": "2025-07",
     "lastUpdated": "2025-09-19",
     "apiSupport": {
       "reasoning": false,
@@ -15770,9 +14578,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "deepseek.r1-v1:0": {
+  "deepseek-r1-v1:0": {
     "family": "deepseek-thinking",
-    "knowledgeCutoff": "2024-07",
+    "trainingCutoff": "2024-07",
     "lastUpdated": "2025-05-29",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -15795,9 +14603,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "meta.llama3-1-70b-instruct-v1:0": {
+  "meta-llama3-1-70b-instruct-v1:0": {
     "family": "llama",
-    "knowledgeCutoff": "2023-12",
+    "trainingCutoff": "2023-12",
     "lastUpdated": "2024-07-23",
     "apiSupport": {
       "reasoning": false,
@@ -15819,9 +14627,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "anthropic.claude-instant-v1": {
+  "anthropic-claude-instant-v1": {
     "family": "claude",
-    "knowledgeCutoff": "2023-08",
+    "trainingCutoff": "2023-08",
     "lastUpdated": "2023-03-01",
     "apiSupport": {
       "reasoning": false,
@@ -15843,7 +14651,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "amazon.titan-text-express-v1": {
+  "amazon-titan-text-express-v1": {
     "family": "titan",
     "lastUpdated": "2024-12-01",
     "apiSupport": {
@@ -15866,9 +14674,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "qwen.qwen3-coder-480b-a35b-v1:0": {
+  "qwen-qwen3-coder-480b-a35b-v1:0": {
     "family": "qwen",
-    "knowledgeCutoff": "2024-04",
+    "trainingCutoff": "2024-04",
     "lastUpdated": "2025-09-18",
     "apiSupport": {
       "reasoning": false,
@@ -15890,9 +14698,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "eu.anthropic.claude-sonnet-4-6": {
+  "eu-anthropic-claude-sonnet-4-6": {
     "family": "claude-sonnet",
-    "knowledgeCutoff": "2025-08",
+    "trainingCutoff": "2025-08",
     "lastUpdated": "2026-02-17",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -15926,9 +14734,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "cohere.command-r-v1:0": {
+  "cohere-command-r-v1:0": {
     "family": "command-r",
-    "knowledgeCutoff": "2024-04",
+    "trainingCutoff": "2024-04",
     "lastUpdated": "2024-03-11",
     "apiSupport": {
       "reasoning": false,
@@ -15950,9 +14758,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "eu.anthropic.claude-haiku-4-5-20251001-v1:0": {
+  "eu-anthropic-claude-haiku-4-5-20251001-v1:0": {
     "family": "claude-haiku",
-    "knowledgeCutoff": "2025-02-28",
+    "trainingCutoff": "2025-02-28",
     "lastUpdated": "2025-10-15",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -15981,7 +14789,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "openai.gpt-oss-120b-1:0": {
+  "openai-gpt-oss-120b-1:0": {
     "family": "gpt-oss",
     "lastUpdated": "2024-12-01",
     "apiSupport": {
@@ -16004,9 +14812,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "us.anthropic.claude-opus-4-20250514-v1:0": {
+  "us-anthropic-claude-opus-4-20250514-v1:0": {
     "family": "claude-opus",
-    "knowledgeCutoff": "2024-04",
+    "trainingCutoff": "2024-04",
     "lastUpdated": "2025-05-22",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -16035,7 +14843,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "nvidia.nemotron-nano-12b-v2": {
+  "nvidia-nemotron-nano-12b-v2": {
     "family": "nemotron",
     "lastUpdated": "2024-12-01",
     "apiSupport": {
@@ -16059,9 +14867,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "anthropic.claude-3-7-sonnet-20250219-v1:0": {
+  "anthropic-claude-3-7-sonnet-20250219-v1:0": {
     "family": "claude-sonnet",
-    "knowledgeCutoff": "2024-04",
+    "trainingCutoff": "2024-04",
     "lastUpdated": "2025-02-19",
     "apiSupport": {
       "reasoning": false,
@@ -16089,70 +14897,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "anthropic.claude-sonnet-4-6": {
-    "family": "claude-sonnet",
-    "knowledgeCutoff": "2025-08",
-    "lastUpdated": "2026-02-17",
-    "interleavedReasoningField": "reasoning_content",
-    "apiSupport": {
-      "reasoning": true,
-      "toolCall": true,
-      "temperature": true,
-      "attachment": true
-    },
-    "modalities": {
-      "input": [
-        "text",
-        "image",
-        "other"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 64000,
-      "pricing": {
-        "cacheInput": 0.3,
-        "cacheOutput": 3.75,
-        "contextOver200k": {
-          "input": 6,
-          "output": 22.5,
-          "cacheRead": 0.6
-        }
-      }
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "minimax.minimax-m2.1": {
-    "family": "minimax",
-    "lastUpdated": "2025-12-23",
-    "interleavedReasoningField": "reasoning_content",
-    "apiSupport": {
-      "reasoning": true,
-      "toolCall": true,
-      "structuredOutput": false,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 131072
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "global.anthropic.claude-opus-4-5-20251101-v1:0": {
+  "global-anthropic-claude-opus-4-5-20251101-v1:0": {
     "family": "claude-opus",
-    "knowledgeCutoff": "2025-03-31",
+    "trainingCutoff": "2025-03-31",
     "lastUpdated": "2025-08-01",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -16181,7 +14928,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "mistral.ministral-3-8b-instruct": {
+  "mistral-ministral-3-8b-instruct": {
     "family": "ministral",
     "lastUpdated": "2024-12-01",
     "apiSupport": {
@@ -16204,11 +14951,11 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "openai.gpt-oss-safeguard-20b": {
-    "family": "gpt-oss",
-    "lastUpdated": "2024-12-01",
+  "openai-gpt-oss-safeguard-20b": {
+    "lastUpdated": "2025-10-29",
+    "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
-      "reasoning": false,
+      "reasoning": true,
       "toolCall": true,
       "temperature": true,
       "attachment": false
@@ -16222,14 +14969,17 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
       ]
     },
     "specs": {
-      "maxOutputTokens": 4096
+      "maxOutputTokens": 65536,
+      "pricing": {
+        "cacheInput": 0.037
+      }
     },
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "amazon.nova-lite-v1:0": {
+  "amazon-nova-lite-v1:0": {
     "family": "nova-lite",
-    "knowledgeCutoff": "2024-10",
+    "trainingCutoff": "2024-10",
     "lastUpdated": "2024-12-03",
     "apiSupport": {
       "reasoning": false,
@@ -16256,9 +15006,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "eu.anthropic.claude-sonnet-4-5-20250929-v1:0": {
+  "eu-anthropic-claude-sonnet-4-5-20250929-v1:0": {
     "family": "claude-sonnet",
-    "knowledgeCutoff": "2025-07-31",
+    "trainingCutoff": "2025-07-31",
     "lastUpdated": "2025-09-29",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -16287,34 +15037,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "google.gemma-3-12b-it": {
-    "family": "gemma",
-    "knowledgeCutoff": "2024-12",
-    "lastUpdated": "2024-12-01",
-    "apiSupport": {
-      "reasoning": false,
-      "toolCall": false,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text",
-        "image"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 8192
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "meta.llama3-1-8b-instruct-v1:0": {
+  "meta-llama3-1-8b-instruct-v1:0": {
     "family": "llama",
-    "knowledgeCutoff": "2023-12",
+    "trainingCutoff": "2023-12",
     "lastUpdated": "2024-07-23",
     "apiSupport": {
       "reasoning": false,
@@ -16336,9 +15061,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "anthropic.claude-sonnet-4-5-20250929-v1:0": {
+  "anthropic-claude-sonnet-4-5-20250929-v1:0": {
     "family": "claude-sonnet",
-    "knowledgeCutoff": "2025-07-31",
+    "trainingCutoff": "2025-07-31",
     "lastUpdated": "2025-09-29",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -16367,9 +15092,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "meta.llama4-maverick-17b-instruct-v1:0": {
+  "meta-llama4-maverick-17b-instruct-v1:0": {
     "family": "llama",
-    "knowledgeCutoff": "2024-08",
+    "trainingCutoff": "2024-08",
     "lastUpdated": "2025-04-05",
     "apiSupport": {
       "reasoning": false,
@@ -16392,7 +15117,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "mistral.ministral-3-14b-instruct": {
+  "mistral-ministral-3-14b-instruct": {
     "family": "ministral",
     "lastUpdated": "2024-12-01",
     "apiSupport": {
@@ -16415,32 +15140,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "minimax.minimax-m2": {
-    "family": "minimax",
-    "lastUpdated": "2025-10-27",
-    "interleavedReasoningField": "reasoning_content",
-    "apiSupport": {
-      "reasoning": true,
-      "toolCall": true,
-      "structuredOutput": false,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 128000
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "mistral.mistral-7b-instruct-v0:2": {
+  "mistral-mistral-7b-instruct-v0:2": {
     "family": "mistral",
     "lastUpdated": "2025-04-01",
     "apiSupport": {
@@ -16464,9 +15164,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "amazon.nova-micro-v1:0": {
+  "amazon-nova-micro-v1:0": {
     "family": "nova-micro",
-    "knowledgeCutoff": "2024-10",
+    "trainingCutoff": "2024-10",
     "lastUpdated": "2024-12-03",
     "apiSupport": {
       "reasoning": false,
@@ -16491,9 +15191,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "anthropic.claude-3-5-sonnet-20241022-v2:0": {
+  "anthropic-claude-3-5-sonnet-20241022-v2:0": {
     "family": "claude-sonnet",
-    "knowledgeCutoff": "2024-04",
+    "trainingCutoff": "2024-04",
     "lastUpdated": "2024-10-22",
     "apiSupport": {
       "reasoning": false,
@@ -16521,9 +15221,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "deepseek.v3.2-v1:0": {
+  "deepseek-v3-2-v1:0": {
     "family": "deepseek",
-    "knowledgeCutoff": "2024-07",
+    "trainingCutoff": "2024-07",
     "lastUpdated": "2026-02-15",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -16546,9 +15246,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "anthropic.claude-sonnet-4-20250514-v1:0": {
+  "anthropic-claude-sonnet-4-20250514-v1:0": {
     "family": "claude-sonnet",
-    "knowledgeCutoff": "2024-04",
+    "trainingCutoff": "2024-04",
     "lastUpdated": "2025-05-22",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -16577,7 +15277,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "qwen.qwen3-vl-235b-a22b": {
+  "qwen-qwen3-vl-235b-a22b": {
     "family": "qwen",
     "lastUpdated": "2025-11-25",
     "apiSupport": {
@@ -16602,9 +15302,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "global.anthropic.claude-opus-4-6-v1": {
+  "global-anthropic-claude-opus-4-6-v1": {
     "family": "claude-opus",
-    "knowledgeCutoff": "2025-05",
+    "trainingCutoff": "2025-05",
     "lastUpdated": "2026-02-05",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -16638,7 +15338,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "writer.palmyra-x4-v1:0": {
+  "writer-palmyra-x4-v1:0": {
     "family": "palmyra",
     "lastUpdated": "2025-04-28",
     "interleavedReasoningField": "reasoning_content",
@@ -16662,7 +15362,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "mistral.mixtral-8x7b-instruct-v0:1": {
+  "mistral-mixtral-8x7b-instruct-v0:1": {
     "family": "mixtral",
     "lastUpdated": "2025-04-01",
     "apiSupport": {
@@ -16686,9 +15386,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "amazon.nova-pro-v1:0": {
+  "amazon-nova-pro-v1:0": {
     "family": "nova-pro",
-    "knowledgeCutoff": "2024-10",
+    "trainingCutoff": "2024-10",
     "lastUpdated": "2024-12-03",
     "apiSupport": {
       "reasoning": false,
@@ -16715,9 +15415,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "us.anthropic.claude-opus-4-5-20251101-v1:0": {
+  "us-anthropic-claude-opus-4-5-20251101-v1:0": {
     "family": "claude-opus",
-    "knowledgeCutoff": "2025-03-31",
+    "trainingCutoff": "2025-03-31",
     "lastUpdated": "2025-08-01",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -16746,9 +15446,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "meta.llama3-2-90b-instruct-v1:0": {
+  "meta-llama3-2-90b-instruct-v1:0": {
     "family": "llama",
-    "knowledgeCutoff": "2023-12",
+    "trainingCutoff": "2023-12",
     "lastUpdated": "2024-09-25",
     "apiSupport": {
       "reasoning": false,
@@ -16771,9 +15471,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "us.anthropic.claude-opus-4-6-v1": {
+  "us-anthropic-claude-opus-4-6-v1": {
     "family": "claude-opus",
-    "knowledgeCutoff": "2025-05",
+    "trainingCutoff": "2025-05",
     "lastUpdated": "2026-02-05",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -16807,14 +15507,13 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "google.gemma-3-4b-it": {
-    "family": "gemma",
-    "lastUpdated": "2024-12-01",
+  "google-gemma-3-4b-it": {
+    "lastUpdated": "2025-03-13",
     "apiSupport": {
       "reasoning": false,
-      "toolCall": true,
+      "toolCall": false,
       "temperature": true,
-      "attachment": false
+      "attachment": true
     },
     "modalities": {
       "input": [
@@ -16826,14 +15525,14 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
       ]
     },
     "specs": {
-      "maxOutputTokens": 4096
+      "maxOutputTokens": 19200
     },
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "anthropic.claude-opus-4-6-v1": {
+  "anthropic-claude-opus-4-6-v1": {
     "family": "claude-opus",
-    "knowledgeCutoff": "2025-05",
+    "trainingCutoff": "2025-05",
     "lastUpdated": "2026-02-05",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -16867,7 +15566,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "amazon.titan-text-express-v1:0:8k": {
+  "amazon-titan-text-express-v1:0:8k": {
     "family": "titan",
     "lastUpdated": "2024-12-01",
     "apiSupport": {
@@ -16890,9 +15589,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "zai.glm-4.7-flash": {
+  "zai-glm-4-7-flash": {
     "family": "glm-flash",
-    "knowledgeCutoff": "2025-04",
+    "trainingCutoff": "2025-04",
     "lastUpdated": "2026-01-19",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -16915,9 +15614,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "anthropic.claude-opus-4-20250514-v1:0": {
+  "anthropic-claude-opus-4-20250514-v1:0": {
     "family": "claude-opus",
-    "knowledgeCutoff": "2024-04",
+    "trainingCutoff": "2024-04",
     "lastUpdated": "2025-05-22",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -16946,9 +15645,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "anthropic.claude-v2": {
+  "anthropic-claude-v2": {
     "family": "claude",
-    "knowledgeCutoff": "2023-08",
+    "trainingCutoff": "2023-08",
     "lastUpdated": "2023-07-11",
     "apiSupport": {
       "reasoning": false,
@@ -16970,9 +15669,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "anthropic.claude-3-sonnet-20240229-v1:0": {
+  "anthropic-claude-3-sonnet-20240229-v1:0": {
     "family": "claude-sonnet",
-    "knowledgeCutoff": "2023-08",
+    "trainingCutoff": "2023-08",
     "lastUpdated": "2024-03-04",
     "apiSupport": {
       "reasoning": false,
@@ -16996,9 +15695,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "global.anthropic.claude-sonnet-4-6": {
+  "global-anthropic-claude-sonnet-4-6": {
     "family": "claude-sonnet",
-    "knowledgeCutoff": "2025-08",
+    "trainingCutoff": "2025-08",
     "lastUpdated": "2026-02-17",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -17032,9 +15731,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "meta.llama3-2-1b-instruct-v1:0": {
+  "meta-llama3-2-1b-instruct-v1:0": {
     "family": "llama",
-    "knowledgeCutoff": "2023-12",
+    "trainingCutoff": "2023-12",
     "lastUpdated": "2024-09-25",
     "apiSupport": {
       "reasoning": false,
@@ -17056,9 +15755,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "anthropic.claude-opus-4-1-20250805-v1:0": {
+  "anthropic-claude-opus-4-1-20250805-v1:0": {
     "family": "claude-opus",
-    "knowledgeCutoff": "2025-03-31",
+    "trainingCutoff": "2025-03-31",
     "lastUpdated": "2025-08-05",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -17087,9 +15786,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "meta.llama4-scout-17b-instruct-v1:0": {
+  "meta-llama4-scout-17b-instruct-v1:0": {
     "family": "llama",
-    "knowledgeCutoff": "2024-08",
+    "trainingCutoff": "2024-08",
     "lastUpdated": "2025-04-05",
     "apiSupport": {
       "reasoning": false,
@@ -17112,9 +15811,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "anthropic.claude-v2:1": {
+  "anthropic-claude-v2:1": {
     "family": "claude",
-    "knowledgeCutoff": "2023-08",
+    "trainingCutoff": "2023-08",
     "lastUpdated": "2023-11-21",
     "apiSupport": {
       "reasoning": false,
@@ -17136,7 +15835,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "mistral.mistral-large-2402-v1:0": {
+  "mistral-mistral-large-2402-v1:0": {
     "family": "mistral-large",
     "lastUpdated": "2024-12-01",
     "apiSupport": {
@@ -17159,9 +15858,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "deepseek.v3-v1:0": {
+  "deepseek-v3-v1:0": {
     "family": "deepseek",
-    "knowledgeCutoff": "2024-07",
+    "trainingCutoff": "2024-07",
     "lastUpdated": "2025-09-18",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -17184,9 +15883,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "cohere.command-r-plus-v1:0": {
+  "cohere-command-r-plus-v1:0": {
     "family": "command-r",
-    "knowledgeCutoff": "2024-04",
+    "trainingCutoff": "2024-04",
     "lastUpdated": "2024-04-04",
     "apiSupport": {
       "reasoning": false,
@@ -17208,9 +15907,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "global.anthropic.claude-haiku-4-5-20251001-v1:0": {
+  "global-anthropic-claude-haiku-4-5-20251001-v1:0": {
     "family": "claude-haiku",
-    "knowledgeCutoff": "2025-02-28",
+    "trainingCutoff": "2025-02-28",
     "lastUpdated": "2025-10-15",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -17239,30 +15938,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "nvidia.nemotron-nano-9b-v2": {
-    "family": "nemotron",
-    "lastUpdated": "2024-12-01",
-    "apiSupport": {
-      "reasoning": false,
-      "toolCall": true,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 4096
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "writer.palmyra-x5-v1:0": {
+  "writer-palmyra-x5-v1:0": {
     "family": "palmyra",
     "lastUpdated": "2025-04-28",
     "interleavedReasoningField": "reasoning_content",
@@ -17286,9 +15962,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "meta.llama3-3-70b-instruct-v1:0": {
+  "meta-llama3-3-70b-instruct-v1:0": {
     "family": "llama",
-    "knowledgeCutoff": "2023-12",
+    "trainingCutoff": "2023-12",
     "lastUpdated": "2024-12-06",
     "apiSupport": {
       "reasoning": false,
@@ -17310,13 +15986,10 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "zai.glm-4.7": {
-    "family": "glm",
-    "knowledgeCutoff": "2025-04",
-    "lastUpdated": "2025-12-22",
-    "interleavedReasoningField": "reasoning_content",
+  "zai-glm-4-7": {
+    "lastUpdated": "2026-01-10",
     "apiSupport": {
-      "reasoning": true,
+      "reasoning": false,
       "toolCall": true,
       "temperature": true,
       "attachment": false
@@ -17330,12 +16003,16 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
       ]
     },
     "specs": {
-      "maxOutputTokens": 131072
+      "maxOutputTokens": 40000,
+      "pricing": {
+        "cacheInput": 0,
+        "cacheOutput": 0
+      }
     },
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "moonshot.kimi-k2-thinking": {
+  "moonshot-kimi-k2-thinking": {
     "lastUpdated": "2025-12-02",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -17358,9 +16035,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "anthropic.claude-3-haiku-20240307-v1:0": {
+  "anthropic-claude-3-haiku-20240307-v1:0": {
     "family": "claude-haiku",
-    "knowledgeCutoff": "2024-02",
+    "trainingCutoff": "2024-02",
     "lastUpdated": "2024-03-13",
     "apiSupport": {
       "reasoning": false,
@@ -17384,9 +16061,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "us.anthropic.claude-sonnet-4-5-20250929-v1:0": {
+  "us-anthropic-claude-sonnet-4-5-20250929-v1:0": {
     "family": "claude-sonnet",
-    "knowledgeCutoff": "2025-07-31",
+    "trainingCutoff": "2025-07-31",
     "lastUpdated": "2025-09-29",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -17415,9 +16092,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "meta.llama3-8b-instruct-v1:0": {
+  "meta-llama3-8b-instruct-v1:0": {
     "family": "llama",
-    "knowledgeCutoff": "2023-03",
+    "trainingCutoff": "2023-03",
     "lastUpdated": "2024-07-23",
     "apiSupport": {
       "reasoning": false,
@@ -17439,7 +16116,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "openai.gpt-oss-20b-1:0": {
+  "openai-gpt-oss-20b-1:0": {
     "family": "gpt-oss",
     "lastUpdated": "2024-12-01",
     "apiSupport": {
@@ -17462,9 +16139,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "us.anthropic.claude-sonnet-4-6": {
+  "us-anthropic-claude-sonnet-4-6": {
     "family": "claude-sonnet",
-    "knowledgeCutoff": "2025-08",
+    "trainingCutoff": "2025-08",
     "lastUpdated": "2026-02-17",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -17498,9 +16175,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "meta.llama3-2-11b-instruct-v1:0": {
+  "meta-llama3-2-11b-instruct-v1:0": {
     "family": "llama",
-    "knowledgeCutoff": "2023-12",
+    "trainingCutoff": "2023-12",
     "lastUpdated": "2024-09-25",
     "apiSupport": {
       "reasoning": false,
@@ -17523,9 +16200,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "eu.anthropic.claude-opus-4-5-20251101-v1:0": {
+  "eu-anthropic-claude-opus-4-5-20251101-v1:0": {
     "family": "claude-opus",
-    "knowledgeCutoff": "2025-03-31",
+    "trainingCutoff": "2025-03-31",
     "lastUpdated": "2025-08-01",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -17554,9 +16231,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "cohere.command-text-v14": {
+  "cohere-command-text-v14": {
     "family": "command",
-    "knowledgeCutoff": "2023-08",
+    "trainingCutoff": "2023-08",
     "lastUpdated": "2023-11-01",
     "apiSupport": {
       "reasoning": false,
@@ -17578,7 +16255,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "qwen.qwen3-next-80b-a3b": {
+  "qwen-qwen3-next-80b-a3b": {
     "family": "qwen",
     "lastUpdated": "2025-11-25",
     "apiSupport": {
@@ -17602,9 +16279,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "us.anthropic.claude-sonnet-4-20250514-v1:0": {
+  "us-anthropic-claude-sonnet-4-20250514-v1:0": {
     "family": "claude-sonnet",
-    "knowledgeCutoff": "2024-04",
+    "trainingCutoff": "2024-04",
     "lastUpdated": "2025-05-22",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -17633,9 +16310,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "ai21.jamba-1-5-mini-v1:0": {
+  "ai21-jamba-1-5-mini-v1:0": {
     "family": "jamba",
-    "knowledgeCutoff": "2024-08",
+    "trainingCutoff": "2024-08",
     "lastUpdated": "2024-08-15",
     "apiSupport": {
       "reasoning": false,
@@ -17657,9 +16334,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "meta.llama3-70b-instruct-v1:0": {
+  "meta-llama3-70b-instruct-v1:0": {
     "family": "llama",
-    "knowledgeCutoff": "2023-12",
+    "trainingCutoff": "2023-12",
     "lastUpdated": "2024-07-23",
     "apiSupport": {
       "reasoning": false,
@@ -17681,9 +16358,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "ai21.jamba-1-5-large-v1:0": {
+  "ai21-jamba-1-5-large-v1:0": {
     "family": "jamba",
-    "knowledgeCutoff": "2024-08",
+    "trainingCutoff": "2024-08",
     "lastUpdated": "2024-08-15",
     "apiSupport": {
       "reasoning": false,
@@ -17705,9 +16382,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "qwen.qwen3-coder-30b-a3b-v1:0": {
+  "qwen-qwen3-coder-30b-a3b-v1:0": {
     "family": "qwen",
-    "knowledgeCutoff": "2024-04",
+    "trainingCutoff": "2024-04",
     "lastUpdated": "2025-09-18",
     "apiSupport": {
       "reasoning": false,
@@ -17729,9 +16406,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "anthropic.claude-3-opus-20240229-v1:0": {
+  "anthropic-claude-3-opus-20240229-v1:0": {
     "family": "claude-opus",
-    "knowledgeCutoff": "2023-08",
+    "trainingCutoff": "2023-08",
     "lastUpdated": "2024-02-29",
     "apiSupport": {
       "reasoning": false,
@@ -17755,9 +16432,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "us.anthropic.claude-haiku-4-5-20251001-v1:0": {
+  "us-anthropic-claude-haiku-4-5-20251001-v1:0": {
     "family": "claude-haiku",
-    "knowledgeCutoff": "2025-02-28",
+    "trainingCutoff": "2025-02-28",
     "lastUpdated": "2025-10-15",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -17786,9 +16463,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "qwen.qwen3-235b-a22b-2507-v1:0": {
+  "qwen-qwen3-235b-a22b-2507-v1:0": {
     "family": "qwen",
-    "knowledgeCutoff": "2024-04",
+    "trainingCutoff": "2024-04",
     "lastUpdated": "2025-09-18",
     "apiSupport": {
       "reasoning": false,
@@ -17810,7 +16487,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "openai.gpt-oss-safeguard-120b": {
+  "openai-gpt-oss-safeguard-120b": {
     "family": "gpt-oss",
     "lastUpdated": "2024-12-01",
     "apiSupport": {
@@ -17833,9 +16510,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "anthropic.claude-3-5-sonnet-20240620-v1:0": {
+  "anthropic-claude-3-5-sonnet-20240620-v1:0": {
     "family": "claude-sonnet",
-    "knowledgeCutoff": "2024-04",
+    "trainingCutoff": "2024-04",
     "lastUpdated": "2024-06-20",
     "apiSupport": {
       "reasoning": false,
@@ -17863,7 +16540,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "mistral.voxtral-small-24b-2507": {
+  "mistral-voxtral-small-24b-2507": {
     "family": "mistral",
     "lastUpdated": "2025-07-01",
     "apiSupport": {
@@ -17887,9 +16564,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "cohere.command-light-text-v14": {
+  "cohere-command-light-text-v14": {
     "family": "command-light",
-    "knowledgeCutoff": "2023-08",
+    "trainingCutoff": "2023-08",
     "lastUpdated": "2023-11-01",
     "apiSupport": {
       "reasoning": false,
@@ -17911,9 +16588,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "anthropic.claude-haiku-4-5-20251001-v1:0": {
+  "anthropic-claude-haiku-4-5-20251001-v1:0": {
     "family": "claude-haiku",
-    "knowledgeCutoff": "2025-02-28",
+    "trainingCutoff": "2025-02-28",
     "lastUpdated": "2025-10-15",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -17942,9 +16619,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "meta.llama3-2-3b-instruct-v1:0": {
+  "meta-llama3-2-3b-instruct-v1:0": {
     "family": "llama",
-    "knowledgeCutoff": "2023-12",
+    "trainingCutoff": "2023-12",
     "lastUpdated": "2024-09-25",
     "apiSupport": {
       "reasoning": false,
@@ -17966,34 +16643,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "google.gemma-3-27b-it": {
-    "family": "gemma",
-    "knowledgeCutoff": "2025-07",
-    "lastUpdated": "2025-07-27",
-    "apiSupport": {
-      "reasoning": false,
-      "toolCall": true,
-      "temperature": true,
-      "attachment": true
-    },
-    "modalities": {
-      "input": [
-        "text",
-        "image"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 8192
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "us.anthropic.claude-opus-4-1-20250805-v1:0": {
+  "us-anthropic-claude-opus-4-1-20250805-v1:0": {
     "family": "claude-opus",
-    "knowledgeCutoff": "2025-03-31",
+    "trainingCutoff": "2025-03-31",
     "lastUpdated": "2025-08-05",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -18022,9 +16674,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "global.anthropic.claude-sonnet-4-20250514-v1:0": {
+  "global-anthropic-claude-sonnet-4-20250514-v1:0": {
     "family": "claude-sonnet",
-    "knowledgeCutoff": "2024-04",
+    "trainingCutoff": "2024-04",
     "lastUpdated": "2025-05-22",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -18053,9 +16705,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "anthropic.claude-3-5-haiku-20241022-v1:0": {
+  "anthropic-claude-3-5-haiku-20241022-v1:0": {
     "family": "claude-haiku",
-    "knowledgeCutoff": "2024-07",
+    "trainingCutoff": "2024-07",
     "lastUpdated": "2024-10-22",
     "apiSupport": {
       "reasoning": false,
@@ -18083,9 +16735,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "eu.anthropic.claude-sonnet-4-20250514-v1:0": {
+  "eu-anthropic-claude-sonnet-4-20250514-v1:0": {
     "family": "claude-sonnet",
-    "knowledgeCutoff": "2024-04",
+    "trainingCutoff": "2024-04",
     "lastUpdated": "2025-05-22",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -18114,9 +16766,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "anthropic.claude-opus-4-5-20251101-v1:0": {
+  "anthropic-claude-opus-4-5-20251101-v1:0": {
     "family": "claude-opus",
-    "knowledgeCutoff": "2025-03-31",
+    "trainingCutoff": "2025-03-31",
     "lastUpdated": "2025-08-01",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -18145,9 +16797,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "eu.anthropic.claude-opus-4-6-v1": {
+  "eu-anthropic-claude-opus-4-6-v1": {
     "family": "claude-opus",
-    "knowledgeCutoff": "2025-05",
+    "trainingCutoff": "2025-05",
     "lastUpdated": "2026-02-05",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -18181,9 +16833,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "amazon.nova-premier-v1:0": {
+  "amazon-nova-premier-v1:0": {
     "family": "nova",
-    "knowledgeCutoff": "2024-10",
+    "trainingCutoff": "2024-10",
     "lastUpdated": "2024-12-03",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -18208,7 +16860,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "amazon.nova-2-lite-v1:0": {
+  "amazon-nova-2-lite-v1:0": {
     "family": "nova",
     "lastUpdated": "2024-12-01",
     "apiSupport": {
@@ -18233,9 +16885,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "qwen.qwen3-32b-v1:0": {
+  "qwen-qwen3-32b-v1:0": {
     "family": "qwen",
-    "knowledgeCutoff": "2024-04",
+    "trainingCutoff": "2024-04",
     "lastUpdated": "2025-09-18",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -18258,31 +16910,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "moonshotai.kimi-k2.5": {
-    "lastUpdated": "2026-02-06",
-    "interleavedReasoningField": "reasoning_content",
-    "apiSupport": {
-      "reasoning": true,
-      "toolCall": true,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text",
-        "image"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 256000
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "mistral.voxtral-mini-3b-2507": {
+  "mistral-voxtral-mini-3b-2507": {
     "family": "mistral",
     "lastUpdated": "2024-12-01",
     "apiSupport": {
@@ -18306,9 +16934,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "global.anthropic.claude-sonnet-4-5-20250929-v1:0": {
+  "global-anthropic-claude-sonnet-4-5-20250929-v1:0": {
     "family": "claude-sonnet",
-    "knowledgeCutoff": "2025-07-31",
+    "trainingCutoff": "2025-07-31",
     "lastUpdated": "2025-09-29",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -18337,9 +16965,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "Ring-1T": {
+  "ring-1t": {
     "family": "ring",
-    "knowledgeCutoff": "2024-06",
+    "trainingCutoff": "2024-06",
     "lastUpdated": "2025-10",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -18362,9 +16990,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "Ling-1T": {
+  "ling-1t": {
     "family": "ling",
-    "knowledgeCutoff": "2024-06",
+    "trainingCutoff": "2024-06",
     "lastUpdated": "2025-10",
     "apiSupport": {
       "reasoning": false,
@@ -18388,7 +17016,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "phi-3-small-8k-instruct": {
     "family": "phi",
-    "knowledgeCutoff": "2023-10",
+    "trainingCutoff": "2023-10",
     "lastUpdated": "2024-04-23",
     "apiSupport": {
       "reasoning": false,
@@ -18412,7 +17040,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "gpt-4o": {
     "family": "gpt",
-    "knowledgeCutoff": "2023-09",
+    "trainingCutoff": "2023-09",
     "lastUpdated": "2024-05-13",
     "apiSupport": {
       "reasoning": false,
@@ -18440,7 +17068,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "codestral-2501": {
     "family": "codestral",
-    "knowledgeCutoff": "2024-03",
+    "trainingCutoff": "2024-03",
     "lastUpdated": "2025-01-01",
     "apiSupport": {
       "reasoning": false,
@@ -18464,7 +17092,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "mistral-small-2503": {
     "family": "mistral-small",
-    "knowledgeCutoff": "2024-09",
+    "trainingCutoff": "2024-09",
     "lastUpdated": "2025-03-01",
     "apiSupport": {
       "reasoning": false,
@@ -18489,7 +17117,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "o1-mini": {
     "family": "o-mini",
-    "knowledgeCutoff": "2023-09",
+    "trainingCutoff": "2023-09",
     "lastUpdated": "2024-09-12",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -18515,9 +17143,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "gpt-3.5-turbo-instruct": {
+  "gpt-3-5-turbo-instruct": {
     "family": "gpt",
-    "knowledgeCutoff": "2021-08",
+    "trainingCutoff": "2021-08",
     "lastUpdated": "2023-09-21",
     "apiSupport": {
       "reasoning": false,
@@ -18541,7 +17169,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "gpt-4": {
     "family": "gpt",
-    "knowledgeCutoff": "2023-11",
+    "trainingCutoff": "2023-11",
     "lastUpdated": "2023-03-14",
     "apiSupport": {
       "reasoning": false,
@@ -18563,9 +17191,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "gpt-3.5-turbo-1106": {
+  "gpt-3-5-turbo-1106": {
     "family": "gpt",
-    "knowledgeCutoff": "2021-08",
+    "trainingCutoff": "2021-08",
     "lastUpdated": "2023-11-06",
     "apiSupport": {
       "reasoning": false,
@@ -18589,7 +17217,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "phi-4-reasoning": {
     "family": "phi",
-    "knowledgeCutoff": "2023-10",
+    "trainingCutoff": "2023-10",
     "lastUpdated": "2024-12-11",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -18614,7 +17242,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "phi-3-mini-128k-instruct": {
     "family": "phi",
-    "knowledgeCutoff": "2023-10",
+    "trainingCutoff": "2023-10",
     "lastUpdated": "2024-04-23",
     "apiSupport": {
       "reasoning": false,
@@ -18638,7 +17266,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "gpt-5-mini": {
     "family": "gpt-mini",
-    "knowledgeCutoff": "2024-05-30",
+    "trainingCutoff": "2024-05-30",
     "lastUpdated": "2025-08-07",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -18665,9 +17293,34 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
+  "llama-4-maverick-17b-128e-instruct-fp8": {
+    "family": "llama",
+    "trainingCutoff": "2024-08",
+    "lastUpdated": "2025-04-05",
+    "apiSupport": {
+      "reasoning": false,
+      "toolCall": true,
+      "temperature": true,
+      "attachment": true
+    },
+    "modalities": {
+      "input": [
+        "text",
+        "image"
+      ],
+      "output": [
+        "text"
+      ]
+    },
+    "specs": {
+      "maxOutputTokens": 8192
+    },
+    "metadataSourceId": "models-dev",
+    "metadataAsOfDate": "2026-03-01"
+  },
   "grok-4-fast-non-reasoning": {
     "family": "grok",
-    "knowledgeCutoff": "2025-07",
+    "trainingCutoff": "2025-07",
     "lastUpdated": "2025-09-19",
     "apiSupport": {
       "reasoning": false,
@@ -18695,7 +17348,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "o3-mini": {
     "family": "o-mini",
-    "knowledgeCutoff": "2024-05",
+    "trainingCutoff": "2024-05",
     "lastUpdated": "2025-01-29",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -18746,7 +17399,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "phi-3-medium-4k-instruct": {
     "family": "phi",
-    "knowledgeCutoff": "2023-10",
+    "trainingCutoff": "2023-10",
     "lastUpdated": "2024-04-23",
     "apiSupport": {
       "reasoning": false,
@@ -18791,9 +17444,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "gpt-3.5-turbo-0125": {
+  "gpt-3-5-turbo-0125": {
     "family": "gpt",
-    "knowledgeCutoff": "2021-08",
+    "trainingCutoff": "2021-08",
     "lastUpdated": "2024-01-25",
     "apiSupport": {
       "reasoning": false,
@@ -18817,7 +17470,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "phi-4-mini-reasoning": {
     "family": "phi",
-    "knowledgeCutoff": "2023-10",
+    "trainingCutoff": "2023-10",
     "lastUpdated": "2024-12-11",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -18842,32 +17495,8 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "mistral-large-2411": {
     "family": "mistral-large",
-    "knowledgeCutoff": "2024-09",
+    "trainingCutoff": "2024-09",
     "lastUpdated": "2024-11-01",
-    "apiSupport": {
-      "reasoning": false,
-      "toolCall": true,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 32768
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "meta-llama-3.1-8b-instruct": {
-    "family": "llama",
-    "knowledgeCutoff": "2023-12",
-    "lastUpdated": "2024-07-23",
     "apiSupport": {
       "reasoning": false,
       "toolCall": true,
@@ -18890,7 +17519,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "o1-preview": {
     "family": "o",
-    "knowledgeCutoff": "2023-09",
+    "trainingCutoff": "2023-09",
     "lastUpdated": "2024-09-12",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -18916,33 +17545,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "meta-llama-3.1-70b-instruct": {
-    "family": "llama",
-    "knowledgeCutoff": "2023-12",
-    "lastUpdated": "2024-07-23",
-    "apiSupport": {
-      "reasoning": false,
-      "toolCall": true,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 32768
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
   "phi-3-mini-4k-instruct": {
     "family": "phi",
-    "knowledgeCutoff": "2023-10",
+    "trainingCutoff": "2023-10",
     "lastUpdated": "2024-04-23",
     "apiSupport": {
       "reasoning": false,
@@ -18966,7 +17571,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "codex-mini": {
     "family": "gpt-codex-mini",
-    "knowledgeCutoff": "2024-04",
+    "trainingCutoff": "2024-04",
     "lastUpdated": "2025-05-16",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -18994,7 +17599,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "phi-4-reasoning-plus": {
     "family": "phi",
-    "knowledgeCutoff": "2023-10",
+    "trainingCutoff": "2023-10",
     "lastUpdated": "2024-12-11",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -19017,9 +17622,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "gpt-4.1-mini": {
+  "gpt-4-1-mini": {
     "family": "gpt-mini",
-    "knowledgeCutoff": "2024-05",
+    "trainingCutoff": "2024-05",
     "lastUpdated": "2025-04-14",
     "apiSupport": {
       "reasoning": false,
@@ -19047,7 +17652,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "phi-4": {
     "family": "phi",
-    "knowledgeCutoff": "2023-10",
+    "trainingCutoff": "2023-10",
     "lastUpdated": "2024-12-11",
     "apiSupport": {
       "reasoning": false,
@@ -19071,7 +17676,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "o4-mini": {
     "family": "o-mini",
-    "knowledgeCutoff": "2024-05",
+    "trainingCutoff": "2024-05",
     "lastUpdated": "2025-04-16",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -19100,7 +17705,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "gpt-4-32k": {
     "family": "gpt",
-    "knowledgeCutoff": "2023-11",
+    "trainingCutoff": "2023-11",
     "lastUpdated": "2023-03-14",
     "apiSupport": {
       "reasoning": false,
@@ -19124,7 +17729,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "grok-3-mini": {
     "family": "grok",
-    "knowledgeCutoff": "2024-11",
+    "trainingCutoff": "2024-11",
     "lastUpdated": "2025-02-17",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -19177,7 +17782,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "mistral-nemo": {
     "family": "mistral-nemo",
-    "knowledgeCutoff": "2024-07",
+    "trainingCutoff": "2024-07",
     "lastUpdated": "2024-07-18",
     "apiSupport": {
       "reasoning": false,
@@ -19201,7 +17806,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "gpt-4-turbo": {
     "family": "gpt",
-    "knowledgeCutoff": "2023-11",
+    "trainingCutoff": "2023-11",
     "lastUpdated": "2024-04-09",
     "apiSupport": {
       "reasoning": false,
@@ -19224,9 +17829,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "gpt-4.1": {
+  "gpt-4-1": {
     "family": "gpt",
-    "knowledgeCutoff": "2024-06",
+    "trainingCutoff": "2024-06",
     "lastUpdated": "2025-04-14",
     "apiSupport": {
       "reasoning": false,
@@ -19294,9 +17899,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "gpt-3.5-turbo-0613": {
+  "gpt-3-5-turbo-0613": {
     "family": "gpt",
-    "knowledgeCutoff": "2021-08",
+    "trainingCutoff": "2021-08",
     "lastUpdated": "2023-06-13",
     "apiSupport": {
       "reasoning": false,
@@ -19320,7 +17925,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "cohere-command-r-08-2024": {
     "family": "command-r",
-    "knowledgeCutoff": "2024-06-01",
+    "trainingCutoff": "2024-06-01",
     "lastUpdated": "2024-08-30",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -19343,9 +17948,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "gpt-4.1-nano": {
+  "gpt-4-1-nano": {
     "family": "gpt-nano",
-    "knowledgeCutoff": "2024-05",
+    "trainingCutoff": "2024-05",
     "lastUpdated": "2025-04-14",
     "apiSupport": {
       "reasoning": false,
@@ -19371,9 +17976,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "deepseek-v3.2-speciale": {
+  "deepseek-v3-2-speciale": {
     "family": "deepseek",
-    "knowledgeCutoff": "2024-07",
+    "trainingCutoff": "2024-07",
     "lastUpdated": "2025-12-01",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -19398,7 +18003,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "phi-4-mini": {
     "family": "phi",
-    "knowledgeCutoff": "2023-10",
+    "trainingCutoff": "2023-10",
     "lastUpdated": "2024-12-11",
     "apiSupport": {
       "reasoning": false,
@@ -19442,9 +18047,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "gpt-3.5-turbo-0301": {
+  "gpt-3-5-turbo-0301": {
     "family": "gpt",
-    "knowledgeCutoff": "2021-08",
+    "trainingCutoff": "2021-08",
     "lastUpdated": "2023-03-01",
     "apiSupport": {
       "reasoning": false,
@@ -19468,7 +18073,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "meta-llama-3-70b-instruct": {
     "family": "llama",
-    "knowledgeCutoff": "2023-12",
+    "trainingCutoff": "2023-12",
     "lastUpdated": "2024-04-18",
     "apiSupport": {
       "reasoning": false,
@@ -19490,9 +18095,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "llama-3.2-11b-vision-instruct": {
+  "llama-3-2-11b-vision-instruct": {
     "family": "llama",
-    "knowledgeCutoff": "2023-12",
+    "trainingCutoff": "2023-12",
     "lastUpdated": "2024-09-25",
     "apiSupport": {
       "reasoning": false,
@@ -19515,38 +18120,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "o3": {
-    "family": "o",
-    "knowledgeCutoff": "2024-05",
-    "lastUpdated": "2025-04-16",
-    "interleavedReasoningField": "reasoning_content",
-    "apiSupport": {
-      "reasoning": true,
-      "toolCall": true,
-      "temperature": false,
-      "attachment": true
-    },
-    "modalities": {
-      "input": [
-        "text",
-        "image"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 100000,
-      "pricing": {
-        "cacheInput": 0.5
-      }
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
   "meta-llama-3-8b-instruct": {
     "family": "llama",
-    "knowledgeCutoff": "2023-12",
+    "trainingCutoff": "2023-12",
     "lastUpdated": "2024-04-18",
     "apiSupport": {
       "reasoning": false,
@@ -19568,9 +18144,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "gpt-5.1-chat": {
+  "gpt-5-1-chat": {
     "family": "gpt-codex",
-    "knowledgeCutoff": "2024-09-30",
+    "trainingCutoff": "2024-09-30",
     "lastUpdated": "2025-11-14",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -19600,38 +18176,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "grok-4": {
-    "family": "grok",
-    "knowledgeCutoff": "2025-07",
-    "lastUpdated": "2025-07-09",
-    "interleavedReasoningField": "reasoning_content",
-    "apiSupport": {
-      "reasoning": true,
-      "toolCall": true,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 64000,
-      "pricing": {
-        "cacheInput": 0.75,
-        "reasoning": 15
-      }
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
   "gpt-5-chat": {
     "family": "gpt-codex",
-    "knowledgeCutoff": "2024-10-24",
+    "trainingCutoff": "2024-10-24",
     "lastUpdated": "2025-08-07",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -19658,9 +18205,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "gpt-5.2-chat": {
+  "gpt-5-2-chat": {
     "family": "gpt-codex",
-    "knowledgeCutoff": "2025-08-31",
+    "trainingCutoff": "2025-08-31",
     "lastUpdated": "2025-12-11",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -19690,7 +18237,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "cohere-command-r-plus-08-2024": {
     "family": "command-r",
-    "knowledgeCutoff": "2024-06-01",
+    "trainingCutoff": "2024-06-01",
     "lastUpdated": "2024-08-30",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -19713,33 +18260,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "meta-llama-3.1-405b-instruct": {
-    "family": "llama",
-    "knowledgeCutoff": "2023-12",
-    "lastUpdated": "2024-07-23",
-    "apiSupport": {
-      "reasoning": false,
-      "toolCall": true,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 32768
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
   "llama-4-scout-17b-16e-instruct": {
     "family": "llama",
-    "knowledgeCutoff": "2024-08",
+    "trainingCutoff": "2024-08",
     "lastUpdated": "2025-04-05",
     "apiSupport": {
       "reasoning": false,
@@ -19762,38 +18285,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "o1": {
-    "family": "o",
-    "knowledgeCutoff": "2023-09",
-    "lastUpdated": "2024-12-05",
-    "interleavedReasoningField": "reasoning_content",
-    "apiSupport": {
-      "reasoning": true,
-      "toolCall": true,
-      "temperature": false,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text",
-        "image"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 100000,
-      "pricing": {
-        "cacheInput": 7.5
-      }
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
   "mistral-medium-2505": {
     "family": "mistral-medium",
-    "knowledgeCutoff": "2025-05",
+    "trainingCutoff": "2025-05",
     "lastUpdated": "2025-05-07",
     "apiSupport": {
       "reasoning": false,
@@ -19818,7 +18312,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "cohere-command-a": {
     "family": "command-a",
-    "knowledgeCutoff": "2024-06-01",
+    "trainingCutoff": "2024-06-01",
     "lastUpdated": "2025-03-13",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -19841,9 +18335,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "phi-3.5-mini-instruct": {
+  "phi-3-5-mini-instruct": {
     "family": "phi",
-    "knowledgeCutoff": "2023-10",
+    "trainingCutoff": "2023-10",
     "lastUpdated": "2024-08-20",
     "apiSupport": {
       "reasoning": false,
@@ -19867,7 +18361,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "grok-code-fast-1": {
     "family": "grok",
-    "knowledgeCutoff": "2023-10",
+    "trainingCutoff": "2023-10",
     "lastUpdated": "2025-08-28",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -19893,9 +18387,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "llama-3.2-90b-vision-instruct": {
+  "llama-3-2-90b-vision-instruct": {
     "family": "llama",
-    "knowledgeCutoff": "2023-12",
+    "trainingCutoff": "2023-12",
     "lastUpdated": "2024-09-25",
     "apiSupport": {
       "reasoning": false,
@@ -19918,36 +18412,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "grok-3": {
-    "family": "grok",
-    "knowledgeCutoff": "2024-11",
-    "lastUpdated": "2025-02-17",
-    "apiSupport": {
-      "reasoning": false,
-      "toolCall": true,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 8192,
-      "pricing": {
-        "cacheInput": 0.75
-      }
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
   "ministral-3b": {
     "family": "ministral",
-    "knowledgeCutoff": "2024-03",
+    "trainingCutoff": "2024-03",
     "lastUpdated": "2024-10-22",
     "apiSupport": {
       "reasoning": false,
@@ -19971,7 +18438,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "gpt-4-turbo-vision": {
     "family": "gpt",
-    "knowledgeCutoff": "2023-11",
+    "trainingCutoff": "2023-11",
     "lastUpdated": "2024-04-09",
     "apiSupport": {
       "reasoning": false,
@@ -19994,9 +18461,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "phi-3.5-moe-instruct": {
+  "phi-3-5-moe-instruct": {
     "family": "phi",
-    "knowledgeCutoff": "2023-10",
+    "trainingCutoff": "2023-10",
     "lastUpdated": "2024-08-20",
     "apiSupport": {
       "reasoning": false,
@@ -20020,7 +18487,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "mai-ds-r1": {
     "family": "mai",
-    "knowledgeCutoff": "2024-06",
+    "trainingCutoff": "2024-06",
     "lastUpdated": "2025-01-20",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -20045,7 +18512,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "phi-4-multimodal": {
     "family": "phi",
-    "knowledgeCutoff": "2023-10",
+    "trainingCutoff": "2023-10",
     "lastUpdated": "2024-12-11",
     "apiSupport": {
       "reasoning": false,
@@ -20074,7 +18541,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "phi-3-medium-128k-instruct": {
     "family": "phi",
-    "knowledgeCutoff": "2023-10",
+    "trainingCutoff": "2023-10",
     "lastUpdated": "2024-04-23",
     "apiSupport": {
       "reasoning": false,
@@ -20098,7 +18565,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "grok-4-fast-reasoning": {
     "family": "grok",
-    "knowledgeCutoff": "2025-07",
+    "trainingCutoff": "2025-07",
     "lastUpdated": "2025-09-19",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -20149,7 +18616,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "gpt-4o-mini": {
     "family": "gpt-mini",
-    "knowledgeCutoff": "2023-09",
+    "trainingCutoff": "2023-09",
     "lastUpdated": "2024-07-18",
     "apiSupport": {
       "reasoning": false,
@@ -20177,7 +18644,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "phi-3-small-128k-instruct": {
     "family": "phi",
-    "knowledgeCutoff": "2023-10",
+    "trainingCutoff": "2023-10",
     "lastUpdated": "2024-04-23",
     "apiSupport": {
       "reasoning": false,
@@ -20201,7 +18668,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "gpt-5-pro": {
     "family": "gpt-pro",
-    "knowledgeCutoff": "2024-09-30",
+    "trainingCutoff": "2024-09-30",
     "lastUpdated": "2025-10-06",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -20228,7 +18695,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "qwen-vl-plus": {
     "family": "qwen",
-    "knowledgeCutoff": "2024-04",
+    "trainingCutoff": "2024-04",
     "lastUpdated": "2025-08-15",
     "apiSupport": {
       "reasoning": false,
@@ -20253,7 +18720,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "qwen-vl-max": {
     "family": "qwen",
-    "knowledgeCutoff": "2024-04",
+    "trainingCutoff": "2024-04",
     "lastUpdated": "2025-08-13",
     "apiSupport": {
       "reasoning": false,
@@ -20278,7 +18745,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "qwen3-14b": {
     "family": "qwen",
-    "knowledgeCutoff": "2025-04",
+    "trainingCutoff": "2025-04",
     "lastUpdated": "2025-04",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -20306,7 +18773,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "qwen3-coder-flash": {
     "family": "qwen",
-    "knowledgeCutoff": "2025-04",
+    "trainingCutoff": "2025-04",
     "lastUpdated": "2025-07-28",
     "apiSupport": {
       "reasoning": false,
@@ -20330,7 +18797,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "qwen3-vl-30b-a3b": {
     "family": "qwen",
-    "knowledgeCutoff": "2025-04",
+    "trainingCutoff": "2025-04",
     "lastUpdated": "2025-04",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -20359,7 +18826,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "qwen3-asr-flash": {
     "family": "qwen",
-    "knowledgeCutoff": "2024-04",
+    "trainingCutoff": "2024-04",
     "lastUpdated": "2025-09-08",
     "apiSupport": {
       "reasoning": false,
@@ -20383,7 +18850,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "qwen-max": {
     "family": "qwen",
-    "knowledgeCutoff": "2024-04",
+    "trainingCutoff": "2024-04",
     "lastUpdated": "2025-01-25",
     "apiSupport": {
       "reasoning": false,
@@ -20407,7 +18874,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "qwen2-5-7b-instruct": {
     "family": "qwen",
-    "knowledgeCutoff": "2024-04",
+    "trainingCutoff": "2024-04",
     "lastUpdated": "2024-09",
     "apiSupport": {
       "reasoning": false,
@@ -20418,31 +18885,6 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "modalities": {
       "input": [
         "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 8192
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "qwen2-5-vl-72b-instruct": {
-    "family": "qwen",
-    "knowledgeCutoff": "2024-04",
-    "lastUpdated": "2024-09",
-    "apiSupport": {
-      "reasoning": false,
-      "toolCall": true,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text",
-        "image"
       ],
       "output": [
         "text"
@@ -20456,7 +18898,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "qwen2-5-14b-instruct": {
     "family": "qwen",
-    "knowledgeCutoff": "2024-04",
+    "trainingCutoff": "2024-04",
     "lastUpdated": "2024-09",
     "apiSupport": {
       "reasoning": false,
@@ -20480,7 +18922,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "qwen3-8b": {
     "family": "qwen",
-    "knowledgeCutoff": "2025-04",
+    "trainingCutoff": "2025-04",
     "lastUpdated": "2025-04",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -20506,9 +18948,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "qwen3.5-397b-a17b": {
+  "qwen3-5-397b-a17b": {
     "family": "qwen",
-    "knowledgeCutoff": "2025-04",
+    "trainingCutoff": "2025-04",
     "lastUpdated": "2026-02-16",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -20538,7 +18980,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "qvq-max": {
     "family": "qvq",
-    "knowledgeCutoff": "2024-04",
+    "trainingCutoff": "2024-04",
     "lastUpdated": "2025-03-25",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -20564,7 +19006,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "qwen2-5-omni-7b": {
     "family": "qwen",
-    "knowledgeCutoff": "2024-04",
+    "trainingCutoff": "2024-04",
     "lastUpdated": "2024-12",
     "apiSupport": {
       "reasoning": false,
@@ -20593,34 +19035,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "qwen2-5-vl-7b-instruct": {
-    "family": "qwen",
-    "knowledgeCutoff": "2024-04",
-    "lastUpdated": "2024-09",
-    "apiSupport": {
-      "reasoning": false,
-      "toolCall": true,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text",
-        "image"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 8192
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
   "qwen-omni-turbo-realtime": {
     "family": "qwen",
-    "knowledgeCutoff": "2024-04",
+    "trainingCutoff": "2024-04",
     "lastUpdated": "2025-05-08",
     "apiSupport": {
       "reasoning": false,
@@ -20651,7 +19068,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "qwen-omni-turbo": {
     "family": "qwen",
-    "knowledgeCutoff": "2024-04",
+    "trainingCutoff": "2024-04",
     "lastUpdated": "2025-03-26",
     "apiSupport": {
       "reasoning": false,
@@ -20683,7 +19100,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "qwen-mt-plus": {
     "family": "qwen",
-    "knowledgeCutoff": "2024-04",
+    "trainingCutoff": "2024-04",
     "lastUpdated": "2025-01",
     "apiSupport": {
       "reasoning": false,
@@ -20707,7 +19124,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "qwen3-livetranslate-flash-realtime": {
     "family": "qwen",
-    "knowledgeCutoff": "2024-04",
+    "trainingCutoff": "2024-04",
     "lastUpdated": "2025-09-22",
     "apiSupport": {
       "reasoning": false,
@@ -20739,7 +19156,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "qwen-plus": {
     "family": "qwen",
-    "knowledgeCutoff": "2024-04",
+    "trainingCutoff": "2024-04",
     "lastUpdated": "2025-09-11",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -20767,7 +19184,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "qwen2-5-32b-instruct": {
     "family": "qwen",
-    "knowledgeCutoff": "2024-04",
+    "trainingCutoff": "2024-04",
     "lastUpdated": "2024-09",
     "apiSupport": {
       "reasoning": false,
@@ -20789,9 +19206,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "qwen3.5-plus": {
+  "qwen3-5-plus": {
     "family": "qwen",
-    "knowledgeCutoff": "2025-04",
+    "trainingCutoff": "2025-04",
     "lastUpdated": "2026-02-16",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -20821,7 +19238,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "qwen3-omni-flash": {
     "family": "qwen",
-    "knowledgeCutoff": "2024-04",
+    "trainingCutoff": "2024-04",
     "lastUpdated": "2025-09-15",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -20854,7 +19271,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "qwen-flash": {
     "family": "qwen",
-    "knowledgeCutoff": "2024-04",
+    "trainingCutoff": "2024-04",
     "lastUpdated": "2025-07-28",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -20879,7 +19296,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "qwen2-5-72b-instruct": {
     "family": "qwen",
-    "knowledgeCutoff": "2024-04",
+    "trainingCutoff": "2024-04",
     "lastUpdated": "2024-09",
     "apiSupport": {
       "reasoning": false,
@@ -20903,7 +19320,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "qwen3-omni-flash-realtime": {
     "family": "qwen",
-    "knowledgeCutoff": "2024-04",
+    "trainingCutoff": "2024-04",
     "lastUpdated": "2025-09-15",
     "apiSupport": {
       "reasoning": false,
@@ -20934,7 +19351,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "qwen-vl-ocr": {
     "family": "qwen",
-    "knowledgeCutoff": "2024-04",
+    "trainingCutoff": "2024-04",
     "lastUpdated": "2025-04-13",
     "apiSupport": {
       "reasoning": false,
@@ -20959,7 +19376,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "qwq-plus": {
     "family": "qwen",
-    "knowledgeCutoff": "2024-04",
+    "trainingCutoff": "2024-04",
     "lastUpdated": "2025-03-05",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -20984,7 +19401,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "qwen3-vl-235b-a22b": {
     "family": "qwen",
-    "knowledgeCutoff": "2025-04",
+    "trainingCutoff": "2025-04",
     "lastUpdated": "2025-04",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -21013,7 +19430,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "qwen-plus-character-ja": {
     "family": "qwen",
-    "knowledgeCutoff": "2024-04",
+    "trainingCutoff": "2024-04",
     "lastUpdated": "2024-01",
     "apiSupport": {
       "reasoning": false,
@@ -21037,7 +19454,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "qwen-mt-turbo": {
     "family": "qwen",
-    "knowledgeCutoff": "2024-04",
+    "trainingCutoff": "2024-04",
     "lastUpdated": "2025-01",
     "apiSupport": {
       "reasoning": false,
@@ -21059,7 +19476,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "@cf/ibm-granite/granite-4.0-h-micro": {
+  "@cf-ibm-granite-granite-4-0-h-micro": {
     "family": "granite",
     "lastUpdated": "2025-10-15",
     "apiSupport": {
@@ -21082,7 +19499,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "@cf/baai/bge-small-en-v1.5": {
+  "@cf-baai-bge-small-en-v1-5": {
     "family": "bge",
     "lastUpdated": "2025-04-03",
     "apiSupport": {
@@ -21105,7 +19522,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "@cf/baai/bge-large-en-v1.5": {
+  "@cf-baai-bge-large-en-v1-5": {
     "family": "bge",
     "lastUpdated": "2025-04-03",
     "apiSupport": {
@@ -21128,7 +19545,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "@cf/baai/bge-reranker-base": {
+  "@cf-baai-bge-reranker-base": {
     "family": "bge",
     "lastUpdated": "2025-04-09",
     "apiSupport": {
@@ -21151,7 +19568,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "@cf/baai/bge-m3": {
+  "@cf-baai-bge-m3": {
     "family": "bge",
     "lastUpdated": "2025-04-03",
     "apiSupport": {
@@ -21174,7 +19591,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "@cf/baai/bge-base-en-v1.5": {
+  "@cf-baai-bge-base-en-v1-5": {
     "family": "bge",
     "lastUpdated": "2025-04-03",
     "apiSupport": {
@@ -21197,7 +19614,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "@cf/pfnet/plamo-embedding-1b": {
+  "@cf-pfnet-plamo-embedding-1b": {
     "family": "plamo",
     "lastUpdated": "2025-09-25",
     "apiSupport": {
@@ -21220,7 +19637,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "@cf/deepseek-ai/deepseek-r1-distill-qwen-32b": {
+  "@cf-deepseek-ai-deepseek-r1-distill-qwen-32b": {
     "family": "deepseek-thinking",
     "lastUpdated": "2025-04-03",
     "apiSupport": {
@@ -21243,7 +19660,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "@cf/facebook/bart-large-cnn": {
+  "@cf-facebook-bart-large-cnn": {
     "family": "bart",
     "lastUpdated": "2025-04-09",
     "apiSupport": {
@@ -21266,7 +19683,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "@cf/mistral/mistral-7b-instruct-v0.1": {
+  "@cf-mistral-mistral-7b-instruct-v0-1": {
     "family": "mistral",
     "lastUpdated": "2025-04-03",
     "apiSupport": {
@@ -21289,7 +19706,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "@cf/myshell-ai/melotts": {
+  "@cf-myshell-ai-melotts": {
     "family": "melotts",
     "lastUpdated": "2025-11-14",
     "apiSupport": {
@@ -21312,7 +19729,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "@cf/pipecat-ai/smart-turn-v2": {
+  "@cf-pipecat-ai-smart-turn-v2": {
     "family": "smart-turn",
     "lastUpdated": "2025-11-14",
     "apiSupport": {
@@ -21335,7 +19752,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "@cf/google/gemma-3-12b-it": {
+  "@cf-google-gemma-3-12b-it": {
     "family": "gemma",
     "lastUpdated": "2025-04-11",
     "apiSupport": {
@@ -21358,7 +19775,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "@cf/qwen/qwq-32b": {
+  "@cf-qwen-qwq-32b": {
     "family": "qwen",
     "lastUpdated": "2025-04-11",
     "apiSupport": {
@@ -21381,7 +19798,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "@cf/qwen/qwen3-30b-a3b-fp8": {
+  "@cf-qwen-qwen3-30b-a3b-fp8": {
     "family": "qwen",
     "lastUpdated": "2025-11-14",
     "apiSupport": {
@@ -21404,7 +19821,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "@cf/qwen/qwen2.5-coder-32b-instruct": {
+  "@cf-qwen-qwen2-5-coder-32b-instruct": {
     "family": "qwen",
     "lastUpdated": "2025-04-11",
     "apiSupport": {
@@ -21427,7 +19844,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "@cf/qwen/qwen3-embedding-0.6b": {
+  "@cf-qwen-qwen3-embedding-0-6b": {
     "family": "qwen",
     "lastUpdated": "2025-11-14",
     "apiSupport": {
@@ -21450,7 +19867,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "@cf/meta/llama-3.1-8b-instruct-fp8": {
+  "@cf-meta-llama-3-1-8b-instruct-fp8": {
     "family": "llama",
     "lastUpdated": "2025-04-03",
     "apiSupport": {
@@ -21473,7 +19890,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "@cf/meta/llama-3-8b-instruct-awq": {
+  "@cf-meta-llama-3-8b-instruct-awq": {
     "family": "llama",
     "lastUpdated": "2025-04-03",
     "apiSupport": {
@@ -21496,7 +19913,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "@cf/meta/llama-3.1-8b-instruct-awq": {
+  "@cf-meta-llama-3-1-8b-instruct-awq": {
     "family": "llama",
     "lastUpdated": "2025-04-03",
     "apiSupport": {
@@ -21519,7 +19936,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "@cf/meta/llama-4-scout-17b-16e-instruct": {
+  "@cf-meta-llama-4-scout-17b-16e-instruct": {
     "family": "llama",
     "lastUpdated": "2025-04-16",
     "apiSupport": {
@@ -21542,7 +19959,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "@cf/meta/llama-3.2-11b-vision-instruct": {
+  "@cf-meta-llama-3-2-11b-vision-instruct": {
     "family": "llama",
     "lastUpdated": "2025-04-03",
     "apiSupport": {
@@ -21565,7 +19982,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "@cf/meta/llama-3.2-3b-instruct": {
+  "@cf-meta-llama-3-2-3b-instruct": {
     "family": "llama",
     "lastUpdated": "2025-04-03",
     "apiSupport": {
@@ -21588,7 +20005,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "@cf/meta/llama-guard-3-8b": {
+  "@cf-meta-llama-guard-3-8b": {
     "family": "llama",
     "lastUpdated": "2025-04-03",
     "apiSupport": {
@@ -21611,7 +20028,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "@cf/meta/llama-3.2-1b-instruct": {
+  "@cf-meta-llama-3-2-1b-instruct": {
     "family": "llama",
     "lastUpdated": "2025-04-03",
     "apiSupport": {
@@ -21634,7 +20051,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "@cf/meta/llama-3.3-70b-instruct-fp8-fast": {
+  "@cf-meta-llama-3-3-70b-instruct-fp8-fast": {
     "family": "llama",
     "lastUpdated": "2025-04-03",
     "apiSupport": {
@@ -21657,7 +20074,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "@cf/meta/llama-3.1-8b-instruct": {
+  "@cf-meta-llama-3-1-8b-instruct": {
     "family": "llama",
     "lastUpdated": "2025-04-03",
     "apiSupport": {
@@ -21680,7 +20097,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "@cf/meta/m2m100-1.2b": {
+  "@cf-meta-m2m100-1-2b": {
     "family": "m2m",
     "lastUpdated": "2025-04-03",
     "apiSupport": {
@@ -21703,7 +20120,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "@cf/meta/llama-2-7b-chat-fp16": {
+  "@cf-meta-llama-2-7b-chat-fp16": {
     "family": "llama",
     "lastUpdated": "2025-04-03",
     "apiSupport": {
@@ -21726,7 +20143,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "@cf/meta/llama-3-8b-instruct": {
+  "@cf-meta-llama-3-8b-instruct": {
     "family": "llama",
     "lastUpdated": "2025-04-03",
     "apiSupport": {
@@ -21749,7 +20166,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "@cf/mistralai/mistral-small-3.1-24b-instruct": {
+  "@cf-mistralai-mistral-small-3-1-24b-instruct": {
     "family": "mistral-small",
     "lastUpdated": "2025-04-11",
     "apiSupport": {
@@ -21772,7 +20189,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "@cf/deepgram/aura-2-es": {
+  "@cf-deepgram-aura-2-es": {
     "family": "aura",
     "lastUpdated": "2025-11-14",
     "apiSupport": {
@@ -21795,7 +20212,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "@cf/deepgram/nova-3": {
+  "@cf-deepgram-nova-3": {
     "family": "nova",
     "lastUpdated": "2025-11-14",
     "apiSupport": {
@@ -21818,7 +20235,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "@cf/deepgram/aura-2-en": {
+  "@cf-deepgram-aura-2-en": {
     "family": "aura",
     "lastUpdated": "2025-11-14",
     "apiSupport": {
@@ -21841,7 +20258,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "@cf/openai/gpt-oss-120b": {
+  "@cf-openai-gpt-oss-120b": {
     "lastUpdated": "2025-08-05",
     "apiSupport": {
       "reasoning": false,
@@ -21863,7 +20280,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "@cf/openai/gpt-oss-20b": {
+  "@cf-openai-gpt-oss-20b": {
     "lastUpdated": "2025-08-05",
     "apiSupport": {
       "reasoning": false,
@@ -21885,7 +20302,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "@cf/ai4bharat/indictrans2-en-indic-1B": {
+  "@cf-ai4bharat-indictrans2-en-indic-1b": {
     "family": "indictrans",
     "lastUpdated": "2025-09-25",
     "apiSupport": {
@@ -21908,7 +20325,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "@cf/huggingface/distilbert-sst-2-int8": {
+  "@cf-huggingface-distilbert-sst-2-int8": {
     "family": "distilbert",
     "lastUpdated": "2025-04-03",
     "apiSupport": {
@@ -21931,7 +20348,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "@cf/aisingapore/gemma-sea-lion-v4-27b-it": {
+  "@cf-aisingapore-gemma-sea-lion-v4-27b-it": {
     "family": "gemma",
     "lastUpdated": "2025-09-25",
     "apiSupport": {
@@ -21956,7 +20373,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "llama3-70b-8192": {
     "family": "llama",
-    "knowledgeCutoff": "2023-03",
+    "trainingCutoff": "2023-03",
     "lastUpdated": "2024-04-18",
     "status": "deprecated",
     "apiSupport": {
@@ -21979,35 +20396,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "qwen-qwq-32b": {
-    "family": "qwen",
-    "knowledgeCutoff": "2024-09",
-    "lastUpdated": "2024-11-27",
-    "interleavedReasoningField": "reasoning_content",
-    "status": "deprecated",
-    "apiSupport": {
-      "reasoning": true,
-      "toolCall": true,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 16384
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "llama-3.1-8b-instant": {
+  "llama-3-1-8b-instant": {
     "family": "llama",
-    "knowledgeCutoff": "2024-07",
+    "trainingCutoff": "2024-07",
     "lastUpdated": "2024-07-01",
     "apiSupport": {
       "reasoning": false,
@@ -22055,7 +20446,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "llama3-8b-8192": {
     "family": "llama",
-    "knowledgeCutoff": "2023-03",
+    "trainingCutoff": "2023-03",
     "lastUpdated": "2024-04-18",
     "status": "deprecated",
     "apiSupport": {
@@ -22080,7 +20471,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "mistral-saba-24b": {
     "family": "mistral",
-    "knowledgeCutoff": "2024-08",
+    "trainingCutoff": "2024-08",
     "lastUpdated": "2025-02-06",
     "status": "deprecated",
     "apiSupport": {
@@ -22103,9 +20494,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "llama-3.3-70b-versatile": {
+  "llama-3-3-70b-versatile": {
     "family": "llama",
-    "knowledgeCutoff": "2024-12",
+    "trainingCutoff": "2024-12",
     "lastUpdated": "2024-12-06",
     "apiSupport": {
       "reasoning": false,
@@ -22129,7 +20520,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "gemma2-9b-it": {
     "family": "gemma",
-    "knowledgeCutoff": "2024-06",
+    "trainingCutoff": "2024-06",
     "lastUpdated": "2024-06-25",
     "apiSupport": {
       "reasoning": false,
@@ -22151,7 +20542,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "meta-llama/llama-guard-4-12b": {
+  "meta-llama-llama-guard-4-12b": {
     "lastUpdated": "2025-04-05",
     "apiSupport": {
       "reasoning": false,
@@ -22174,9 +20565,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "meta-llama/llama-4-maverick-17b-128e-instruct": {
+  "meta-llama-llama-4-maverick-17b-128e-instruct": {
     "family": "llama",
-    "knowledgeCutoff": "2024-08",
+    "trainingCutoff": "2024-08",
     "lastUpdated": "2025-04-05",
     "apiSupport": {
       "reasoning": false,
@@ -22200,84 +20591,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "microsoft/Phi-4-mini-instruct": {
-    "family": "phi",
-    "knowledgeCutoff": "2023-10",
-    "lastUpdated": "2024-12-11",
-    "interleavedReasoningField": "reasoning_content",
-    "apiSupport": {
-      "reasoning": true,
-      "toolCall": true,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 4096
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "meta-llama/Llama-4-Scout-17B-16E-Instruct": {
-    "family": "llama",
-    "knowledgeCutoff": "2024-12",
-    "lastUpdated": "2025-01-31",
-    "interleavedReasoningField": "reasoning_content",
-    "apiSupport": {
-      "reasoning": true,
-      "toolCall": true,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text",
-        "image"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 8192
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "meta-llama/Llama-3.1-8B-Instruct": {
-    "family": "llama",
-    "lastUpdated": "2025-12-23",
-    "apiSupport": {
-      "reasoning": false,
-      "toolCall": true,
-      "structuredOutput": true,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 8000
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "coding-glm-4.7-free": {
+  "coding-glm-4-7-free": {
     "family": "glm",
-    "knowledgeCutoff": "2025-04",
+    "trainingCutoff": "2025-04",
     "lastUpdated": "2025-12-22",
     "interleavedReasoningField": "reasoning_details",
     "apiSupport": {
@@ -22304,7 +20620,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "coding-minimax-m2.1-free": {
+  "coding-minimax-m2-1-free": {
     "family": "minimax",
     "lastUpdated": "2025-12-23",
     "interleavedReasoningField": "reasoning_details",
@@ -22330,7 +20646,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "claude-opus-4-6-think": {
     "family": "claude-opus",
-    "knowledgeCutoff": "2025-05",
+    "trainingCutoff": "2025-05",
     "lastUpdated": "2026-02-05",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -22366,7 +20682,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "gemini-3-pro-preview-search": {
     "family": "gemini-pro",
-    "knowledgeCutoff": "2025-11",
+    "trainingCutoff": "2025-11",
     "lastUpdated": "2025-11-19",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -22395,9 +20711,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "deepseek-v3.2-think": {
+  "deepseek-v3-2-think": {
     "family": "deepseek",
-    "knowledgeCutoff": "2024-07",
+    "trainingCutoff": "2024-07",
     "lastUpdated": "2025-12-01",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -22420,33 +20736,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "Kimi-K2-0905": {
-    "family": "kimi",
-    "knowledgeCutoff": "2024-10",
-    "lastUpdated": "2025-09-05",
-    "apiSupport": {
-      "reasoning": false,
-      "toolCall": true,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 262144
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
   "qwen3-max-2026-01-23": {
     "family": "qwen",
-    "knowledgeCutoff": "2025-04",
+    "trainingCutoff": "2025-04",
     "lastUpdated": "2025-09-23",
     "apiSupport": {
       "reasoning": false,
@@ -22468,9 +20760,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "deepseek-v3.2-fast": {
+  "deepseek-v3-2-fast": {
     "family": "deepseek",
-    "knowledgeCutoff": "2024-07",
+    "trainingCutoff": "2024-07",
     "lastUpdated": "2025-12-01",
     "apiSupport": {
       "reasoning": false,
@@ -22491,9 +20783,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "coding-glm-4.7": {
+  "coding-glm-4-7": {
     "family": "glm",
-    "knowledgeCutoff": "2025-04",
+    "trainingCutoff": "2025-04",
     "lastUpdated": "2025-12-22",
     "interleavedReasoningField": "reasoning_details",
     "apiSupport": {
@@ -22521,7 +20813,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "claude-sonnet-4-6-think": {
     "family": "claude-sonnet",
-    "knowledgeCutoff": "2025-08",
+    "trainingCutoff": "2025-08",
     "lastUpdated": "2026-02-17",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -22557,7 +20849,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "k2p5": {
     "family": "kimi-thinking",
-    "knowledgeCutoff": "2025-01",
+    "trainingCutoff": "2025-01",
     "lastUpdated": "2026-01",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -22589,7 +20881,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "devstral-medium-2507": {
     "family": "devstral",
-    "knowledgeCutoff": "2025-05",
+    "trainingCutoff": "2025-05",
     "lastUpdated": "2025-07-10",
     "apiSupport": {
       "reasoning": false,
@@ -22613,7 +20905,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "labs-devstral-small-2512": {
     "family": "devstral",
-    "knowledgeCutoff": "2025-12",
+    "trainingCutoff": "2025-12",
     "lastUpdated": "2025-12-09",
     "apiSupport": {
       "reasoning": false,
@@ -22638,7 +20930,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "devstral-medium-latest": {
     "family": "devstral",
-    "knowledgeCutoff": "2025-12",
+    "trainingCutoff": "2025-12",
     "lastUpdated": "2025-12-02",
     "apiSupport": {
       "reasoning": false,
@@ -22660,9 +20952,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "open-mistral-7b": {
+  "open-7b": {
     "family": "mistral",
-    "knowledgeCutoff": "2023-12",
+    "trainingCutoff": "2023-12",
     "lastUpdated": "2023-09-27",
     "apiSupport": {
       "reasoning": false,
@@ -22684,9 +20976,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "mistral-small-2506": {
+  "small-2506": {
     "family": "mistral-small",
-    "knowledgeCutoff": "2025-03",
+    "trainingCutoff": "2025-03",
     "lastUpdated": "2025-06-20",
     "apiSupport": {
       "reasoning": false,
@@ -22709,9 +21001,34 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
+  "medium-2505": {
+    "family": "mistral-medium",
+    "trainingCutoff": "2025-05",
+    "lastUpdated": "2025-05-07",
+    "apiSupport": {
+      "reasoning": false,
+      "toolCall": true,
+      "temperature": true,
+      "attachment": true
+    },
+    "modalities": {
+      "input": [
+        "text",
+        "image"
+      ],
+      "output": [
+        "text"
+      ]
+    },
+    "specs": {
+      "maxOutputTokens": 131072
+    },
+    "metadataSourceId": "models-dev",
+    "metadataAsOfDate": "2026-03-01"
+  },
   "codestral-latest": {
     "family": "codestral",
-    "knowledgeCutoff": "2024-10",
+    "trainingCutoff": "2024-10",
     "lastUpdated": "2025-01-04",
     "apiSupport": {
       "reasoning": false,
@@ -22735,7 +21052,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "ministral-8b-latest": {
     "family": "ministral",
-    "knowledgeCutoff": "2024-10",
+    "trainingCutoff": "2024-10",
     "lastUpdated": "2024-10-04",
     "apiSupport": {
       "reasoning": false,
@@ -22759,7 +21076,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "magistral-small": {
     "family": "magistral-small",
-    "knowledgeCutoff": "2025-06",
+    "trainingCutoff": "2025-06",
     "lastUpdated": "2025-03-17",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -22782,9 +21099,10 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "mistral-large-2512": {
-    "knowledgeCutoff": "2024-12",
-    "lastUpdated": "2025-12-16",
+  "large-2512": {
+    "family": "mistral-large",
+    "trainingCutoff": "2024-11",
+    "lastUpdated": "2025-12-02",
     "apiSupport": {
       "reasoning": false,
       "toolCall": true,
@@ -22808,7 +21126,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "ministral-3b-latest": {
     "family": "ministral",
-    "knowledgeCutoff": "2024-10",
+    "trainingCutoff": "2024-10",
     "lastUpdated": "2024-10-04",
     "apiSupport": {
       "reasoning": false,
@@ -22830,7 +21148,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "mistral-embed": {
+  "embed": {
     "family": "mistral-embed",
     "lastUpdated": "2023-12-11",
     "apiSupport": {
@@ -22855,7 +21173,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "devstral-small-2505": {
     "family": "devstral",
-    "knowledgeCutoff": "2025-05",
+    "trainingCutoff": "2025-05",
     "lastUpdated": "2025-05-07",
     "apiSupport": {
       "reasoning": false,
@@ -22879,7 +21197,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "pixtral-12b": {
     "family": "pixtral",
-    "knowledgeCutoff": "2024-09",
+    "trainingCutoff": "2024-09",
     "lastUpdated": "2024-09-01",
     "apiSupport": {
       "reasoning": false,
@@ -22904,7 +21222,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "open-mixtral-8x7b": {
     "family": "mixtral",
-    "knowledgeCutoff": "2024-01",
+    "trainingCutoff": "2024-01",
     "lastUpdated": "2023-12-11",
     "apiSupport": {
       "reasoning": false,
@@ -22928,7 +21246,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "pixtral-large-latest": {
     "family": "pixtral",
-    "knowledgeCutoff": "2024-11",
+    "trainingCutoff": "2024-11",
     "lastUpdated": "2024-11-04",
     "apiSupport": {
       "reasoning": false,
@@ -22951,8 +21269,32 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
+  "nemo": {
+    "family": "mistral-nemo",
+    "trainingCutoff": "2024-07",
+    "lastUpdated": "2024-07-01",
+    "apiSupport": {
+      "reasoning": false,
+      "toolCall": true,
+      "temperature": true,
+      "attachment": false
+    },
+    "modalities": {
+      "input": [
+        "text"
+      ],
+      "output": [
+        "text"
+      ]
+    },
+    "specs": {
+      "maxOutputTokens": 128000
+    },
+    "metadataSourceId": "models-dev",
+    "metadataAsOfDate": "2026-03-01"
+  },
   "devstral-2512": {
-    "knowledgeCutoff": "2025-12",
+    "trainingCutoff": "2025-12",
     "lastUpdated": "2025-12-09",
     "apiSupport": {
       "reasoning": false,
@@ -22974,9 +21316,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "mistral-large-latest": {
+  "large-latest": {
     "family": "mistral-large",
-    "knowledgeCutoff": "2024-11",
+    "trainingCutoff": "2024-11",
     "lastUpdated": "2025-12-02",
     "apiSupport": {
       "reasoning": false,
@@ -22999,9 +21341,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "mistral-medium-2508": {
+  "medium-2508": {
     "family": "mistral-medium",
-    "knowledgeCutoff": "2025-05",
+    "trainingCutoff": "2025-05",
     "lastUpdated": "2025-08-12",
     "apiSupport": {
       "reasoning": false,
@@ -23024,9 +21366,33 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "mistral-small-latest": {
+  "large-2411": {
+    "family": "mistral-large",
+    "trainingCutoff": "2024-11",
+    "lastUpdated": "2024-11-04",
+    "apiSupport": {
+      "reasoning": false,
+      "toolCall": true,
+      "temperature": true,
+      "attachment": false
+    },
+    "modalities": {
+      "input": [
+        "text"
+      ],
+      "output": [
+        "text"
+      ]
+    },
+    "specs": {
+      "maxOutputTokens": 16384
+    },
+    "metadataSourceId": "models-dev",
+    "metadataAsOfDate": "2026-03-01"
+  },
+  "small-latest": {
     "family": "mistral-small",
-    "knowledgeCutoff": "2025-03",
+    "trainingCutoff": "2025-03",
     "lastUpdated": "2024-09-04",
     "apiSupport": {
       "reasoning": false,
@@ -23051,7 +21417,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "open-mixtral-8x22b": {
     "family": "mixtral",
-    "knowledgeCutoff": "2024-04",
+    "trainingCutoff": "2024-04",
     "lastUpdated": "2024-04-17",
     "apiSupport": {
       "reasoning": false,
@@ -23073,9 +21439,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "mistral-medium-latest": {
+  "medium-latest": {
     "family": "mistral-medium",
-    "knowledgeCutoff": "2025-05",
+    "trainingCutoff": "2025-05",
     "lastUpdated": "2025-05-10",
     "apiSupport": {
       "reasoning": false,
@@ -23100,7 +21466,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "devstral-small-2507": {
     "family": "devstral",
-    "knowledgeCutoff": "2025-05",
+    "trainingCutoff": "2025-05",
     "lastUpdated": "2025-07-10",
     "apiSupport": {
       "reasoning": false,
@@ -23124,7 +21490,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "magistral-medium-latest": {
     "family": "magistral-medium",
-    "knowledgeCutoff": "2025-06",
+    "trainingCutoff": "2025-06",
     "lastUpdated": "2025-03-20",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -23147,7 +21513,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "gemini-2.0-pro-exp-02-05": {
+  "gemini-2-0-pro-exp-02-05": {
     "family": "gemini-pro",
     "lastUpdated": "2025-02-05",
     "apiSupport": {
@@ -23175,7 +21541,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "gpt-4o-2024-11-20": {
     "family": "gpt",
-    "knowledgeCutoff": "2023-09",
+    "trainingCutoff": "2023-09",
     "lastUpdated": "2024-11-20",
     "apiSupport": {
       "reasoning": false,
@@ -23204,7 +21570,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "claude-opus-4-5-20251101": {
     "family": "claude-opus",
-    "knowledgeCutoff": "2025-03-31",
+    "trainingCutoff": "2025-03-31",
     "lastUpdated": "2025-11-01",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -23233,9 +21599,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "gpt-5.2-chat-latest": {
+  "gpt-5-2-chat-latest": {
     "family": "gpt-codex",
-    "knowledgeCutoff": "2025-08-31",
+    "trainingCutoff": "2025-08-31",
     "lastUpdated": "2025-12-11",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -23290,7 +21656,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "grok-4-1-fast-non-reasoning": {
     "family": "grok",
-    "knowledgeCutoff": "2025-07",
+    "trainingCutoff": "2025-07",
     "lastUpdated": "2025-11-19",
     "apiSupport": {
       "reasoning": false,
@@ -23316,7 +21682,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "gemini-2.0-flash-001": {
+  "gemini-2-0-flash-001": {
     "family": "gemini-flash",
     "lastUpdated": "2025-02-05",
     "apiSupport": {
@@ -23344,7 +21710,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "claude-opus-4-20250514": {
     "family": "claude-opus",
-    "knowledgeCutoff": "2025-03-31",
+    "trainingCutoff": "2025-03-31",
     "lastUpdated": "2025-05-22",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -23375,7 +21741,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "claude-sonnet-4-5-20250929": {
     "family": "claude-sonnet",
-    "knowledgeCutoff": "2025-07-31",
+    "trainingCutoff": "2025-07-31",
     "lastUpdated": "2025-09-29",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -23406,7 +21772,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "o3-pro": {
     "family": "o-pro",
-    "knowledgeCutoff": "2024-05",
+    "trainingCutoff": "2024-05",
     "lastUpdated": "2025-06-10",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -23433,7 +21799,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "claude-3-7-sonnet-20250219": {
     "family": "claude-sonnet",
-    "knowledgeCutoff": "2024-10-31",
+    "trainingCutoff": "2024-10-31",
     "lastUpdated": "2025-02-19",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -23464,7 +21830,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "claude-haiku-4-5-20251001": {
     "family": "claude-haiku",
-    "knowledgeCutoff": "2025-02-28",
+    "trainingCutoff": "2025-02-28",
     "lastUpdated": "2025-10-15",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -23495,7 +21861,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "kimi-k2-turbo-preview": {
     "family": "kimi",
-    "knowledgeCutoff": "2024-10",
+    "trainingCutoff": "2024-10",
     "lastUpdated": "2025-09-05",
     "apiSupport": {
       "reasoning": false,
@@ -23520,7 +21886,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "qwen-2.5-coder-32b": {
+  "qwen-2-5-coder-32b": {
     "family": "qwen",
     "lastUpdated": "2024-11-11",
     "apiSupport": {
@@ -23545,7 +21911,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "route-llm": {
     "family": "gpt",
-    "knowledgeCutoff": "2024-10",
+    "trainingCutoff": "2024-10",
     "lastUpdated": "2024-01-01",
     "apiSupport": {
       "reasoning": false,
@@ -23570,7 +21936,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "claude-sonnet-4-20250514": {
     "family": "claude-sonnet",
-    "knowledgeCutoff": "2025-03-31",
+    "trainingCutoff": "2025-03-31",
     "lastUpdated": "2025-05-22",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -23599,9 +21965,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "gpt-5.1-chat-latest": {
+  "gpt-5-1-chat-latest": {
     "family": "gpt-codex",
-    "knowledgeCutoff": "2024-09-30",
+    "trainingCutoff": "2024-09-30",
     "lastUpdated": "2025-11-13",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -23631,7 +21997,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "claude-opus-4-1-20250805": {
     "family": "claude-opus",
-    "knowledgeCutoff": "2025-03-31",
+    "trainingCutoff": "2025-03-31",
     "lastUpdated": "2025-08-05",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -23660,81 +22026,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "deepseek-ai/DeepSeek-R1": {
-    "family": "deepseek-thinking",
-    "lastUpdated": "2025-11-25",
-    "interleavedReasoningField": "reasoning_content",
-    "apiSupport": {
-      "reasoning": true,
-      "toolCall": true,
-      "structuredOutput": true,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 164000
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "deepseek-ai/DeepSeek-V3.1-Terminus": {
-    "family": "deepseek",
-    "lastUpdated": "2025-11-25",
-    "interleavedReasoningField": "reasoning_content",
-    "apiSupport": {
-      "reasoning": true,
-      "toolCall": true,
-      "structuredOutput": true,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 164000
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "meta-llama/Meta-Llama-3.1-8B-Instruct": {
-    "family": "llama",
-    "lastUpdated": "2025-11-25",
-    "apiSupport": {
-      "reasoning": false,
-      "toolCall": true,
-      "structuredOutput": true,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 4000
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "meta-llama/Meta-Llama-3.1-405B-Instruct-Turbo": {
+  "meta-llama-meta-llama-3-1-405b-instruct-turbo": {
     "family": "llama",
     "lastUpdated": "2024-07-23",
     "apiSupport": {
@@ -23757,7 +22049,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "meta-llama/Meta-Llama-3.1-70B-Instruct": {
+  "meta-llama-meta-llama-3-1-70b-instruct": {
     "family": "llama",
     "lastUpdated": "2024-07-23",
     "apiSupport": {
@@ -23780,84 +22072,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "Qwen/QwQ-32B": {
-    "family": "qwen",
-    "lastUpdated": "2025-11-25",
-    "interleavedReasoningField": "reasoning_content",
-    "apiSupport": {
-      "reasoning": true,
-      "toolCall": true,
-      "structuredOutput": true,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 131000
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "Qwen/qwen3-coder-480b-a35b-instruct": {
-    "family": "qwen",
-    "lastUpdated": "2025-07-22",
-    "interleavedReasoningField": "reasoning_content",
-    "apiSupport": {
-      "reasoning": true,
-      "toolCall": true,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 65536
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "Qwen/Qwen3-32B": {
-    "family": "qwen",
-    "lastUpdated": "2026-01-10",
-    "interleavedReasoningField": "reasoning_content",
-    "apiSupport": {
-      "reasoning": true,
-      "toolCall": true,
-      "structuredOutput": true,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 40960,
-      "pricing": {
-        "cacheInput": 0.04
-      }
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "Qwen/Qwen2.5-72B-Instruct": {
+  "qwen-qwen2-5-72b-instruct": {
     "family": "qwen",
     "lastUpdated": "2026-01-10",
     "apiSupport": {
@@ -23881,9 +22096,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "accounts/fireworks/models/kimi-k2-instruct": {
+  "accounts-fireworks-models-kimi-k2-instruct": {
     "family": "kimi",
-    "knowledgeCutoff": "2024-10",
+    "trainingCutoff": "2024-10",
     "lastUpdated": "2025-07-11",
     "apiSupport": {
       "reasoning": false,
@@ -23905,9 +22120,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "accounts/fireworks/models/glm-4p7": {
+  "accounts-fireworks-models-glm-4p7": {
     "family": "glm",
-    "knowledgeCutoff": "2025-04",
+    "trainingCutoff": "2025-04",
     "lastUpdated": "2025-12-22",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -23933,7 +22148,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "accounts/fireworks/models/glm-5": {
+  "accounts-fireworks-models-glm-5": {
     "family": "glm",
     "lastUpdated": "2026-02-11",
     "interleavedReasoningField": "reasoning_content",
@@ -23960,9 +22175,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "accounts/fireworks/models/deepseek-v3p1": {
+  "accounts-fireworks-models-deepseek-v3p1": {
     "family": "deepseek",
-    "knowledgeCutoff": "2025-07",
+    "trainingCutoff": "2025-07",
     "lastUpdated": "2025-08-21",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -23985,7 +22200,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "accounts/fireworks/models/minimax-m2p1": {
+  "accounts-fireworks-models-minimax-m2p1": {
     "family": "minimax",
     "lastUpdated": "2025-12-23",
     "interleavedReasoningField": "reasoning_content",
@@ -24012,9 +22227,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "accounts/fireworks/models/glm-4p5-air": {
+  "accounts-fireworks-models-glm-4p5-air": {
     "family": "glm-air",
-    "knowledgeCutoff": "2025-04",
+    "trainingCutoff": "2025-04",
     "lastUpdated": "2025-08-01",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -24037,9 +22252,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "accounts/fireworks/models/deepseek-v3p2": {
+  "accounts-fireworks-models-deepseek-v3p2": {
     "family": "deepseek",
-    "knowledgeCutoff": "2025-09",
+    "trainingCutoff": "2025-09",
     "lastUpdated": "2025-12-01",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -24065,7 +22280,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "accounts/fireworks/models/minimax-m2p5": {
+  "accounts-fireworks-models-minimax-m2p5": {
     "family": "minimax",
     "lastUpdated": "2026-02-12",
     "interleavedReasoningField": "reasoning_content",
@@ -24092,7 +22307,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "accounts/fireworks/models/gpt-oss-120b": {
+  "accounts-fireworks-models-gpt-oss-120b": {
     "family": "gpt-oss",
     "lastUpdated": "2025-08-05",
     "interleavedReasoningField": "reasoning_content",
@@ -24116,9 +22331,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "accounts/fireworks/models/kimi-k2p5": {
+  "accounts-fireworks-models-kimi-k2p5": {
     "family": "kimi-thinking",
-    "knowledgeCutoff": "2025-01",
+    "trainingCutoff": "2025-01",
     "lastUpdated": "2026-01-27",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -24146,7 +22361,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "accounts/fireworks/models/kimi-k2-thinking": {
+  "accounts-fireworks-models-kimi-k2-thinking": {
     "family": "kimi-thinking",
     "lastUpdated": "2025-11-06",
     "interleavedReasoningField": "reasoning_content",
@@ -24173,9 +22388,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "accounts/fireworks/models/glm-4p5": {
+  "accounts-fireworks-models-glm-4p5": {
     "family": "glm",
-    "knowledgeCutoff": "2025-04",
+    "trainingCutoff": "2025-04",
     "lastUpdated": "2025-07-29",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -24198,7 +22413,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "accounts/fireworks/models/gpt-oss-20b": {
+  "accounts-fireworks-models-gpt-oss-20b": {
     "family": "gpt-oss",
     "lastUpdated": "2025-08-05",
     "interleavedReasoningField": "reasoning_content",
@@ -24222,8 +22437,8 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "step-3.5-flash": {
-    "knowledgeCutoff": "2025-01",
+  "step-3-5-flash": {
+    "trainingCutoff": "2025-01",
     "lastUpdated": "2026-02-13",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -24250,7 +22465,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataAsOfDate": "2026-03-01"
   },
   "step-2-16k": {
-    "knowledgeCutoff": "2024-06",
+    "trainingCutoff": "2024-06",
     "lastUpdated": "2026-02-13",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -24277,7 +22492,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataAsOfDate": "2026-03-01"
   },
   "step-1-32k": {
-    "knowledgeCutoff": "2024-06",
+    "trainingCutoff": "2024-06",
     "lastUpdated": "2026-02-13",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -24305,7 +22520,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "duo-chat-gpt-5-2-codex": {
     "family": "gpt-codex",
-    "knowledgeCutoff": "2025-08-31",
+    "trainingCutoff": "2025-08-31",
     "lastUpdated": "2026-01-22",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -24333,7 +22548,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "duo-chat-opus-4-6": {
     "family": "claude-opus",
-    "knowledgeCutoff": "2025-03-31",
+    "trainingCutoff": "2025-03-31",
     "lastUpdated": "2026-02-05",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -24364,7 +22579,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "duo-chat-gpt-5-mini": {
     "family": "gpt-mini",
-    "knowledgeCutoff": "2024-05-30",
+    "trainingCutoff": "2024-05-30",
     "lastUpdated": "2026-01-22",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -24391,7 +22606,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "duo-chat-sonnet-4-5": {
     "family": "claude-sonnet",
-    "knowledgeCutoff": "2025-07-31",
+    "trainingCutoff": "2025-07-31",
     "lastUpdated": "2026-01-08",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -24422,7 +22637,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "duo-chat-haiku-4-5": {
     "family": "claude-haiku",
-    "knowledgeCutoff": "2025-02-28",
+    "trainingCutoff": "2025-02-28",
     "lastUpdated": "2026-01-08",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -24453,7 +22668,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "duo-chat-gpt-5-codex": {
     "family": "gpt-codex",
-    "knowledgeCutoff": "2024-09-30",
+    "trainingCutoff": "2024-09-30",
     "lastUpdated": "2026-01-22",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -24480,7 +22695,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "duo-chat-gpt-5-2": {
     "family": "gpt",
-    "knowledgeCutoff": "2025-08-31",
+    "trainingCutoff": "2025-08-31",
     "lastUpdated": "2026-01-23",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -24507,7 +22722,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "duo-chat-sonnet-4-6": {
     "family": "claude-sonnet",
-    "knowledgeCutoff": "2025-08-31",
+    "trainingCutoff": "2025-08-31",
     "lastUpdated": "2026-02-17",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -24538,7 +22753,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "duo-chat-opus-4-5": {
     "family": "claude-opus",
-    "knowledgeCutoff": "2025-03-31",
+    "trainingCutoff": "2025-03-31",
     "lastUpdated": "2026-01-08",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -24569,7 +22784,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "duo-chat-gpt-5-1": {
     "family": "gpt",
-    "knowledgeCutoff": "2024-09-30",
+    "trainingCutoff": "2024-09-30",
     "lastUpdated": "2026-01-22",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -24594,90 +22809,11 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "nex-agi/DeepSeek-V3.1-Nex-N1": {
-    "family": "deepseek",
-    "lastUpdated": "2025-11-25",
-    "interleavedReasoningField": "reasoning_content",
-    "apiSupport": {
-      "reasoning": true,
-      "toolCall": true,
-      "structuredOutput": true,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 131000
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "zai-org/GLM-4.5V": {
-    "family": "glm",
+  "nex-agi-deepseek-v3-1-nex-n1": {
     "lastUpdated": "2025-11-25",
     "apiSupport": {
       "reasoning": false,
       "toolCall": true,
-      "structuredOutput": true,
-      "temperature": true,
-      "attachment": true
-    },
-    "modalities": {
-      "input": [
-        "text",
-        "image"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 66000
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "zai-org/GLM-4.6V": {
-    "family": "glm",
-    "lastUpdated": "2026-01-10",
-    "interleavedReasoningField": "reasoning_content",
-    "apiSupport": {
-      "reasoning": true,
-      "toolCall": true,
-      "structuredOutput": true,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text",
-        "image"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 65536
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "zai-org/GLM-5": {
-    "family": "glm",
-    "lastUpdated": "2026-02-12",
-    "interleavedReasoningField": "reasoning_content",
-    "apiSupport": {
-      "reasoning": true,
-      "toolCall": true,
-      "structuredOutput": true,
       "temperature": true,
       "attachment": false
     },
@@ -24690,12 +22826,12 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
       ]
     },
     "specs": {
-      "maxOutputTokens": 202752
+      "maxOutputTokens": 163840
     },
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "deepseek-ai/DeepSeek-R1-Distill-Qwen-32B": {
+  "deepseek-ai-deepseek-r1-distill-qwen-32b": {
     "family": "qwen",
     "lastUpdated": "2025-11-25",
     "interleavedReasoningField": "reasoning_content",
@@ -24720,7 +22856,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "deepseek-ai/DeepSeek-R1-Distill-Qwen-14B": {
+  "deepseek-ai-deepseek-r1-distill-qwen-14b": {
     "family": "qwen",
     "lastUpdated": "2025-11-25",
     "interleavedReasoningField": "reasoning_content",
@@ -24745,7 +22881,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "deepseek-ai/DeepSeek-V3.2-Exp": {
+  "deepseek-ai-deepseek-v3-2-exp": {
     "family": "deepseek",
     "lastUpdated": "2025-10-10",
     "apiSupport": {
@@ -24769,7 +22905,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "deepseek-ai/deepseek-vl2": {
+  "deepseek-ai-deepseek-vl2": {
     "family": "deepseek",
     "lastUpdated": "2025-11-25",
     "apiSupport": {
@@ -24794,7 +22930,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "deepseek-ai/DeepSeek-V3": {
+  "deepseek-ai-deepseek-v3": {
     "family": "deepseek",
     "lastUpdated": "2026-01-10",
     "apiSupport": {
@@ -24818,7 +22954,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "ByteDance-Seed/Seed-OSS-36B-Instruct": {
+  "bytedance-seed-seed-oss-36b-instruct": {
     "family": "seed",
     "lastUpdated": "2025-11-25",
     "apiSupport": {
@@ -24842,13 +22978,12 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "tencent/Hunyuan-A13B-Instruct": {
-    "family": "hunyuan",
+  "tencent-hunyuan-a13b-instruct": {
     "lastUpdated": "2025-11-25",
+    "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
-      "reasoning": false,
-      "toolCall": true,
-      "structuredOutput": true,
+      "reasoning": true,
+      "toolCall": false,
       "temperature": true,
       "attachment": false
     },
@@ -24861,12 +22996,12 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
       ]
     },
     "specs": {
-      "maxOutputTokens": 131000
+      "maxOutputTokens": 131072
     },
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "tencent/Hunyuan-MT-7B": {
+  "tencent-hunyuan-mt-7b": {
     "family": "hunyuan",
     "lastUpdated": "2025-11-25",
     "apiSupport": {
@@ -24890,7 +23025,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "inclusionAI/Ling-flash-2.0": {
+  "inclusionai-ling-flash-2-0": {
     "family": "ling",
     "lastUpdated": "2025-11-25",
     "apiSupport": {
@@ -24914,7 +23049,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "inclusionAI/Ring-flash-2.0": {
+  "inclusionai-ring-flash-2-0": {
     "family": "ring",
     "lastUpdated": "2025-11-25",
     "interleavedReasoningField": "reasoning_content",
@@ -24939,7 +23074,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "inclusionAI/Ling-mini-2.0": {
+  "inclusionai-ling-mini-2-0": {
     "family": "ling",
     "lastUpdated": "2025-11-25",
     "apiSupport": {
@@ -24963,13 +23098,11 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "baidu/ERNIE-4.5-300B-A47B": {
-    "family": "ernie",
-    "lastUpdated": "2025-11-25",
+  "baidu-ernie-4-5-300b-a47b": {
+    "lastUpdated": "2026-01",
     "apiSupport": {
       "reasoning": false,
-      "toolCall": true,
-      "structuredOutput": true,
+      "toolCall": false,
       "temperature": true,
       "attachment": false
     },
@@ -24982,12 +23115,12 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
       ]
     },
     "specs": {
-      "maxOutputTokens": 131000
+      "maxOutputTokens": 12000
     },
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "stepfun-ai/Step-3.5-Flash": {
+  "stepfun-ai-step-3-5-flash": {
     "family": "step",
     "lastUpdated": "2026-02-11",
     "interleavedReasoningField": "reasoning_content",
@@ -25012,12 +23145,34 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "Qwen/Qwen3-VL-30B-A3B-Thinking": {
+  "qwen-qwen3-vl-32b-instruct": {
+    "lastUpdated": "2025-11-25",
+    "apiSupport": {
+      "reasoning": false,
+      "toolCall": true,
+      "temperature": true,
+      "attachment": true
+    },
+    "modalities": {
+      "input": [
+        "text",
+        "image"
+      ],
+      "output": [
+        "text"
+      ]
+    },
+    "specs": {
+      "maxOutputTokens": 32768
+    },
+    "metadataSourceId": "models-dev",
+    "metadataAsOfDate": "2026-03-01"
+  },
+  "qwen-qwen2-5-vl-7b-instruct": {
     "family": "qwen",
     "lastUpdated": "2025-11-25",
-    "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
-      "reasoning": true,
+      "reasoning": false,
       "toolCall": true,
       "structuredOutput": true,
       "temperature": true,
@@ -25033,14 +23188,14 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
       ]
     },
     "specs": {
-      "maxOutputTokens": 262000
+      "maxOutputTokens": 4000
     },
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "Qwen/Qwen3-VL-235B-A22B-Instruct": {
+  "qwen-qwen2-5-32b-instruct": {
     "family": "qwen",
-    "lastUpdated": "2026-01-10",
+    "lastUpdated": "2025-11-25",
     "apiSupport": {
       "reasoning": false,
       "toolCall": true,
@@ -25050,71 +23205,93 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     },
     "modalities": {
       "input": [
-        "text",
-        "image"
+        "text"
       ],
       "output": [
         "text"
       ]
     },
     "specs": {
-      "maxOutputTokens": 262144
+      "maxOutputTokens": 4000
     },
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "Qwen/Qwen3-VL-32B-Instruct": {
-    "family": "qwen",
-    "lastUpdated": "2025-11-25",
-    "apiSupport": {
-      "reasoning": false,
-      "toolCall": true,
-      "structuredOutput": true,
-      "temperature": true,
-      "attachment": true
-    },
-    "modalities": {
-      "input": [
-        "text",
-        "image"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 262000
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "Qwen/Qwen3-VL-235B-A22B-Thinking": {
-    "family": "qwen",
-    "lastUpdated": "2025-11-25",
+  "qwen-qwen3-8b": {
+    "lastUpdated": "2025-04",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
       "reasoning": true,
       "toolCall": true,
-      "structuredOutput": true,
       "temperature": true,
-      "attachment": true
+      "attachment": false
     },
     "modalities": {
       "input": [
-        "text",
-        "image"
+        "text"
       ],
       "output": [
         "text"
       ]
     },
     "specs": {
-      "maxOutputTokens": 262000
+      "maxOutputTokens": 8192,
+      "pricing": {
+        "cacheInput": 0.05
+      }
     },
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "Qwen/Qwen3-Omni-30B-A3B-Instruct": {
+  "qwen-qwen2-5-14b-instruct": {
+    "family": "qwen",
+    "lastUpdated": "2025-11-25",
+    "apiSupport": {
+      "reasoning": false,
+      "toolCall": true,
+      "structuredOutput": true,
+      "temperature": true,
+      "attachment": false
+    },
+    "modalities": {
+      "input": [
+        "text"
+      ],
+      "output": [
+        "text"
+      ]
+    },
+    "specs": {
+      "maxOutputTokens": 4000
+    },
+    "metadataSourceId": "models-dev",
+    "metadataAsOfDate": "2026-03-01"
+  },
+  "qwen-qwen2-5-72b-instruct-128k": {
+    "family": "qwen",
+    "lastUpdated": "2025-11-25",
+    "apiSupport": {
+      "reasoning": false,
+      "toolCall": true,
+      "structuredOutput": true,
+      "temperature": true,
+      "attachment": false
+    },
+    "modalities": {
+      "input": [
+        "text"
+      ],
+      "output": [
+        "text"
+      ]
+    },
+    "specs": {
+      "maxOutputTokens": 4000
+    },
+    "metadataSourceId": "models-dev",
+    "metadataAsOfDate": "2026-03-01"
+  },
+  "qwen-qwen3-omni-30b-a3b-captioner": {
     "family": "qwen",
     "lastUpdated": "2025-11-25",
     "apiSupport": {
@@ -25126,8 +23303,6 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     },
     "modalities": {
       "input": [
-        "text",
-        "image",
         "audio"
       ],
       "output": [
@@ -25140,67 +23315,18 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "Qwen/Qwen2.5-VL-7B-Instruct": {
-    "family": "qwen",
+  "qwen-qwen3-vl-8b-thinking": {
     "lastUpdated": "2025-11-25",
+    "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
-      "reasoning": false,
+      "reasoning": true,
       "toolCall": true,
-      "structuredOutput": true,
       "temperature": true,
       "attachment": true
     },
     "modalities": {
       "input": [
-        "text",
-        "image"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 4000
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "Qwen/Qwen2.5-32B-Instruct": {
-    "family": "qwen",
-    "lastUpdated": "2025-11-25",
-    "apiSupport": {
-      "reasoning": false,
-      "toolCall": true,
-      "structuredOutput": true,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 4000
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "Qwen/Qwen2.5-Coder-32B-Instruct": {
-    "family": "qwen",
-    "lastUpdated": "2026-01-10",
-    "apiSupport": {
-      "reasoning": false,
-      "toolCall": false,
-      "structuredOutput": true,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
+        "image",
         "text"
       ],
       "output": [
@@ -25213,110 +23339,12 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "Qwen/Qwen3-8B": {
-    "family": "qwen",
-    "lastUpdated": "2025-11-25",
-    "apiSupport": {
-      "reasoning": false,
-      "toolCall": true,
-      "structuredOutput": true,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 131000
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "Qwen/Qwen3-Omni-30B-A3B-Thinking": {
+  "qwen-qwen3-vl-32b-thinking": {
     "family": "qwen",
     "lastUpdated": "2025-11-25",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
       "reasoning": true,
-      "toolCall": true,
-      "structuredOutput": true,
-      "temperature": true,
-      "attachment": true
-    },
-    "modalities": {
-      "input": [
-        "text",
-        "image",
-        "audio"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 66000
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "Qwen/Qwen2.5-7B-Instruct": {
-    "family": "qwen",
-    "lastUpdated": "2025-11-25",
-    "apiSupport": {
-      "reasoning": false,
-      "toolCall": true,
-      "structuredOutput": true,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 4000
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "Qwen/Qwen2.5-14B-Instruct": {
-    "family": "qwen",
-    "lastUpdated": "2025-11-25",
-    "apiSupport": {
-      "reasoning": false,
-      "toolCall": true,
-      "structuredOutput": true,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 4000
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "Qwen/Qwen2.5-VL-72B-Instruct": {
-    "family": "qwen",
-    "lastUpdated": "2025-11-25",
-    "apiSupport": {
-      "reasoning": false,
       "toolCall": true,
       "structuredOutput": true,
       "temperature": true,
@@ -25332,36 +23360,12 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
       ]
     },
     "specs": {
-      "maxOutputTokens": 4000
+      "maxOutputTokens": 262000
     },
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "Qwen/Qwen2.5-72B-Instruct-128K": {
-    "family": "qwen",
-    "lastUpdated": "2025-11-25",
-    "apiSupport": {
-      "reasoning": false,
-      "toolCall": true,
-      "structuredOutput": true,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 4000
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "Qwen/Qwen3-235B-A22B": {
+  "qwen-qwen3-14b": {
     "family": "qwen",
     "lastUpdated": "2026-01-10",
     "interleavedReasoningField": "reasoning_content",
@@ -25386,157 +23390,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "Qwen/Qwen3-VL-8B-Instruct": {
-    "family": "qwen",
-    "lastUpdated": "2025-11-25",
-    "apiSupport": {
-      "reasoning": false,
-      "toolCall": true,
-      "structuredOutput": true,
-      "temperature": true,
-      "attachment": true
-    },
-    "modalities": {
-      "input": [
-        "text",
-        "image"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 262000
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "Qwen/Qwen3-Next-80B-A3B-Thinking": {
-    "family": "qwen",
-    "knowledgeCutoff": "2025-04",
-    "lastUpdated": "2025-09-11",
-    "apiSupport": {
-      "reasoning": false,
-      "toolCall": true,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 131072
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "Qwen/Qwen3-Omni-30B-A3B-Captioner": {
-    "family": "qwen",
-    "lastUpdated": "2025-11-25",
-    "apiSupport": {
-      "reasoning": false,
-      "toolCall": true,
-      "structuredOutput": true,
-      "temperature": true,
-      "attachment": true
-    },
-    "modalities": {
-      "input": [
-        "audio"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 66000
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "Qwen/Qwen3-VL-8B-Thinking": {
-    "family": "qwen",
-    "lastUpdated": "2025-11-25",
-    "interleavedReasoningField": "reasoning_content",
-    "apiSupport": {
-      "reasoning": true,
-      "toolCall": true,
-      "structuredOutput": true,
-      "temperature": true,
-      "attachment": true
-    },
-    "modalities": {
-      "input": [
-        "text",
-        "image"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 262000
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "Qwen/Qwen3-VL-32B-Thinking": {
-    "family": "qwen",
-    "lastUpdated": "2025-11-25",
-    "interleavedReasoningField": "reasoning_content",
-    "apiSupport": {
-      "reasoning": true,
-      "toolCall": true,
-      "structuredOutput": true,
-      "temperature": true,
-      "attachment": true
-    },
-    "modalities": {
-      "input": [
-        "text",
-        "image"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 262000
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "Qwen/Qwen3-14B": {
-    "family": "qwen",
-    "lastUpdated": "2026-01-10",
-    "interleavedReasoningField": "reasoning_content",
-    "apiSupport": {
-      "reasoning": true,
-      "toolCall": true,
-      "structuredOutput": true,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 40960
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "THUDM/GLM-4-32B-0414": {
+  "thudm-glm-4-32b-0414": {
     "family": "glm",
     "lastUpdated": "2025-11-25",
     "apiSupport": {
@@ -25560,7 +23414,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "THUDM/GLM-4-9B-0414": {
+  "thudm-glm-4-9b-0414": {
     "family": "glm",
     "lastUpdated": "2025-11-25",
     "apiSupport": {
@@ -25584,7 +23438,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "THUDM/GLM-Z1-32B-0414": {
+  "thudm-glm-z1-32b-0414": {
     "family": "glm-z",
     "lastUpdated": "2025-11-25",
     "interleavedReasoningField": "reasoning_content",
@@ -25609,7 +23463,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "THUDM/GLM-Z1-9B-0414": {
+  "thudm-glm-z1-9b-0414": {
     "family": "glm-z",
     "lastUpdated": "2025-11-25",
     "interleavedReasoningField": "reasoning_content",
@@ -25634,13 +23488,11 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "essentialai/Rnj-1-Instruct": {
-    "family": "rnj",
-    "knowledgeCutoff": "2024-10",
+  "essentialai-rnj-1-instruct": {
     "lastUpdated": "2025-12-05",
     "apiSupport": {
       "reasoning": false,
-      "toolCall": true,
+      "toolCall": false,
       "temperature": true,
       "attachment": false
     },
@@ -25653,12 +23505,12 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
       ]
     },
     "specs": {
-      "maxOutputTokens": 32768
+      "maxOutputTokens": 6554
     },
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "MiniMaxAI/MiniMax-M2.5": {
+  "minimaxai-minimax-m2-5": {
     "family": "minimax",
     "lastUpdated": "2026-02-12",
     "interleavedReasoningField": "reasoning_content",
@@ -25683,34 +23535,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "deepseek-ai/DeepSeek-V3-1": {
-    "family": "deepseek",
-    "knowledgeCutoff": "2025-08",
-    "lastUpdated": "2025-08-21",
-    "interleavedReasoningField": "reasoning_content",
-    "apiSupport": {
-      "reasoning": true,
-      "toolCall": true,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 131072
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "meta-llama/Llama-3.3-70B-Instruct-Turbo": {
+  "meta-llama-llama-3-3-70b-instruct-turbo": {
     "family": "llama",
-    "knowledgeCutoff": "2023-12",
+    "trainingCutoff": "2023-12",
     "lastUpdated": "2024-12-06",
     "apiSupport": {
       "reasoning": false,
@@ -25732,9 +23559,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "Qwen/Qwen3-235B-A22B-Instruct-2507-tput": {
+  "qwen-qwen3-235b-a22b-instruct-2507-tput": {
     "family": "qwen",
-    "knowledgeCutoff": "2025-07",
+    "trainingCutoff": "2025-07",
     "lastUpdated": "2025-07-25",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -25757,35 +23584,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "Qwen/Qwen3.5-397B-A17B": {
+  "qwen-qwen3-coder-next-fp8": {
     "family": "qwen",
-    "knowledgeCutoff": "2025-04",
-    "lastUpdated": "2026-02-01",
-    "interleavedReasoningField": "reasoning_content",
-    "apiSupport": {
-      "reasoning": true,
-      "toolCall": true,
-      "temperature": true,
-      "attachment": true
-    },
-    "modalities": {
-      "input": [
-        "text",
-        "image"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 32768
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "Qwen/Qwen3-Coder-Next-FP8": {
-    "family": "qwen",
-    "knowledgeCutoff": "2026-02-03",
+    "trainingCutoff": "2026-02-03",
     "lastUpdated": "2026-02-03",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -25808,9 +23609,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "BAAI/bge-reranker-v2-m3": {
+  "baai-bge-reranker-v2-m3": {
     "family": "bge",
-    "knowledgeCutoff": "2025-04",
+    "trainingCutoff": "2025-04",
     "lastUpdated": "2025-04-23",
     "apiSupport": {
       "reasoning": false,
@@ -25832,9 +23633,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "intfloat/multilingual-e5-large": {
+  "intfloat-multilingual-e5-large": {
     "family": "text-embedding",
-    "knowledgeCutoff": "2025-09",
+    "trainingCutoff": "2025-09",
     "lastUpdated": "2025-09-11",
     "apiSupport": {
       "reasoning": false,
@@ -25856,9 +23657,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "mistralai/Mistral-Small-3.2-24B-Instruct-2506": {
+  "mistralai-mistral-small-3-2-24b-instruct-2506": {
     "family": "mistral-small",
-    "knowledgeCutoff": "2024-10",
+    "trainingCutoff": "2024-10",
     "lastUpdated": "2025-06-20",
     "apiSupport": {
       "reasoning": false,
@@ -25882,9 +23683,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "lucidquery-nexus-coder": {
+  "nexus-coder": {
     "family": "lucid",
-    "knowledgeCutoff": "2025-08-01",
+    "trainingCutoff": "2025-08-01",
     "lastUpdated": "2025-09-01",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -25909,7 +23710,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "lucidnova-rf1-100b": {
     "family": "nova",
-    "knowledgeCutoff": "2025-09-16",
+    "trainingCutoff": "2025-09-16",
     "lastUpdated": "2025-09-10",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -25932,9 +23733,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "glm-4.6v-flash": {
+  "glm-4-6v-flash": {
     "family": "glm",
-    "knowledgeCutoff": "2025-04",
+    "trainingCutoff": "2025-04",
     "lastUpdated": "2025-12-08",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -25959,15 +23760,16 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "deepseek-reasoner": {
+  "reasoner": {
     "family": "deepseek-thinking",
-    "knowledgeCutoff": "2025-01",
-    "lastUpdated": "2025-01-20",
+    "trainingCutoff": "2024-07",
+    "lastUpdated": "2025-09-29",
+    "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
-      "reasoning": false,
-      "toolCall": false,
+      "reasoning": true,
+      "toolCall": true,
       "temperature": true,
-      "attachment": false
+      "attachment": true
     },
     "modalities": {
       "input": [
@@ -25978,23 +23780,23 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
       ]
     },
     "specs": {
-      "maxOutputTokens": 64000,
+      "maxOutputTokens": 128000,
       "pricing": {
-        "cacheInput": 0.07
+        "cacheInput": 0.028
       }
     },
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "deepseek-chat": {
+  "chat": {
     "family": "deepseek",
-    "knowledgeCutoff": "2024-07",
-    "lastUpdated": "2024-11-29",
+    "trainingCutoff": "2024-07",
+    "lastUpdated": "2025-09-29",
     "apiSupport": {
       "reasoning": false,
       "toolCall": true,
       "temperature": true,
-      "attachment": false
+      "attachment": true
     },
     "modalities": {
       "input": [
@@ -26005,14 +23807,17 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
       ]
     },
     "specs": {
-      "maxOutputTokens": 8192
+      "maxOutputTokens": 8192,
+      "pricing": {
+        "cacheInput": 0.028
+      }
     },
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "qwen/qwen3-30b-a3b-2507": {
+  "qwen-qwen3-30b-a3b-2507": {
     "family": "qwen",
-    "knowledgeCutoff": "2025-04",
+    "trainingCutoff": "2025-04",
     "lastUpdated": "2025-07-30",
     "apiSupport": {
       "reasoning": false,
@@ -26034,9 +23839,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "qwen/qwen3-coder-30b": {
+  "qwen-qwen3-coder-30b": {
     "family": "qwen",
-    "knowledgeCutoff": "2025-04",
+    "trainingCutoff": "2025-04",
     "lastUpdated": "2025-07-23",
     "apiSupport": {
       "reasoning": false,
@@ -26058,7 +23863,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "prime-intellect/intellect-3": {
+  "prime-intellect-intellect-3": {
     "lastUpdated": "2026-02-04",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -26081,9 +23886,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "featherless/qwerky-72b": {
+  "featherless-qwerky-72b": {
     "family": "qwerky",
-    "knowledgeCutoff": "2024-10",
+    "trainingCutoff": "2024-10",
     "lastUpdated": "2025-03-20",
     "apiSupport": {
       "reasoning": false,
@@ -26105,9 +23910,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "allenai/molmo-2-8b:free": {
+  "allenai-molmo-2-8b:free": {
     "family": "allenai",
-    "knowledgeCutoff": "2025-06",
+    "trainingCutoff": "2025-06",
     "lastUpdated": "2026-01-31",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -26132,7 +23937,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "nvidia/nemotron-nano-9b-v2:free": {
+  "nvidia-nemotron-nano-9b-v2:free": {
     "lastUpdated": "2025-08-18",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -26155,7 +23960,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "nvidia/nemotron-nano-12b-v2-vl:free": {
+  "nvidia-nemotron-nano-12b-v2-vl:free": {
     "lastUpdated": "2026-01-31",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -26180,7 +23985,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "nvidia/nemotron-3-nano-30b-a3b:free": {
+  "nvidia-nemotron-3-nano-30b-a3b:free": {
     "lastUpdated": "2026-01-31",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -26203,30 +24008,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "nvidia/nemotron-nano-9b-v2": {
-    "lastUpdated": "2025-08-18",
-    "interleavedReasoningField": "reasoning_content",
-    "apiSupport": {
-      "reasoning": true,
-      "toolCall": true,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 26215
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "arcee-ai/trinity-large-preview:free": {
+  "arcee-ai-trinity-large-preview:free": {
     "lastUpdated": "2026-01-28",
     "apiSupport": {
       "reasoning": false,
@@ -26248,7 +24030,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "arcee-ai/trinity-mini:free": {
+  "arcee-ai-trinity-mini:free": {
     "lastUpdated": "2026-01-28",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -26271,9 +24053,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "microsoft/mai-ds-r1:free": {
+  "microsoft-mai-ds-r1:free": {
     "family": "mai",
-    "knowledgeCutoff": "2025-04",
+    "trainingCutoff": "2025-04",
     "lastUpdated": "2025-04-21",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -26296,9 +24078,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "sarvamai/sarvam-m:free": {
+  "sarvamai-sarvam-m:free": {
     "family": "sarvam",
-    "knowledgeCutoff": "2025-05",
+    "trainingCutoff": "2025-05",
     "lastUpdated": "2025-05-25",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -26321,7 +24103,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "liquid/lfm-2.5-1.2b-thinking:free": {
+  "liquid-lfm-2-5-1-2b-thinking:free": {
     "lastUpdated": "2026-01-28",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -26344,7 +24126,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "liquid/lfm-2.5-1.2b-instruct:free": {
+  "liquid-lfm-2-5-1-2b-instruct:free": {
     "lastUpdated": "2026-01-28",
     "apiSupport": {
       "reasoning": false,
@@ -26366,9 +24148,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "thudm/glm-z1-32b:free": {
+  "thudm-glm-z1-32b:free": {
     "family": "glm-z",
-    "knowledgeCutoff": "2025-04",
+    "trainingCutoff": "2025-04",
     "lastUpdated": "2025-04-17",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -26391,9 +24173,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "sourceful/riverflow-v2-fast-preview": {
+  "sourceful-riverflow-v2-fast-preview": {
     "family": "sourceful",
-    "knowledgeCutoff": "2025-06",
+    "trainingCutoff": "2025-06",
     "lastUpdated": "2026-01-28",
     "apiSupport": {
       "reasoning": false,
@@ -26416,9 +24198,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "sourceful/riverflow-v2-max-preview": {
+  "sourceful-riverflow-v2-max-preview": {
     "family": "sourceful",
-    "knowledgeCutoff": "2025-06",
+    "trainingCutoff": "2025-06",
     "lastUpdated": "2026-01-28",
     "apiSupport": {
       "reasoning": false,
@@ -26441,9 +24223,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "sourceful/riverflow-v2-standard-preview": {
+  "sourceful-riverflow-v2-standard-preview": {
     "family": "sourceful",
-    "knowledgeCutoff": "2025-06",
+    "trainingCutoff": "2025-06",
     "lastUpdated": "2026-01-28",
     "apiSupport": {
       "reasoning": false,
@@ -26466,9 +24248,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "rekaai/reka-flash-3": {
+  "rekaai-reka-flash-3": {
     "family": "reka",
-    "knowledgeCutoff": "2024-10",
+    "trainingCutoff": "2024-10",
     "lastUpdated": "2025-03-12",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -26491,7 +24273,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "stepfun/step-3.5-flash:free": {
+  "stepfun-step-3-5-flash:free": {
     "lastUpdated": "2026-01-29",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -26514,9 +24296,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "cognitivecomputations/dolphin3.0-r1-mistral-24b": {
+  "cognitivecomputations-dolphin3-0-r1-mistral-24b": {
     "family": "mistral",
-    "knowledgeCutoff": "2024-10",
+    "trainingCutoff": "2024-10",
     "lastUpdated": "2025-02-13",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -26539,9 +24321,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "cognitivecomputations/dolphin3.0-mistral-24b": {
+  "cognitivecomputations-dolphin3-0-mistral-24b": {
     "family": "mistral",
-    "knowledgeCutoff": "2024-10",
+    "trainingCutoff": "2024-10",
     "lastUpdated": "2025-02-13",
     "apiSupport": {
       "reasoning": false,
@@ -26563,7 +24345,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "cognitivecomputations/dolphin-mistral-24b-venice-edition:free": {
+  "cognitivecomputations-dolphin-mistral-24b-venice-edition:free": {
     "lastUpdated": "2026-01-31",
     "apiSupport": {
       "reasoning": false,
@@ -26585,9 +24367,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "kwaipilot/kat-coder-pro:free": {
+  "kwaipilot-kat-coder-pro:free": {
     "family": "kat-coder",
-    "knowledgeCutoff": "2025-11",
+    "trainingCutoff": "2025-11",
     "lastUpdated": "2025-11-10",
     "apiSupport": {
       "reasoning": false,
@@ -26610,7 +24392,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "deepseek/deepseek-v3.1-terminus:exacto": {
+  "deepseek-deepseek-v3-1-terminus:exacto": {
     "lastUpdated": "2025-09-22",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -26636,7 +24418,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "deepseek/deepseek-r1-0528:free": {
+  "deepseek-deepseek-r1-0528:free": {
     "lastUpdated": "2025-05-28",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -26659,9 +24441,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "deepseek/deepseek-r1-distill-qwen-14b": {
+  "deepseek-deepseek-r1-distill-qwen-14b": {
     "family": "qwen",
-    "knowledgeCutoff": "2024-10",
+    "trainingCutoff": "2024-10",
     "lastUpdated": "2025-01-29",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -26684,9 +24466,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "deepseek/deepseek-r1:free": {
+  "deepseek-deepseek-r1:free": {
     "family": "deepseek",
-    "knowledgeCutoff": "2025-01",
+    "trainingCutoff": "2025-01",
     "lastUpdated": "2025-01-20",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -26709,9 +24491,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "deepseek/deepseek-r1-0528-qwen3-8b:free": {
+  "deepseek-deepseek-r1-0528-qwen3-8b:free": {
     "family": "qwen",
-    "knowledgeCutoff": "2025-05",
+    "trainingCutoff": "2025-05",
     "lastUpdated": "2025-05-29",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -26734,7 +24516,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "deepseek/deepseek-v3.2-speciale": {
+  "deepseek-deepseek-v3-2-speciale": {
     "lastUpdated": "2025-12-01",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -26760,7 +24542,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "deepseek/deepseek-chat-v3.1": {
+  "deepseek-deepseek-chat-v3-1": {
     "lastUpdated": "2025-08-21",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -26783,7 +24565,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "deepseek/deepseek-chat-v3-0324": {
+  "deepseek-deepseek-chat-v3-0324": {
     "lastUpdated": "2025-03-24",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -26809,9 +24591,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "deepseek/deepseek-v3-base:free": {
+  "deepseek-deepseek-v3-base:free": {
     "family": "deepseek",
-    "knowledgeCutoff": "2025-03",
+    "trainingCutoff": "2025-03",
     "lastUpdated": "2025-03-29",
     "apiSupport": {
       "reasoning": false,
@@ -26833,9 +24615,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "openrouter/sherlock-think-alpha": {
+  "sherlock-think-alpha": {
     "family": "sherlock",
-    "knowledgeCutoff": "2025-11",
+    "trainingCutoff": "2025-11",
     "lastUpdated": "2025-12-14",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -26856,9 +24638,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "openrouter/sherlock-dash-alpha": {
+  "sherlock-dash-alpha": {
     "family": "sherlock",
-    "knowledgeCutoff": "2025-11",
+    "trainingCutoff": "2025-11",
     "lastUpdated": "2025-12-14",
     "apiSupport": {
       "reasoning": false,
@@ -26878,12 +24660,13 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "openrouter/aurora-alpha": {
+  "aurora-alpha": {
     "lastUpdated": "2026-02-09",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
       "reasoning": true,
       "toolCall": true,
+      "structuredOutput": true,
       "temperature": true,
       "attachment": false
     },
@@ -26901,9 +24684,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "moonshotai/kimi-dev-72b:free": {
+  "moonshotai-kimi-dev-72b:free": {
     "family": "kimi",
-    "knowledgeCutoff": "2025-06",
+    "trainingCutoff": "2025-06",
     "lastUpdated": "2025-06-16",
     "apiSupport": {
       "reasoning": false,
@@ -26925,7 +24708,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "moonshotai/kimi-k2-0905:exacto": {
+  "moonshotai-kimi-k2-0905:exacto": {
     "lastUpdated": "2025-09-05",
     "apiSupport": {
       "reasoning": false,
@@ -26947,9 +24730,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "moonshotai/kimi-k2:free": {
+  "moonshotai-kimi-k2:free": {
     "family": "kimi",
-    "knowledgeCutoff": "2025-04",
+    "trainingCutoff": "2025-04",
     "lastUpdated": "2025-07-11",
     "apiSupport": {
       "reasoning": false,
@@ -26971,7 +24754,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "google/gemini-2.5-flash-lite-preview-09-2025": {
+  "google-gemini-2-5-flash-lite-preview-09-2025": {
     "lastUpdated": "2025-09-25",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -27001,9 +24784,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "google/gemini-3.1-pro-preview-customtools": {
+  "google-gemini-3-1-pro-preview-customtools": {
     "family": "gemini-pro",
-    "knowledgeCutoff": "2025-01",
+    "trainingCutoff": "2025-01",
     "lastUpdated": "2026-02-19",
     "interleavedReasoningField": "reasoning_details",
     "apiSupport": {
@@ -27039,9 +24822,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "google/gemini-2.5-pro-preview-06-05": {
+  "google-gemini-2-5-pro-preview-06-05": {
     "family": "gemini-pro",
-    "knowledgeCutoff": "2025-01",
+    "trainingCutoff": "2025-01",
     "lastUpdated": "2025-06-05",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -27072,7 +24855,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "google/gemma-3n-e4b-it:free": {
+  "google-gemma-3n-e4b-it:free": {
     "lastUpdated": "2025-05-20",
     "apiSupport": {
       "reasoning": false,
@@ -27094,7 +24877,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "google/gemini-2.5-flash-preview-09-2025": {
+  "google-gemini-2-5-flash-preview-09-2025": {
     "lastUpdated": "2025-09-25",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -27124,7 +24907,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "google/gemini-2.5-pro-preview-05-06": {
+  "google-gemini-2-5-pro-preview-05-06": {
     "lastUpdated": "2025-05-06",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -27154,7 +24937,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "google/gemma-3n-e2b-it:free": {
+  "google-gemma-3n-e2b-it:free": {
     "lastUpdated": "2025-07-09",
     "apiSupport": {
       "reasoning": false,
@@ -27176,7 +24959,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "google/gemini-2.0-flash-001": {
+  "google-gemini-2-0-flash-001": {
     "lastUpdated": "2024-12-11",
     "apiSupport": {
       "reasoning": false,
@@ -27205,7 +24988,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "google/gemma-3-12b-it:free": {
+  "google-gemma-3-12b-it:free": {
     "lastUpdated": "2025-03-13",
     "apiSupport": {
       "reasoning": false,
@@ -27228,7 +25011,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "google/gemini-3.1-pro-preview": {
+  "google-gemini-3-1-pro-preview": {
     "family": "gemini",
     "lastUpdated": "2026-02-24",
     "interleavedReasoningField": "reasoning_content",
@@ -27257,9 +25040,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "google/gemini-2.0-flash-exp:free": {
+  "google-gemini-2-0-flash-exp:free": {
     "family": "gemini-flash",
-    "knowledgeCutoff": "2024-12",
+    "trainingCutoff": "2024-12",
     "lastUpdated": "2024-12-11",
     "apiSupport": {
       "reasoning": false,
@@ -27282,7 +25065,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "google/gemma-2-9b-it": {
+  "google-gemma-2-9b-it": {
     "lastUpdated": "2024-06-28",
     "apiSupport": {
       "reasoning": false,
@@ -27304,7 +25087,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "google/gemma-3-4b-it:free": {
+  "google-gemma-3-4b-it:free": {
     "lastUpdated": "2025-03-13",
     "apiSupport": {
       "reasoning": false,
@@ -27327,30 +25110,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "google/gemma-3-4b-it": {
-    "lastUpdated": "2025-03-13",
-    "apiSupport": {
-      "reasoning": false,
-      "toolCall": false,
-      "temperature": true,
-      "attachment": true
-    },
-    "modalities": {
-      "input": [
-        "text",
-        "image"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 19200
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "google/gemma-3-27b-it:free": {
+  "google-gemma-3-27b-it:free": {
     "lastUpdated": "2025-03-12",
     "apiSupport": {
       "reasoning": false,
@@ -27373,7 +25133,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "z-ai/glm-4.6:exacto": {
+  "z-ai-glm-4-6:exacto": {
     "lastUpdated": "2025-09-30",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -27399,7 +25159,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "z-ai/glm-4.7-flash": {
+  "z-ai-glm-4-7-flash": {
     "lastUpdated": "2026-01-19",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -27425,7 +25185,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "z-ai/glm-4.5-air:free": {
+  "z-ai-glm-4-5-air:free": {
     "lastUpdated": "2025-07-28",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -27448,7 +25208,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "z-ai/glm-4.5v": {
+  "z-ai-glm-4-5v": {
     "lastUpdated": "2025-08-11",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -27475,9 +25235,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "qwen/qwen-2.5-vl-7b-instruct:free": {
+  "qwen-qwen-2-5-vl-7b-instruct:free": {
     "family": "qwen",
-    "knowledgeCutoff": "2025-02",
+    "trainingCutoff": "2025-02",
     "lastUpdated": "2024-08-28",
     "apiSupport": {
       "reasoning": false,
@@ -27500,9 +25260,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "qwen/qwen3-32b:free": {
+  "qwen-qwen3-32b:free": {
     "family": "qwen",
-    "knowledgeCutoff": "2025-04",
+    "trainingCutoff": "2025-04",
     "lastUpdated": "2025-04-28",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -27526,7 +25286,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "qwen/qwen3-coder:free": {
+  "qwen-qwen3-coder:free": {
     "lastUpdated": "2025-07-23",
     "apiSupport": {
       "reasoning": false,
@@ -27548,7 +25308,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "qwen/qwen3-coder-flash": {
+  "qwen-qwen3-coder-flash": {
     "lastUpdated": "2025-07-23",
     "apiSupport": {
       "reasoning": false,
@@ -27573,9 +25333,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "qwen/qwen3-30b-a3b:free": {
+  "qwen-qwen3-30b-a3b:free": {
     "family": "qwen",
-    "knowledgeCutoff": "2025-04",
+    "trainingCutoff": "2025-04",
     "lastUpdated": "2025-04-28",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -27599,9 +25359,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "qwen/qwen3-235b-a22b-07-25:free": {
+  "qwen-qwen3-235b-a22b-07-25:free": {
     "family": "qwen",
-    "knowledgeCutoff": "2025-04",
+    "trainingCutoff": "2025-04",
     "lastUpdated": "2025-07-21",
     "apiSupport": {
       "reasoning": false,
@@ -27623,9 +25383,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "qwen/qwen3-14b:free": {
+  "qwen-qwen3-14b:free": {
     "family": "qwen",
-    "knowledgeCutoff": "2025-04",
+    "trainingCutoff": "2025-04",
     "lastUpdated": "2025-04-28",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -27649,9 +25409,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "qwen/qwq-32b:free": {
+  "qwen-qwq-32b:free": {
     "family": "qwen",
-    "knowledgeCutoff": "2025-03",
+    "trainingCutoff": "2025-03",
     "lastUpdated": "2025-03-05",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -27675,7 +25435,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "qwen/qwen3-coder:exacto": {
+  "qwen-qwen3-coder:exacto": {
     "lastUpdated": "2025-07-23",
     "apiSupport": {
       "reasoning": false,
@@ -27700,7 +25460,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "qwen/qwen-2.5-coder-32b-instruct": {
+  "qwen-qwen-2-5-coder-32b-instruct": {
     "lastUpdated": "2024-11-11",
     "apiSupport": {
       "reasoning": false,
@@ -27725,7 +25485,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "qwen/qwen3.5-plus-02-15": {
+  "qwen-qwen3-5-plus-02-15": {
     "lastUpdated": "2026-02-15",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -27750,9 +25510,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "qwen/qwen3-235b-a22b-07-25": {
+  "qwen-qwen3-235b-a22b-07-25": {
     "family": "qwen",
-    "knowledgeCutoff": "2025-04",
+    "trainingCutoff": "2025-04",
     "lastUpdated": "2025-07-21",
     "apiSupport": {
       "reasoning": false,
@@ -27775,9 +25535,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "qwen/qwen3-235b-a22b:free": {
+  "qwen-qwen3-235b-a22b:free": {
     "family": "qwen",
-    "knowledgeCutoff": "2025-04",
+    "trainingCutoff": "2025-04",
     "lastUpdated": "2025-04-28",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -27801,7 +25561,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "qwen/qwen3-next-80b-a3b-instruct:free": {
+  "qwen-qwen3-next-80b-a3b-instruct:free": {
     "lastUpdated": "2025-09-11",
     "apiSupport": {
       "reasoning": false,
@@ -27823,7 +25583,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "qwen/qwen3-4b:free": {
+  "qwen-qwen3-4b:free": {
     "lastUpdated": "2025-07-23",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -27846,9 +25606,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "qwen/qwen3-8b:free": {
+  "qwen-qwen3-8b:free": {
     "family": "qwen",
-    "knowledgeCutoff": "2025-04",
+    "trainingCutoff": "2025-04",
     "lastUpdated": "2025-04-28",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -27872,9 +25632,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "qwen/qwen2.5-vl-32b-instruct:free": {
+  "qwen-qwen2-5-vl-32b-instruct:free": {
     "family": "qwen",
-    "knowledgeCutoff": "2025-03",
+    "trainingCutoff": "2025-03",
     "lastUpdated": "2025-03-24",
     "apiSupport": {
       "reasoning": false,
@@ -27899,9 +25659,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "qwen/qwen2.5-vl-72b-instruct:free": {
+  "qwen-qwen2-5-vl-72b-instruct:free": {
     "family": "qwen",
-    "knowledgeCutoff": "2025-02",
+    "trainingCutoff": "2025-02",
     "lastUpdated": "2025-02-01",
     "apiSupport": {
       "reasoning": false,
@@ -27924,7 +25684,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "x-ai/grok-3": {
+  "x-ai-grok-3": {
     "lastUpdated": "2025-02-17",
     "apiSupport": {
       "reasoning": false,
@@ -27949,7 +25709,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "x-ai/grok-3-mini-beta": {
+  "x-ai-grok-3-mini-beta": {
     "lastUpdated": "2025-02-17",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -27975,7 +25735,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "x-ai/grok-3-mini": {
+  "x-ai-grok-3-mini": {
     "lastUpdated": "2025-02-17",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -28001,7 +25761,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "x-ai/grok-3-beta": {
+  "x-ai-grok-3-beta": {
     "lastUpdated": "2025-02-17",
     "apiSupport": {
       "reasoning": false,
@@ -28026,7 +25786,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "meta-llama/llama-3.3-70b-instruct:free": {
+  "meta-llama-llama-3-3-70b-instruct:free": {
     "lastUpdated": "2024-12-06",
     "apiSupport": {
       "reasoning": false,
@@ -28048,9 +25808,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "meta-llama/llama-4-scout:free": {
+  "meta-llama-llama-4-scout:free": {
     "family": "llama",
-    "knowledgeCutoff": "2024-08",
+    "trainingCutoff": "2024-08",
     "lastUpdated": "2025-04-05",
     "apiSupport": {
       "reasoning": false,
@@ -28074,7 +25834,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "meta-llama/llama-3.2-11b-vision-instruct": {
+  "meta-llama-llama-3-2-11b-vision-instruct": {
     "lastUpdated": "2024-09-25",
     "apiSupport": {
       "reasoning": false,
@@ -28097,7 +25857,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "meta-llama/llama-3.2-3b-instruct:free": {
+  "meta-llama-llama-3-2-3b-instruct:free": {
     "lastUpdated": "2024-09-25",
     "apiSupport": {
       "reasoning": false,
@@ -28119,9 +25879,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "meta-llama/llama-3.1-405b-instruct:free": {
+  "meta-llama-llama-3-1-405b-instruct:free": {
     "family": "llama",
-    "knowledgeCutoff": "2024-08",
+    "trainingCutoff": "2024-08",
     "lastUpdated": "2025-04-05",
     "apiSupport": {
       "reasoning": false,
@@ -28144,9 +25904,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "tngtech/tng-r1t-chimera:free": {
+  "tngtech-tng-r1t-chimera:free": {
     "family": "tngtech",
-    "knowledgeCutoff": "2025-07",
+    "trainingCutoff": "2025-07",
     "lastUpdated": "2026-01-31",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -28170,9 +25930,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "tngtech/deepseek-r1t2-chimera:free": {
+  "tngtech-deepseek-r1t2-chimera:free": {
     "family": "deepseek-thinking",
-    "knowledgeCutoff": "2025-07",
+    "trainingCutoff": "2025-07",
     "lastUpdated": "2025-07-08",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -28196,9 +25956,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "mistralai/devstral-medium-2507": {
+  "mistralai-devstral-medium-2507": {
     "family": "devstral",
-    "knowledgeCutoff": "2025-05",
+    "trainingCutoff": "2025-05",
     "lastUpdated": "2025-07-10",
     "apiSupport": {
       "reasoning": false,
@@ -28221,9 +25981,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "mistralai/devstral-small-2505:free": {
+  "mistralai-devstral-small-2505:free": {
     "family": "devstral",
-    "knowledgeCutoff": "2025-05",
+    "trainingCutoff": "2025-05",
     "lastUpdated": "2025-05-21",
     "apiSupport": {
       "reasoning": false,
@@ -28245,7 +26005,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "mistralai/mistral-medium-3": {
+  "mistralai-mistral-medium-3": {
     "lastUpdated": "2025-05-07",
     "apiSupport": {
       "reasoning": false,
@@ -28268,7 +26028,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "mistralai/codestral-2508": {
+  "mistralai-codestral-2508": {
     "lastUpdated": "2025-08-01",
     "apiSupport": {
       "reasoning": false,
@@ -28290,9 +26050,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "mistralai/devstral-2512:free": {
+  "mistralai-devstral-2512:free": {
     "family": "devstral",
-    "knowledgeCutoff": "2025-12",
+    "trainingCutoff": "2025-12",
     "lastUpdated": "2025-09-12",
     "apiSupport": {
       "reasoning": false,
@@ -28314,7 +26074,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "mistralai/mistral-small-3.1-24b-instruct": {
+  "mistralai-mistral-small-3-1-24b-instruct": {
     "lastUpdated": "2025-03-17",
     "apiSupport": {
       "reasoning": false,
@@ -28340,33 +26100,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "mistralai/devstral-small-2505": {
-    "family": "devstral",
-    "knowledgeCutoff": "2025-05",
-    "lastUpdated": "2025-05-07",
-    "apiSupport": {
-      "reasoning": false,
-      "toolCall": true,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 128000
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "mistralai/mistral-7b-instruct:free": {
+  "mistralai-mistral-7b-instruct:free": {
     "family": "mistral",
-    "knowledgeCutoff": "2024-05",
+    "trainingCutoff": "2024-05",
     "lastUpdated": "2024-05-27",
     "apiSupport": {
       "reasoning": false,
@@ -28388,7 +26124,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "mistralai/devstral-2512": {
+  "mistralai-devstral-2512": {
     "lastUpdated": "2025-09-12",
     "apiSupport": {
       "reasoning": false,
@@ -28413,7 +26149,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "mistralai/mistral-small-3.2-24b-instruct": {
+  "mistralai-mistral-small-3-2-24b-instruct": {
     "lastUpdated": "2025-06-20",
     "apiSupport": {
       "reasoning": false,
@@ -28439,9 +26175,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "mistralai/mistral-small-3.2-24b-instruct:free": {
+  "mistralai-mistral-small-3-2-24b-instruct:free": {
     "family": "mistral-small",
-    "knowledgeCutoff": "2025-06",
+    "trainingCutoff": "2025-06",
     "lastUpdated": "2025-06-20",
     "apiSupport": {
       "reasoning": false,
@@ -28465,9 +26201,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "mistralai/devstral-small-2507": {
+  "mistralai-devstral-small-2507": {
     "family": "devstral",
-    "knowledgeCutoff": "2025-05",
+    "trainingCutoff": "2025-05",
     "lastUpdated": "2025-07-10",
     "apiSupport": {
       "reasoning": false,
@@ -28490,9 +26226,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "mistralai/mistral-nemo:free": {
+  "mistralai-mistral-nemo:free": {
     "family": "mistral-nemo",
-    "knowledgeCutoff": "2024-07",
+    "trainingCutoff": "2024-07",
     "lastUpdated": "2024-07-19",
     "apiSupport": {
       "reasoning": false,
@@ -28515,7 +26251,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "mistralai/mistral-medium-3.1": {
+  "mistralai-mistral-medium-3-1": {
     "lastUpdated": "2025-08-12",
     "apiSupport": {
       "reasoning": false,
@@ -28538,7 +26274,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "openai/gpt-oss-120b:exacto": {
+  "openai-gpt-oss-120b:exacto": {
     "lastUpdated": "2025-08-05",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -28561,7 +26297,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "openai/gpt-5.2-chat": {
+  "openai-gpt-5-2-chat": {
     "lastUpdated": "2025-12-11",
     "apiSupport": {
       "reasoning": false,
@@ -28587,9 +26323,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "openai/gpt-5-image": {
+  "openai-gpt-5-image": {
     "family": "gpt",
-    "knowledgeCutoff": "2024-10-01",
+    "trainingCutoff": "2024-10-01",
     "lastUpdated": "2025-10-14",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -28619,7 +26355,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "openai/gpt-oss-20b:free": {
+  "openai-gpt-oss-20b:free": {
     "lastUpdated": "2026-01-31",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -28642,33 +26378,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "openai/gpt-oss-safeguard-20b": {
-    "lastUpdated": "2025-10-29",
-    "interleavedReasoningField": "reasoning_content",
-    "apiSupport": {
-      "reasoning": true,
-      "toolCall": true,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 65536,
-      "pricing": {
-        "cacheInput": 0.037
-      }
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "openai/gpt-oss-120b:free": {
+  "openai-gpt-oss-120b:free": {
     "lastUpdated": "2025-08-05",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -28691,7 +26401,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "minimax/minimax-m1": {
+  "minimax-minimax-m1": {
     "lastUpdated": "2025-06-17",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -28714,7 +26424,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "minimax/minimax-01": {
+  "minimax-minimax-01": {
     "lastUpdated": "2025-01-15",
     "apiSupport": {
       "reasoning": false,
@@ -28737,9 +26447,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "bytedance-seed/seedream-4.5": {
+  "bytedance-seed-seedream-4-5": {
     "family": "seed",
-    "knowledgeCutoff": "2025-06",
+    "trainingCutoff": "2025-06",
     "lastUpdated": "2026-01-31",
     "apiSupport": {
       "reasoning": false,
@@ -28762,9 +26472,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "black-forest-labs/flux.2-pro": {
+  "black-forest-labs-flux-2-pro": {
     "family": "flux",
-    "knowledgeCutoff": "2025-06",
+    "trainingCutoff": "2025-06",
     "lastUpdated": "2026-01-31",
     "apiSupport": {
       "reasoning": false,
@@ -28787,9 +26497,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "black-forest-labs/flux.2-flex": {
+  "black-forest-labs-flux-2-flex": {
     "family": "flux",
-    "knowledgeCutoff": "2025-06",
+    "trainingCutoff": "2025-06",
     "lastUpdated": "2026-01-31",
     "apiSupport": {
       "reasoning": false,
@@ -28812,9 +26522,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "black-forest-labs/flux.2-max": {
+  "black-forest-labs-flux-2-max": {
     "family": "flux",
-    "knowledgeCutoff": "2025-06",
+    "trainingCutoff": "2025-06",
     "lastUpdated": "2026-01-31",
     "apiSupport": {
       "reasoning": false,
@@ -28837,9 +26547,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "black-forest-labs/flux.2-klein-4b": {
+  "black-forest-labs-flux-2-klein-4b": {
     "family": "flux",
-    "knowledgeCutoff": "2025-06",
+    "trainingCutoff": "2025-06",
     "lastUpdated": "2026-01-31",
     "apiSupport": {
       "reasoning": false,
@@ -28862,58 +26572,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "nousresearch/hermes-4-405b": {
-    "lastUpdated": "2025-08-25",
-    "interleavedReasoningField": "reasoning_content",
-    "apiSupport": {
-      "reasoning": true,
-      "toolCall": false,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 26215
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "nousresearch/hermes-4-70b": {
-    "lastUpdated": "2025-08-25",
-    "interleavedReasoningField": "reasoning_content",
-    "apiSupport": {
-      "reasoning": true,
-      "toolCall": true,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 131072,
-      "pricing": {
-        "cacheInput": 0.055
-      }
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "nousresearch/deephermes-3-llama-3-8b-preview": {
+  "nousresearch-deephermes-3-llama-3-8b-preview": {
     "family": "llama",
-    "knowledgeCutoff": "2024-04",
+    "trainingCutoff": "2024-04",
     "lastUpdated": "2025-02-28",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -28936,7 +26597,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "nousresearch/hermes-3-llama-3.1-405b:free": {
+  "nousresearch-hermes-3-llama-3-1-405b:free": {
     "lastUpdated": "2024-08-16",
     "apiSupport": {
       "reasoning": false,
@@ -28958,9 +26619,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "ai21-labs/ai21-jamba-1.5-mini": {
+  "ai21-labs-ai21-jamba-1-5-mini": {
     "family": "jamba",
-    "knowledgeCutoff": "2024-03",
+    "trainingCutoff": "2024-03",
     "lastUpdated": "2024-08-29",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -28983,9 +26644,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "ai21-labs/ai21-jamba-1.5-large": {
+  "ai21-labs-ai21-jamba-1-5-large": {
     "family": "jamba",
-    "knowledgeCutoff": "2024-03",
+    "trainingCutoff": "2024-03",
     "lastUpdated": "2024-08-29",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -29008,36 +26669,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "microsoft/phi-4-multimodal-instruct": {
-    "family": "phi",
-    "knowledgeCutoff": "2023-10",
-    "lastUpdated": "2024-12-11",
-    "interleavedReasoningField": "reasoning_content",
-    "apiSupport": {
-      "reasoning": true,
-      "toolCall": true,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text",
-        "image",
-        "audio"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 4096
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "microsoft/mai-ds-r1": {
+  "microsoft-mai-ds-r1": {
     "family": "mai",
-    "knowledgeCutoff": "2024-06",
+    "trainingCutoff": "2024-06",
     "lastUpdated": "2025-01-20",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -29060,9 +26694,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "microsoft/phi-3.5-mini-instruct": {
+  "microsoft-phi-3-5-mini-instruct": {
     "family": "phi",
-    "knowledgeCutoff": "2023-10",
+    "trainingCutoff": "2023-10",
     "lastUpdated": "2024-08-20",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -29085,7 +26719,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "microsoft/phi-4": {
+  "microsoft-phi-4": {
     "lastUpdated": "2024-12-11",
     "apiSupport": {
       "reasoning": false,
@@ -29107,9 +26741,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "microsoft/phi-3-mini-4k-instruct": {
+  "microsoft-phi-3-mini-4k-instruct": {
     "family": "phi",
-    "knowledgeCutoff": "2023-10",
+    "trainingCutoff": "2023-10",
     "lastUpdated": "2024-04-23",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -29132,9 +26766,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "microsoft/phi-4-mini-reasoning": {
+  "microsoft-phi-4-mini-reasoning": {
     "family": "phi",
-    "knowledgeCutoff": "2023-10",
+    "trainingCutoff": "2023-10",
     "lastUpdated": "2024-12-11",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -29157,9 +26791,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "microsoft/phi-3-mini-128k-instruct": {
+  "microsoft-phi-3-mini-128k-instruct": {
     "family": "phi",
-    "knowledgeCutoff": "2023-10",
+    "trainingCutoff": "2023-10",
     "lastUpdated": "2024-04-23",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -29182,9 +26816,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "microsoft/phi-4-reasoning": {
+  "microsoft-phi-4-reasoning": {
     "family": "phi",
-    "knowledgeCutoff": "2023-10",
+    "trainingCutoff": "2023-10",
     "lastUpdated": "2024-12-11",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -29207,9 +26841,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "core42/jais-30b-chat": {
+  "core42-jais-30b-chat": {
     "family": "jais",
-    "knowledgeCutoff": "2023-03",
+    "trainingCutoff": "2023-03",
     "lastUpdated": "2023-08-30",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -29232,9 +26866,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "mistral-ai/ministral-3b": {
+  "mistral-ai-ministral-3b": {
     "family": "ministral",
-    "knowledgeCutoff": "2024-03",
+    "trainingCutoff": "2024-03",
     "lastUpdated": "2024-10-22",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -29257,9 +26891,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "mistral-ai/mistral-medium-2505": {
+  "mistral-ai-mistral-medium-2505": {
     "family": "mistral-medium",
-    "knowledgeCutoff": "2024-09",
+    "trainingCutoff": "2024-09",
     "lastUpdated": "2025-05-01",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -29283,9 +26917,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "mistral-ai/mistral-nemo": {
+  "mistral-ai-mistral-nemo": {
     "family": "mistral-nemo",
-    "knowledgeCutoff": "2024-03",
+    "trainingCutoff": "2024-03",
     "lastUpdated": "2024-07-18",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -29308,9 +26942,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "mistral-ai/mistral-large-2411": {
+  "mistral-ai-mistral-large-2411": {
     "family": "mistral-large",
-    "knowledgeCutoff": "2024-09",
+    "trainingCutoff": "2024-09",
     "lastUpdated": "2024-11-01",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -29333,9 +26967,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "mistral-ai/mistral-small-2503": {
+  "mistral-ai-mistral-small-2503": {
     "family": "mistral-small",
-    "knowledgeCutoff": "2024-09",
+    "trainingCutoff": "2024-09",
     "lastUpdated": "2025-03-01",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -29359,9 +26993,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "mistral-ai/codestral-2501": {
+  "mistral-ai-codestral-2501": {
     "family": "codestral",
-    "knowledgeCutoff": "2024-03",
+    "trainingCutoff": "2024-03",
     "lastUpdated": "2025-01-01",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -29384,35 +27018,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "deepseek/deepseek-r1": {
-    "family": "deepseek",
-    "knowledgeCutoff": "2024-10",
-    "lastUpdated": "2025-12-24",
-    "interleavedReasoningField": "reasoning_content",
-    "apiSupport": {
-      "reasoning": true,
-      "toolCall": true,
-      "structuredOutput": true,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 8192
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "meta/llama-3.2-90b-vision-instruct": {
+  "meta-llama-3-2-90b-vision-instruct": {
     "family": "llama",
-    "knowledgeCutoff": "2023-12",
+    "trainingCutoff": "2023-12",
     "lastUpdated": "2024-09-25",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -29437,9 +27045,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "meta/meta-llama-3.1-405b-instruct": {
+  "meta-meta-llama-3-1-405b-instruct": {
     "family": "llama",
-    "knowledgeCutoff": "2023-12",
+    "trainingCutoff": "2023-12",
     "lastUpdated": "2024-07-23",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -29462,9 +27070,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "meta/meta-llama-3-8b-instruct": {
+  "meta-meta-llama-3-8b-instruct": {
     "family": "llama",
-    "knowledgeCutoff": "2023-12",
+    "trainingCutoff": "2023-12",
     "lastUpdated": "2024-04-18",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -29487,9 +27095,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "meta/meta-llama-3-70b-instruct": {
+  "meta-meta-llama-3-70b-instruct": {
     "family": "llama",
-    "knowledgeCutoff": "2023-12",
+    "trainingCutoff": "2023-12",
     "lastUpdated": "2024-04-18",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -29512,9 +27120,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "meta/meta-llama-3.1-70b-instruct": {
+  "meta-meta-llama-3-1-70b-instruct": {
     "family": "llama",
-    "knowledgeCutoff": "2023-12",
+    "trainingCutoff": "2023-12",
     "lastUpdated": "2024-07-23",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -29537,9 +27145,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "meta/meta-llama-3.1-8b-instruct": {
+  "meta-meta-llama-3-1-8b-instruct": {
     "family": "llama",
-    "knowledgeCutoff": "2023-12",
+    "trainingCutoff": "2023-12",
     "lastUpdated": "2024-07-23",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -29562,9 +27170,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "meta/llama-4-maverick-17b-128e-instruct-fp8": {
+  "meta-llama-4-maverick-17b-128e-instruct-fp8": {
     "family": "llama",
-    "knowledgeCutoff": "2024-12",
+    "trainingCutoff": "2024-12",
     "lastUpdated": "2025-01-31",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -29588,59 +27196,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "openai/o1-preview": {
-    "family": "o",
-    "knowledgeCutoff": "2023-10",
-    "lastUpdated": "2024-09-12",
-    "interleavedReasoningField": "reasoning_content",
-    "apiSupport": {
-      "reasoning": true,
-      "toolCall": false,
-      "temperature": false,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 32768
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "openai/o1-mini": {
-    "family": "o-mini",
-    "knowledgeCutoff": "2023-10",
-    "lastUpdated": "2024-12-17",
-    "interleavedReasoningField": "reasoning_content",
-    "apiSupport": {
-      "reasoning": true,
-      "toolCall": false,
-      "temperature": false,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 65536
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "cohere/cohere-command-a": {
+  "cohere-cohere-command-a": {
     "family": "command-a",
-    "knowledgeCutoff": "2024-03",
+    "trainingCutoff": "2024-03",
     "lastUpdated": "2024-11-01",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -29663,9 +27221,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "cohere/cohere-command-r-plus-08-2024": {
+  "cohere-cohere-command-r-plus-08-2024": {
     "family": "command-r",
-    "knowledgeCutoff": "2024-03",
+    "trainingCutoff": "2024-03",
     "lastUpdated": "2024-08-01",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -29688,9 +27246,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "cohere/cohere-command-r": {
+  "cohere-cohere-command-r": {
     "family": "command-r",
-    "knowledgeCutoff": "2024-03",
+    "trainingCutoff": "2024-03",
     "lastUpdated": "2024-08-01",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -29713,9 +27271,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "cohere/cohere-command-r-08-2024": {
+  "cohere-cohere-command-r-08-2024": {
     "family": "command-r",
-    "knowledgeCutoff": "2024-03",
+    "trainingCutoff": "2024-03",
     "lastUpdated": "2024-08-01",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -29738,9 +27296,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "cohere/cohere-command-r-plus": {
+  "cohere-cohere-command-r-plus": {
     "family": "command-r",
-    "knowledgeCutoff": "2024-03",
+    "trainingCutoff": "2024-03",
     "lastUpdated": "2024-08-01",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -29759,13 +27317,40 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     },
     "specs": {
       "maxOutputTokens": 4096
+    },
+    "metadataSourceId": "models-dev",
+    "metadataAsOfDate": "2026-03-01"
+  },
+  "deepseek-reasoner": {
+    "family": "deepseek-thinking",
+    "trainingCutoff": "2025-01",
+    "lastUpdated": "2025-01-20",
+    "apiSupport": {
+      "reasoning": false,
+      "toolCall": false,
+      "temperature": true,
+      "attachment": false
+    },
+    "modalities": {
+      "input": [
+        "text"
+      ],
+      "output": [
+        "text"
+      ]
+    },
+    "specs": {
+      "maxOutputTokens": 64000,
+      "pricing": {
+        "cacheInput": 0.07
+      }
     },
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
   "qwen-max-latest": {
     "family": "qwen",
-    "knowledgeCutoff": "2024-11",
+    "trainingCutoff": "2024-11",
     "lastUpdated": "2025-01-25",
     "apiSupport": {
       "reasoning": false,
@@ -29788,7 +27373,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataAsOfDate": "2026-03-01"
   },
   "qwen3-max-2025-09-23": {
-    "knowledgeCutoff": "2025-04",
+    "trainingCutoff": "2025-04",
     "lastUpdated": "2025-09-24",
     "apiSupport": {
       "reasoning": false,
@@ -29810,7 +27395,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "gemini-2.5-flash-lite-preview-09-2025": {
+  "gemini-2-5-flash-lite-preview-09-2025": {
     "family": "gemini-flash-lite",
     "lastUpdated": "2026-01",
     "interleavedReasoningField": "reasoning_content",
@@ -29839,7 +27424,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataAsOfDate": "2026-03-01"
   },
   "claude-opus-4-1-20250805-thinking": {
-    "knowledgeCutoff": "2025-03",
+    "trainingCutoff": "2025-03",
     "lastUpdated": "2025-05-27",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -29863,9 +27448,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "gemini-2.5-flash-preview-09-2025": {
+  "gemini-2-5-flash-preview-09-2025": {
     "family": "gemini-flash",
-    "knowledgeCutoff": "2025-01",
+    "trainingCutoff": "2025-01",
     "lastUpdated": "2025-09-25",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -29924,7 +27509,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "kimi-k2-0905-preview": {
     "family": "kimi",
-    "knowledgeCutoff": "2024-10",
+    "trainingCutoff": "2024-10",
     "lastUpdated": "2025-09-05",
     "apiSupport": {
       "reasoning": false,
@@ -29950,7 +27535,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataAsOfDate": "2026-03-01"
   },
   "claude-sonnet-4-5-20250929-thinking": {
-    "knowledgeCutoff": "2025-03",
+    "trainingCutoff": "2025-03",
     "lastUpdated": "2025-09-30",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -29970,6 +27555,30 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     },
     "specs": {
       "maxOutputTokens": 64000
+    },
+    "metadataSourceId": "models-dev",
+    "metadataAsOfDate": "2026-03-01"
+  },
+  "mistral-large-2512": {
+    "trainingCutoff": "2024-12",
+    "lastUpdated": "2025-12-16",
+    "apiSupport": {
+      "reasoning": false,
+      "toolCall": true,
+      "temperature": true,
+      "attachment": true
+    },
+    "modalities": {
+      "input": [
+        "text",
+        "image"
+      ],
+      "output": [
+        "text"
+      ]
+    },
+    "specs": {
+      "maxOutputTokens": 262144
     },
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
@@ -30045,7 +27654,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataAsOfDate": "2026-03-01"
   },
   "ministral-14b-2512": {
-    "knowledgeCutoff": "2024-12",
+    "trainingCutoff": "2024-12",
     "lastUpdated": "2025-12-16",
     "apiSupport": {
       "reasoning": false,
@@ -30068,9 +27677,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "gemini-2.5-flash-nothink": {
+  "gemini-2-5-flash-nothink": {
     "family": "gemini-flash",
-    "knowledgeCutoff": "2025-01",
+    "trainingCutoff": "2025-01",
     "lastUpdated": "2025-06-24",
     "apiSupport": {
       "reasoning": false,
@@ -30094,7 +27703,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataAsOfDate": "2026-03-01"
   },
   "claude-opus-4-5-20251101-thinking": {
-    "knowledgeCutoff": "2025-03",
+    "trainingCutoff": "2025-03",
     "lastUpdated": "2025-11-25",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -30118,8 +27727,32 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
+  "deepseek-chat": {
+    "family": "deepseek",
+    "trainingCutoff": "2024-07",
+    "lastUpdated": "2024-11-29",
+    "apiSupport": {
+      "reasoning": false,
+      "toolCall": true,
+      "temperature": true,
+      "attachment": false
+    },
+    "modalities": {
+      "input": [
+        "text"
+      ],
+      "output": [
+        "text"
+      ]
+    },
+    "specs": {
+      "maxOutputTokens": 8192
+    },
+    "metadataSourceId": "models-dev",
+    "metadataAsOfDate": "2026-03-01"
+  },
   "gemini-3-pro-image-preview": {
-    "knowledgeCutoff": "2025-06",
+    "trainingCutoff": "2025-06",
     "lastUpdated": "2025-11-20",
     "apiSupport": {
       "reasoning": false,
@@ -30143,7 +27776,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataAsOfDate": "2026-03-01"
   },
   "gpt-5-thinking": {
-    "knowledgeCutoff": "2024-10",
+    "trainingCutoff": "2024-10",
     "lastUpdated": "2025-08-08",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -30167,8 +27800,8 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "deepseek-v3.2-thinking": {
-    "knowledgeCutoff": "2024-12",
+  "deepseek-v3-2-thinking": {
+    "trainingCutoff": "2024-12",
     "lastUpdated": "2025-12-01",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -30193,7 +27826,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "chatgpt-4o-latest": {
     "family": "gpt",
-    "knowledgeCutoff": "2024-08",
+    "trainingCutoff": "2024-08",
     "lastUpdated": "2024-08-14",
     "apiSupport": {
       "reasoning": false,
@@ -30221,7 +27854,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "kimi-k2-thinking-turbo": {
     "family": "kimi-thinking",
-    "knowledgeCutoff": "2024-08",
+    "trainingCutoff": "2024-08",
     "lastUpdated": "2025-11-06",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -30270,8 +27903,8 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "grok-4.1": {
-    "knowledgeCutoff": "2025-06",
+  "grok-4-1": {
+    "trainingCutoff": "2025-06",
     "lastUpdated": "2025-11-18",
     "apiSupport": {
       "reasoning": false,
@@ -30294,87 +27927,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "claude-sonnet-4.6": {
-    "family": "claude-sonnet",
-    "lastUpdated": "2026-02-17",
-    "interleavedReasoningField": "reasoning_content",
-    "apiSupport": {
-      "reasoning": true,
-      "toolCall": true,
-      "temperature": true,
-      "attachment": true
-    },
-    "modalities": {
-      "input": [
-        "text",
-        "image"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 32000
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "claude-haiku-4.5": {
-    "family": "claude-haiku",
-    "knowledgeCutoff": "2025-02-28",
-    "lastUpdated": "2025-10-15",
-    "interleavedReasoningField": "reasoning_content",
-    "apiSupport": {
-      "reasoning": true,
-      "toolCall": true,
-      "temperature": true,
-      "attachment": true
-    },
-    "modalities": {
-      "input": [
-        "text",
-        "image"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 32000
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "claude-opus-4.5": {
-    "family": "claude-opus",
-    "knowledgeCutoff": "2025-03-31",
-    "lastUpdated": "2025-08-01",
-    "interleavedReasoningField": "reasoning_content",
-    "apiSupport": {
-      "reasoning": true,
-      "toolCall": true,
-      "temperature": true,
-      "attachment": true
-    },
-    "modalities": {
-      "input": [
-        "text",
-        "image"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 32000
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "gemini-3.1-pro-preview": {
+  "gemini-3-1-pro-preview": {
     "family": "gemini-pro",
-    "knowledgeCutoff": "2025-01",
-    "lastUpdated": "2026-02-19",
+    "lastUpdated": "2026-02-24",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
       "reasoning": true,
@@ -30387,83 +27942,31 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
       "input": [
         "text",
         "image",
-        "video",
         "audio",
-        "other"
+        "video"
       ],
       "output": [
         "text"
       ]
     },
     "specs": {
-      "maxOutputTokens": 65536,
+      "maxOutputTokens": 65000,
       "pricing": {
-        "cacheInput": 0.2,
+        "cacheInput": 0.5,
+        "cacheOutput": 0.5,
         "contextOver200k": {
-          "input": 4,
-          "output": 18,
-          "cacheRead": 0.4
+          "input": 5,
+          "output": 22.5,
+          "cacheRead": 0.5
         }
       }
     },
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "claude-sonnet-4.5": {
-    "family": "claude-sonnet",
-    "knowledgeCutoff": "2025-03-31",
-    "lastUpdated": "2025-09-29",
-    "interleavedReasoningField": "reasoning_content",
-    "apiSupport": {
-      "reasoning": true,
-      "toolCall": true,
-      "temperature": true,
-      "attachment": true
-    },
-    "modalities": {
-      "input": [
-        "text",
-        "image"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 32000
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "claude-opus-4.6": {
-    "family": "claude-opus",
-    "knowledgeCutoff": "2025-03-31",
-    "lastUpdated": "2026-02-05",
-    "interleavedReasoningField": "reasoning_content",
-    "apiSupport": {
-      "reasoning": true,
-      "toolCall": true,
-      "temperature": true,
-      "attachment": true
-    },
-    "modalities": {
-      "input": [
-        "text",
-        "image"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 64000
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
   "claude-opus-41": {
     "family": "claude-opus",
-    "knowledgeCutoff": "2025-03-31",
+    "trainingCutoff": "2025-03-31",
     "lastUpdated": "2025-08-05",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -30489,7 +27992,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "kimi-k2-0711-preview": {
     "family": "kimi",
-    "knowledgeCutoff": "2024-10",
+    "trainingCutoff": "2024-10",
     "lastUpdated": "2025-07-14",
     "apiSupport": {
       "reasoning": false,
@@ -30516,7 +28019,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "gemini-embedding-001": {
     "family": "gemini",
-    "knowledgeCutoff": "2025-05",
+    "trainingCutoff": "2025-05",
     "lastUpdated": "2025-05-20",
     "apiSupport": {
       "reasoning": false,
@@ -30538,9 +28041,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "gemini-3.1-pro-preview-customtools": {
+  "gemini-3-1-pro-preview-customtools": {
     "family": "gemini-pro",
-    "knowledgeCutoff": "2025-01",
+    "trainingCutoff": "2025-01",
     "lastUpdated": "2026-02-19",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -30576,7 +28079,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "gemini-2.5-pro-preview-06-05": {
+  "gemini-2-5-pro-preview-06-05": {
     "family": "gemini-pro",
     "lastUpdated": "2026-01",
     "apiSupport": {
@@ -30603,9 +28106,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "gemini-2.5-flash-preview-04-17": {
+  "gemini-2-5-flash-preview-04-17": {
     "family": "gemini-flash",
-    "knowledgeCutoff": "2025-01",
+    "trainingCutoff": "2025-01",
     "lastUpdated": "2025-04-17",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -30635,9 +28138,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "gemini-2.5-pro-preview-05-06": {
+  "gemini-2-5-pro-preview-05-06": {
     "family": "gemini-pro",
-    "knowledgeCutoff": "2025-01",
+    "trainingCutoff": "2025-01",
     "lastUpdated": "2025-05-06",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -30668,7 +28171,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "gemini-2.5-flash-preview-05-20": {
+  "gemini-2-5-flash-preview-05-20": {
     "family": "gemini-flash",
     "lastUpdated": "2026-01",
     "apiSupport": {
@@ -30697,7 +28200,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "gemini-flash-latest": {
     "family": "gemini-flash",
-    "knowledgeCutoff": "2025-01",
+    "trainingCutoff": "2025-01",
     "lastUpdated": "2025-09-25",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -30729,7 +28232,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "gemini-2.5-flash-lite-preview-06-17": {
+  "gemini-2-5-flash-lite-preview-06-17": {
     "family": "gemini-flash-lite",
     "lastUpdated": "2026-01",
     "apiSupport": {
@@ -30758,7 +28261,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "gemini-flash-lite-latest": {
     "family": "gemini-flash-lite",
-    "knowledgeCutoff": "2025-01",
+    "trainingCutoff": "2025-01",
     "lastUpdated": "2025-09-25",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -30789,7 +28292,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "zai-org/glm-5-maas": {
+  "zai-org-glm-5-maas": {
     "family": "glm",
     "lastUpdated": "2026-02-11",
     "interleavedReasoningField": "reasoning_content",
@@ -30816,9 +28319,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "zai-org/glm-4.7-maas": {
+  "zai-org-glm-4-7-maas": {
     "family": "glm",
-    "knowledgeCutoff": "2025-04",
+    "trainingCutoff": "2025-04",
     "lastUpdated": "2026-01-06",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -30843,7 +28346,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "deepseek-ai/deepseek-v3.1-maas": {
+  "deepseek-ai-deepseek-v3-1-maas": {
     "family": "deepseek",
     "lastUpdated": "2025-08-28",
     "interleavedReasoningField": "reasoning_content",
@@ -30869,7 +28372,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "qwen/qwen3-235b-a22b-instruct-2507-maas": {
+  "qwen-qwen3-235b-a22b-instruct-2507-maas": {
     "family": "qwen",
     "lastUpdated": "2025-08-13",
     "interleavedReasoningField": "reasoning_content",
@@ -30894,9 +28397,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "meta/llama-4-maverick-17b-128e-instruct-maas": {
+  "meta-llama-4-maverick-17b-128e-instruct-maas": {
     "family": "llama",
-    "knowledgeCutoff": "2024-08",
+    "trainingCutoff": "2024-08",
     "lastUpdated": "2025-04-29",
     "apiSupport": {
       "reasoning": false,
@@ -30920,9 +28423,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "meta/llama-3.3-70b-instruct-maas": {
+  "meta-llama-3-3-70b-instruct-maas": {
     "family": "llama",
-    "knowledgeCutoff": "2023-12",
+    "trainingCutoff": "2023-12",
     "lastUpdated": "2025-04-29",
     "apiSupport": {
       "reasoning": false,
@@ -30945,7 +28448,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "openai/gpt-oss-20b-maas": {
+  "openai-gpt-oss-20b-maas": {
     "family": "gpt-oss",
     "lastUpdated": "2025-08-05",
     "interleavedReasoningField": "reasoning_content",
@@ -30969,7 +28472,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "openai/gpt-oss-120b-maas": {
+  "openai-gpt-oss-120b-maas": {
     "family": "gpt-oss",
     "lastUpdated": "2025-08-05",
     "interleavedReasoningField": "reasoning_content",
@@ -30995,7 +28498,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "gemma-3-27b": {
     "family": "gemma",
-    "knowledgeCutoff": "2024-08",
+    "trainingCutoff": "2024-08",
     "lastUpdated": "2025-03-12",
     "apiSupport": {
       "reasoning": false,
@@ -31021,7 +28524,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "qwen3-embedding-4b": {
     "family": "qwen",
-    "knowledgeCutoff": "2025-06",
+    "trainingCutoff": "2025-06",
     "lastUpdated": "2025-06-06",
     "apiSupport": {
       "reasoning": false,
@@ -31046,7 +28549,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "qwen3-coder-30b-a3b": {
     "family": "qwen",
-    "knowledgeCutoff": "2025-04",
+    "trainingCutoff": "2025-04",
     "lastUpdated": "2025-04",
     "apiSupport": {
       "reasoning": false,
@@ -31069,9 +28572,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "gemini-live-2.5-flash": {
+  "gemini-live-2-5-flash": {
     "family": "gemini-flash",
-    "knowledgeCutoff": "2025-01",
+    "trainingCutoff": "2025-01",
     "lastUpdated": "2025-09-01",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -31102,9 +28605,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "gemini-live-2.5-flash-preview-native-audio": {
+  "gemini-live-2-5-flash-preview-native-audio": {
     "family": "gemini-flash",
-    "knowledgeCutoff": "2025-01",
+    "trainingCutoff": "2025-01",
     "lastUpdated": "2025-09-18",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -31134,9 +28637,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "gemini-2.5-flash-preview-tts": {
+  "gemini-2-5-flash-preview-tts": {
     "family": "gemini-flash",
-    "knowledgeCutoff": "2025-01",
+    "trainingCutoff": "2025-01",
     "lastUpdated": "2025-05-01",
     "apiSupport": {
       "reasoning": false,
@@ -31158,9 +28661,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "gemini-2.5-pro-preview-tts": {
+  "gemini-2-5-pro-preview-tts": {
     "family": "gemini-flash",
-    "knowledgeCutoff": "2025-01",
+    "trainingCutoff": "2025-01",
     "lastUpdated": "2025-05-01",
     "apiSupport": {
       "reasoning": false,
@@ -31182,9 +28685,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "gemini-2.5-flash-image-preview": {
+  "gemini-2-5-flash-image-preview": {
     "family": "gemini-flash",
-    "knowledgeCutoff": "2025-06",
+    "trainingCutoff": "2025-06",
     "lastUpdated": "2025-08-26",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -31212,9 +28715,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "gemini-1.5-flash-8b": {
+  "gemini-1-5-flash-8b": {
     "family": "gemini-flash",
-    "knowledgeCutoff": "2024-04",
+    "trainingCutoff": "2024-04",
     "lastUpdated": "2024-10-03",
     "apiSupport": {
       "reasoning": false,
@@ -31242,9 +28745,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "gemini-1.5-flash": {
+  "gemini-1-5-flash": {
     "family": "gemini-flash",
-    "knowledgeCutoff": "2024-04",
+    "trainingCutoff": "2024-04",
     "lastUpdated": "2024-05-14",
     "apiSupport": {
       "reasoning": false,
@@ -31272,9 +28775,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "gemini-1.5-pro": {
+  "gemini-1-5-pro": {
     "family": "gemini-pro",
-    "knowledgeCutoff": "2024-04",
+    "trainingCutoff": "2024-04",
     "lastUpdated": "2024-02-15",
     "apiSupport": {
       "reasoning": false,
@@ -31302,9 +28805,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "anthropic--claude-4.5-opus": {
+  "anthropic--claude-4-5-opus": {
     "family": "claude-opus",
-    "knowledgeCutoff": "2025-04-30",
+    "trainingCutoff": "2025-04-30",
     "lastUpdated": "2025-11-24",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -31335,7 +28838,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "anthropic--claude-4-sonnet": {
     "family": "claude-sonnet",
-    "knowledgeCutoff": "2025-01-31",
+    "trainingCutoff": "2025-01-31",
     "lastUpdated": "2025-05-22",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -31364,9 +28867,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "anthropic--claude-4.5-sonnet": {
+  "anthropic--claude-4-5-sonnet": {
     "family": "claude-sonnet",
-    "knowledgeCutoff": "2025-01-31",
+    "trainingCutoff": "2025-01-31",
     "lastUpdated": "2025-09-29",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -31397,7 +28900,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "anthropic--claude-3-sonnet": {
     "family": "claude-sonnet",
-    "knowledgeCutoff": "2023-08-31",
+    "trainingCutoff": "2023-08-31",
     "lastUpdated": "2024-03-04",
     "apiSupport": {
       "reasoning": false,
@@ -31425,9 +28928,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "anthropic--claude-3.7-sonnet": {
+  "anthropic--claude-3-7-sonnet": {
     "family": "claude-sonnet",
-    "knowledgeCutoff": "2024-10-31",
+    "trainingCutoff": "2024-10-31",
     "lastUpdated": "2025-02-24",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -31458,7 +28961,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "sonar": {
     "family": "sonar",
-    "knowledgeCutoff": "2025-09-01",
+    "trainingCutoff": "2025-09-01",
     "lastUpdated": "2025-09-01",
     "apiSupport": {
       "reasoning": false,
@@ -31480,9 +28983,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "anthropic--claude-3.5-sonnet": {
+  "anthropic--claude-3-5-sonnet": {
     "family": "claude-sonnet",
-    "knowledgeCutoff": "2024-04-30",
+    "trainingCutoff": "2024-04-30",
     "lastUpdated": "2024-10-22",
     "apiSupport": {
       "reasoning": false,
@@ -31510,9 +29013,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "anthropic--claude-4.6-sonnet": {
+  "anthropic--claude-4-6-sonnet": {
     "family": "claude-sonnet",
-    "knowledgeCutoff": "2025-08",
+    "trainingCutoff": "2025-08",
     "lastUpdated": "2026-02-17",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -31546,9 +29049,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "anthropic--claude-4.5-haiku": {
+  "anthropic--claude-4-5-haiku": {
     "family": "claude-haiku",
-    "knowledgeCutoff": "2025-02-28",
+    "trainingCutoff": "2025-02-28",
     "lastUpdated": "2025-10-01",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -31579,7 +29082,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "anthropic--claude-3-opus": {
     "family": "claude-opus",
-    "knowledgeCutoff": "2023-08-31",
+    "trainingCutoff": "2023-08-31",
     "lastUpdated": "2024-02-29",
     "apiSupport": {
       "reasoning": false,
@@ -31609,7 +29112,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "sonar-pro": {
     "family": "sonar-pro",
-    "knowledgeCutoff": "2025-09-01",
+    "trainingCutoff": "2025-09-01",
     "lastUpdated": "2025-09-01",
     "apiSupport": {
       "reasoning": false,
@@ -31634,7 +29137,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "anthropic--claude-3-haiku": {
     "family": "claude-haiku",
-    "knowledgeCutoff": "2023-08-31",
+    "trainingCutoff": "2023-08-31",
     "lastUpdated": "2024-03-13",
     "apiSupport": {
       "reasoning": false,
@@ -31662,9 +29165,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "anthropic--claude-4.6-opus": {
+  "anthropic--claude-4-6-opus": {
     "family": "claude-opus",
-    "knowledgeCutoff": "2025-05",
+    "trainingCutoff": "2025-05",
     "lastUpdated": "2026-02-05",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -31700,7 +29203,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "anthropic--claude-4-opus": {
     "family": "claude-opus",
-    "knowledgeCutoff": "2025-01-31",
+    "trainingCutoff": "2025-01-31",
     "lastUpdated": "2025-05-22",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -31729,35 +29232,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "google-gemma-3-27b-it": {
-    "family": "gemma",
-    "knowledgeCutoff": "2025-07",
-    "lastUpdated": "2026-01-28",
-    "apiSupport": {
-      "reasoning": false,
-      "toolCall": true,
-      "structuredOutput": true,
-      "temperature": true,
-      "attachment": true
-    },
-    "modalities": {
-      "input": [
-        "text",
-        "image"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 49500
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
   "claude-opus-45": {
     "family": "claude-opus",
-    "knowledgeCutoff": "2025-03",
+    "trainingCutoff": "2025-03",
     "lastUpdated": "2026-01-28",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -31782,63 +29259,6 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
       "pricing": {
         "cacheInput": 0.6,
         "cacheOutput": 7.5
-      }
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "zai-org-glm-5": {
-    "family": "glm",
-    "lastUpdated": "2026-02-11",
-    "interleavedReasoningField": "reasoning_content",
-    "apiSupport": {
-      "reasoning": true,
-      "toolCall": true,
-      "structuredOutput": true,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 49500,
-      "pricing": {
-        "cacheInput": 0.2
-      }
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "zai-org-glm-4.7": {
-    "family": "glm",
-    "knowledgeCutoff": "2025-04",
-    "lastUpdated": "2026-01-28",
-    "interleavedReasoningField": "reasoning_content",
-    "apiSupport": {
-      "reasoning": true,
-      "toolCall": true,
-      "structuredOutput": true,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 49500,
-      "pricing": {
-        "cacheInput": 0.11
       }
     },
     "metadataSourceId": "models-dev",
@@ -31873,39 +29293,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "kimi-k2-5": {
-    "family": "kimi",
-    "knowledgeCutoff": "2024-04",
-    "lastUpdated": "2026-01-28",
-    "interleavedReasoningField": "reasoning_content",
-    "apiSupport": {
-      "reasoning": true,
-      "toolCall": true,
-      "structuredOutput": true,
-      "temperature": true,
-      "attachment": true
-    },
-    "modalities": {
-      "input": [
-        "text",
-        "image"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 64000,
-      "pricing": {
-        "cacheInput": 0.125
-      }
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
   "mistral-31-24b": {
     "family": "mistral",
-    "knowledgeCutoff": "2023-10",
+    "trainingCutoff": "2023-10",
     "lastUpdated": "2026-01-28",
     "apiSupport": {
       "reasoning": false,
@@ -31931,7 +29321,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "qwen3-4b": {
     "family": "qwen",
-    "knowledgeCutoff": "2024-07",
+    "trainingCutoff": "2024-07",
     "lastUpdated": "2026-01-28",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -31955,7 +29345,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "olafangensan-glm-4.7-flash-heretic": {
+  "olafangensan-glm-4-7-flash-heretic": {
     "family": "glm-flash",
     "lastUpdated": "2026-02-18",
     "interleavedReasoningField": "reasoning_content",
@@ -32007,31 +29397,6 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "zai-org-glm-4.7-flash": {
-    "family": "glm-flash",
-    "lastUpdated": "2026-02-10",
-    "interleavedReasoningField": "reasoning_content",
-    "apiSupport": {
-      "reasoning": true,
-      "toolCall": true,
-      "structuredOutput": true,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 32000
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
   "qwen3-coder-480b-a35b-instruct-turbo": {
     "family": "qwen",
     "lastUpdated": "2026-02-26",
@@ -32059,33 +29424,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "openai-gpt-oss-120b": {
-    "family": "gpt-oss",
-    "knowledgeCutoff": "2025-07",
-    "lastUpdated": "2026-01-28",
-    "apiSupport": {
-      "reasoning": false,
-      "toolCall": true,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 32000
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
   "grok-41-fast": {
     "family": "grok",
-    "knowledgeCutoff": "2025-07",
+    "trainingCutoff": "2025-07",
     "lastUpdated": "2026-01-28",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -32115,7 +29456,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "openai-gpt-52": {
     "family": "gpt",
-    "knowledgeCutoff": "2025-08-31",
+    "trainingCutoff": "2025-08-31",
     "lastUpdated": "2026-01-28",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -32142,46 +29483,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "gemini-3-1-pro-preview": {
-    "family": "gemini-pro",
-    "lastUpdated": "2026-02-24",
-    "interleavedReasoningField": "reasoning_content",
-    "apiSupport": {
-      "reasoning": true,
-      "toolCall": true,
-      "structuredOutput": true,
-      "temperature": true,
-      "attachment": true
-    },
-    "modalities": {
-      "input": [
-        "text",
-        "image",
-        "audio",
-        "video"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 65000,
-      "pricing": {
-        "cacheInput": 0.5,
-        "cacheOutput": 0.5,
-        "contextOver200k": {
-          "input": 5,
-          "output": 22.5,
-          "cacheRead": 0.5
-        }
-      }
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "llama-3.3-70b": {
+  "llama-3-3-70b": {
     "family": "llama",
-    "knowledgeCutoff": "2023-12",
+    "trainingCutoff": "2023-12",
     "lastUpdated": "2026-01-28",
     "apiSupport": {
       "reasoning": false,
@@ -32205,7 +29509,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "qwen3-next-80b": {
     "family": "qwen",
-    "knowledgeCutoff": "2025-07",
+    "trainingCutoff": "2025-07",
     "lastUpdated": "2026-01-28",
     "apiSupport": {
       "reasoning": false,
@@ -32228,9 +29532,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "hermes-3-llama-3.1-405b": {
+  "hermes-3-llama-3-1-405b": {
     "family": "hermes",
-    "knowledgeCutoff": "2024-04",
+    "trainingCutoff": "2024-04",
     "lastUpdated": "2026-01-28",
     "apiSupport": {
       "reasoning": false,
@@ -32280,9 +29584,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "llama-3.2-3b": {
+  "llama-3-2-3b": {
     "family": "llama",
-    "knowledgeCutoff": "2023-12",
+    "trainingCutoff": "2023-12",
     "lastUpdated": "2026-01-28",
     "apiSupport": {
       "reasoning": false,
@@ -32304,9 +29608,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "venice-uncensored": {
+  "uncensored": {
     "family": "venice",
-    "knowledgeCutoff": "2023-10",
+    "trainingCutoff": "2023-10",
     "lastUpdated": "2026-01-28",
     "apiSupport": {
       "reasoning": false,
@@ -32330,12 +29634,11 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataAsOfDate": "2026-03-01"
   },
   "nvidia-nemotron-3-nano-30b-a3b": {
-    "family": "nemotron",
-    "lastUpdated": "2026-02-26",
+    "lastUpdated": "2026-02-04",
+    "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
-      "reasoning": false,
+      "reasoning": true,
       "toolCall": true,
-      "structuredOutput": true,
       "temperature": true,
       "attachment": false
     },
@@ -32348,14 +29651,14 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
       ]
     },
     "specs": {
-      "maxOutputTokens": 12288
+      "maxOutputTokens": 52429
     },
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
   "openai-gpt-52-codex": {
     "family": "gpt-codex",
-    "knowledgeCutoff": "2025-08",
+    "trainingCutoff": "2025-08",
     "lastUpdated": "2026-01-28",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -32385,7 +29688,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "claude-sonnet-45": {
     "family": "claude-sonnet",
-    "knowledgeCutoff": "2025-09",
+    "trainingCutoff": "2025-09",
     "lastUpdated": "2026-01-28",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -32414,7 +29717,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "nova-2-lite-v1": {
+  "2-lite-v1": {
     "family": "nova-lite",
     "lastUpdated": "2025-12-01",
     "interleavedReasoningField": "reasoning_content",
@@ -32444,7 +29747,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "nova-2-pro-v1": {
+  "2-pro-v1": {
     "family": "nova-pro",
     "lastUpdated": "2026-01-03",
     "interleavedReasoningField": "reasoning_content",
@@ -32474,9 +29777,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "glm-4.7-flashx": {
+  "glm-4-7-flashx": {
     "family": "glm-flash",
-    "knowledgeCutoff": "2025-04",
+    "trainingCutoff": "2025-04",
     "lastUpdated": "2026-01-19",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -32503,30 +29806,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "meta-llama-3_3-70b-instruct": {
-    "lastUpdated": "2025-04-01",
-    "apiSupport": {
-      "reasoning": false,
-      "toolCall": true,
-      "structuredOutput": true,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 131072
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "mistral-7b-instruct-v0.3": {
+  "mistral-7b-instruct-v0-3": {
     "lastUpdated": "2025-04-01",
     "apiSupport": {
       "reasoning": false,
@@ -32549,10 +29829,10 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "qwen2.5-coder-32b-instruct": {
+  "qwen2-5-coder-32b-instruct": {
     "family": "qwen",
-    "knowledgeCutoff": "2024-10",
-    "lastUpdated": "2024-11-06",
+    "trainingCutoff": "2024-04",
+    "lastUpdated": "2024-11",
     "apiSupport": {
       "reasoning": false,
       "toolCall": true,
@@ -32568,12 +29848,12 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
       ]
     },
     "specs": {
-      "maxOutputTokens": 2048
+      "maxOutputTokens": 8192
     },
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "mixtral-8x7b-instruct-v0.1": {
+  "mixtral-8x7b-instruct-v0-1": {
     "lastUpdated": "2025-04-01",
     "apiSupport": {
       "reasoning": false,
@@ -32596,7 +29876,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "neuralmagic/Meta-Llama-3.1-8B-Instruct-FP8": {
+  "neuralmagic-meta-llama-3-1-8b-instruct-fp8": {
     "family": "llama",
     "lastUpdated": "2024-07-23",
     "apiSupport": {
@@ -32620,7 +29900,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "neuralmagic/Mistral-Nemo-Instruct-2407-FP8": {
+  "neuralmagic-mistral-nemo-instruct-2407-fp8": {
     "family": "mistral",
     "lastUpdated": "2024-07-01",
     "apiSupport": {
@@ -32644,7 +29924,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "Qwen/Qwen3-VL-Embedding-8B": {
+  "qwen-qwen3-vl-embedding-8b": {
     "family": "qwen",
     "lastUpdated": "2026-02-05",
     "apiSupport": {
@@ -32669,7 +29949,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "Qwen/Qwen3-VL-235B-A22B-Instruct-FP8": {
+  "qwen-qwen3-vl-235b-a22b-instruct-fp8": {
     "family": "qwen",
     "lastUpdated": "2024-11-01",
     "apiSupport": {
@@ -32694,7 +29974,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "cortecs/Llama-3.3-70B-Instruct-FP8-Dynamic": {
+  "cortecs-llama-3-3-70b-instruct-fp8-dynamic": {
     "family": "llama",
     "lastUpdated": "2024-12-05",
     "apiSupport": {
@@ -32718,8 +29998,8 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "speakleash/Bielik-11B-v2.6-Instruct": {
-    "knowledgeCutoff": "2025-03",
+  "speakleash-bielik-11b-v2-6-instruct": {
+    "trainingCutoff": "2025-03",
     "lastUpdated": "2025-03-13",
     "apiSupport": {
       "reasoning": false,
@@ -32742,8 +30022,8 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "speakleash/Bielik-11B-v3.0-Instruct": {
-    "knowledgeCutoff": "2025-03",
+  "speakleash-bielik-11b-v3-0-instruct": {
+    "trainingCutoff": "2025-03",
     "lastUpdated": "2025-03-13",
     "apiSupport": {
       "reasoning": false,
@@ -32766,40 +30046,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "anthropic/claude-3-7-sonnet": {
-    "family": "claude-sonnet",
-    "knowledgeCutoff": "2024-01",
-    "lastUpdated": "2025-02-19",
-    "interleavedReasoningField": "reasoning_content",
-    "apiSupport": {
-      "reasoning": true,
-      "toolCall": true,
-      "temperature": true,
-      "attachment": true
-    },
-    "modalities": {
-      "input": [
-        "text",
-        "image",
-        "other"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 64000,
-      "pricing": {
-        "cacheInput": 0.3,
-        "cacheOutput": 3.75
-      }
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "xai/grok-4-fast": {
+  "xai-grok-4-fast": {
     "family": "grok",
-    "knowledgeCutoff": "2025-01",
+    "trainingCutoff": "2025-01",
     "lastUpdated": "2025-09-19",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -32826,7 +30075,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "Pro/zai-org/GLM-4.7": {
+  "pro-zai-org-glm-4-7": {
     "family": "glm",
     "lastUpdated": "2025-12-22",
     "interleavedReasoningField": "reasoning_content",
@@ -32851,7 +30100,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "Pro/zai-org/GLM-5": {
+  "pro-zai-org-glm-5": {
     "family": "glm",
     "lastUpdated": "2026-02-12",
     "interleavedReasoningField": "reasoning_content",
@@ -32876,7 +30125,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "Pro/MiniMaxAI/MiniMax-M2.5": {
+  "pro-minimaxai-minimax-m2-5": {
     "family": "minimax",
     "lastUpdated": "2026-02-13",
     "interleavedReasoningField": "reasoning_content",
@@ -32901,7 +30150,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "Pro/MiniMaxAI/MiniMax-M2.1": {
+  "pro-minimaxai-minimax-m2-1": {
     "family": "minimax",
     "lastUpdated": "2025-12-23",
     "apiSupport": {
@@ -32925,7 +30174,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "Pro/deepseek-ai/DeepSeek-R1": {
+  "pro-deepseek-ai-deepseek-r1": {
     "family": "deepseek-thinking",
     "lastUpdated": "2025-11-25",
     "interleavedReasoningField": "reasoning_content",
@@ -32950,7 +30199,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "Pro/deepseek-ai/DeepSeek-V3.2": {
+  "pro-deepseek-ai-deepseek-v3-2": {
     "family": "deepseek",
     "lastUpdated": "2025-12-03",
     "interleavedReasoningField": "reasoning_content",
@@ -32975,7 +30224,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "Pro/deepseek-ai/DeepSeek-V3": {
+  "pro-deepseek-ai-deepseek-v3": {
     "family": "deepseek",
     "lastUpdated": "2025-11-25",
     "apiSupport": {
@@ -32999,7 +30248,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "Pro/deepseek-ai/DeepSeek-V3.1-Terminus": {
+  "pro-deepseek-ai-deepseek-v3-1-terminus": {
     "family": "deepseek",
     "lastUpdated": "2025-11-25",
     "interleavedReasoningField": "reasoning_content",
@@ -33024,7 +30273,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "Pro/moonshotai/Kimi-K2-Instruct-0905": {
+  "pro-moonshotai-kimi-k2-instruct-0905": {
     "family": "kimi",
     "lastUpdated": "2025-11-25",
     "apiSupport": {
@@ -33048,7 +30297,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "Pro/moonshotai/Kimi-K2.5": {
+  "pro-moonshotai-kimi-k2-5": {
     "family": "kimi",
     "lastUpdated": "2026-01-27",
     "interleavedReasoningField": "reasoning_content",
@@ -33074,7 +30323,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "Pro/moonshotai/Kimi-K2-Thinking": {
+  "pro-moonshotai-kimi-k2-thinking": {
     "family": "kimi-thinking",
     "lastUpdated": "2025-11-25",
     "interleavedReasoningField": "reasoning_content",
@@ -33099,7 +30348,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "PaddlePaddle/PaddleOCR-VL-1.5": {
+  "paddlepaddle-paddleocr-vl-1-5": {
     "lastUpdated": "2026-01-29",
     "apiSupport": {
       "reasoning": false,
@@ -33122,30 +30371,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "PaddlePaddle/PaddleOCR-VL": {
-    "lastUpdated": "2025-10-16",
-    "apiSupport": {
-      "reasoning": false,
-      "toolCall": false,
-      "temperature": true,
-      "attachment": true
-    },
-    "modalities": {
-      "input": [
-        "text",
-        "image"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 16384
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "Kwaipilot/KAT-Dev": {
+  "kwaipilot-kat-dev": {
     "family": "kat-coder",
     "lastUpdated": "2026-01-16",
     "apiSupport": {
@@ -33169,7 +30395,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "deepseek-ai/DeepSeek-OCR": {
+  "deepseek-ai-deepseek-ocr": {
     "lastUpdated": "2025-10-20",
     "apiSupport": {
       "reasoning": false,
@@ -33192,7 +30418,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "ascend-tribe/pangu-pro-moe": {
+  "ascend-tribe-pangu-pro-moe": {
     "family": "pangu",
     "lastUpdated": "2026-01-16",
     "interleavedReasoningField": "reasoning_content",
@@ -33244,7 +30470,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "llama-4-scout": {
     "family": "llama",
-    "knowledgeCutoff": "2025-01",
+    "trainingCutoff": "2025-01",
     "lastUpdated": "2025-01-01",
     "apiSupport": {
       "reasoning": false,
@@ -33269,7 +30495,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "codex-mini-latest": {
     "family": "gpt-codex-mini",
-    "knowledgeCutoff": "2024-04",
+    "trainingCutoff": "2024-04",
     "lastUpdated": "2025-05-16",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -33295,9 +30521,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "qwen2.5-coder-7b-fast": {
+  "qwen2-5-coder-7b-fast": {
     "family": "qwen",
-    "knowledgeCutoff": "2024-09",
+    "trainingCutoff": "2024-09",
     "lastUpdated": "2024-09-15",
     "apiSupport": {
       "reasoning": false,
@@ -33321,7 +30547,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "sonar-reasoning-pro": {
     "family": "sonar-reasoning",
-    "knowledgeCutoff": "2025-09-01",
+    "trainingCutoff": "2025-09-01",
     "lastUpdated": "2025-09-01",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -33345,9 +30571,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "llama-3.1-8b-instruct-turbo": {
+  "llama-3-1-8b-instruct-turbo": {
     "family": "llama",
-    "knowledgeCutoff": "2024-07",
+    "trainingCutoff": "2024-07",
     "lastUpdated": "2024-07-23",
     "apiSupport": {
       "reasoning": false,
@@ -33369,9 +30595,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "ernie-4.5-21b-a3b-thinking": {
+  "ernie-4-5-21b-a3b-thinking": {
     "family": "ernie",
-    "knowledgeCutoff": "2025-03",
+    "trainingCutoff": "2025-03",
     "lastUpdated": "2025-03-16",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -33396,7 +30622,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "llama-prompt-guard-2-22m": {
     "family": "llama",
-    "knowledgeCutoff": "2024-10",
+    "trainingCutoff": "2024-10",
     "lastUpdated": "2024-10-01",
     "apiSupport": {
       "reasoning": false,
@@ -33418,9 +30644,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "gpt-4.1-mini-2025-04-14": {
+  "gpt-4-1-mini-2025-04-14": {
     "family": "gpt-mini",
-    "knowledgeCutoff": "2025-04",
+    "trainingCutoff": "2025-04",
     "lastUpdated": "2025-04-14",
     "apiSupport": {
       "reasoning": false,
@@ -33448,7 +30674,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "llama-guard-4": {
     "family": "llama",
-    "knowledgeCutoff": "2025-01",
+    "trainingCutoff": "2025-01",
     "lastUpdated": "2025-01-01",
     "apiSupport": {
       "reasoning": false,
@@ -33473,7 +30699,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "sonar-reasoning": {
     "family": "sonar-reasoning",
-    "knowledgeCutoff": "2025-01",
+    "trainingCutoff": "2025-01",
     "lastUpdated": "2025-01-27",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -33497,7 +30723,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataAsOfDate": "2026-03-01"
   },
   "sonar-deep-research": {
-    "knowledgeCutoff": "2025-01",
+    "trainingCutoff": "2025-01",
     "lastUpdated": "2025-09-01",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -33523,9 +30749,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "deepseek-v3.1-terminus": {
+  "deepseek-v3-1-terminus": {
     "family": "deepseek",
-    "knowledgeCutoff": "2025-09",
+    "trainingCutoff": "2025-09",
     "lastUpdated": "2025-09-22",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -33551,9 +30777,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "claude-3.5-sonnet-v2": {
+  "claude-3-5-sonnet-v2": {
     "family": "claude-sonnet",
-    "knowledgeCutoff": "2024-10",
+    "trainingCutoff": "2024-10",
     "lastUpdated": "2024-10-22",
     "apiSupport": {
       "reasoning": false,
@@ -33582,7 +30808,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "mistral-small": {
     "family": "mistral-small",
-    "knowledgeCutoff": "2024-02",
+    "trainingCutoff": "2024-02",
     "lastUpdated": "2024-02-26",
     "apiSupport": {
       "reasoning": false,
@@ -33607,7 +30833,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "qwen3-vl-235b-a22b-instruct": {
     "family": "qwen",
-    "knowledgeCutoff": "2025-09",
+    "trainingCutoff": "2025-09",
     "lastUpdated": "2025-09-23",
     "apiSupport": {
       "reasoning": false,
@@ -33633,7 +30859,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "qwen3-235b-a22b-thinking": {
     "family": "qwen",
-    "knowledgeCutoff": "2025-07",
+    "trainingCutoff": "2025-07",
     "lastUpdated": "2025-07-25",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -33660,7 +30886,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "claude-3-haiku-20240307": {
     "family": "claude-haiku",
-    "knowledgeCutoff": "2023-08-31",
+    "trainingCutoff": "2023-08-31",
     "lastUpdated": "2024-03-13",
     "apiSupport": {
       "reasoning": false,
@@ -33690,7 +30916,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "kimi-k2-0711": {
     "family": "kimi",
-    "knowledgeCutoff": "2025-01",
+    "trainingCutoff": "2025-01",
     "lastUpdated": "2025-01-01",
     "apiSupport": {
       "reasoning": false,
@@ -33714,7 +30940,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "llama-4-maverick": {
     "family": "llama",
-    "knowledgeCutoff": "2025-01",
+    "trainingCutoff": "2025-01",
     "lastUpdated": "2025-01-01",
     "apiSupport": {
       "reasoning": false,
@@ -33739,7 +30965,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "deepseek-tng-r1t2-chimera": {
     "family": "deepseek-thinking",
-    "knowledgeCutoff": "2025-07",
+    "trainingCutoff": "2025-07",
     "lastUpdated": "2025-07-02",
     "apiSupport": {
       "reasoning": false,
@@ -33763,7 +30989,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "claude-opus-4": {
     "family": "claude-opus",
-    "knowledgeCutoff": "2025-05",
+    "trainingCutoff": "2025-05",
     "lastUpdated": "2025-05-14",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -33793,7 +31019,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "llama-prompt-guard-2-86m": {
     "family": "llama",
-    "knowledgeCutoff": "2024-10",
+    "trainingCutoff": "2024-10",
     "lastUpdated": "2024-10-01",
     "apiSupport": {
       "reasoning": false,
@@ -33817,7 +31043,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "gemma-3-12b-it": {
     "family": "gemma",
-    "knowledgeCutoff": "2024-12",
+    "trainingCutoff": "2024-12",
     "lastUpdated": "2024-12-01",
     "apiSupport": {
       "reasoning": false,
@@ -33842,7 +31068,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "hermes-2-pro-llama-3-8b": {
     "family": "llama",
-    "knowledgeCutoff": "2024-05",
+    "trainingCutoff": "2024-05",
     "lastUpdated": "2024-05-27",
     "apiSupport": {
       "reasoning": false,
@@ -33864,7 +31090,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "zai/glm-5": {
+  "zai-glm-5": {
     "family": "glm",
     "lastUpdated": "2026-02-19",
     "interleavedReasoningField": "reasoning_content",
@@ -33891,9 +31117,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "zai/glm-4.7-flashx": {
+  "zai-glm-4-7-flashx": {
     "family": "glm-flash",
-    "knowledgeCutoff": "2025-01",
+    "trainingCutoff": "2025-01",
     "lastUpdated": "2025-01",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -33919,9 +31145,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "zai/glm-4.5-air": {
+  "zai-glm-4-5-air": {
     "family": "glm-air",
-    "knowledgeCutoff": "2025-04",
+    "trainingCutoff": "2025-04",
     "lastUpdated": "2025-07-28",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -33944,9 +31170,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "zai/glm-4.5": {
+  "zai-glm-4-5": {
     "family": "glm",
-    "knowledgeCutoff": "2025-07",
+    "trainingCutoff": "2025-07",
     "lastUpdated": "2025-07-28",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -33969,9 +31195,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "zai/glm-4.6": {
+  "zai-glm-4-6": {
     "family": "glm",
-    "knowledgeCutoff": "2025-04",
+    "trainingCutoff": "2025-04",
     "lastUpdated": "2025-09-30",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -33994,37 +31220,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "zai/glm-4.7": {
+  "zai-glm-4-6v-flash": {
     "family": "glm",
-    "knowledgeCutoff": "2024-10",
-    "lastUpdated": "2025-12-22",
-    "interleavedReasoningField": "reasoning_content",
-    "apiSupport": {
-      "reasoning": true,
-      "toolCall": true,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 120000,
-      "pricing": {
-        "cacheInput": 0.08
-      }
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "zai/glm-4.6v-flash": {
-    "family": "glm",
-    "knowledgeCutoff": "2024-10",
+    "trainingCutoff": "2024-10",
     "lastUpdated": "2025-09-30",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -34049,9 +31247,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "zai/glm-4.5v": {
+  "zai-glm-4-5v": {
     "family": "glm",
-    "knowledgeCutoff": "2025-08",
+    "trainingCutoff": "2025-08",
     "lastUpdated": "2025-08-11",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -34075,9 +31273,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "zai/glm-4.6v": {
+  "zai-glm-4-6v": {
     "family": "glm",
-    "knowledgeCutoff": "2024-10",
+    "trainingCutoff": "2024-10",
     "lastUpdated": "2025-09-30",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -34105,7 +31303,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "nvidia/nemotron-nano-12b-v2-vl": {
+  "nvidia-nemotron-nano-12b-v2-vl": {
     "lastUpdated": "2026-01-31",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -34130,9 +31328,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "arcee-ai/trinity-large-preview": {
+  "arcee-ai-trinity-large-preview": {
     "family": "trinity",
-    "knowledgeCutoff": "2024-10",
+    "trainingCutoff": "2024-10",
     "lastUpdated": "2025-01",
     "apiSupport": {
       "reasoning": false,
@@ -34154,7 +31352,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "arcee-ai/trinity-mini": {
+  "arcee-ai-trinity-mini": {
     "lastUpdated": "2026-01-28",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -34177,9 +31375,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "inception/mercury-coder-small": {
+  "inception-mercury-coder-small": {
     "family": "mercury",
-    "knowledgeCutoff": "2024-10",
+    "trainingCutoff": "2024-10",
     "lastUpdated": "2025-02-26",
     "apiSupport": {
       "reasoning": false,
@@ -34201,7 +31399,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "voyage/voyage-3-large": {
+  "voyage-voyage-3-large": {
     "family": "voyage",
     "lastUpdated": "2024-09",
     "apiSupport": {
@@ -34224,7 +31422,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "voyage/voyage-code-3": {
+  "voyage-voyage-code-3": {
     "family": "voyage",
     "lastUpdated": "2024-09",
     "apiSupport": {
@@ -34247,7 +31445,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "voyage/voyage-law-2": {
+  "voyage-voyage-law-2": {
     "family": "voyage",
     "lastUpdated": "2024-03",
     "apiSupport": {
@@ -34270,7 +31468,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "voyage/voyage-finance-2": {
+  "voyage-voyage-finance-2": {
     "family": "voyage",
     "lastUpdated": "2024-03",
     "apiSupport": {
@@ -34293,7 +31491,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "voyage/voyage-code-2": {
+  "voyage-voyage-code-2": {
     "family": "voyage",
     "lastUpdated": "2024-01",
     "apiSupport": {
@@ -34316,7 +31514,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "voyage/voyage-3.5-lite": {
+  "voyage-voyage-3-5-lite": {
     "family": "voyage",
     "lastUpdated": "2025-05-20",
     "apiSupport": {
@@ -34339,7 +31537,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "voyage/voyage-3.5": {
+  "voyage-voyage-3-5": {
     "family": "voyage",
     "lastUpdated": "2025-05-20",
     "apiSupport": {
@@ -34362,9 +31560,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "amazon/nova-2-lite": {
+  "amazon-nova-2-lite": {
     "family": "nova",
-    "knowledgeCutoff": "2024-10",
+    "trainingCutoff": "2024-10",
     "lastUpdated": "2024-12-01",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -34388,7 +31586,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "amazon/titan-embed-text-v2": {
+  "amazon-titan-embed-text-v2": {
     "family": "titan-embed",
     "lastUpdated": "2024-04",
     "apiSupport": {
@@ -34411,9 +31609,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "amazon/nova-lite": {
+  "amazon-nova-lite": {
     "family": "nova-lite",
-    "knowledgeCutoff": "2024-10",
+    "trainingCutoff": "2024-10",
     "lastUpdated": "2024-12-03",
     "apiSupport": {
       "reasoning": false,
@@ -34440,9 +31638,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "amazon/nova-pro": {
+  "amazon-nova-pro": {
     "family": "nova-pro",
-    "knowledgeCutoff": "2024-10",
+    "trainingCutoff": "2024-10",
     "lastUpdated": "2024-12-03",
     "apiSupport": {
       "reasoning": false,
@@ -34469,9 +31667,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "amazon/nova-micro": {
+  "amazon-nova-micro": {
     "family": "nova-micro",
-    "knowledgeCutoff": "2024-10",
+    "trainingCutoff": "2024-10",
     "lastUpdated": "2024-12-03",
     "apiSupport": {
       "reasoning": false,
@@ -34496,9 +31694,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "alibaba/qwen-3-235b": {
+  "alibaba-qwen-3-235b": {
     "family": "qwen",
-    "knowledgeCutoff": "2025-04",
+    "trainingCutoff": "2025-04",
     "lastUpdated": "2025-04",
     "apiSupport": {
       "reasoning": false,
@@ -34520,9 +31718,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "alibaba/qwen3-max-preview": {
+  "alibaba-qwen3-max-preview": {
     "family": "qwen",
-    "knowledgeCutoff": "2025-04",
+    "trainingCutoff": "2025-04",
     "lastUpdated": "2025-09-23",
     "apiSupport": {
       "reasoning": false,
@@ -34547,9 +31745,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "alibaba/qwen3-next-80b-a3b-thinking": {
+  "alibaba-qwen3-next-80b-a3b-thinking": {
     "family": "qwen",
-    "knowledgeCutoff": "2025-09",
+    "trainingCutoff": "2025-09",
     "lastUpdated": "2025-09-12",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -34572,9 +31770,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "alibaba/qwen3-max-thinking": {
+  "alibaba-qwen3-max-thinking": {
     "family": "qwen",
-    "knowledgeCutoff": "2025-01",
+    "trainingCutoff": "2025-01",
     "lastUpdated": "2025-01",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -34600,9 +31798,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "alibaba/qwen3-vl-instruct": {
+  "alibaba-qwen3-vl-instruct": {
     "family": "qwen",
-    "knowledgeCutoff": "2025-04",
+    "trainingCutoff": "2025-04",
     "lastUpdated": "2025-09-24",
     "apiSupport": {
       "reasoning": false,
@@ -34625,7 +31823,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "alibaba/qwen3-embedding-8b": {
+  "alibaba-qwen3-embedding-8b": {
     "family": "qwen",
     "lastUpdated": "2025-06-05",
     "apiSupport": {
@@ -34648,7 +31846,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "alibaba/qwen3-coder-next": {
+  "alibaba-qwen3-coder-next": {
     "family": "qwen",
     "lastUpdated": "2026-02-19",
     "interleavedReasoningField": "reasoning_content",
@@ -34672,9 +31870,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "alibaba/qwen3-coder": {
+  "alibaba-qwen3-coder": {
     "family": "qwen",
-    "knowledgeCutoff": "2025-04",
+    "trainingCutoff": "2025-04",
     "lastUpdated": "2025-04",
     "apiSupport": {
       "reasoning": false,
@@ -34696,9 +31894,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "alibaba/qwen-3-30b": {
+  "alibaba-qwen-3-30b": {
     "family": "qwen",
-    "knowledgeCutoff": "2025-04",
+    "trainingCutoff": "2025-04",
     "lastUpdated": "2025-04",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -34721,7 +31919,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "alibaba/qwen3-embedding-0.6b": {
+  "alibaba-qwen3-embedding-0-6b": {
     "family": "qwen",
     "lastUpdated": "2025-11-14",
     "apiSupport": {
@@ -34744,9 +31942,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "alibaba/qwen-3-14b": {
+  "alibaba-qwen-3-14b": {
     "family": "qwen",
-    "knowledgeCutoff": "2025-04",
+    "trainingCutoff": "2025-04",
     "lastUpdated": "2025-04",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -34769,9 +31967,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "alibaba/qwen3-235b-a22b-thinking": {
+  "alibaba-qwen3-235b-a22b-thinking": {
     "family": "qwen",
-    "knowledgeCutoff": "2025-04",
+    "trainingCutoff": "2025-04",
     "lastUpdated": "2025-04",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -34796,9 +31994,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "alibaba/qwen3-vl-thinking": {
+  "alibaba-qwen3-vl-thinking": {
     "family": "qwen",
-    "knowledgeCutoff": "2025-09",
+    "trainingCutoff": "2025-09",
     "lastUpdated": "2025-09-24",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -34822,7 +32020,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "alibaba/qwen3.5-flash": {
+  "alibaba-qwen3-5-flash": {
     "family": "qwen",
     "lastUpdated": "2026-02-24",
     "interleavedReasoningField": "reasoning_content",
@@ -34852,9 +32050,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "alibaba/qwen3-next-80b-a3b-instruct": {
+  "alibaba-qwen3-next-80b-a3b-instruct": {
     "family": "qwen",
-    "knowledgeCutoff": "2025-04",
+    "trainingCutoff": "2025-04",
     "lastUpdated": "2025-09-12",
     "apiSupport": {
       "reasoning": false,
@@ -34876,7 +32074,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "alibaba/qwen3.5-plus": {
+  "alibaba-qwen3-5-plus": {
     "family": "qwen",
     "lastUpdated": "2026-02-19",
     "interleavedReasoningField": "reasoning_content",
@@ -34906,9 +32104,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "alibaba/qwen3-max": {
+  "alibaba-qwen3-max": {
     "family": "qwen",
-    "knowledgeCutoff": "2025-04",
+    "trainingCutoff": "2025-04",
     "lastUpdated": "2025-09-23",
     "apiSupport": {
       "reasoning": false,
@@ -34930,9 +32128,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "alibaba/qwen-3-32b": {
+  "alibaba-qwen-3-32b": {
     "family": "qwen",
-    "knowledgeCutoff": "2025-04",
+    "trainingCutoff": "2025-04",
     "lastUpdated": "2025-04",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -34955,9 +32153,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "alibaba/qwen3-coder-plus": {
+  "alibaba-qwen3-coder-plus": {
     "family": "qwen",
-    "knowledgeCutoff": "2025-04",
+    "trainingCutoff": "2025-04",
     "lastUpdated": "2025-07-23",
     "apiSupport": {
       "reasoning": false,
@@ -34979,7 +32177,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "alibaba/qwen3-embedding-4b": {
+  "alibaba-qwen3-embedding-4b": {
     "family": "qwen",
     "lastUpdated": "2025-06-05",
     "apiSupport": {
@@ -35002,9 +32200,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "alibaba/qwen3-coder-30b-a3b": {
+  "alibaba-qwen3-coder-30b-a3b": {
     "family": "qwen",
-    "knowledgeCutoff": "2025-04",
+    "trainingCutoff": "2025-04",
     "lastUpdated": "2025-04",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -35027,7 +32225,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "bfl/flux-pro-1.0-fill": {
+  "bfl-flux-pro-1-0-fill": {
     "family": "flux",
     "lastUpdated": "2024-10",
     "apiSupport": {
@@ -35047,7 +32245,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "bfl/flux-pro-1.1": {
+  "bfl-flux-pro-1-1": {
     "family": "flux",
     "lastUpdated": "2024-10",
     "apiSupport": {
@@ -35067,7 +32265,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "bfl/flux-kontext-max": {
+  "bfl-flux-kontext-max": {
     "family": "flux",
     "lastUpdated": "2025-06",
     "apiSupport": {
@@ -35087,7 +32285,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "bfl/flux-kontext-pro": {
+  "bfl-flux-kontext-pro": {
     "family": "flux",
     "lastUpdated": "2025-06",
     "apiSupport": {
@@ -35107,7 +32305,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "bfl/flux-pro-1.1-ultra": {
+  "bfl-flux-pro-1-1-ultra": {
     "family": "flux",
     "lastUpdated": "2024-11",
     "apiSupport": {
@@ -35127,7 +32325,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "mistral/codestral-embed": {
+  "mistral-codestral-embed": {
     "family": "codestral-embed",
     "lastUpdated": "2025-05-28",
     "apiSupport": {
@@ -35150,9 +32348,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "mistral/devstral-small-2": {
+  "mistral-devstral-small-2": {
     "family": "devstral",
-    "knowledgeCutoff": "2024-10",
+    "trainingCutoff": "2024-10",
     "lastUpdated": "2025-05-07",
     "apiSupport": {
       "reasoning": false,
@@ -35174,9 +32372,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "mistral/devstral-2": {
+  "mistral-devstral-2": {
     "family": "devstral",
-    "knowledgeCutoff": "2024-10",
+    "trainingCutoff": "2024-10",
     "lastUpdated": "2025-12-09",
     "apiSupport": {
       "reasoning": false,
@@ -35198,9 +32396,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "mistral/mistral-large-3": {
+  "mistral-mistral-large-3": {
     "family": "mistral-large",
-    "knowledgeCutoff": "2024-10",
+    "trainingCutoff": "2024-10",
     "lastUpdated": "2025-12-02",
     "apiSupport": {
       "reasoning": false,
@@ -35223,7 +32421,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "mistral/mistral-embed": {
+  "mistral-mistral-embed": {
     "family": "mistral-embed",
     "lastUpdated": "2023-12-11",
     "apiSupport": {
@@ -35246,9 +32444,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "mistral/ministral-14b": {
+  "mistral-ministral-14b": {
     "family": "ministral",
-    "knowledgeCutoff": "2024-10",
+    "trainingCutoff": "2024-10",
     "lastUpdated": "2025-12-01",
     "apiSupport": {
       "reasoning": false,
@@ -35272,9 +32470,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "mistral/mistral-nemo": {
+  "mistral-mistral-nemo": {
     "family": "mistral-nemo",
-    "knowledgeCutoff": "2024-04",
+    "trainingCutoff": "2024-04",
     "lastUpdated": "2024-07-01",
     "apiSupport": {
       "reasoning": false,
@@ -35296,9 +32494,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "mistral/mistral-medium": {
+  "mistral-mistral-medium": {
     "family": "mistral-medium",
-    "knowledgeCutoff": "2024-10",
+    "trainingCutoff": "2024-10",
     "lastUpdated": "2025-05-07",
     "apiSupport": {
       "reasoning": false,
@@ -35321,9 +32519,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "mistral/devstral-small": {
+  "mistral-devstral-small": {
     "family": "devstral",
-    "knowledgeCutoff": "2024-10",
+    "trainingCutoff": "2024-10",
     "lastUpdated": "2025-05-07",
     "apiSupport": {
       "reasoning": false,
@@ -35345,9 +32543,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "mistral/codestral": {
+  "mistral-codestral": {
     "family": "codestral",
-    "knowledgeCutoff": "2024-10",
+    "trainingCutoff": "2024-10",
     "lastUpdated": "2025-01-04",
     "apiSupport": {
       "reasoning": false,
@@ -35369,9 +32567,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "mistral/mixtral-8x22b-instruct": {
+  "mistral-mixtral-8x22b-instruct": {
     "family": "mixtral",
-    "knowledgeCutoff": "2024-04",
+    "trainingCutoff": "2024-04",
     "lastUpdated": "2024-04-17",
     "apiSupport": {
       "reasoning": false,
@@ -35393,9 +32591,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "mistral/mistral-small": {
+  "mistral-mistral-small": {
     "family": "mistral-small",
-    "knowledgeCutoff": "2025-03",
+    "trainingCutoff": "2025-03",
     "lastUpdated": "2024-09-04",
     "apiSupport": {
       "reasoning": false,
@@ -35418,9 +32616,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "mistral/ministral-8b": {
+  "mistral-ministral-8b": {
     "family": "ministral",
-    "knowledgeCutoff": "2024-10",
+    "trainingCutoff": "2024-10",
     "lastUpdated": "2024-10-04",
     "apiSupport": {
       "reasoning": false,
@@ -35442,9 +32640,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "mistral/pixtral-large": {
+  "mistral-pixtral-large": {
     "family": "pixtral",
-    "knowledgeCutoff": "2024-11",
+    "trainingCutoff": "2024-11",
     "lastUpdated": "2024-11-04",
     "apiSupport": {
       "reasoning": false,
@@ -35467,9 +32665,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "mistral/pixtral-12b": {
+  "mistral-pixtral-12b": {
     "family": "pixtral",
-    "knowledgeCutoff": "2024-09",
+    "trainingCutoff": "2024-09",
     "lastUpdated": "2024-09-01",
     "apiSupport": {
       "reasoning": false,
@@ -35492,9 +32690,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "mistral/magistral-small": {
+  "mistral-magistral-small": {
     "family": "magistral-small",
-    "knowledgeCutoff": "2025-06",
+    "trainingCutoff": "2025-06",
     "lastUpdated": "2025-03-17",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -35517,9 +32715,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "mistral/magistral-medium": {
+  "mistral-magistral-medium": {
     "family": "magistral-medium",
-    "knowledgeCutoff": "2025-06",
+    "trainingCutoff": "2025-06",
     "lastUpdated": "2025-03-20",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -35542,9 +32740,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "mistral/ministral-3b": {
+  "mistral-ministral-3b": {
     "family": "ministral",
-    "knowledgeCutoff": "2024-10",
+    "trainingCutoff": "2024-10",
     "lastUpdated": "2024-10-04",
     "apiSupport": {
       "reasoning": false,
@@ -35566,9 +32764,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "kwaipilot/kat-coder-pro-v1": {
+  "kwaipilot-kat-coder-pro-v1": {
     "family": "kat-coder",
-    "knowledgeCutoff": "2024-10",
+    "trainingCutoff": "2024-10",
     "lastUpdated": "2025-10-24",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -35591,33 +32789,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "deepseek/deepseek-v3": {
-    "family": "deepseek",
-    "knowledgeCutoff": "2024-07",
-    "lastUpdated": "2024-12-26",
-    "apiSupport": {
-      "reasoning": false,
-      "toolCall": true,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 16384
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "deepseek/deepseek-v3.2-thinking": {
+  "deepseek-deepseek-v3-2-thinking": {
     "family": "deepseek-thinking",
-    "knowledgeCutoff": "2024-07",
+    "trainingCutoff": "2024-07",
     "lastUpdated": "2025-12-01",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -35643,9 +32817,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "moonshotai/kimi-k2-turbo": {
+  "moonshotai-kimi-k2-turbo": {
     "family": "kimi",
-    "knowledgeCutoff": "2024-08",
+    "trainingCutoff": "2024-08",
     "lastUpdated": "2025-09-05",
     "apiSupport": {
       "reasoning": false,
@@ -35667,7 +32841,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "google/gemini-embedding-001": {
+  "google-gemini-embedding-001": {
     "family": "gemini-embedding",
     "lastUpdated": "2025-05-20",
     "apiSupport": {
@@ -35690,7 +32864,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "google/imagen-4.0-fast-generate-001": {
+  "google-imagen-4-0-fast-generate-001": {
     "family": "imagen",
     "lastUpdated": "2025-06",
     "apiSupport": {
@@ -35710,7 +32884,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "google/text-embedding-005": {
+  "google-text-embedding-005": {
     "family": "text-embedding",
     "lastUpdated": "2024-08",
     "apiSupport": {
@@ -35733,7 +32907,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "google/imagen-4.0-ultra-generate-001": {
+  "google-imagen-4-0-ultra-generate-001": {
     "family": "imagen",
     "lastUpdated": "2025-05-24",
     "apiSupport": {
@@ -35753,7 +32927,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "google/text-multilingual-embedding-002": {
+  "google-text-multilingual-embedding-002": {
     "family": "text-embedding",
     "lastUpdated": "2024-03",
     "apiSupport": {
@@ -35776,9 +32950,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "google/gemini-2.5-flash-image": {
+  "google-gemini-2-5-flash-image": {
     "family": "gemini-flash",
-    "knowledgeCutoff": "2025-01",
+    "trainingCutoff": "2025-01",
     "lastUpdated": "2025-03-20",
     "apiSupport": {
       "reasoning": false,
@@ -35801,9 +32975,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "google/gemini-3-pro-image": {
+  "google-gemini-3-pro-image": {
     "family": "gemini-pro",
-    "knowledgeCutoff": "2025-03",
+    "trainingCutoff": "2025-03",
     "lastUpdated": "2025-09",
     "apiSupport": {
       "reasoning": false,
@@ -35826,9 +33000,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "google/gemini-2.5-flash-image-preview": {
+  "google-gemini-2-5-flash-image-preview": {
     "family": "gemini-flash",
-    "knowledgeCutoff": "2025-01",
+    "trainingCutoff": "2025-01",
     "lastUpdated": "2025-03-20",
     "apiSupport": {
       "reasoning": false,
@@ -35851,7 +33025,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "google/imagen-4.0-generate-001": {
+  "google-imagen-4-0-generate-001": {
     "family": "imagen",
     "lastUpdated": "2025-05-22",
     "apiSupport": {
@@ -35871,9 +33045,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "meituan/longcat-flash-thinking": {
+  "meituan-longcat-flash-thinking": {
     "family": "longcat",
-    "knowledgeCutoff": "2024-10",
+    "trainingCutoff": "2024-10",
     "lastUpdated": "2025-09-23",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -35896,9 +33070,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "bytedance/seed-1.6": {
+  "bytedance-seed-1-6": {
     "family": "seed",
-    "knowledgeCutoff": "2024-10",
+    "trainingCutoff": "2024-10",
     "lastUpdated": "2025-09",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -35924,9 +33098,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "bytedance/seed-1.8": {
+  "bytedance-seed-1-8": {
     "family": "seed",
-    "knowledgeCutoff": "2024-10",
+    "trainingCutoff": "2024-10",
     "lastUpdated": "2025-10",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -35953,9 +33127,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "meta/llama-3.1-8b": {
+  "meta-llama-3-1-8b": {
     "family": "llama",
-    "knowledgeCutoff": "2023-12",
+    "trainingCutoff": "2023-12",
     "lastUpdated": "2024-07-23",
     "apiSupport": {
       "reasoning": false,
@@ -35977,9 +33151,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "meta/llama-3.2-11b": {
+  "meta-llama-3-2-11b": {
     "family": "llama",
-    "knowledgeCutoff": "2023-12",
+    "trainingCutoff": "2023-12",
     "lastUpdated": "2024-09-25",
     "apiSupport": {
       "reasoning": false,
@@ -36002,9 +33176,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "meta/llama-3.1-70b": {
+  "meta-llama-3-1-70b": {
     "family": "llama",
-    "knowledgeCutoff": "2023-12",
+    "trainingCutoff": "2023-12",
     "lastUpdated": "2024-07-23",
     "apiSupport": {
       "reasoning": false,
@@ -36026,9 +33200,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "meta/llama-3.2-90b": {
+  "meta-llama-3-2-90b": {
     "family": "llama",
-    "knowledgeCutoff": "2023-12",
+    "trainingCutoff": "2023-12",
     "lastUpdated": "2024-09-25",
     "apiSupport": {
       "reasoning": false,
@@ -36051,9 +33225,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "meta/llama-3.2-1b": {
+  "meta-llama-3-2-1b": {
     "family": "llama",
-    "knowledgeCutoff": "2023-12",
+    "trainingCutoff": "2023-12",
     "lastUpdated": "2024-09-18",
     "apiSupport": {
       "reasoning": false,
@@ -36075,9 +33249,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "meta/llama-3.2-3b": {
+  "meta-llama-3-2-3b": {
     "family": "llama",
-    "knowledgeCutoff": "2023-12",
+    "trainingCutoff": "2023-12",
     "lastUpdated": "2024-09-18",
     "apiSupport": {
       "reasoning": false,
@@ -36099,9 +33273,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "meta/llama-4-maverick": {
+  "meta-llama-4-maverick": {
     "family": "llama",
-    "knowledgeCutoff": "2024-08",
+    "trainingCutoff": "2024-08",
     "lastUpdated": "2025-04-05",
     "apiSupport": {
       "reasoning": false,
@@ -36124,9 +33298,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "meta/llama-3.3-70b": {
+  "meta-llama-3-3-70b": {
     "family": "llama",
-    "knowledgeCutoff": "2023-12",
+    "trainingCutoff": "2023-12",
     "lastUpdated": "2024-12-06",
     "apiSupport": {
       "reasoning": false,
@@ -36148,9 +33322,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "meta/llama-4-scout": {
+  "meta-llama-4-scout": {
     "family": "llama",
-    "knowledgeCutoff": "2024-08",
+    "trainingCutoff": "2024-08",
     "lastUpdated": "2025-04-05",
     "apiSupport": {
       "reasoning": false,
@@ -36173,7 +33347,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "vercel/v0-1.5-md": {
+  "v0-1-5-md": {
     "family": "v0",
     "lastUpdated": "2025-06-09",
     "interleavedReasoningField": "reasoning_content",
@@ -36198,7 +33372,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "vercel/v0-1.0-md": {
+  "v0-1-0-md": {
     "family": "v0",
     "lastUpdated": "2025-05-22",
     "interleavedReasoningField": "reasoning_content",
@@ -36223,7 +33397,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "openai/text-embedding-ada-002": {
+  "openai-text-embedding-ada-002": {
     "family": "text-embedding",
     "lastUpdated": "2022-12-15",
     "apiSupport": {
@@ -36246,7 +33420,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "openai/gpt-4o-mini-search-preview": {
+  "openai-gpt-4o-mini-search-preview": {
     "lastUpdated": "2025-01",
     "apiSupport": {
       "reasoning": false,
@@ -36268,7 +33442,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "openai/text-embedding-3-small": {
+  "openai-text-embedding-3-small": {
     "family": "text-embedding",
     "lastUpdated": "2024-01-25",
     "apiSupport": {
@@ -36291,7 +33465,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "openai/text-embedding-3-large": {
+  "openai-text-embedding-3-large": {
     "family": "text-embedding",
     "lastUpdated": "2024-01-25",
     "apiSupport": {
@@ -36314,9 +33488,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "openai/gpt-5.1-thinking": {
+  "openai-gpt-5-1-thinking": {
     "family": "gpt",
-    "knowledgeCutoff": "2024-10",
+    "trainingCutoff": "2024-10",
     "lastUpdated": "2025-08-07",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -36345,9 +33519,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "openai/codex-mini": {
+  "openai-codex-mini": {
     "family": "gpt-codex-mini",
-    "knowledgeCutoff": "2024-10",
+    "trainingCutoff": "2024-10",
     "lastUpdated": "2025-05-16",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -36375,7 +33549,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "morph/morph-v3-large": {
+  "morph-morph-v3-large": {
     "lastUpdated": "2024-08-15",
     "apiSupport": {
       "reasoning": false,
@@ -36397,7 +33571,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "morph/morph-v3-fast": {
+  "morph-morph-v3-fast": {
     "lastUpdated": "2024-08-15",
     "apiSupport": {
       "reasoning": false,
@@ -36419,7 +33593,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "cohere/embed-v4.0": {
+  "cohere-embed-v4-0": {
     "family": "cohere-embed",
     "lastUpdated": "2025-04-15",
     "apiSupport": {
@@ -36442,31 +33616,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "cohere/command-a": {
-    "lastUpdated": "2025-03-13",
-    "apiSupport": {
-      "reasoning": false,
-      "toolCall": false,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 8192
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "minimax/minimax-m2.1-lightning": {
+  "minimax-minimax-m2-1-lightning": {
     "family": "minimax",
-    "knowledgeCutoff": "2024-10",
+    "trainingCutoff": "2024-10",
     "lastUpdated": "2025-10-27",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -36493,7 +33645,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "recraft/recraft-v2": {
+  "recraft-recraft-v2": {
     "family": "recraft",
     "lastUpdated": "2024-03",
     "apiSupport": {
@@ -36513,7 +33665,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "recraft/recraft-v3": {
+  "recraft-recraft-v3": {
     "family": "recraft",
     "lastUpdated": "2024-10",
     "apiSupport": {
@@ -36533,7 +33685,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "perplexity/sonar-reasoning-pro": {
+  "perplexity-sonar-reasoning-pro": {
     "lastUpdated": "2025-09-01",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -36557,7 +33709,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "perplexity/sonar": {
+  "perplexity-sonar": {
     "lastUpdated": "2025-09-01",
     "apiSupport": {
       "reasoning": false,
@@ -36580,9 +33732,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "perplexity/sonar-reasoning": {
+  "perplexity-sonar-reasoning": {
     "family": "sonar-reasoning",
-    "knowledgeCutoff": "2025-09",
+    "trainingCutoff": "2025-09",
     "lastUpdated": "2025-02-19",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -36605,7 +33757,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "perplexity/sonar-pro": {
+  "perplexity-sonar-pro": {
     "lastUpdated": "2025-09-01",
     "apiSupport": {
       "reasoning": false,
@@ -36628,9 +33780,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "anthropic/claude-3.5-sonnet-20240620": {
+  "anthropic-claude-3-5-sonnet-20240620": {
     "family": "claude-sonnet",
-    "knowledgeCutoff": "2024-04",
+    "trainingCutoff": "2024-04",
     "lastUpdated": "2024-06-20",
     "apiSupport": {
       "reasoning": false,
@@ -36654,7 +33806,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "xai/grok-imagine-image": {
+  "xai-grok-imagine-image": {
     "family": "grok",
     "lastUpdated": "2026-02-19",
     "apiSupport": {
@@ -36675,7 +33827,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "xai/grok-imagine-image-pro": {
+  "xai-grok-imagine-image-pro": {
     "family": "grok",
     "lastUpdated": "2026-02-19",
     "apiSupport": {
@@ -36696,9 +33848,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "xai/grok-3-fast": {
+  "xai-grok-3-fast": {
     "family": "grok",
-    "knowledgeCutoff": "2024-11",
+    "trainingCutoff": "2024-11",
     "lastUpdated": "2025-02-17",
     "apiSupport": {
       "reasoning": false,
@@ -36723,9 +33875,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "xai/grok-3-mini-fast": {
+  "xai-grok-3-mini-fast": {
     "family": "grok",
-    "knowledgeCutoff": "2024-11",
+    "trainingCutoff": "2024-11",
     "lastUpdated": "2025-02-17",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -36752,9 +33904,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "xai/grok-2-vision": {
+  "xai-grok-2-vision": {
     "family": "grok",
-    "knowledgeCutoff": "2024-08",
+    "trainingCutoff": "2024-08",
     "lastUpdated": "2024-08-20",
     "apiSupport": {
       "reasoning": false,
@@ -36782,7 +33934,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "gpt-4o-2024-05-13": {
     "family": "gpt",
-    "knowledgeCutoff": "2023-09",
+    "trainingCutoff": "2023-09",
     "lastUpdated": "2024-05-13",
     "apiSupport": {
       "reasoning": false,
@@ -36808,7 +33960,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "o3-deep-research": {
     "family": "o",
-    "knowledgeCutoff": "2024-05",
+    "trainingCutoff": "2024-05",
     "lastUpdated": "2024-06-26",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -36837,7 +33989,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "o4-mini-deep-research": {
     "family": "o-mini",
-    "knowledgeCutoff": "2024-05",
+    "trainingCutoff": "2024-05",
     "lastUpdated": "2024-06-26",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -36864,9 +34016,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "gpt-5.3-codex-spark": {
+  "gpt-5-3-codex-spark": {
     "family": "gpt-codex-spark",
-    "knowledgeCutoff": "2025-08-31",
+    "trainingCutoff": "2025-08-31",
     "lastUpdated": "2026-02-05",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -36895,9 +34047,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "gpt-3.5-turbo": {
+  "gpt-3-5-turbo": {
     "family": "gpt",
-    "knowledgeCutoff": "2021-09-01",
+    "trainingCutoff": "2021-09-01",
     "lastUpdated": "2023-11-06",
     "apiSupport": {
       "reasoning": false,
@@ -36925,7 +34077,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "o1-pro": {
     "family": "o-pro",
-    "knowledgeCutoff": "2023-09",
+    "trainingCutoff": "2023-09",
     "lastUpdated": "2025-03-19",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -36950,7 +34102,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "gpt-5.2-pro": {
+  "gpt-5-2-pro": {
     "family": "gpt-pro",
     "lastUpdated": "2026-01",
     "interleavedReasoningField": "reasoning_content",
@@ -36978,7 +34130,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "gpt-4o-2024-08-06": {
     "family": "gpt",
-    "knowledgeCutoff": "2023-09",
+    "trainingCutoff": "2023-09",
     "lastUpdated": "2024-08-06",
     "apiSupport": {
       "reasoning": false,
@@ -37006,29 +34158,30 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataAsOfDate": "2026-03-01"
   },
   "auto": {
-    "family": "auto",
     "lastUpdated": "2024-06-01",
+    "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
-      "reasoning": false,
-      "toolCall": false,
-      "temperature": false,
-      "attachment": false
+      "reasoning": true,
+      "toolCall": true,
+      "temperature": true,
+      "attachment": true
     },
     "modalities": {
       "input": [
-        "text"
+        "text",
+        "image"
       ],
       "output": [
         "text"
       ]
     },
     "specs": {
-      "maxOutputTokens": 32000
+      "maxOutputTokens": 64000
     },
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "morph-v3-fast": {
+  "v3-fast": {
     "family": "morph",
     "lastUpdated": "2024-08-15",
     "apiSupport": {
@@ -37051,7 +34204,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "morph-v3-large": {
+  "v3-large": {
     "family": "morph",
     "lastUpdated": "2024-08-15",
     "apiSupport": {
@@ -37098,7 +34251,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "command-a-03-2025": {
     "family": "command-a",
-    "knowledgeCutoff": "2024-06-01",
+    "trainingCutoff": "2024-06-01",
     "lastUpdated": "2025-03-13",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -37123,7 +34276,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "command-r7b-arabic-02-2025": {
     "family": "command-r",
-    "knowledgeCutoff": "2024-06-01",
+    "trainingCutoff": "2024-06-01",
     "lastUpdated": "2025-02-27",
     "apiSupport": {
       "reasoning": false,
@@ -37147,7 +34300,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "command-a-translate-08-2025": {
     "family": "command-a",
-    "knowledgeCutoff": "2024-06-01",
+    "trainingCutoff": "2024-06-01",
     "lastUpdated": "2025-08-28",
     "apiSupport": {
       "reasoning": false,
@@ -37171,7 +34324,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "command-r-08-2024": {
     "family": "command-r",
-    "knowledgeCutoff": "2024-06-01",
+    "trainingCutoff": "2024-06-01",
     "lastUpdated": "2024-08-30",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -37196,7 +34349,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "command-r-plus-08-2024": {
     "family": "command-r",
-    "knowledgeCutoff": "2024-06-01",
+    "trainingCutoff": "2024-06-01",
     "lastUpdated": "2024-08-30",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -37221,7 +34374,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "command-a-reasoning-08-2025": {
     "family": "command-a",
-    "knowledgeCutoff": "2024-06-01",
+    "trainingCutoff": "2024-06-01",
     "lastUpdated": "2025-08-21",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -37314,7 +34467,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "command-r7b-12-2024": {
     "family": "command-r",
-    "knowledgeCutoff": "2024-06-01",
+    "trainingCutoff": "2024-06-01",
     "lastUpdated": "2024-02-27",
     "apiSupport": {
       "reasoning": false,
@@ -37338,7 +34491,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "command-a-vision-07-2025": {
     "family": "command-a",
-    "knowledgeCutoff": "2024-06-01",
+    "trainingCutoff": "2024-06-01",
     "lastUpdated": "2025-07-31",
     "apiSupport": {
       "reasoning": false,
@@ -37361,7 +34514,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "v0-1.0-md": {
+  "1-0-md": {
     "family": "v0",
     "lastUpdated": "2025-05-22",
     "interleavedReasoningField": "reasoning_content",
@@ -37386,7 +34539,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "v0-1.5-md": {
+  "1-5-md": {
     "family": "v0",
     "lastUpdated": "2025-06-09",
     "interleavedReasoningField": "reasoning_content",
@@ -37411,7 +34564,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "v0-1.5-lg": {
+  "1-5-lg": {
     "family": "v0",
     "lastUpdated": "2025-06-09",
     "interleavedReasoningField": "reasoning_content",
@@ -37432,13 +34585,117 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     },
     "specs": {
       "maxOutputTokens": 32000
+    },
+    "metadataSourceId": "models-dev",
+    "metadataAsOfDate": "2026-03-01"
+  },
+  "m2-5": {
+    "family": "minimax",
+    "lastUpdated": "2026-02-12",
+    "interleavedReasoningField": "reasoning_content",
+    "apiSupport": {
+      "reasoning": true,
+      "toolCall": true,
+      "temperature": true,
+      "attachment": false
+    },
+    "modalities": {
+      "input": [
+        "text"
+      ],
+      "output": [
+        "text"
+      ]
+    },
+    "specs": {
+      "maxOutputTokens": 131072,
+      "pricing": {
+        "cacheInput": 0.03,
+        "cacheOutput": 0.375
+      }
+    },
+    "metadataSourceId": "models-dev",
+    "metadataAsOfDate": "2026-03-01"
+  },
+  "m2": {
+    "family": "minimax",
+    "lastUpdated": "2025-10-27",
+    "interleavedReasoningField": "reasoning_content",
+    "apiSupport": {
+      "reasoning": true,
+      "toolCall": true,
+      "temperature": true,
+      "attachment": false
+    },
+    "modalities": {
+      "input": [
+        "text"
+      ],
+      "output": [
+        "text"
+      ]
+    },
+    "specs": {
+      "maxOutputTokens": 128000
+    },
+    "metadataSourceId": "models-dev",
+    "metadataAsOfDate": "2026-03-01"
+  },
+  "m2-5-highspeed": {
+    "family": "minimax",
+    "lastUpdated": "2026-02-13",
+    "interleavedReasoningField": "reasoning_content",
+    "apiSupport": {
+      "reasoning": true,
+      "toolCall": true,
+      "temperature": true,
+      "attachment": false
+    },
+    "modalities": {
+      "input": [
+        "text"
+      ],
+      "output": [
+        "text"
+      ]
+    },
+    "specs": {
+      "maxOutputTokens": 131072,
+      "pricing": {
+        "cacheInput": 0.06,
+        "cacheOutput": 0.375
+      }
+    },
+    "metadataSourceId": "models-dev",
+    "metadataAsOfDate": "2026-03-01"
+  },
+  "m2-1": {
+    "family": "minimax",
+    "lastUpdated": "2025-12-23",
+    "interleavedReasoningField": "reasoning_content",
+    "apiSupport": {
+      "reasoning": true,
+      "toolCall": true,
+      "temperature": true,
+      "attachment": false
+    },
+    "modalities": {
+      "input": [
+        "text"
+      ],
+      "output": [
+        "text"
+      ]
+    },
+    "specs": {
+      "maxOutputTokens": 131072
     },
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
   "kimi-k2-instruct": {
     "family": "kimi",
-    "knowledgeCutoff": "2024-07",
+    "trainingCutoff": "2024-07",
     "lastUpdated": "2025-09-05",
     "apiSupport": {
       "reasoning": false,
@@ -37484,40 +34741,15 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "XiaomiMiMo/MiMo-V2-Flash": {
-    "family": "mimo",
-    "lastUpdated": "2026-01-27",
+  "qwen-qwen3-5-plus": {
+    "family": "qwen",
+    "lastUpdated": "2026-02-16",
     "apiSupport": {
       "reasoning": false,
-      "toolCall": false,
-      "structuredOutput": false,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 8192
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "Qwen/Qwen3.5-Plus": {
-    "family": "qwen",
-    "knowledgeCutoff": "2025-04",
-    "lastUpdated": "2026-02",
-    "interleavedReasoningField": "reasoning_content",
-    "apiSupport": {
-      "reasoning": true,
       "toolCall": true,
+      "structuredOutput": true,
       "temperature": true,
-      "attachment": false
+      "attachment": true
     },
     "modalities": {
       "input": [
@@ -37530,65 +34762,14 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
       ]
     },
     "specs": {
-      "maxOutputTokens": 65536,
-      "pricing": {
-        "reasoning": 2.4
-      }
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "Qwen/Qwen3-Coder-Next": {
-    "family": "qwen",
-    "lastUpdated": "2026-02-05",
-    "apiSupport": {
-      "reasoning": false,
-      "toolCall": true,
-      "structuredOutput": true,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 65536
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "Qwen/Qwen3-Embedding-4B": {
-    "family": "qwen",
-    "knowledgeCutoff": "2024-12",
-    "lastUpdated": "2025-01-01",
-    "apiSupport": {
-      "reasoning": false,
-      "toolCall": false,
-      "temperature": false,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 2048
+      "maxOutputTokens": 8192
     },
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
   "claude-3-5-haiku-latest": {
     "family": "claude-haiku",
-    "knowledgeCutoff": "2024-07-31",
+    "trainingCutoff": "2024-07-31",
     "lastUpdated": "2024-10-22",
     "apiSupport": {
       "reasoning": false,
@@ -37618,7 +34799,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "claude-3-5-sonnet-20241022": {
     "family": "claude-sonnet",
-    "knowledgeCutoff": "2024-04-30",
+    "trainingCutoff": "2024-04-30",
     "lastUpdated": "2024-10-22",
     "apiSupport": {
       "reasoning": false,
@@ -37648,7 +34829,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "claude-3-sonnet-20240229": {
     "family": "claude-sonnet",
-    "knowledgeCutoff": "2023-08-31",
+    "trainingCutoff": "2023-08-31",
     "lastUpdated": "2024-03-04",
     "apiSupport": {
       "reasoning": false,
@@ -37678,7 +34859,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "claude-sonnet-4-0": {
     "family": "claude-sonnet",
-    "knowledgeCutoff": "2025-03-31",
+    "trainingCutoff": "2025-03-31",
     "lastUpdated": "2025-05-22",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -37709,7 +34890,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "claude-opus-4-0": {
     "family": "claude-opus",
-    "knowledgeCutoff": "2025-03-31",
+    "trainingCutoff": "2025-03-31",
     "lastUpdated": "2025-05-22",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -37740,7 +34921,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "claude-3-5-haiku-20241022": {
     "family": "claude-haiku",
-    "knowledgeCutoff": "2024-07-31",
+    "trainingCutoff": "2024-07-31",
     "lastUpdated": "2024-10-22",
     "apiSupport": {
       "reasoning": false,
@@ -37770,7 +34951,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "claude-3-5-sonnet-20240620": {
     "family": "claude-sonnet",
-    "knowledgeCutoff": "2024-04-30",
+    "trainingCutoff": "2024-04-30",
     "lastUpdated": "2024-06-20",
     "apiSupport": {
       "reasoning": false,
@@ -37800,7 +34981,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "claude-3-7-sonnet-latest": {
     "family": "claude-sonnet",
-    "knowledgeCutoff": "2024-10-31",
+    "trainingCutoff": "2024-10-31",
     "lastUpdated": "2025-02-19",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -37831,7 +35012,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "claude-3-opus-20240229": {
     "family": "claude-opus",
-    "knowledgeCutoff": "2023-08-31",
+    "trainingCutoff": "2023-08-31",
     "lastUpdated": "2024-02-29",
     "apiSupport": {
       "reasoning": false,
@@ -37861,7 +35042,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "claude-sonnet-4-5@20250929": {
     "family": "claude-sonnet",
-    "knowledgeCutoff": "2025-07-31",
+    "trainingCutoff": "2025-07-31",
     "lastUpdated": "2025-09-29",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -37892,7 +35073,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "claude-opus-4-1@20250805": {
     "family": "claude-opus",
-    "knowledgeCutoff": "2025-03-31",
+    "trainingCutoff": "2025-03-31",
     "lastUpdated": "2025-08-05",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -37923,7 +35104,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "claude-3-7-sonnet@20250219": {
     "family": "claude-sonnet",
-    "knowledgeCutoff": "2024-10-31",
+    "trainingCutoff": "2024-10-31",
     "lastUpdated": "2025-02-19",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -37954,7 +35135,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "claude-opus-4@20250514": {
     "family": "claude-opus",
-    "knowledgeCutoff": "2025-03-31",
+    "trainingCutoff": "2025-03-31",
     "lastUpdated": "2025-05-22",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -37985,7 +35166,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "claude-opus-4-5@20251101": {
     "family": "claude-opus",
-    "knowledgeCutoff": "2025-03-31",
+    "trainingCutoff": "2025-03-31",
     "lastUpdated": "2025-11-24",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -38016,7 +35197,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "claude-3-5-haiku@20241022": {
     "family": "claude-haiku",
-    "knowledgeCutoff": "2024-07-31",
+    "trainingCutoff": "2024-07-31",
     "lastUpdated": "2024-10-22",
     "apiSupport": {
       "reasoning": false,
@@ -38046,7 +35227,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "claude-sonnet-4@20250514": {
     "family": "claude-sonnet",
-    "knowledgeCutoff": "2025-03-31",
+    "trainingCutoff": "2025-03-31",
     "lastUpdated": "2025-05-22",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -38077,7 +35258,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "claude-3-5-sonnet@20241022": {
     "family": "claude-sonnet",
-    "knowledgeCutoff": "2024-04-30",
+    "trainingCutoff": "2024-04-30",
     "lastUpdated": "2024-10-22",
     "apiSupport": {
       "reasoning": false,
@@ -38107,7 +35288,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "claude-opus-4-6@default": {
     "family": "claude-opus",
-    "knowledgeCutoff": "2025-05",
+    "trainingCutoff": "2025-05",
     "lastUpdated": "2026-02-05",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -38143,7 +35324,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "claude-haiku-4-5@20251001": {
     "family": "claude-haiku",
-    "knowledgeCutoff": "2025-02-28",
+    "trainingCutoff": "2025-02-28",
     "lastUpdated": "2025-10-15",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -38174,7 +35355,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "claude-sonnet-4-6@default": {
     "family": "claude-sonnet",
-    "knowledgeCutoff": "2025-08",
+    "trainingCutoff": "2025-08",
     "lastUpdated": "2026-02-17",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -38208,7 +35389,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "allenai/molmo-2-8b": {
+  "allenai-molmo-2-8b": {
     "lastUpdated": "2026-01-31",
     "apiSupport": {
       "reasoning": false,
@@ -38232,8 +35413,8 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "nex-agi/deepseek-v3.1-nex-n1": {
-    "lastUpdated": "2025-11-25",
+  "nvidia-llama-3-1-nemotron-70b-instruct": {
+    "lastUpdated": "2024-10-12",
     "apiSupport": {
       "reasoning": false,
       "toolCall": true,
@@ -38249,12 +35430,36 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
       ]
     },
     "specs": {
-      "maxOutputTokens": 163840
+      "maxOutputTokens": 16384
     },
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "inception/mercury": {
+  "nvidia-llama-3-3-nemotron-super-49b-v1-5": {
+    "family": "llama",
+    "lastUpdated": "2025-12-24",
+    "apiSupport": {
+      "reasoning": false,
+      "toolCall": true,
+      "structuredOutput": true,
+      "temperature": true,
+      "attachment": false
+    },
+    "modalities": {
+      "input": [
+        "text"
+      ],
+      "output": [
+        "text"
+      ]
+    },
+    "specs": {
+      "maxOutputTokens": 8192
+    },
+    "metadataSourceId": "models-dev",
+    "metadataAsOfDate": "2026-03-01"
+  },
+  "inception-mercury": {
     "lastUpdated": "2025-07-31",
     "apiSupport": {
       "reasoning": false,
@@ -38276,7 +35481,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "inception/mercury-coder": {
+  "inception-mercury-coder": {
     "lastUpdated": "2025-07-31",
     "apiSupport": {
       "reasoning": false,
@@ -38298,7 +35503,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "amazon/nova-2-lite-v1": {
+  "amazon-nova-2-lite-v1": {
     "lastUpdated": "2025-12-01",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -38323,7 +35528,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "amazon/nova-pro-v1": {
+  "amazon-nova-pro-v1": {
     "lastUpdated": "2024-12-03",
     "apiSupport": {
       "reasoning": false,
@@ -38346,52 +35551,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "essentialai/rnj-1-instruct": {
-    "lastUpdated": "2025-12-05",
-    "apiSupport": {
-      "reasoning": false,
-      "toolCall": false,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 6554
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "tencent/hunyuan-a13b-instruct": {
-    "lastUpdated": "2025-11-25",
-    "interleavedReasoningField": "reasoning_content",
-    "apiSupport": {
-      "reasoning": true,
-      "toolCall": false,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 131072
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "deepseek/deepseek-r1-distill-qwen-32b": {
+  "deepseek-deepseek-r1-distill-qwen-32b": {
     "lastUpdated": "2025-11-25",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -38414,55 +35574,11 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "baidu/ernie-4.5-21b-a3b-thinking": {
-    "lastUpdated": "2025-09-19",
+  "openrouter-aurora-alpha": {
+    "lastUpdated": "2026-02-09",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
       "reasoning": true,
-      "toolCall": false,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 65536
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "baidu/ernie-4.5-300b-a47b": {
-    "lastUpdated": "2026-01",
-    "apiSupport": {
-      "reasoning": false,
-      "toolCall": false,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 12000
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "baidu/ernie-4.5-21b-a3b": {
-    "lastUpdated": "2025-06-30",
-    "apiSupport": {
-      "reasoning": false,
       "toolCall": true,
       "temperature": true,
       "attachment": false
@@ -38476,12 +35592,12 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
       ]
     },
     "specs": {
-      "maxOutputTokens": 8000
+      "maxOutputTokens": 50000
     },
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "google/gemini-2.5-pro-preview": {
+  "google-gemini-2-5-pro-preview": {
     "lastUpdated": "2026-01",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -38510,7 +35626,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "google/gemini-2.0-flash-lite-001": {
+  "google-gemini-2-0-flash-lite-001": {
     "lastUpdated": "2025-06-16",
     "apiSupport": {
       "reasoning": false,
@@ -38535,7 +35651,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "z-ai/glm-5:free": {
+  "z-ai-glm-5:free": {
     "lastUpdated": "2026-02-12",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -38561,7 +35677,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "qwen/qwen-vl-plus": {
+  "qwen-qwen-vl-plus": {
     "lastUpdated": "2025-08-15",
     "apiSupport": {
       "reasoning": false,
@@ -38587,7 +35703,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "qwen/qwen-vl-max": {
+  "qwen-qwen-vl-max": {
     "lastUpdated": "2025-08-13",
     "apiSupport": {
       "reasoning": false,
@@ -38610,7 +35726,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "qwen/qwen-2.5-vl-7b-instruct": {
+  "qwen-qwen-2-5-vl-7b-instruct": {
     "lastUpdated": "2024-09",
     "apiSupport": {
       "reasoning": false,
@@ -38633,7 +35749,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "qwen/qwen3-max-thinking": {
+  "qwen-qwen3-max-thinking": {
     "lastUpdated": "2026-01-23",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -38656,83 +35772,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "qwen/qwen3-14b": {
-    "lastUpdated": "2026-01-10",
-    "interleavedReasoningField": "reasoning_content",
-    "apiSupport": {
-      "reasoning": true,
-      "toolCall": true,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 40960,
-      "pricing": {
-        "cacheInput": 0.025
-      }
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "qwen/qwen3-vl-8b-thinking": {
-    "lastUpdated": "2025-11-25",
-    "interleavedReasoningField": "reasoning_content",
-    "apiSupport": {
-      "reasoning": true,
-      "toolCall": true,
-      "temperature": true,
-      "attachment": true
-    },
-    "modalities": {
-      "input": [
-        "image",
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 32768
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "qwen/qwen2.5-vl-32b-instruct": {
-    "lastUpdated": "2026-01-10",
-    "apiSupport": {
-      "reasoning": false,
-      "toolCall": false,
-      "temperature": true,
-      "attachment": true
-    },
-    "modalities": {
-      "input": [
-        "text",
-        "image"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 16384,
-      "pricing": {
-        "cacheInput": 0.025
-      }
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "qwen/qwen-max": {
+  "qwen-qwen-max": {
     "lastUpdated": "2025-01-25",
     "apiSupport": {
       "reasoning": false,
@@ -38757,7 +35797,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "qwen/qwen-turbo": {
+  "qwen-qwen-turbo": {
     "lastUpdated": "2025-07-15",
     "apiSupport": {
       "reasoning": false,
@@ -38782,7 +35822,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "qwen/qwen3-4b": {
+  "qwen-qwen3-4b": {
     "lastUpdated": "2025-07-23",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -38805,33 +35845,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "qwen/qwen3-8b": {
-    "lastUpdated": "2025-04",
-    "interleavedReasoningField": "reasoning_content",
-    "apiSupport": {
-      "reasoning": true,
-      "toolCall": true,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 8192,
-      "pricing": {
-        "cacheInput": 0.05
-      }
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "qwen/qwen3-235b-a22b-2507": {
+  "qwen-qwen3-235b-a22b-2507": {
     "lastUpdated": "2026-01",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -38854,7 +35868,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "qwen/qwen-2.5-7b-instruct": {
+  "qwen-qwen-2-5-7b-instruct": {
     "lastUpdated": "2025-04-16",
     "apiSupport": {
       "reasoning": false,
@@ -38876,7 +35890,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "qwen/qwen-plus": {
+  "qwen-qwen-plus": {
     "lastUpdated": "2025-09-11",
     "apiSupport": {
       "reasoning": false,
@@ -38901,35 +35915,14 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "qwen/qwen3-vl-32b-instruct": {
-    "lastUpdated": "2025-11-25",
-    "apiSupport": {
-      "reasoning": false,
-      "toolCall": true,
-      "temperature": true,
-      "attachment": true
-    },
-    "modalities": {
-      "input": [
-        "text",
-        "image"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 32768
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "qwen/qwen3-30b-a3b": {
-    "lastUpdated": "2026-01",
+  "qwen-qwen3-30b-a3b": {
+    "family": "qwen",
+    "lastUpdated": "2026-01-10",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
       "reasoning": true,
       "toolCall": true,
+      "structuredOutput": true,
       "temperature": true,
       "attachment": false
     },
@@ -38942,15 +35935,12 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
       ]
     },
     "specs": {
-      "maxOutputTokens": 40960,
-      "pricing": {
-        "cacheInput": 0.03
-      }
+      "maxOutputTokens": 40960
     },
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "meta-llama/llama-4-scout": {
+  "meta-llama-llama-4-scout": {
     "lastUpdated": "2025-04-05",
     "apiSupport": {
       "reasoning": false,
@@ -38973,7 +35963,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "meta-llama/llama-3.1-70b-instruct": {
+  "meta-llama-llama-3-1-70b-instruct": {
     "lastUpdated": "2024-07-23",
     "apiSupport": {
       "reasoning": false,
@@ -38995,7 +35985,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "meta-llama/llama-3.2-3b-instruct": {
+  "meta-llama-llama-3-2-3b-instruct": {
     "lastUpdated": "2025-04-03",
     "apiSupport": {
       "reasoning": false,
@@ -39017,7 +36007,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "meta-llama/llama-3.2-1b-instruct": {
+  "meta-llama-llama-3-2-1b-instruct": {
     "lastUpdated": "2026-01-27",
     "apiSupport": {
       "reasoning": false,
@@ -39039,7 +36029,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "meta-llama/llama-3.1-405b-instruct": {
+  "meta-llama-llama-3-1-405b-instruct": {
     "lastUpdated": "2025-04-05",
     "apiSupport": {
       "reasoning": false,
@@ -39061,9 +36051,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "meta-llama/llama-4-maverick": {
+  "meta-llama-llama-4-maverick": {
     "family": "llama",
-    "knowledgeCutoff": "2025-01",
+    "trainingCutoff": "2025-01",
     "lastUpdated": "2025-12-24",
     "apiSupport": {
       "reasoning": false,
@@ -39086,7 +36076,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "tngtech/deepseek-r1t2-chimera": {
+  "tngtech-deepseek-r1t2-chimera": {
     "lastUpdated": "2025-07-08",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -39112,12 +36102,14 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "tngtech/deepseek-r1t-chimera": {
+  "tngtech-deepseek-r1t-chimera": {
+    "family": "tngtech",
     "lastUpdated": "2026-01-10",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
       "reasoning": true,
       "toolCall": false,
+      "structuredOutput": true,
       "temperature": true,
       "attachment": false
     },
@@ -39130,15 +36122,12 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
       ]
     },
     "specs": {
-      "maxOutputTokens": 163840,
-      "pricing": {
-        "cacheInput": 0.15
-      }
+      "maxOutputTokens": 163840
     },
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "tngtech/tng-r1t-chimera": {
+  "tngtech-tng-r1t-chimera": {
     "lastUpdated": "2026-01-31",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -39164,30 +36153,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "mistralai/voxtral-small-24b-2507": {
-    "lastUpdated": "2025-07-01",
-    "apiSupport": {
-      "reasoning": false,
-      "toolCall": true,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text",
-        "audio"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 6400
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "mistralai/mistral-small-24b-instruct-2501": {
+  "mistralai-mistral-small-24b-instruct-2501": {
     "lastUpdated": "2026-01-10",
     "apiSupport": {
       "reasoning": false,
@@ -39209,7 +36175,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "mistralai/mistral-7b-instruct-v0.3": {
+  "mistralai-mistral-7b-instruct-v0-3": {
     "lastUpdated": "2025-04-01",
     "apiSupport": {
       "reasoning": false,
@@ -39231,7 +36197,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "mistralai/mistral-large-2512": {
+  "mistralai-mistral-large-2512": {
     "lastUpdated": "2025-12-16",
     "apiSupport": {
       "reasoning": false,
@@ -39254,7 +36220,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "mistralai/ministral-14b-2512": {
+  "mistralai-ministral-14b-2512": {
     "lastUpdated": "2025-12-16",
     "apiSupport": {
       "reasoning": false,
@@ -39277,7 +36243,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "mistralai/devstral-medium": {
+  "mistralai-devstral-medium": {
     "lastUpdated": "2025-07-10",
     "apiSupport": {
       "reasoning": false,
@@ -39299,7 +36265,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "mistralai/devstral-small": {
+  "mistralai-devstral-small": {
     "lastUpdated": "2025-07-10",
     "apiSupport": {
       "reasoning": false,
@@ -39321,7 +36287,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "mistralai/mixtral-8x22b-instruct": {
+  "mistralai-mixtral-8x22b-instruct": {
     "lastUpdated": "2024-04-17",
     "apiSupport": {
       "reasoning": false,
@@ -39343,7 +36309,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "mistralai/mistral-7b-instruct": {
+  "mistralai-mistral-7b-instruct": {
     "lastUpdated": "2024-05-27",
     "apiSupport": {
       "reasoning": false,
@@ -39365,7 +36331,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "mistralai/mistral-large-2411": {
+  "mistralai-mistral-large-2411": {
     "lastUpdated": "2024-11-04",
     "apiSupport": {
       "reasoning": false,
@@ -39387,7 +36353,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "mistralai/mistral-7b-instruct-v0.1": {
+  "mistralai-mistral-7b-instruct-v0-1": {
     "lastUpdated": "2025-04-03",
     "apiSupport": {
       "reasoning": false,
@@ -39409,7 +36375,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "mistralai/mistral-large": {
+  "mistralai-mistral-large": {
     "lastUpdated": "2025-12-02",
     "apiSupport": {
       "reasoning": false,
@@ -39431,7 +36397,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "mistralai/mistral-small-3.1-24b-instruct:free": {
+  "mistralai-mistral-small-3-1-24b-instruct:free": {
     "lastUpdated": "2025-03-17",
     "apiSupport": {
       "reasoning": false,
@@ -39454,7 +36420,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "openai/gpt-4o-2024-11-20": {
+  "openai-gpt-4o-2024-11-20": {
     "lastUpdated": "2024-11-20",
     "apiSupport": {
       "reasoning": false,
@@ -39480,7 +36446,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "openai/gpt-4o:extended": {
+  "openai-gpt-4o:extended": {
     "lastUpdated": "2024-08-06",
     "apiSupport": {
       "reasoning": false,
@@ -39503,7 +36469,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "openai/gpt-4o-2024-05-13": {
+  "openai-gpt-4o-2024-05-13": {
     "lastUpdated": "2024-05-13",
     "apiSupport": {
       "reasoning": false,
@@ -39526,7 +36492,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "openai/gpt-3.5-turbo-0613": {
+  "openai-gpt-3-5-turbo-0613": {
     "lastUpdated": "2023-06-13",
     "apiSupport": {
       "reasoning": false,
@@ -39548,7 +36514,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "openai/gpt-4o-2024-08-06": {
+  "openai-gpt-4o-2024-08-06": {
     "lastUpdated": "2024-08-06",
     "apiSupport": {
       "reasoning": false,
@@ -39574,51 +36540,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "cohere/command-r-08-2024": {
-    "lastUpdated": "2024-08-30",
-    "apiSupport": {
-      "reasoning": false,
-      "toolCall": true,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 4000
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "cohere/command-r-plus-08-2024": {
-    "lastUpdated": "2024-08-30",
-    "apiSupport": {
-      "reasoning": false,
-      "toolCall": true,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 4000
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "cohere/command-r7b-12-2024": {
+  "cohere-command-r7b-12-2024": {
     "lastUpdated": "2024-02-27",
     "apiSupport": {
       "reasoning": false,
@@ -39640,7 +36562,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "minimax/minimax-m2.5:free": {
+  "minimax-minimax-m2-5:free": {
     "lastUpdated": "2026-02-12",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -39666,7 +36588,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "writer/palmyra-x5": {
+  "writer-palmyra-x5": {
     "lastUpdated": "2025-04-28",
     "apiSupport": {
       "reasoning": false,
@@ -39688,7 +36610,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "perplexity/sonar-deep-research": {
+  "perplexity-sonar-deep-research": {
     "lastUpdated": "2025-01-27",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -39711,7 +36633,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "bytedance-seed/seed-1.6": {
+  "bytedance-seed-seed-1-6": {
     "lastUpdated": "2025-09",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -39736,7 +36658,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "anthropic/claude-3.7-sonnet:thinking": {
+  "anthropic-claude-3-7-sonnet:thinking": {
     "lastUpdated": "2025-02-24",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -39764,36 +36686,13 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "kilo/auto": {
-    "lastUpdated": "2024-06-01",
-    "interleavedReasoningField": "reasoning_content",
-    "apiSupport": {
-      "reasoning": true,
-      "toolCall": true,
-      "temperature": true,
-      "attachment": true
-    },
-    "modalities": {
-      "input": [
-        "text",
-        "image"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 64000
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "nousresearch/deephermes-3-mistral-24b-preview": {
+  "nousresearch-deephermes-3-mistral-24b-preview": {
+    "family": "nousresearch",
     "lastUpdated": "2026-01-10",
-    "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
-      "reasoning": true,
+      "reasoning": false,
       "toolCall": true,
+      "structuredOutput": true,
       "temperature": true,
       "attachment": false
     },
@@ -39806,15 +36705,12 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
       ]
     },
     "specs": {
-      "maxOutputTokens": 32768,
-      "pricing": {
-        "cacheInput": 0.01
-      }
+      "maxOutputTokens": 32768
     },
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "nousresearch/hermes-3-llama-3.1-405b": {
+  "nousresearch-hermes-3-llama-3-1-405b": {
     "lastUpdated": "2024-08-16",
     "apiSupport": {
       "reasoning": false,
@@ -39836,9 +36732,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "zai-org/glm-5-original:thinking": {
+  "zai-org-glm-5-original:thinking": {
     "family": "glm",
-    "knowledgeCutoff": "2025-06",
+    "trainingCutoff": "2025-06",
     "lastUpdated": "2026-02-11",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -39862,9 +36758,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "zai-org/glm-5-original": {
+  "zai-org-glm-5-original": {
     "family": "glm",
-    "knowledgeCutoff": "2025-06",
+    "trainingCutoff": "2025-06",
     "lastUpdated": "2026-02-11",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -39888,7 +36784,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "zai-org/glm-4.6:thinking": {
+  "zai-org-glm-4-6:thinking": {
     "family": "glm",
     "lastUpdated": "2025-12-24",
     "interleavedReasoningField": "reasoning_content",
@@ -39913,7 +36809,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "zai-org/glm-4.7:thinking": {
+  "zai-org-glm-4-7:thinking": {
     "family": "glm",
     "lastUpdated": "2025-12-24",
     "interleavedReasoningField": "reasoning_content",
@@ -39938,7 +36834,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "zai-org/glm-4.5-air:thinking": {
+  "zai-org-glm-4-5-air:thinking": {
     "family": "glm",
     "lastUpdated": "2025-12-24",
     "interleavedReasoningField": "reasoning_content",
@@ -39963,9 +36859,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "zai-org/glm-5:thinking": {
+  "zai-org-glm-5:thinking": {
     "family": "glm",
-    "knowledgeCutoff": "2025-06",
+    "trainingCutoff": "2025-06",
     "lastUpdated": "2026-02-11",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -39989,31 +36885,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "nvidia/llama-3_3-nemotron-super-49b-v1_5": {
-    "family": "llama",
-    "lastUpdated": "2025-12-24",
-    "apiSupport": {
-      "reasoning": false,
-      "toolCall": true,
-      "structuredOutput": true,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 8192
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "deepseek/deepseek-v3.2:thinking": {
+  "deepseek-deepseek-v3-2:thinking": {
     "family": "deepseek",
     "lastUpdated": "2025-12-24",
     "interleavedReasoningField": "reasoning_content",
@@ -40038,7 +36910,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "moonshotai/kimi-k2.5-thinking": {
+  "moonshotai-kimi-k2-5-thinking": {
     "family": "kimi",
     "lastUpdated": "2026-01-26",
     "interleavedReasoningField": "reasoning_content",
@@ -40064,7 +36936,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "qwen/qwen3.5-397b-a17b-thinking": {
+  "qwen-qwen3-5-397b-a17b-thinking": {
     "family": "qwen",
     "lastUpdated": "2026-02-16",
     "interleavedReasoningField": "reasoning_content",
@@ -40091,7 +36963,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "qwen/qwen3.5-plus-thinking": {
+  "qwen-qwen3-5-plus-thinking": {
     "family": "qwen",
     "lastUpdated": "2026-02-16",
     "interleavedReasoningField": "reasoning_content",
@@ -40118,33 +36990,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "qwen/qwen3.5-plus": {
-    "family": "qwen",
-    "lastUpdated": "2026-02-16",
-    "apiSupport": {
-      "reasoning": false,
-      "toolCall": true,
-      "structuredOutput": true,
-      "temperature": true,
-      "attachment": true
-    },
-    "modalities": {
-      "input": [
-        "text",
-        "image",
-        "video"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 8192
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "minimax/minimax-m2.5-official": {
+  "minimax-minimax-m2-5-official": {
     "family": "minimax",
     "lastUpdated": "2026-02-12",
     "interleavedReasoningField": "reasoning_content",
@@ -40169,7 +37015,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "nousresearch/hermes-4-405b:thinking": {
+  "nousresearch-hermes-4-405b:thinking": {
     "family": "hermes",
     "lastUpdated": "2025-12-24",
     "interleavedReasoningField": "reasoning_content",
@@ -40196,7 +37042,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "qwen-3-235b-a22b-instruct-2507": {
     "family": "qwen",
-    "knowledgeCutoff": "2025-04",
+    "trainingCutoff": "2025-04",
     "lastUpdated": "2025-07-22",
     "apiSupport": {
       "reasoning": false,
@@ -40218,9 +37064,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "llama3.1-8b": {
+  "llama3-1-8b": {
     "family": "llama",
-    "knowledgeCutoff": "2023-12",
+    "trainingCutoff": "2023-12",
     "lastUpdated": "2025-01-01",
     "apiSupport": {
       "reasoning": false,
@@ -40242,35 +37088,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "zai-glm-4.7": {
-    "lastUpdated": "2026-01-10",
-    "apiSupport": {
-      "reasoning": false,
-      "toolCall": true,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 40000,
-      "pricing": {
-        "cacheInput": 0,
-        "cacheOutput": 0
-      }
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
   "glm-4p7": {
     "family": "glm",
-    "knowledgeCutoff": "2025-04",
+    "trainingCutoff": "2025-04",
     "lastUpdated": "2025-12-22",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -40319,7 +37139,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "glm-4p5-air": {
     "family": "glm-air",
-    "knowledgeCutoff": "2025-04",
+    "trainingCutoff": "2025-04",
     "lastUpdated": "2025-08-01",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -40343,7 +37163,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataAsOfDate": "2026-03-01"
   },
   "devstral-small-2512": {
-    "knowledgeCutoff": "2025-12",
+    "trainingCutoff": "2025-12",
     "lastUpdated": "2025-12-09",
     "apiSupport": {
       "reasoning": false,
@@ -40367,7 +37187,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataAsOfDate": "2026-03-01"
   },
   "intellect-3": {
-    "knowledgeCutoff": "2025-11",
+    "trainingCutoff": "2025-11",
     "lastUpdated": "2025-11-26",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -40392,7 +37212,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "nova-pro-v1": {
     "family": "nova-pro",
-    "knowledgeCutoff": "2024-04",
+    "trainingCutoff": "2024-04",
     "lastUpdated": "2024-12-03",
     "apiSupport": {
       "reasoning": false,
@@ -40415,9 +37235,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "llama-3.1-405b-instruct": {
+  "llama-3-1-405b-instruct": {
     "family": "llama",
-    "knowledgeCutoff": "2023-12",
+    "trainingCutoff": "2023-12",
     "lastUpdated": "2024-07-23",
     "apiSupport": {
       "reasoning": false,
@@ -40441,7 +37261,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "glm-4p5": {
     "family": "glm",
-    "knowledgeCutoff": "2025-04",
+    "trainingCutoff": "2025-04",
     "lastUpdated": "2025-07-29",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -40464,36 +37284,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "claude-4-5-sonnet": {
-    "family": "claude-sonnet",
-    "knowledgeCutoff": "2025-07-31",
-    "lastUpdated": "2025-09-29",
-    "interleavedReasoningField": "reasoning_content",
-    "apiSupport": {
-      "reasoning": true,
-      "toolCall": true,
-      "temperature": true,
-      "attachment": true
-    },
-    "modalities": {
-      "input": [
-        "text",
-        "image",
-        "other"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 200000
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
   "grok-2-1212": {
     "family": "grok",
-    "knowledgeCutoff": "2024-08",
+    "trainingCutoff": "2024-08",
     "lastUpdated": "2024-12-12",
     "apiSupport": {
       "reasoning": false,
@@ -40520,7 +37313,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "grok-2": {
     "family": "grok",
-    "knowledgeCutoff": "2024-08",
+    "trainingCutoff": "2024-08",
     "lastUpdated": "2024-08-20",
     "apiSupport": {
       "reasoning": false,
@@ -40547,7 +37340,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "grok-3-fast-latest": {
     "family": "grok",
-    "knowledgeCutoff": "2024-11",
+    "trainingCutoff": "2024-11",
     "lastUpdated": "2025-02-17",
     "apiSupport": {
       "reasoning": false,
@@ -40574,7 +37367,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "grok-2-vision": {
     "family": "grok",
-    "knowledgeCutoff": "2024-08",
+    "trainingCutoff": "2024-08",
     "lastUpdated": "2024-08-20",
     "apiSupport": {
       "reasoning": false,
@@ -40602,7 +37395,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "grok-2-vision-1212": {
     "family": "grok",
-    "knowledgeCutoff": "2024-08",
+    "trainingCutoff": "2024-08",
     "lastUpdated": "2024-12-12",
     "apiSupport": {
       "reasoning": false,
@@ -40630,7 +37423,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "grok-beta": {
     "family": "grok-beta",
-    "knowledgeCutoff": "2024-08",
+    "trainingCutoff": "2024-08",
     "lastUpdated": "2024-11-01",
     "apiSupport": {
       "reasoning": false,
@@ -40657,7 +37450,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "grok-3-mini-fast": {
     "family": "grok",
-    "knowledgeCutoff": "2024-11",
+    "trainingCutoff": "2024-11",
     "lastUpdated": "2025-02-17",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -40686,7 +37479,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "grok-4-fast": {
     "family": "grok",
-    "knowledgeCutoff": "2025-07",
+    "trainingCutoff": "2025-07",
     "lastUpdated": "2025-09-19",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -40715,7 +37508,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "grok-3-latest": {
     "family": "grok",
-    "knowledgeCutoff": "2024-11",
+    "trainingCutoff": "2024-11",
     "lastUpdated": "2025-02-17",
     "apiSupport": {
       "reasoning": false,
@@ -40742,7 +37535,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "grok-4-1-fast": {
     "family": "grok",
-    "knowledgeCutoff": "2025-07",
+    "trainingCutoff": "2025-07",
     "lastUpdated": "2025-11-19",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -40771,7 +37564,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "grok-2-vision-latest": {
     "family": "grok",
-    "knowledgeCutoff": "2024-08",
+    "trainingCutoff": "2024-08",
     "lastUpdated": "2024-12-12",
     "apiSupport": {
       "reasoning": false,
@@ -40799,7 +37592,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "grok-3-mini-latest": {
     "family": "grok",
-    "knowledgeCutoff": "2024-11",
+    "trainingCutoff": "2024-11",
     "lastUpdated": "2025-02-17",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -40828,7 +37621,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "grok-3-mini-fast-latest": {
     "family": "grok",
-    "knowledgeCutoff": "2024-11",
+    "trainingCutoff": "2024-11",
     "lastUpdated": "2025-02-17",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -40857,7 +37650,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "grok-2-latest": {
     "family": "grok",
-    "knowledgeCutoff": "2024-08",
+    "trainingCutoff": "2024-08",
     "lastUpdated": "2024-12-12",
     "apiSupport": {
       "reasoning": false,
@@ -40884,7 +37677,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "grok-vision-beta": {
     "family": "grok-vision",
-    "knowledgeCutoff": "2024-08",
+    "trainingCutoff": "2024-08",
     "lastUpdated": "2024-11-01",
     "apiSupport": {
       "reasoning": false,
@@ -40912,7 +37705,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "grok-3-fast": {
     "family": "grok",
-    "knowledgeCutoff": "2024-11",
+    "trainingCutoff": "2024-11",
     "lastUpdated": "2025-02-17",
     "apiSupport": {
       "reasoning": false,
@@ -40939,7 +37732,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "qwen-math-plus": {
     "family": "qwen",
-    "knowledgeCutoff": "2024-04",
+    "trainingCutoff": "2024-04",
     "lastUpdated": "2024-09-19",
     "apiSupport": {
       "reasoning": false,
@@ -40961,32 +37754,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "deepseek-v3-1": {
-    "family": "deepseek",
-    "lastUpdated": "2025-01-01",
-    "apiSupport": {
-      "reasoning": false,
-      "toolCall": true,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 65536
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
   "qwen2-5-coder-7b-instruct": {
     "family": "qwen",
-    "knowledgeCutoff": "2024-04",
+    "trainingCutoff": "2024-04",
     "lastUpdated": "2024-11",
     "apiSupport": {
       "reasoning": false,
@@ -41010,7 +37780,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "qwen-long": {
     "family": "qwen",
-    "knowledgeCutoff": "2024-04",
+    "trainingCutoff": "2024-04",
     "lastUpdated": "2025-01-25",
     "apiSupport": {
       "reasoning": false,
@@ -41034,7 +37804,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "qwq-32b": {
     "family": "qwen",
-    "knowledgeCutoff": "2024-04",
+    "trainingCutoff": "2024-04",
     "lastUpdated": "2024-12",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -41107,7 +37877,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "qwen-doc-turbo": {
     "family": "qwen",
-    "knowledgeCutoff": "2024-04",
+    "trainingCutoff": "2024-04",
     "lastUpdated": "2024-01",
     "apiSupport": {
       "reasoning": false,
@@ -41131,7 +37901,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "tongyi-intent-detect-v3": {
     "family": "yi",
-    "knowledgeCutoff": "2024-04",
+    "trainingCutoff": "2024-04",
     "lastUpdated": "2024-01",
     "apiSupport": {
       "reasoning": false,
@@ -41155,7 +37925,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "qwen-plus-character": {
     "family": "qwen",
-    "knowledgeCutoff": "2024-04",
+    "trainingCutoff": "2024-04",
     "lastUpdated": "2024-01",
     "apiSupport": {
       "reasoning": false,
@@ -41226,7 +37996,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "qwen2-5-math-7b-instruct": {
     "family": "qwen",
-    "knowledgeCutoff": "2024-04",
+    "trainingCutoff": "2024-04",
     "lastUpdated": "2024-09",
     "apiSupport": {
       "reasoning": false,
@@ -41298,7 +38068,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "qwen-deep-research": {
     "family": "qwen",
-    "knowledgeCutoff": "2024-04",
+    "trainingCutoff": "2024-04",
     "lastUpdated": "2024-01",
     "apiSupport": {
       "reasoning": false,
@@ -41322,7 +38092,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "qwen2-5-math-72b-instruct": {
     "family": "qwen",
-    "knowledgeCutoff": "2024-04",
+    "trainingCutoff": "2024-04",
     "lastUpdated": "2024-09",
     "apiSupport": {
       "reasoning": false,
@@ -41346,7 +38116,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
   },
   "qwen-math-turbo": {
     "family": "qwen",
-    "knowledgeCutoff": "2024-04",
+    "trainingCutoff": "2024-04",
     "lastUpdated": "2024-09-19",
     "apiSupport": {
       "reasoning": false,
@@ -41368,55 +38138,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "qwen2-5-coder-32b-instruct": {
-    "family": "qwen",
-    "knowledgeCutoff": "2024-04",
-    "lastUpdated": "2024-11",
-    "apiSupport": {
-      "reasoning": false,
-      "toolCall": true,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 8192
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "zai-org/GLM-4.7-FP8": {
-    "lastUpdated": "2026-01-27",
-    "interleavedReasoningField": "reasoning_content",
-    "apiSupport": {
-      "reasoning": true,
-      "toolCall": true,
-      "structuredOutput": true,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 65535
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "zai-org/GLM-4.7-TEE": {
+  "zai-org-glm-4-7-tee": {
     "family": "glm",
     "lastUpdated": "2026-01-10",
     "interleavedReasoningField": "reasoning_content",
@@ -41441,7 +38163,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "zai-org/GLM-4.6-TEE": {
+  "zai-org-glm-4-6-tee": {
     "family": "glm",
     "lastUpdated": "2026-01-10",
     "interleavedReasoningField": "reasoning_content",
@@ -41466,7 +38188,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "zai-org/GLM-5-TEE": {
+  "zai-org-glm-5-tee": {
     "family": "glm",
     "lastUpdated": "2026-02-14",
     "interleavedReasoningField": "reasoning_content",
@@ -41491,7 +38213,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "zai-org/GLM-4.6-FP8": {
+  "zai-org-glm-4-6-fp8": {
     "lastUpdated": "2026-01-27",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -41515,7 +38237,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "zai-org/GLM-4.5-TEE": {
+  "zai-org-glm-4-5-tee": {
     "family": "glm",
     "lastUpdated": "2026-01-10",
     "interleavedReasoningField": "reasoning_content",
@@ -41540,7 +38262,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B-BF16": {
+  "nvidia-nvidia-nemotron-3-nano-30b-a3b-bf16": {
     "family": "nemotron",
     "lastUpdated": "2026-01-10",
     "apiSupport": {
@@ -41564,7 +38286,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "NousResearch/Hermes-4.3-36B": {
+  "nousresearch-hermes-4-3-36b": {
     "family": "nousresearch",
     "lastUpdated": "2026-01-10",
     "apiSupport": {
@@ -41588,31 +38310,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "NousResearch/DeepHermes-3-Mistral-24B-Preview": {
-    "family": "nousresearch",
-    "lastUpdated": "2026-01-10",
-    "apiSupport": {
-      "reasoning": false,
-      "toolCall": true,
-      "structuredOutput": true,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 32768
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "NousResearch/Hermes-4-14B": {
+  "nousresearch-hermes-4-14b": {
     "family": "nousresearch",
     "lastUpdated": "2026-01-10",
     "interleavedReasoningField": "reasoning_content",
@@ -41637,7 +38335,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "NousResearch/Hermes-4-405B-FP8-TEE": {
+  "nousresearch-hermes-4-405b-fp8-tee": {
     "family": "nousresearch",
     "lastUpdated": "2026-01-10",
     "interleavedReasoningField": "reasoning_content",
@@ -41662,32 +38360,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "NousResearch/Hermes-4-70B": {
-    "family": "nousresearch",
-    "lastUpdated": "2026-01-10",
-    "interleavedReasoningField": "reasoning_content",
-    "apiSupport": {
-      "reasoning": true,
-      "toolCall": true,
-      "structuredOutput": true,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 131072
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "MiniMaxAI/MiniMax-M2.5-TEE": {
+  "minimaxai-minimax-m2-5-tee": {
     "family": "minimax",
     "lastUpdated": "2026-02-15",
     "interleavedReasoningField": "reasoning_content",
@@ -41712,7 +38385,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "MiniMaxAI/MiniMax-M2.1-TEE": {
+  "minimaxai-minimax-m2-1-tee": {
     "family": "minimax",
     "lastUpdated": "2026-01-27",
     "interleavedReasoningField": "reasoning_content",
@@ -41737,7 +38410,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "deepseek-ai/DeepSeek-V3.1-Terminus-TEE": {
+  "deepseek-ai-deepseek-v3-1-terminus-tee": {
     "family": "deepseek",
     "lastUpdated": "2026-01-10",
     "interleavedReasoningField": "reasoning_content",
@@ -41762,7 +38435,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "deepseek-ai/DeepSeek-V3.2-TEE": {
+  "deepseek-ai-deepseek-v3-2-tee": {
     "family": "deepseek",
     "lastUpdated": "2026-01-10",
     "interleavedReasoningField": "reasoning_content",
@@ -41790,7 +38463,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "deepseek-ai/DeepSeek-V3-0324-TEE": {
+  "deepseek-ai-deepseek-v3-0324-tee": {
     "family": "deepseek",
     "lastUpdated": "2026-01-10",
     "apiSupport": {
@@ -41817,7 +38490,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "deepseek-ai/DeepSeek-V3.2-Speciale-TEE": {
+  "deepseek-ai-deepseek-v3-2-speciale-tee": {
     "family": "deepseek",
     "lastUpdated": "2026-01-10",
     "interleavedReasoningField": "reasoning_content",
@@ -41842,7 +38515,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "deepseek-ai/DeepSeek-R1-TEE": {
+  "deepseek-ai-deepseek-r1-tee": {
     "family": "deepseek-thinking",
     "lastUpdated": "2026-01-10",
     "interleavedReasoningField": "reasoning_content",
@@ -41867,32 +38540,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "deepseek-ai/DeepSeek-R1-Distill-Llama-70B": {
-    "family": "deepseek-thinking",
-    "lastUpdated": "2026-01-10",
-    "interleavedReasoningField": "reasoning_content",
-    "apiSupport": {
-      "reasoning": true,
-      "toolCall": true,
-      "structuredOutput": true,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 131072
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "deepseek-ai/DeepSeek-V3.1-TEE": {
+  "deepseek-ai-deepseek-v3-1-tee": {
     "family": "deepseek",
     "lastUpdated": "2026-01-10",
     "interleavedReasoningField": "reasoning_content",
@@ -41917,7 +38565,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "deepseek-ai/DeepSeek-R1-0528-TEE": {
+  "deepseek-ai-deepseek-r1-0528-tee": {
     "family": "deepseek-thinking",
     "lastUpdated": "2026-01-10",
     "interleavedReasoningField": "reasoning_content",
@@ -41942,7 +38590,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "rednote-hilab/dots.ocr": {
+  "rednote-hilab-dots-ocr": {
     "family": "rednote",
     "lastUpdated": "2026-01-10",
     "apiSupport": {
@@ -41970,7 +38618,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "unsloth/Mistral-Nemo-Instruct-2407": {
+  "unsloth-mistral-nemo-instruct-2407": {
     "family": "unsloth",
     "lastUpdated": "2026-01-10",
     "apiSupport": {
@@ -41997,7 +38645,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "unsloth/Mistral-Small-24B-Instruct-2501": {
+  "unsloth-mistral-small-24b-instruct-2501": {
     "family": "unsloth",
     "lastUpdated": "2026-01-10",
     "apiSupport": {
@@ -42022,7 +38670,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "unsloth/gemma-3-12b-it": {
+  "unsloth-gemma-3-12b-it": {
     "family": "unsloth",
     "lastUpdated": "2026-01-10",
     "apiSupport": {
@@ -42047,7 +38695,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "unsloth/gemma-3-4b-it": {
+  "unsloth-gemma-3-4b-it": {
     "family": "unsloth",
     "lastUpdated": "2026-01-10",
     "apiSupport": {
@@ -42072,7 +38720,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "unsloth/gemma-3-27b-it": {
+  "unsloth-gemma-3-27b-it": {
     "family": "unsloth",
     "lastUpdated": "2026-01-10",
     "apiSupport": {
@@ -42100,7 +38748,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "unsloth/Llama-3.2-1B-Instruct": {
+  "unsloth-llama-3-2-1b-instruct": {
     "lastUpdated": "2026-01-27",
     "apiSupport": {
       "reasoning": false,
@@ -42126,7 +38774,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "unsloth/Llama-3.2-3B-Instruct": {
+  "unsloth-llama-3-2-3b-instruct": {
     "family": "unsloth",
     "lastUpdated": "2025-02-12",
     "apiSupport": {
@@ -42153,9 +38801,9 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "moonshotai/Kimi-K2.5-TEE": {
+  "moonshotai-kimi-k2-5-tee": {
     "family": "kimi",
-    "knowledgeCutoff": "2024-10",
+    "trainingCutoff": "2024-10",
     "lastUpdated": "2026-01-27",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -42181,7 +38829,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "moonshotai/Kimi-K2-Thinking-TEE": {
+  "moonshotai-kimi-k2-thinking-tee": {
     "family": "kimi-thinking",
     "lastUpdated": "2026-01-10",
     "interleavedReasoningField": "reasoning_content",
@@ -42206,32 +38854,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "Qwen/Qwen3-30B-A3B": {
-    "family": "qwen",
-    "lastUpdated": "2026-01-10",
-    "interleavedReasoningField": "reasoning_content",
-    "apiSupport": {
-      "reasoning": true,
-      "toolCall": true,
-      "structuredOutput": true,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 40960
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "Qwen/Qwen3.5-397B-A17B-TEE": {
+  "qwen-qwen3-5-397b-a17b-tee": {
     "family": "qwen",
     "lastUpdated": "2026-02-18",
     "interleavedReasoningField": "reasoning_content",
@@ -42260,7 +38883,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "Qwen/Qwen3-Coder-480B-A35B-Instruct-FP8-TEE": {
+  "qwen-qwen3-coder-480b-a35b-instruct-fp8-tee": {
     "family": "qwen",
     "lastUpdated": "2026-01-10",
     "apiSupport": {
@@ -42287,7 +38910,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "Qwen/Qwen3-235B-A22B-Instruct-2507-TEE": {
+  "qwen-qwen3-235b-a22b-instruct-2507-tee": {
     "family": "qwen",
     "lastUpdated": "2026-01-10",
     "apiSupport": {
@@ -42314,7 +38937,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "Qwen/Qwen2.5-VL-72B-Instruct-TEE": {
+  "qwen-qwen2-5-vl-72b-instruct-tee": {
     "family": "qwen",
     "lastUpdated": "2026-01-10",
     "apiSupport": {
@@ -42339,7 +38962,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "Qwen/Qwen3Guard-Gen-0.6B": {
+  "qwen-qwen3guard-gen-0-6b": {
     "family": "qwen",
     "lastUpdated": "2026-01-10",
     "apiSupport": {
@@ -42366,32 +38989,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "tngtech/DeepSeek-R1T-Chimera": {
-    "family": "tngtech",
-    "lastUpdated": "2026-01-10",
-    "interleavedReasoningField": "reasoning_content",
-    "apiSupport": {
-      "reasoning": true,
-      "toolCall": false,
-      "structuredOutput": true,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 163840
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
-  "tngtech/DeepSeek-TNG-R1T2-Chimera": {
+  "tngtech-deepseek-tng-r1t2-chimera": {
     "family": "tngtech",
     "lastUpdated": "2026-01-10",
     "interleavedReasoningField": "reasoning_content",
@@ -42416,7 +39014,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "tngtech/TNG-R1T-Chimera-Turbo": {
+  "tngtech-tng-r1t-chimera-turbo": {
     "lastUpdated": "2026-01-27",
     "interleavedReasoningField": "reasoning_content",
     "apiSupport": {
@@ -42440,7 +39038,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "tngtech/TNG-R1T-Chimera-TEE": {
+  "tngtech-tng-r1t-chimera-tee": {
     "family": "tngtech",
     "lastUpdated": "2026-01-10",
     "interleavedReasoningField": "reasoning_content",
@@ -42465,7 +39063,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "mistralai/Devstral-2-123B-Instruct-2512-TEE": {
+  "mistralai-devstral-2-123b-instruct-2512-tee": {
     "lastUpdated": "2026-01-10",
     "apiSupport": {
       "reasoning": false,
@@ -42488,7 +39086,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "openai/gpt-oss-120b-TEE": {
+  "openai-gpt-oss-120b-tee": {
     "family": "gpt-oss",
     "lastUpdated": "2026-01-10",
     "interleavedReasoningField": "reasoning_content",
@@ -42513,7 +39111,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "chutesai/Mistral-Small-3.2-24B-Instruct-2506": {
+  "chutesai-mistral-small-3-2-24b-instruct-2506": {
     "family": "chutesai",
     "lastUpdated": "2026-01-10",
     "apiSupport": {
@@ -42538,7 +39136,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "chutesai/Mistral-Small-3.1-24B-Instruct-2503": {
+  "chutesai-mistral-small-3-1-24b-instruct-2503": {
     "family": "chutesai",
     "lastUpdated": "2026-01-10",
     "apiSupport": {
@@ -42566,7 +39164,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "miromind-ai/MiroThinker-v1.5-235B": {
+  "miromind-ai-mirothinker-v1-5-235b": {
     "lastUpdated": "2026-01-10",
     "apiSupport": {
       "reasoning": false,
@@ -42592,7 +39190,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "OpenGVLab/InternVL3-78B-TEE": {
+  "opengvlab-internvl3-78b-tee": {
     "family": "opengvlab",
     "lastUpdated": "2026-01-10",
     "apiSupport": {
