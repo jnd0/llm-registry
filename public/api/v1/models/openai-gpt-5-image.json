@@ -1,0 +1,32 @@
+{
+  "family": "gpt",
+  "trainingCutoff": "2024-10-01",
+  "lastUpdated": "2025-10-14",
+  "interleavedReasoningField": "reasoning_content",
+  "apiSupport": {
+    "reasoning": true,
+    "toolCall": true,
+    "structuredOutput": true,
+    "temperature": true,
+    "attachment": true
+  },
+  "modalities": {
+    "input": [
+      "text",
+      "image",
+      "other"
+    ],
+    "output": [
+      "text",
+      "image"
+    ]
+  },
+  "specs": {
+    "maxOutputTokens": 128000,
+    "pricing": {
+      "cacheInput": 1.25
+    }
+  },
+  "metadataSourceId": "models-dev",
+  "metadataAsOfDate": "2026-03-01"
+}

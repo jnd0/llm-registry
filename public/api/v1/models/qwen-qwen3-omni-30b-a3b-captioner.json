@@ -1,0 +1,24 @@
+{
+  "family": "qwen",
+  "lastUpdated": "2025-11-25",
+  "apiSupport": {
+    "reasoning": false,
+    "toolCall": true,
+    "structuredOutput": true,
+    "temperature": true,
+    "attachment": true
+  },
+  "modalities": {
+    "input": [
+      "audio"
+    ],
+    "output": [
+      "text"
+    ]
+  },
+  "specs": {
+    "maxOutputTokens": 66000
+  },
+  "metadataSourceId": "models-dev",
+  "metadataAsOfDate": "2026-03-01"
+}

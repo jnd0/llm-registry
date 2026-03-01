@@ -1,0 +1,29 @@
+{
+  "family": "deepseek",
+  "lastUpdated": "2025-12-01",
+  "interleavedReasoningField": "reasoning_content",
+  "apiSupport": {
+    "reasoning": true,
+    "toolCall": true,
+    "structuredOutput": true,
+    "temperature": true,
+    "attachment": false
+  },
+  "modalities": {
+    "input": [
+      "text"
+    ],
+    "output": [
+      "text"
+    ]
+  },
+  "specs": {
+    "maxOutputTokens": 8000,
+    "pricing": {
+      "cacheInput": 0.27,
+      "cacheOutput": 0
+    }
+  },
+  "metadataSourceId": "models-dev",
+  "metadataAsOfDate": "2026-03-01"
+}

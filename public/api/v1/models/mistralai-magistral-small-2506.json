@@ -1,0 +1,28 @@
+{
+  "family": "magistral-small",
+  "trainingCutoff": "2025-01",
+  "lastUpdated": "2025-06-01",
+  "apiSupport": {
+    "reasoning": false,
+    "toolCall": true,
+    "temperature": true,
+    "attachment": false
+  },
+  "modalities": {
+    "input": [
+      "text"
+    ],
+    "output": [
+      "text"
+    ]
+  },
+  "specs": {
+    "maxOutputTokens": 4096,
+    "pricing": {
+      "cacheInput": 0.25,
+      "cacheOutput": 1
+    }
+  },
+  "metadataSourceId": "models-dev",
+  "metadataAsOfDate": "2026-03-01"
+}

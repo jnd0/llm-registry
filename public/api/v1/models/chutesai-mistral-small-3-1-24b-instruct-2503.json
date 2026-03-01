@@ -1,0 +1,28 @@
+{
+  "family": "chutesai",
+  "lastUpdated": "2026-01-10",
+  "apiSupport": {
+    "reasoning": false,
+    "toolCall": true,
+    "structuredOutput": true,
+    "temperature": true,
+    "attachment": false
+  },
+  "modalities": {
+    "input": [
+      "text",
+      "image"
+    ],
+    "output": [
+      "text"
+    ]
+  },
+  "specs": {
+    "maxOutputTokens": 131072,
+    "pricing": {
+      "cacheInput": 0.015
+    }
+  },
+  "metadataSourceId": "models-dev",
+  "metadataAsOfDate": "2026-03-01"
+}

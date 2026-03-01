@@ -1,0 +1,26 @@
+{
+  "family": "nano-banana",
+  "lastUpdated": "2025-11-19",
+  "apiSupport": {
+    "reasoning": false,
+    "toolCall": true,
+    "temperature": false,
+    "attachment": true
+  },
+  "modalities": {
+    "input": [
+      "text",
+      "image"
+    ],
+    "output": [
+      "image"
+    ]
+  },
+  "specs": {
+    "pricing": {
+      "cacheInput": 0.2
+    }
+  },
+  "metadataSourceId": "models-dev",
+  "metadataAsOfDate": "2026-03-01"
+}

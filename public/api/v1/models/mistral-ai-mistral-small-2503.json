@@ -1,0 +1,26 @@
+{
+  "family": "mistral-small",
+  "trainingCutoff": "2024-09",
+  "lastUpdated": "2025-03-01",
+  "interleavedReasoningField": "reasoning_content",
+  "apiSupport": {
+    "reasoning": true,
+    "toolCall": true,
+    "temperature": true,
+    "attachment": false
+  },
+  "modalities": {
+    "input": [
+      "text",
+      "image"
+    ],
+    "output": [
+      "text"
+    ]
+  },
+  "specs": {
+    "maxOutputTokens": 32768
+  },
+  "metadataSourceId": "models-dev",
+  "metadataAsOfDate": "2026-03-01"
+}

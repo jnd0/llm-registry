@@ -1,0 +1,29 @@
+{
+  "family": "claude-haiku",
+  "lastUpdated": "2024-03-09",
+  "apiSupport": {
+    "reasoning": false,
+    "toolCall": true,
+    "temperature": false,
+    "attachment": true
+  },
+  "modalities": {
+    "input": [
+      "text",
+      "image",
+      "other"
+    ],
+    "output": [
+      "text"
+    ]
+  },
+  "specs": {
+    "maxOutputTokens": 8192,
+    "pricing": {
+      "cacheInput": 0.021,
+      "cacheOutput": 0.26
+    }
+  },
+  "metadataSourceId": "models-dev",
+  "metadataAsOfDate": "2026-03-01"
+}

@@ -1,0 +1,28 @@
+{
+  "family": "glm-flash",
+  "trainingCutoff": "2025-01",
+  "lastUpdated": "2025-01",
+  "interleavedReasoningField": "reasoning_content",
+  "apiSupport": {
+    "reasoning": true,
+    "toolCall": true,
+    "temperature": true,
+    "attachment": false
+  },
+  "modalities": {
+    "input": [
+      "text"
+    ],
+    "output": [
+      "text"
+    ]
+  },
+  "specs": {
+    "maxOutputTokens": 128000,
+    "pricing": {
+      "cacheInput": 0.01
+    }
+  },
+  "metadataSourceId": "models-dev",
+  "metadataAsOfDate": "2026-03-01"
+}

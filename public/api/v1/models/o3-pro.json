@@ -1,0 +1,27 @@
+{
+  "family": "o-pro",
+  "trainingCutoff": "2024-05",
+  "lastUpdated": "2025-06-10",
+  "interleavedReasoningField": "reasoning_content",
+  "apiSupport": {
+    "reasoning": true,
+    "toolCall": true,
+    "structuredOutput": true,
+    "temperature": false,
+    "attachment": true
+  },
+  "modalities": {
+    "input": [
+      "text",
+      "image"
+    ],
+    "output": [
+      "text"
+    ]
+  },
+  "specs": {
+    "maxOutputTokens": 100000
+  },
+  "metadataSourceId": "models-dev",
+  "metadataAsOfDate": "2026-03-01"
+}

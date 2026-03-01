@@ -1,0 +1,26 @@
+{
+  "family": "claude-haiku",
+  "trainingCutoff": "2024-02",
+  "lastUpdated": "2024-03-13",
+  "apiSupport": {
+    "reasoning": false,
+    "toolCall": true,
+    "temperature": true,
+    "attachment": true
+  },
+  "modalities": {
+    "input": [
+      "text",
+      "image",
+      "other"
+    ],
+    "output": [
+      "text"
+    ]
+  },
+  "specs": {
+    "maxOutputTokens": 4096
+  },
+  "metadataSourceId": "models-dev",
+  "metadataAsOfDate": "2026-03-01"
+}

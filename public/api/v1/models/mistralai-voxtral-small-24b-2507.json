@@ -1,0 +1,23 @@
+{
+  "lastUpdated": "2025-07-01",
+  "apiSupport": {
+    "reasoning": false,
+    "toolCall": true,
+    "temperature": true,
+    "attachment": false
+  },
+  "modalities": {
+    "input": [
+      "text",
+      "audio"
+    ],
+    "output": [
+      "text"
+    ]
+  },
+  "specs": {
+    "maxOutputTokens": 6400
+  },
+  "metadataSourceId": "models-dev",
+  "metadataAsOfDate": "2026-03-01"
+}

@@ -1,0 +1,24 @@
+{
+  "family": "mistral",
+  "lastUpdated": "2024-07-01",
+  "apiSupport": {
+    "reasoning": false,
+    "toolCall": true,
+    "structuredOutput": false,
+    "temperature": true,
+    "attachment": false
+  },
+  "modalities": {
+    "input": [
+      "text"
+    ],
+    "output": [
+      "text"
+    ]
+  },
+  "specs": {
+    "maxOutputTokens": 8192
+  },
+  "metadataSourceId": "models-dev",
+  "metadataAsOfDate": "2026-03-01"
+}

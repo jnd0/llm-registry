@@ -1,0 +1,31 @@
+{
+  "family": "kimi-free",
+  "trainingCutoff": "2024-10",
+  "lastUpdated": "2026-01-27",
+  "interleavedReasoningField": "reasoning_content",
+  "status": "deprecated",
+  "apiSupport": {
+    "reasoning": true,
+    "toolCall": true,
+    "temperature": true,
+    "attachment": true
+  },
+  "modalities": {
+    "input": [
+      "text",
+      "image",
+      "video"
+    ],
+    "output": [
+      "text"
+    ]
+  },
+  "specs": {
+    "maxOutputTokens": 262144,
+    "pricing": {
+      "cacheInput": 0
+    }
+  },
+  "metadataSourceId": "models-dev",
+  "metadataAsOfDate": "2026-03-01"
+}

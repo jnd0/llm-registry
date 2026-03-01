@@ -1,0 +1,30 @@
+{
+  "family": "kimi-thinking",
+  "trainingCutoff": "2025-01",
+  "lastUpdated": "2026-01-27",
+  "interleavedReasoningField": "reasoning_content",
+  "apiSupport": {
+    "reasoning": true,
+    "toolCall": true,
+    "temperature": true,
+    "attachment": false
+  },
+  "modalities": {
+    "input": [
+      "text",
+      "image",
+      "video"
+    ],
+    "output": [
+      "text"
+    ]
+  },
+  "specs": {
+    "maxOutputTokens": 256000,
+    "pricing": {
+      "cacheInput": 0.1
+    }
+  },
+  "metadataSourceId": "models-dev",
+  "metadataAsOfDate": "2026-03-01"
+}

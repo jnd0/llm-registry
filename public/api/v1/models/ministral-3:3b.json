@@ -1,0 +1,23 @@
+{
+  "family": "ministral",
+  "lastUpdated": "2026-01-19",
+  "apiSupport": {
+    "reasoning": false,
+    "toolCall": true,
+    "attachment": true
+  },
+  "modalities": {
+    "input": [
+      "text",
+      "image"
+    ],
+    "output": [
+      "text"
+    ]
+  },
+  "specs": {
+    "maxOutputTokens": 128000
+  },
+  "metadataSourceId": "models-dev",
+  "metadataAsOfDate": "2026-03-01"
+}

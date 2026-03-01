@@ -1,0 +1,30 @@
+{
+  "family": "gemini-flash",
+  "trainingCutoff": "2024-04",
+  "lastUpdated": "2024-10-03",
+  "apiSupport": {
+    "reasoning": false,
+    "toolCall": true,
+    "temperature": true,
+    "attachment": true
+  },
+  "modalities": {
+    "input": [
+      "text",
+      "image",
+      "audio",
+      "video"
+    ],
+    "output": [
+      "text"
+    ]
+  },
+  "specs": {
+    "maxOutputTokens": 8192,
+    "pricing": {
+      "cacheInput": 0.01
+    }
+  },
+  "metadataSourceId": "models-dev",
+  "metadataAsOfDate": "2026-03-01"
+}

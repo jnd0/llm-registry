@@ -1,0 +1,21 @@
+{
+  "family": "runway",
+  "lastUpdated": "2025-05-09",
+  "apiSupport": {
+    "reasoning": false,
+    "toolCall": true,
+    "temperature": false,
+    "attachment": true
+  },
+  "modalities": {
+    "input": [
+      "text",
+      "image"
+    ],
+    "output": [
+      "video"
+    ]
+  },
+  "metadataSourceId": "models-dev",
+  "metadataAsOfDate": "2026-03-01"
+}

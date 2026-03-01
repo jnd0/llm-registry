@@ -1,0 +1,25 @@
+{
+  "family": "whisper",
+  "trainingCutoff": "2023-09",
+  "lastUpdated": "2023-09-01",
+  "apiSupport": {
+    "reasoning": false,
+    "toolCall": false,
+    "structuredOutput": false,
+    "temperature": true,
+    "attachment": true
+  },
+  "modalities": {
+    "input": [
+      "audio"
+    ],
+    "output": [
+      "text"
+    ]
+  },
+  "specs": {
+    "maxOutputTokens": 4096
+  },
+  "metadataSourceId": "models-dev",
+  "metadataAsOfDate": "2026-03-01"
+}

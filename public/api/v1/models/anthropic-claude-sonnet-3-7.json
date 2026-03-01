@@ -1,0 +1,30 @@
+{
+  "family": "claude-sonnet",
+  "lastUpdated": "2025-02-19",
+  "interleavedReasoningField": "reasoning_content",
+  "apiSupport": {
+    "reasoning": true,
+    "toolCall": true,
+    "temperature": false,
+    "attachment": true
+  },
+  "modalities": {
+    "input": [
+      "text",
+      "image",
+      "other"
+    ],
+    "output": [
+      "text"
+    ]
+  },
+  "specs": {
+    "maxOutputTokens": 128000,
+    "pricing": {
+      "cacheInput": 0.26,
+      "cacheOutput": 3.2
+    }
+  },
+  "metadataSourceId": "models-dev",
+  "metadataAsOfDate": "2026-03-01"
+}

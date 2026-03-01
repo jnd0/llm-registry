@@ -1,0 +1,26 @@
+{
+  "lastUpdated": "2025-12-11",
+  "apiSupport": {
+    "reasoning": false,
+    "toolCall": true,
+    "temperature": false,
+    "attachment": true
+  },
+  "modalities": {
+    "input": [
+      "text",
+      "image"
+    ],
+    "output": [
+      "text"
+    ]
+  },
+  "specs": {
+    "maxOutputTokens": 16384,
+    "pricing": {
+      "cacheInput": 0.16
+    }
+  },
+  "metadataSourceId": "models-dev",
+  "metadataAsOfDate": "2026-03-01"
+}

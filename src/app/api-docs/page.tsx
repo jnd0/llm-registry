@@ -439,6 +439,68 @@ const totalPages = Math.ceil(data.models.length / PAGE_SIZE);`}
         </div>
       </section>
 
+      {/* Static Slicing */}
+      <section className="space-y-6">
+        <div className="flex items-center gap-2">
+          <Code className="h-6 w-6 text-primary" />
+          <h2 className="font-display text-2xl font-bold tracking-tight text-foreground">
+            Static Slicing (Per-Model Files)
+          </h2>
+        </div>
+        
+        <Card>
+          <CardContent className="pt-6 space-y-4">
+            <p className="text-sm text-muted-foreground">
+              For better performance, individual model metadata is available as pre-generated JSON files:
+            </p>
+            
+            <div className="rounded-lg border border-border bg-muted/30 p-4">
+              <p className="font-mono text-xs text-muted-foreground mb-2">
+                Endpoint: <code className="text-primary">/api/v1/models/[model-id].json</code>
+              </p>
+              <p className="text-xs text-muted-foreground">
+                Size: {"<"}1 KB per model (vs ~800 KB for full dataset)
+              </p>
+            </div>
+            
+            <Tabs defaultValue="curl" className="w-full">
+              <TabsList className="grid w-full grid-cols-2">
+                <TabsTrigger value="curl">cURL</TabsTrigger>
+                <TabsTrigger value="javascript">JavaScript</TabsTrigger>
+              </TabsList>
+              <TabsContent value="curl" className="mt-4">
+                <pre className="overflow-x-auto rounded-lg border border-border bg-muted/30 p-4 text-xs font-mono">
+{`# Get metadata for a specific model
+curl https://llm-registry.dev/api/v1/models/claude-3-5-sonnet.json
+
+# Get metadata for GPT-4o
+curl https://llm-registry.dev/api/v1/models/openai-gpt-4o.json`}
+                </pre>
+              </TabsContent>
+              <TabsContent value="javascript" className="mt-4">
+                <pre className="overflow-x-auto rounded-lg border border-border bg-muted/30 p-4 text-xs font-mono">
+{`// Fetch specific model metadata
+const response = await fetch(
+  '/api/v1/models/claude-3-5-sonnet.json'
+);
+const metadata = await response.json();
+
+console.log(\`Family: \${metadata.family}\`);
+console.log(\`Training cutoff: \${metadata.trainingCutoff}\`);
+console.log(\`API Support: \`, metadata.apiSupport);`}
+                </pre>
+              </TabsContent>
+            </Tabs>
+            
+            <div className="rounded-lg border border-green-500/20 bg-green-500/5 p-4">
+              <p className="text-xs text-green-700 dark:text-green-300">
+                ✅ <strong>Benefit:</strong> Reduces API payload from ~800 KB to {"<"}1 KB per model request!
+              </p>
+            </div>
+          </CardContent>
+        </Card>
+      </section>
+
       {/* Cloudflare WAF Rate Limiting */}
       <section className="space-y-6">
         <div className="flex items-center gap-2">

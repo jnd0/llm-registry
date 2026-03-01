@@ -274,14 +274,24 @@ async function main() {
   
   // Ensure public/api/data directory exists
   const publicDir = join(process.cwd(), 'public', 'api', 'data');
+  const modelsDir = join(process.cwd(), 'public', 'api', 'v1', 'models');
   if (!existsSync(publicDir)) {
     mkdirSync(publicDir, { recursive: true });
   }
+  if (!existsSync(modelsDir)) {
+    mkdirSync(modelsDir, { recursive: true });
+  }
   
-  // Write JSON file for runtime fetching
+  // Write consolidated JSON file
   const jsonOutput = JSON.stringify(overrides, null, 2);
   const jsonPath = join(publicDir, 'models-dev-metadata.json');
   writeFileSync(jsonPath, jsonOutput);
+  
+  // Write individual model files for static slicing
+  Object.entries(overrides).forEach(([modelId, override]) => {
+    const modelPath = join(modelsDir, `${modelId}.json`);
+    writeFileSync(modelPath, JSON.stringify(override, null, 2));
+  });
   
   // Write ID map as JSON
   const idMapPath = join(process.cwd(), 'src', 'data', 'models-dev-id-map.json');
@@ -317,6 +327,7 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = ${jsonOu
   console.log(`   - Max output tokens: ${stats.withMaxOutput.toLocaleString()}`);
   console.log(`\n✅ Output files:`);
   console.log(`   - ${jsonPath} (${(jsonOutput.length / 1024).toFixed(1)} KB)`);
+  console.log(`   - ${modelsDir}/*.json (${Object.keys(overrides).length} individual model files)`);
   console.log(`   - ${outputPath} (${(output.length / 1024).toFixed(1)} KB)`);
   console.log(`   - ${idMapPath} (${(JSON.stringify(MODELS_DEV_ID_MAP).length / 1024).toFixed(1)} KB)`);
   console.log(`\n💡 Next steps:`);

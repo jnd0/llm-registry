@@ -1,0 +1,20 @@
+{
+  "family": "veo",
+  "lastUpdated": "2025-05-21",
+  "apiSupport": {
+    "reasoning": false,
+    "toolCall": true,
+    "temperature": false,
+    "attachment": true
+  },
+  "modalities": {
+    "input": [
+      "text"
+    ],
+    "output": [
+      "video"
+    ]
+  },
+  "metadataSourceId": "models-dev",
+  "metadataAsOfDate": "2026-03-01"
+}

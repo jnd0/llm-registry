@@ -1,0 +1,25 @@
+{
+  "family": "flux",
+  "trainingCutoff": "2025-06",
+  "lastUpdated": "2026-01-31",
+  "apiSupport": {
+    "reasoning": false,
+    "toolCall": false,
+    "temperature": true,
+    "attachment": false
+  },
+  "modalities": {
+    "input": [
+      "image",
+      "text"
+    ],
+    "output": [
+      "image"
+    ]
+  },
+  "specs": {
+    "maxOutputTokens": 67344
+  },
+  "metadataSourceId": "models-dev",
+  "metadataAsOfDate": "2026-03-01"
+}

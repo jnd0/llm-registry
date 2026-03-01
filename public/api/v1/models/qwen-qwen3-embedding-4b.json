@@ -1,0 +1,24 @@
+{
+  "family": "qwen",
+  "trainingCutoff": "2024-12",
+  "lastUpdated": "2025-01-01",
+  "apiSupport": {
+    "reasoning": false,
+    "toolCall": false,
+    "temperature": false,
+    "attachment": false
+  },
+  "modalities": {
+    "input": [
+      "text"
+    ],
+    "output": [
+      "text"
+    ]
+  },
+  "specs": {
+    "maxOutputTokens": 2048
+  },
+  "metadataSourceId": "models-dev",
+  "metadataAsOfDate": "2026-03-01"
+}

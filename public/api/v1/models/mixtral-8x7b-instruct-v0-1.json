@@ -1,0 +1,23 @@
+{
+  "lastUpdated": "2025-04-01",
+  "apiSupport": {
+    "reasoning": false,
+    "toolCall": false,
+    "structuredOutput": true,
+    "temperature": true,
+    "attachment": false
+  },
+  "modalities": {
+    "input": [
+      "text"
+    ],
+    "output": [
+      "text"
+    ]
+  },
+  "specs": {
+    "maxOutputTokens": 32768
+  },
+  "metadataSourceId": "models-dev",
+  "metadataAsOfDate": "2026-03-01"
+}

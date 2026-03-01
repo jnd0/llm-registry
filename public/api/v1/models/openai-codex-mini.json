@@ -1,0 +1,30 @@
+{
+  "family": "gpt-codex-mini",
+  "trainingCutoff": "2024-10",
+  "lastUpdated": "2025-05-16",
+  "interleavedReasoningField": "reasoning_content",
+  "apiSupport": {
+    "reasoning": true,
+    "toolCall": true,
+    "temperature": true,
+    "attachment": true
+  },
+  "modalities": {
+    "input": [
+      "text",
+      "image",
+      "other"
+    ],
+    "output": [
+      "text"
+    ]
+  },
+  "specs": {
+    "maxOutputTokens": 100000,
+    "pricing": {
+      "cacheInput": 0.38
+    }
+  },
+  "metadataSourceId": "models-dev",
+  "metadataAsOfDate": "2026-03-01"
+}

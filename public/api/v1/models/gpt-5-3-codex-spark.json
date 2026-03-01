@@ -1,0 +1,31 @@
+{
+  "family": "gpt-codex-spark",
+  "trainingCutoff": "2025-08-31",
+  "lastUpdated": "2026-02-05",
+  "interleavedReasoningField": "reasoning_content",
+  "apiSupport": {
+    "reasoning": true,
+    "toolCall": true,
+    "structuredOutput": true,
+    "temperature": false,
+    "attachment": true
+  },
+  "modalities": {
+    "input": [
+      "text",
+      "image",
+      "other"
+    ],
+    "output": [
+      "text"
+    ]
+  },
+  "specs": {
+    "maxOutputTokens": 32000,
+    "pricing": {
+      "cacheInput": 0.175
+    }
+  },
+  "metadataSourceId": "models-dev",
+  "metadataAsOfDate": "2026-03-01"
+}

@@ -1,0 +1,31 @@
+{
+  "family": "qwen",
+  "trainingCutoff": "2024-04",
+  "lastUpdated": "2024-12",
+  "apiSupport": {
+    "reasoning": false,
+    "toolCall": true,
+    "temperature": true,
+    "attachment": false
+  },
+  "modalities": {
+    "input": [
+      "text",
+      "image",
+      "audio",
+      "video"
+    ],
+    "output": [
+      "text",
+      "audio"
+    ]
+  },
+  "specs": {
+    "maxOutputTokens": 2048,
+    "pricing": {
+      "inputAudio": 5.448
+    }
+  },
+  "metadataSourceId": "models-dev",
+  "metadataAsOfDate": "2026-03-01"
+}

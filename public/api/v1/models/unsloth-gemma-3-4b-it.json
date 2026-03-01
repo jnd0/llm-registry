@@ -1,0 +1,25 @@
+{
+  "family": "unsloth",
+  "lastUpdated": "2026-01-10",
+  "apiSupport": {
+    "reasoning": false,
+    "toolCall": false,
+    "structuredOutput": true,
+    "temperature": true,
+    "attachment": false
+  },
+  "modalities": {
+    "input": [
+      "text",
+      "image"
+    ],
+    "output": [
+      "text"
+    ]
+  },
+  "specs": {
+    "maxOutputTokens": 96000
+  },
+  "metadataSourceId": "models-dev",
+  "metadataAsOfDate": "2026-03-01"
+}

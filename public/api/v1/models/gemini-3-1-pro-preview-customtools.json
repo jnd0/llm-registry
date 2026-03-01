@@ -1,0 +1,38 @@
+{
+  "family": "gemini-pro",
+  "trainingCutoff": "2025-01",
+  "lastUpdated": "2026-02-19",
+  "interleavedReasoningField": "reasoning_content",
+  "apiSupport": {
+    "reasoning": true,
+    "toolCall": true,
+    "structuredOutput": true,
+    "temperature": true,
+    "attachment": true
+  },
+  "modalities": {
+    "input": [
+      "text",
+      "image",
+      "video",
+      "audio",
+      "other"
+    ],
+    "output": [
+      "text"
+    ]
+  },
+  "specs": {
+    "maxOutputTokens": 65536,
+    "pricing": {
+      "cacheInput": 0.2,
+      "contextOver200k": {
+        "input": 4,
+        "output": 18,
+        "cacheRead": 0.4
+      }
+    }
+  },
+  "metadataSourceId": "models-dev",
+  "metadataAsOfDate": "2026-03-01"
+}

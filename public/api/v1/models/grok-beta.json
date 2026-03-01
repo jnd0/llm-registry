@@ -1,0 +1,27 @@
+{
+  "family": "grok-beta",
+  "trainingCutoff": "2024-08",
+  "lastUpdated": "2024-11-01",
+  "apiSupport": {
+    "reasoning": false,
+    "toolCall": true,
+    "temperature": true,
+    "attachment": false
+  },
+  "modalities": {
+    "input": [
+      "text"
+    ],
+    "output": [
+      "text"
+    ]
+  },
+  "specs": {
+    "maxOutputTokens": 4096,
+    "pricing": {
+      "cacheInput": 5
+    }
+  },
+  "metadataSourceId": "models-dev",
+  "metadataAsOfDate": "2026-03-01"
+}

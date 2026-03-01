@@ -1,0 +1,31 @@
+{
+  "family": "gemini-pro",
+  "trainingCutoff": "2025-11",
+  "lastUpdated": "2025-11-19",
+  "interleavedReasoningField": "reasoning_content",
+  "apiSupport": {
+    "reasoning": true,
+    "toolCall": true,
+    "temperature": true,
+    "attachment": true
+  },
+  "modalities": {
+    "input": [
+      "text",
+      "image",
+      "audio",
+      "video"
+    ],
+    "output": [
+      "text"
+    ]
+  },
+  "specs": {
+    "maxOutputTokens": 65000,
+    "pricing": {
+      "cacheInput": 0.5
+    }
+  },
+  "metadataSourceId": "models-dev",
+  "metadataAsOfDate": "2026-03-01"
+}

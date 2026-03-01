@@ -1,0 +1,32 @@
+{
+  "family": "claude-opus",
+  "trainingCutoff": "2025-03",
+  "lastUpdated": "2026-01-28",
+  "interleavedReasoningField": "reasoning_content",
+  "apiSupport": {
+    "reasoning": true,
+    "toolCall": true,
+    "structuredOutput": true,
+    "temperature": true,
+    "attachment": true
+  },
+  "modalities": {
+    "input": [
+      "text",
+      "image",
+      "other"
+    ],
+    "output": [
+      "text"
+    ]
+  },
+  "specs": {
+    "maxOutputTokens": 49500,
+    "pricing": {
+      "cacheInput": 0.6,
+      "cacheOutput": 7.5
+    }
+  },
+  "metadataSourceId": "models-dev",
+  "metadataAsOfDate": "2026-03-01"
+}
