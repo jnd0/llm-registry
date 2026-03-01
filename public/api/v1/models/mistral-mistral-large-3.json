@@ -1,0 +1,25 @@
+{
+  "family": "mistral-large",
+  "trainingCutoff": "2024-10",
+  "lastUpdated": "2025-12-02",
+  "apiSupport": {
+    "reasoning": false,
+    "toolCall": false,
+    "temperature": true,
+    "attachment": true
+  },
+  "modalities": {
+    "input": [
+      "text",
+      "image"
+    ],
+    "output": [
+      "text"
+    ]
+  },
+  "specs": {
+    "maxOutputTokens": 256000
+  },
+  "metadataSourceId": "models-dev",
+  "metadataAsOfDate": "2026-03-01"
+}

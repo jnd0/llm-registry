@@ -1,0 +1,21 @@
+{
+  "trainingCutoff": "2024-07",
+  "lastUpdated": "2026-02-04",
+  "apiSupport": {
+    "reasoning": false,
+    "toolCall": false,
+    "structuredOutput": false,
+    "temperature": false,
+    "attachment": false
+  },
+  "modalities": {
+    "input": [
+      "text"
+    ],
+    "output": [
+      "image"
+    ]
+  },
+  "metadataSourceId": "models-dev",
+  "metadataAsOfDate": "2026-03-01"
+}

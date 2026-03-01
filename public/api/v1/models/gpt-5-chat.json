@@ -1,0 +1,29 @@
+{
+  "family": "gpt-codex",
+  "trainingCutoff": "2024-10-24",
+  "lastUpdated": "2025-08-07",
+  "interleavedReasoningField": "reasoning_content",
+  "apiSupport": {
+    "reasoning": true,
+    "toolCall": false,
+    "temperature": false,
+    "attachment": true
+  },
+  "modalities": {
+    "input": [
+      "text",
+      "image"
+    ],
+    "output": [
+      "text"
+    ]
+  },
+  "specs": {
+    "maxOutputTokens": 16384,
+    "pricing": {
+      "cacheInput": 0.13
+    }
+  },
+  "metadataSourceId": "models-dev",
+  "metadataAsOfDate": "2026-03-01"
+}

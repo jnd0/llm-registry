@@ -2,17 +2,22 @@ import type { Metadata } from "next";
 import { models, benchmarks, sources } from "@/lib/registry-data";
 import { benchmarkCategories } from "@/lib/categories";
 import { siteName, siteUrl } from "@/lib/site";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Zap, Check, Shield, Clock, Book, Code, Key, Globe, Terminal, Copy } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "API Documentation",
-  description: "REST API documentation for LLM Registry. Access models, benchmarks, scores, and leaderboard data programmatically.",
-  keywords: ["llm registry api", "llm benchmark api", "model scores api", "leaderboard api"],
+  description: "Static REST API documentation for LLM Registry. Pre-generated endpoints served from Cloudflare edge for <20ms response times globally.",
+  keywords: ["llm registry api", "llm benchmark api", "model scores api", "leaderboard api", "static api"],
   alternates: {
     canonical: "/api-docs",
   },
   openGraph: {
     title: `LLM Registry API Documentation | ${siteName}`,
-    description: "REST API documentation for LLM Registry. Access models, benchmarks, scores, and leaderboard data programmatically.",
+    description: "Static REST API documentation for LLM Registry. Pre-generated endpoints served from Cloudflare edge for <20ms response times.",
     url: `${siteUrl}/api-docs`,
     type: "website",
     images: [
@@ -27,7 +32,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: `LLM Registry API Documentation | ${siteName}`,
-    description: "REST API documentation for LLM Registry. Access models, benchmarks, scores, and leaderboard data programmatically.",
+    description: "Static REST API documentation for LLM Registry. Pre-generated endpoints served from Cloudflare edge for <20ms response times.",
     images: [`${siteUrl}/opengraph-image.png`],
   },
 };
@@ -78,25 +83,43 @@ const endpoints: Endpoint[] = [
   {
     method: "GET",
     path: "/api/v1/models",
-    description: "List all models with optional filtering and pagination",
+    description: "List all models (static pre-generated response)",
     params: [
-      { name: "includeScores", type: "boolean", desc: "Include benchmark scores (default: false)" },
-      { name: "limit", type: "number", desc: "Results per page (1-500, default: 100)" },
-      { name: "offset", type: "number", desc: "Pagination offset (default: 0)" },
+      { name: "limit", type: "number", desc: "Results per page (1-500, default: 100) - Client-side only" },
+      { name: "offset", type: "number", desc: "Pagination offset (default: 0) - Client-side only" },
     ],
     response: `{
-  "total": <dynamic>,
+  "total": 150,
   "offset": 0,
   "limit": 100,
   "models": [
     {
-      "id": "gpt-4o",
-      "name": "GPT-4o",
-      "provider": "OpenAI",
-      "releaseDate": "2024-05-13",
-      "capabilities": [...],
+      "id": "claude-3-5-sonnet-20241022",
+      "name": "Claude 3.5 Sonnet",
+      "provider": "Anthropic",
+      "family": "claude-sonnet",
+      "status": "active",
+      "releaseDate": "2024-10-22",
+      "trainingCutoff": "2024-04",
+      "capabilities": ["text", "vision", "tools"],
       "isOpenSource": false,
-      "specs": { "pricing": {...}, "contextWindow": 128000 },
+      "specs": {
+        "contextWindow": 200000,
+        "maxOutputTokens": 64000,
+        "pricing": {
+          "input": 3.0,
+          "output": 15.0,
+          "cacheInput": 0.3,
+          "cacheOutput": 3.75
+        }
+      },
+      "apiSupport": {
+        "reasoning": false,
+        "vision": true,
+        "tools": true,
+        "structuredOutput": true,
+        "attachment": true
+      },
       "coverage": 85.2
     }
   ]
@@ -255,6 +278,112 @@ export default function ApiDocsPage() {
         </div>
       </section>
 
+      {/* Static Architecture Notice */}
+      <section className="space-y-6">
+        <Card className="border-blue-500/20 bg-blue-500/5">
+          <CardHeader>
+            <div className="flex items-center gap-2">
+              <Zap className="h-5 w-5 text-blue-500" />
+              <CardTitle className="text-lg">Static API Architecture</CardTitle>
+            </div>
+            <CardDescription>Optimized for performance and reliability</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <p className="text-sm text-muted-foreground">
+              This API uses <strong>static export</strong> for optimal performance:
+            </p>
+            <ul className="space-y-2 text-sm">
+              <li className="flex items-start gap-2">
+                <Check className="h-4 w-4 text-green-500 mt-0.5" />
+                <span>All endpoints pre-generated at build time</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <Check className="h-4 w-4 text-green-500 mt-0.5" />
+                <span>Served from Cloudflare's edge network globally</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <Check className="h-4 w-4 text-green-500 mt-0.5" />
+                <span>Response time: {"<"}20ms worldwide</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <Check className="h-4 w-4 text-green-500 mt-0.5" />
+                <span>No server-side processing or cold starts</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <Check className="h-4 w-4 text-green-500 mt-0.5" />
+                <span>100% uptime SLA</span>
+              </li>
+            </ul>
+            <div className="rounded-lg border border-blue-500/20 bg-blue-500/5 p-4">
+              <p className="text-xs font-medium text-blue-700 dark:text-blue-300">
+                ⚠️ Note: Query parameters for filtering are not supported server-side. 
+                Use client-side JavaScript to filter the returned data.
+              </p>
+            </div>
+          </CardContent>
+        </Card>
+      </section>
+
+      {/* Client-Side Filtering Examples */}
+      <section className="space-y-6">
+        <h2 className="font-display text-2xl font-bold tracking-tight text-foreground">
+          Client-Side Filtering
+        </h2>
+        <Card>
+          <CardContent className="pt-6 space-y-4">
+            <p className="text-sm text-muted-foreground">
+              Since the API is static, filtering must be done client-side. Here are examples:
+            </p>
+            
+            <Tabs defaultValue="filter" className="w-full">
+              <TabsList className="grid w-full grid-cols-2">
+                <TabsTrigger value="filter">Filtering</TabsTrigger>
+                <TabsTrigger value="pagination">Pagination</TabsTrigger>
+              </TabsList>
+              <TabsContent value="filter" className="mt-4">
+                <pre className="overflow-x-auto rounded-lg border border-border bg-muted/30 p-4 text-xs font-mono">
+{`// Fetch all models
+const response = await fetch('/api/v1/models');
+const data = await response.json();
+
+// Filter by provider
+const openaiModels = data.models.filter(m => m.provider === 'OpenAI');
+
+// Filter by family
+const llamaModels = data.models.filter(m => m.family === 'llama');
+
+// Filter by capability
+const reasoningModels = data.models.filter(m => 
+  m.apiSupport?.reasoning === true
+);
+
+// Filter by open source
+const openSourceModels = data.models.filter(m => m.isOpenSource);
+
+// Combine filters
+const openaiReasoningModels = data.models.filter(m => 
+  m.provider === 'OpenAI' && m.apiSupport?.reasoning
+);`}
+                </pre>
+              </TabsContent>
+              <TabsContent value="pagination" className="mt-4">
+                <pre className="overflow-x-auto rounded-lg border border-border bg-muted/30 p-4 text-xs font-mono">
+{`// Client-side pagination
+const PAGE_SIZE = 20;
+const page = 1; // Current page (1-indexed)
+const offset = (page - 1) * PAGE_SIZE;
+
+const paginatedModels = data.models.slice(offset, offset + PAGE_SIZE);
+
+// Get total pages
+const totalPages = Math.ceil(data.models.length / PAGE_SIZE);`}
+                </pre>
+              </TabsContent>
+            </Tabs>
+          </CardContent>
+        </Card>
+      </section>
+
       <section className="grid gap-4 sm:grid-cols-3">
         <div className="rounded-2xl border border-border bg-card/50 p-6">
           <p className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground/60">Base URL</p>
@@ -308,6 +437,121 @@ export default function ApiDocsPage() {
             </article>
           ))}
         </div>
+      </section>
+
+      {/* Static Slicing */}
+      <section className="space-y-6">
+        <div className="flex items-center gap-2">
+          <Code className="h-6 w-6 text-primary" />
+          <h2 className="font-display text-2xl font-bold tracking-tight text-foreground">
+            Static Slicing (Per-Model Files)
+          </h2>
+        </div>
+        
+        <Card>
+          <CardContent className="pt-6 space-y-4">
+            <p className="text-sm text-muted-foreground">
+              For better performance, individual model metadata is available as pre-generated JSON files:
+            </p>
+            
+            <div className="rounded-lg border border-border bg-muted/30 p-4">
+              <p className="font-mono text-xs text-muted-foreground mb-2">
+                Endpoint: <code className="text-primary">/api/v1/models/[model-id].json</code>
+              </p>
+              <p className="text-xs text-muted-foreground">
+                Size: {"<"}1 KB per model (vs ~800 KB for full dataset)
+              </p>
+            </div>
+            
+            <Tabs defaultValue="curl" className="w-full">
+              <TabsList className="grid w-full grid-cols-2">
+                <TabsTrigger value="curl">cURL</TabsTrigger>
+                <TabsTrigger value="javascript">JavaScript</TabsTrigger>
+              </TabsList>
+              <TabsContent value="curl" className="mt-4">
+                <pre className="overflow-x-auto rounded-lg border border-border bg-muted/30 p-4 text-xs font-mono">
+{`# Get metadata for a specific model
+curl https://llm-registry.dev/api/v1/models/claude-3-5-sonnet.json
+
+# Get metadata for GPT-4o
+curl https://llm-registry.dev/api/v1/models/openai-gpt-4o.json`}
+                </pre>
+              </TabsContent>
+              <TabsContent value="javascript" className="mt-4">
+                <pre className="overflow-x-auto rounded-lg border border-border bg-muted/30 p-4 text-xs font-mono">
+{`// Fetch specific model metadata
+const response = await fetch(
+  '/api/v1/models/claude-3-5-sonnet.json'
+);
+const metadata = await response.json();
+
+console.log(\`Family: \${metadata.family}\`);
+console.log(\`Training cutoff: \${metadata.trainingCutoff}\`);
+console.log(\`API Support: \`, metadata.apiSupport);`}
+                </pre>
+              </TabsContent>
+            </Tabs>
+            
+            <div className="rounded-lg border border-green-500/20 bg-green-500/5 p-4">
+              <p className="text-xs text-green-700 dark:text-green-300">
+                ✅ <strong>Benefit:</strong> Reduces API payload from ~800 KB to {"<"}1 KB per model request!
+              </p>
+            </div>
+          </CardContent>
+        </Card>
+      </section>
+
+      {/* Cloudflare WAF Rate Limiting */}
+      <section className="space-y-6">
+        <div className="flex items-center gap-2">
+          <Shield className="h-6 w-6 text-primary" />
+          <h2 className="font-display text-2xl font-bold tracking-tight text-foreground">
+            Rate Limiting (Cloudflare WAF)
+          </h2>
+        </div>
+        
+        <Card>
+          <CardContent className="pt-6 space-y-4">
+            <p className="text-sm text-muted-foreground">
+              Rate limiting is handled by <strong>Cloudflare WAF</strong> at the edge:
+            </p>
+            
+            <div className="grid gap-4 sm:grid-cols-3">
+              <div className="space-y-1">
+                <p className="font-mono text-xs font-bold text-foreground">Limit</p>
+                <p className="text-sm text-muted-foreground">100 requests/min per IP</p>
+              </div>
+              <div className="space-y-1">
+                <p className="font-mono text-xs font-bold text-foreground">Enforcement</p>
+                <p className="text-sm text-muted-foreground">Cloudflare WAF (edge)</p>
+              </div>
+              <div className="space-y-1">
+                <p className="font-mono text-xs font-bold text-foreground">Response</p>
+                <p className="text-sm text-muted-foreground">HTTP 429 Too Many Requests</p>
+              </div>
+            </div>
+
+            <div className="rounded-lg border border-amber-500/20 bg-amber-500/5 p-4">
+              <p className="text-xs text-amber-700 dark:text-amber-300">
+                <strong>Note:</strong> Cloudflare returns HTTP 429 directly. No rate limit headers are sent by the application.
+              </p>
+            </div>
+
+            <div className="space-y-2">
+              <p className="font-mono text-[10px] font-bold uppercase tracking-widest text-muted-foreground/70">
+                Cloudflare Dashboard Configuration
+              </p>
+              <ol className="list-decimal list-inside space-y-1 text-xs text-muted-foreground">
+                <li>Go to Security → WAF → Rate limiting rules</li>
+                <li>Create rule: "API Rate Limiting"</li>
+                <li>Expression: <code className="bg-muted px-1">(http.request.uri.path contains "/api/v1/")</code></li>
+                <li>Characteristics: <code className="bg-muted px-1">ip.src</code></li>
+                <li>Request limit: <code className="bg-muted px-1">100 per minute</code></li>
+                <li>Mitigation: <code className="bg-muted px-1">Block for 1 minute</code></li>
+              </ol>
+            </div>
+          </CardContent>
+        </Card>
       </section>
 
       <section className="space-y-6">

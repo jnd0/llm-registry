@@ -1,0 +1,24 @@
+{
+  "family": "text-embedding",
+  "trainingCutoff": "2025-04",
+  "lastUpdated": "2025-04-27",
+  "apiSupport": {
+    "reasoning": false,
+    "toolCall": false,
+    "temperature": false,
+    "attachment": false
+  },
+  "modalities": {
+    "input": [
+      "text"
+    ],
+    "output": [
+      "text"
+    ]
+  },
+  "specs": {
+    "maxOutputTokens": 1024
+  },
+  "metadataSourceId": "models-dev",
+  "metadataAsOfDate": "2026-03-01"
+}

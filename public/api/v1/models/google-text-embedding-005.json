@@ -1,0 +1,23 @@
+{
+  "family": "text-embedding",
+  "lastUpdated": "2024-08",
+  "apiSupport": {
+    "reasoning": false,
+    "toolCall": false,
+    "temperature": false,
+    "attachment": false
+  },
+  "modalities": {
+    "input": [
+      "text"
+    ],
+    "output": [
+      "text"
+    ]
+  },
+  "specs": {
+    "maxOutputTokens": 1536
+  },
+  "metadataSourceId": "models-dev",
+  "metadataAsOfDate": "2026-03-01"
+}

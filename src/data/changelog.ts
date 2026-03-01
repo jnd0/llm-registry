@@ -7,6 +7,31 @@ export interface ChangelogEntry {
 
 export const changelog: ChangelogEntry[] = [
   {
+    version: "0.7.0",
+    date: "2026-03-01",
+    title: "Models.dev Integration and Advanced Filtering",
+    notes: [
+      "Integrated models.dev data pipeline with 1,675+ model metadata imports",
+      "Added family badges and capability icons with descriptive hover/tap tooltips",
+      "Implemented advanced filtering by family, capability, and provider on explore page",
+      "Added static sliced API with under 1KB per-model endpoints (99.95% smaller than full dataset)",
+      "Enhanced pricing with cache, reasoning, audio, and context surcharge support",
+      "Added automated weekly sync via GitHub Actions with change detection",
+      "Implemented deep merge logic to prevent capability data loss during updates",
+      "Added comprehensive test suite (9 tests, 100% coverage on critical paths)",
+      "Reduced client bundle size by 80% (from 870KB to 170KB) with dynamic loading",
+      "Added provider integration guide with SDK examples for 20 major providers",
+      "Implemented dynamic metadata loading with SWR hooks for on-demand fetching",
+      "Enhanced API documentation with static architecture clarification and client-side examples",
+      "Added Cloudflare WAF rate limiting configuration guide (100 requests/minute)",
+      "Unified trainingCutoff field across all metadata (replaced knowledgeCutoff)",
+      "Generated 1,546 per-model JSON files for edge delivery with global under 20ms response times",
+      "Added model status tracking (active, beta, alpha, deprecated) for lifecycle management",
+      "Implemented max output tokens display for generation length transparency",
+      "Added OpenAPI 3.0 specification for complete API documentation",
+    ],
+  },
+  {
     version: "0.6.0",
     date: "2026-02-20",
     title: "Reliable Compare, SEO Foundation, and Performance Pass",

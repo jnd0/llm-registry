@@ -13,7 +13,8 @@
     "validate:data": "node scripts/validate-registry.mjs",
     "validate:data:strict": "node scripts/validate-registry.mjs --strict",
     "report:coverage": "node scripts/coverage-report.mjs",
-    "import:yaman:metadata": "node scripts/import-yaman-metadata.mjs"
+    "import:yaman:metadata": "node scripts/import-yaman-metadata.mjs",
+    "import:models-dev": "bun scripts/import-models-dev.mjs"
   },
   "dependencies": {
     "@tanstack/react-table": "^8.21.3",
@@ -27,6 +28,7 @@
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "recharts": "^3.7.0",
+    "swr": "^2.4.1",
     "tailwind-merge": "^3.4.0",
     "tailwindcss-animate": "^1.0.7",
     "zod": "^4.3.6"

@@ -47,3 +47,6 @@ next-env.d.ts
 dist/
 dist/dev/
 .next/
+
+# Static sliced API files
+public/api/v1/models/*.json

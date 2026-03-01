@@ -183,4 +183,10 @@ export const sources: SourceRecord[] = [
     url: "https://github.com/bigcode-project",
     publisher: "BigCode",
   },
+  {
+    id: "models-dev",
+    name: "Models.dev (Community Database)",
+    url: "https://models.dev",
+    publisher: "models.dev Community",
+  },
 ];

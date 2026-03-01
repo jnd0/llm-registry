@@ -1,0 +1,28 @@
+{
+  "family": "gpt-mini",
+  "trainingCutoff": "2025-04",
+  "lastUpdated": "2025-04-14",
+  "apiSupport": {
+    "reasoning": false,
+    "toolCall": true,
+    "temperature": true,
+    "attachment": false
+  },
+  "modalities": {
+    "input": [
+      "text",
+      "image"
+    ],
+    "output": [
+      "text"
+    ]
+  },
+  "specs": {
+    "maxOutputTokens": 32768,
+    "pricing": {
+      "cacheInput": 0.09999999999999999
+    }
+  },
+  "metadataSourceId": "models-dev",
+  "metadataAsOfDate": "2026-03-01"
+}

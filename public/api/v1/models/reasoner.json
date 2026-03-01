@@ -1,0 +1,28 @@
+{
+  "family": "deepseek-thinking",
+  "trainingCutoff": "2024-07",
+  "lastUpdated": "2025-09-29",
+  "interleavedReasoningField": "reasoning_content",
+  "apiSupport": {
+    "reasoning": true,
+    "toolCall": true,
+    "temperature": true,
+    "attachment": true
+  },
+  "modalities": {
+    "input": [
+      "text"
+    ],
+    "output": [
+      "text"
+    ]
+  },
+  "specs": {
+    "maxOutputTokens": 128000,
+    "pricing": {
+      "cacheInput": 0.028
+    }
+  },
+  "metadataSourceId": "models-dev",
+  "metadataAsOfDate": "2026-03-01"
+}

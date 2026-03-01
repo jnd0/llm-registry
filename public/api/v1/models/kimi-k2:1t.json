@@ -1,0 +1,23 @@
+{
+  "family": "kimi",
+  "trainingCutoff": "2024-10",
+  "lastUpdated": "2026-01-19",
+  "apiSupport": {
+    "reasoning": false,
+    "toolCall": true,
+    "attachment": false
+  },
+  "modalities": {
+    "input": [
+      "text"
+    ],
+    "output": [
+      "text"
+    ]
+  },
+  "specs": {
+    "maxOutputTokens": 262144
+  },
+  "metadataSourceId": "models-dev",
+  "metadataAsOfDate": "2026-03-01"
+}

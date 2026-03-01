@@ -1,0 +1,30 @@
+{
+  "trainingCutoff": "2026-02-14",
+  "lastUpdated": "2026-02-14",
+  "interleavedReasoningField": "reasoning_content",
+  "apiSupport": {
+    "reasoning": true,
+    "toolCall": true,
+    "temperature": true,
+    "attachment": true
+  },
+  "modalities": {
+    "input": [
+      "text",
+      "image",
+      "video"
+    ],
+    "output": [
+      "text"
+    ]
+  },
+  "specs": {
+    "maxOutputTokens": 64000,
+    "pricing": {
+      "cacheInput": 0.09,
+      "cacheOutput": 0.0024
+    }
+  },
+  "metadataSourceId": "models-dev",
+  "metadataAsOfDate": "2026-03-01"
+}

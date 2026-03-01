@@ -1,0 +1,22 @@
+{
+  "family": "sherlock",
+  "trainingCutoff": "2025-11",
+  "lastUpdated": "2025-12-14",
+  "apiSupport": {
+    "reasoning": false,
+    "toolCall": true,
+    "temperature": true,
+    "attachment": true
+  },
+  "modalities": {
+    "input": [
+      "text",
+      "image"
+    ],
+    "output": [
+      "text"
+    ]
+  },
+  "metadataSourceId": "models-dev",
+  "metadataAsOfDate": "2026-03-01"
+}

@@ -1,0 +1,29 @@
+{
+  "family": "o-mini",
+  "trainingCutoff": "2024-05",
+  "lastUpdated": "2024-06-26",
+  "interleavedReasoningField": "reasoning_content",
+  "apiSupport": {
+    "reasoning": true,
+    "toolCall": true,
+    "temperature": false,
+    "attachment": true
+  },
+  "modalities": {
+    "input": [
+      "text",
+      "image"
+    ],
+    "output": [
+      "text"
+    ]
+  },
+  "specs": {
+    "maxOutputTokens": 100000,
+    "pricing": {
+      "cacheInput": 0.5
+    }
+  },
+  "metadataSourceId": "models-dev",
+  "metadataAsOfDate": "2026-03-01"
+}
