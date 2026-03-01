@@ -4,13 +4,15 @@ import { notFound } from "next/navigation";
 import { Badge } from "@/components/ui/badge";
 import { formatCurrency, normalizeScore } from "@/lib/stats";
 import Link from "next/link";
-import { ArrowLeft, ExternalLink, Cpu, ShieldCheck, AlertTriangle, Layers, Zap, ChevronRight } from "lucide-react";
+import { ArrowLeft, ExternalLink, Cpu, ShieldCheck, AlertTriangle, Layers, Zap, ChevronRight, Brain } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { getProviderTheme } from "@/lib/provider-identity";
 import { ModelFamilyCompare } from "@/components/dashboard/model-compare-selector";
 import { ShareButton } from "@/components/benchmark/share-button";
 import { siteName, siteUrl } from "@/lib/site";
 import { safeExternalHref, toSafeJsonLd } from "@/lib/security";
+import { CapabilityBadges } from "@/components/model/capability-icon";
+import { FamilyBadge } from "@/components/model/family-badge";
 
 const sourceMap = new Map(sources.map((source) => [source.id, source]));
 
@@ -130,6 +132,21 @@ export default async function ModelPage({ params }: PageProps) {
       icon: Layers,
       accent: "text-primary",
     },
+    ...(model.specs.maxOutputTokens
+      ? [
+          {
+            id: "output-tokens",
+            label: "Max Output",
+            value:
+              model.specs.maxOutputTokens >= 1000000
+                ? `${(model.specs.maxOutputTokens / 1000000).toFixed(1)}M`
+                : `${(model.specs.maxOutputTokens / 1000).toFixed(0)}k`,
+            footnote: "tokens",
+            icon: Zap,
+            accent: "text-violet-700 dark:text-violet-300",
+          } as const
+        ]
+      : []),
     {
       id: "input",
       label: "Input Cost",
@@ -146,6 +163,30 @@ export default async function ModelPage({ params }: PageProps) {
       icon: Zap,
       accent: "text-emerald-700 dark:text-emerald-300",
     },
+    ...(model.specs.pricing.cacheInput || model.specs.pricing.cacheOutput
+      ? [
+          {
+            id: "cache",
+            label: "Cache Cost",
+            value: `${formatCurrency(model.specs.pricing.cacheInput || 0)} / ${formatCurrency(model.specs.pricing.cacheOutput || 0)}`,
+            footnote: "read / write per 1M",
+            icon: Cpu,
+            accent: "text-blue-700 dark:text-blue-300",
+          } as const
+        ]
+      : []),
+    ...(model.specs.pricing.reasoning
+      ? [
+          {
+            id: "reasoning",
+            label: "Reasoning Cost",
+            value: formatCurrency(model.specs.pricing.reasoning),
+            footnote: "per 1M tokens",
+            icon: Brain,
+            accent: "text-purple-700 dark:text-purple-300",
+          } as const
+        ]
+      : []),
     {
       id: "params",
       label: "Parameters",
@@ -295,20 +336,61 @@ export default async function ModelPage({ params }: PageProps) {
               >
                 {model.provider}
               </Badge>
+              {model.family && (
+                <FamilyBadge family={model.family} size="sm" showLink />
+              )}
               {model.isOpenSource && (
                 <Badge variant="outline" className="rounded-full border-emerald-500/20 bg-emerald-500/10 px-3 py-0.5 font-bold text-[10px] uppercase tracking-widest text-emerald-700 dark:text-emerald-400">
                   Open Weights
                 </Badge>
               )}
+              {model.status && (
+                <Badge
+                  variant="outline"
+                  className={`rounded-full px-3 py-0.5 font-bold text-[10px] uppercase tracking-widest ${
+                    model.status === "deprecated"
+                      ? "border-red-500/20 bg-red-500/10 text-red-700 dark:text-red-400"
+                      : model.status === "beta"
+                      ? "border-amber-500/20 bg-amber-500/10 text-amber-700 dark:text-amber-400"
+                      : model.status === "alpha"
+                      ? "border-purple-500/20 bg-purple-500/10 text-purple-700 dark:text-purple-400"
+                      : "border-green-500/20 bg-green-500/10 text-green-700 dark:text-green-400"
+                  }`}
+                >
+                  {model.status}
+                </Badge>
+              )}
             </div>
 
-            <h1 className="text-balance font-display text-4xl font-bold leading-tight tracking-tight text-foreground sm:text-5xl lg:text-6xl">
-              {model.name}
-            </h1>
+            <div className="flex flex-wrap items-center gap-3">
+              <h1 className="font-display text-4xl font-bold leading-tight tracking-tight text-foreground sm:text-5xl lg:text-6xl">
+                {model.name}
+              </h1>
+              {model.apiSupport && (
+                <CapabilityBadges apiSupport={model.apiSupport} modalities={model.modalities} />
+              )}
+            </div>
 
-            <p className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground/60">
-              Released {model.releaseDate} · {model.specs.parameters} Architecture
-            </p>
+            <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
+              <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em]">
+                Released {model.releaseDate}
+              </span>
+              <span className="hidden h-3 w-px bg-border sm:inline-block" />
+              <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em]">
+                {model.specs.parameters} Architecture
+              </span>
+              {model.knowledgeCutoff && (
+                <>
+                  <span className="hidden h-3 w-px bg-border sm:inline-block" />
+                  <div className="flex items-center gap-1.5" title="Training data cutoff">
+                    <ShieldCheck className="h-3.5 w-3.5 text-muted-foreground/60" />
+                    <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em]">
+                      Knowledge: {model.knowledgeCutoff}
+                    </span>
+                  </div>
+                </>
+              )}
+            </div>
 
             <div className="flex flex-wrap items-center gap-2 pt-2">
               <ModelFamilyCompare currentModelId={model.id} family={fullFamily} />
