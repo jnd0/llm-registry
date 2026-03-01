@@ -91,10 +91,19 @@ function applyMetadataOverrides(input: Model[], overrides: Record<string, ModelM
           }
         : model.specs;
 
+      // Deep merge apiSupport to prevent data loss
+      const nextApiSupport = patch.apiSupport
+        ? {
+            ...model.apiSupport,
+            ...patch.apiSupport,
+          }
+        : model.apiSupport;
+
       nextModel = {
         ...model,
         ...patch,
         specs: nextSpecs,
+        apiSupport: nextApiSupport,
         scores: model.scores,
       };
     }

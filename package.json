@@ -13,7 +13,8 @@
     "validate:data": "node scripts/validate-registry.mjs",
     "validate:data:strict": "node scripts/validate-registry.mjs --strict",
     "report:coverage": "node scripts/coverage-report.mjs",
-    "import:yaman:metadata": "node scripts/import-yaman-metadata.mjs"
+    "import:yaman:metadata": "node scripts/import-yaman-metadata.mjs",
+    "import:models-dev": "bun scripts/import-models-dev.mjs"
   },
   "dependencies": {
     "@tanstack/react-table": "^8.21.3",

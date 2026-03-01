@@ -379,13 +379,13 @@ export default async function ModelPage({ params }: PageProps) {
               <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em]">
                 {model.specs.parameters} Architecture
               </span>
-              {model.knowledgeCutoff && (
+              {model.trainingCutoff && (
                 <>
                   <span className="hidden h-3 w-px bg-border sm:inline-block" />
                   <div className="flex items-center gap-1.5" title="Training data cutoff">
                     <ShieldCheck className="h-3.5 w-3.5 text-muted-foreground/60" />
                     <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em]">
-                      Knowledge: {model.knowledgeCutoff}
+                      Training: {model.trainingCutoff}
                     </span>
                   </div>
                 </>

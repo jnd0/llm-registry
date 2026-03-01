@@ -127,7 +127,7 @@ export interface Model {
   isOpenSource: boolean;         // True if weights are available (Llama, DeepSeek)
   modelType?: ModelType;         // Primary modality (for future filtering)
   status?: ModelStatus;          // Model lifecycle status
-  knowledgeCutoff?: string;      // Training data cutoff (YYYY-MM or YYYY-MM-DD)
+  trainingCutoff?: string;       // Training data cutoff (YYYY-MM or YYYY-MM-DD)
   lastUpdated?: string;          // Last metadata update (ISO 8601)
   interleavedReasoningField?: string; // Field name for reasoning content
   
@@ -151,7 +151,6 @@ export interface Model {
   apiSupport?: ModelApiSupport;
   modalities?: ModelModalities;
   pricingDimensions?: ModelPricingDimension[];
-  trainingCutoff?: string;
   metadataSourceId?: string;
   metadataSourceUrl?: string;
   metadataAsOfDate?: string;

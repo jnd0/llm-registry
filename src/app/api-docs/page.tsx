@@ -107,7 +107,7 @@ const endpoints: Endpoint[] = [
       "family": "claude-sonnet",
       "status": "active",
       "releaseDate": "2024-10-22",
-      "knowledgeCutoff": "2024-04",
+      "trainingCutoff": "2024-04",
       "capabilities": ["text", "vision", "tools"],
       "isOpenSource": false,
       "specs": {
@@ -143,7 +143,7 @@ const endpoints: Endpoint[] = [
     "provider": "Anthropic",
     "family": "claude-sonnet",
     "status": "active",
-    "knowledgeCutoff": "2024-04",
+    "trainingCutoff": "2024-04",
     "lastUpdated": "2025-11-24",
     "specs": {
       "contextWindow": 200000,
@@ -707,7 +707,7 @@ export default function ApiDocsPage() {
                 </p>
               </div>
               <div className="space-y-2">
-                <p className="font-mono text-xs font-bold text-foreground">knowledgeCutoff</p>
+                <p className="font-mono text-xs font-bold text-foreground">trainingCutoff</p>
                 <p className="text-sm text-muted-foreground">
                   Training data cutoff date (YYYY-MM)
                 </p>

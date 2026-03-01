@@ -3,7 +3,7 @@ import { Model, ModelStatus, ModelContextSurcharge } from "@/types";
 export interface ModelMetadataOverride {
   family?: string;
   status?: ModelStatus;
-  knowledgeCutoff?: string;
+  trainingCutoff?: string;
   lastUpdated?: string;
   interleavedReasoningField?: string;
   capabilities?: Model["capabilities"];
@@ -12,7 +12,6 @@ export interface ModelMetadataOverride {
   apiSupport?: Model["apiSupport"];
   modalities?: Model["modalities"];
   pricingDimensions?: Model["pricingDimensions"];
-  trainingCutoff?: string;
   metadataSourceId?: string;
   metadataSourceUrl?: string;
   metadataAsOfDate?: string;
