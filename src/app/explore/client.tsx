@@ -1,12 +1,12 @@
 "use client";
 
-import { Model } from "@/types";
 import { useState, useMemo } from "react";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { Search, ChevronDown } from "lucide-react";
 import { FilterPanel, applyModelFilters } from "@/components/model/filter-panel";
 import type { ModelFilter } from "@/components/model/filter-panel";
+import { useRegistry } from "@/hooks/use-registry";
 
 interface BenchmarkOption {
   id: string;
@@ -15,7 +15,6 @@ interface BenchmarkOption {
 }
 
 interface ExploreClientProps {
-  models: Model[];
   benchmarkOptions: BenchmarkOption[];
 }
 
@@ -31,7 +30,7 @@ const xAxisLabels: Record<XAxisOption, string> = {
 };
 
 interface ChartDataPoint {
-  model: Model;
+  model: any;
   x: number;
   y: number;
   xPixel: number;
@@ -39,9 +38,10 @@ interface ChartDataPoint {
 }
 
 export function ExploreClient({
-  models,
   benchmarkOptions,
 }: ExploreClientProps) {
+  const { models, isLoading } = useRegistry({ includeUnscored: true });
+  const [selectedLicense, setSelectedLicense] = useState<"all" | "open" | "proprietary">("all");
   const [xAxis, setXAxis] = useState<XAxisOption>("price");
   const [yAxis, setYAxis] = useState<YAxisOption>(benchmarkOptions[0]?.id ?? "mmlu");
   const [hoveredPoint, setHoveredPoint] = useState<ChartDataPoint | null>(null);
@@ -59,8 +59,9 @@ export function ExploreClient({
   });
 
   const filteredModels = useMemo(() => {
-    return applyModelFilters(models, filter);
-  }, [models, filter]);
+    if (isLoading) return [];
+    return applyModelFilters(models as any, filter);
+  }, [models, filter, isLoading]);
 
   const filteredBenchmarks = useMemo(() => {
     if (!benchmarkSearch) return benchmarkOptions;
@@ -291,7 +292,7 @@ export function ExploreClient({
 
         <div className="flex items-center gap-2">
           <FilterPanel
-            models={models}
+            models={models as any}
             filter={filter}
             onFilterChange={setFilter}
             isOpen={showFilters}
