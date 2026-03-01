@@ -52,10 +52,10 @@ export default function AboutPage() {
 
       <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {[
-          { label: "Enhanced Models", value: "1,675+" },
-          { label: "Model Families", value: "149" },
+          { label: "Verified Models", value: models.length },
           { label: "Active Benchmarks", value: benchmarks.length },
-          { label: "Data Sources", value: "30+" },
+          { label: "Evaluation Categories", value: categories.length },
+          { label: "Verified Sources", value: sources.length },
         ].map((stat) => (
           <article key={stat.label} className="relative overflow-hidden rounded-2xl border border-border bg-card/50 p-6">
             <p className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground/60">{stat.label}</p>
