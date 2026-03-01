@@ -1,5 +1,6 @@
 "use client";
 
+import { Model } from "@/types";
 import { useState, useMemo } from "react";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
@@ -15,6 +16,7 @@ interface BenchmarkOption {
 }
 
 interface ExploreClientProps {
+  models?: Model[];
   benchmarkOptions: BenchmarkOption[];
 }
 
@@ -38,9 +40,12 @@ interface ChartDataPoint {
 }
 
 export function ExploreClient({
+  models: passedModels,
   benchmarkOptions,
 }: ExploreClientProps) {
-  const { models, isLoading } = useRegistry({ includeUnscored: true });
+  // Use passed models if available (for Explore page), otherwise use hook
+  const { models: registryModels } = useRegistry({ includeUnscored: true });
+  const models = passedModels || registryModels;
   const [selectedLicense, setSelectedLicense] = useState<"all" | "open" | "proprietary">("all");
   const [xAxis, setXAxis] = useState<XAxisOption>("price");
   const [yAxis, setYAxis] = useState<YAxisOption>(benchmarkOptions[0]?.id ?? "mmlu");
@@ -59,9 +64,8 @@ export function ExploreClient({
   });
 
   const filteredModels = useMemo(() => {
-    if (isLoading) return [];
     return applyModelFilters(models as any, filter);
-  }, [models, filter, isLoading]);
+  }, [models, filter]);
 
   const filteredBenchmarks = useMemo(() => {
     if (!benchmarkSearch) return benchmarkOptions;

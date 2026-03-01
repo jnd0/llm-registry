@@ -1,6 +1,6 @@
+import { benchmarks, flattenedModels } from "@/lib/registry-data";
 import type { Metadata } from "next";
 import { ExploreClient } from "./client";
-import { benchmarks } from "@/lib/registry-data";
 import { siteName, siteUrl } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -41,6 +41,7 @@ export default function ExplorePage() {
 
   return (
     <ExploreClient 
+      models={flattenedModels}
       benchmarkOptions={benchmarkOptions}
     />
   );
