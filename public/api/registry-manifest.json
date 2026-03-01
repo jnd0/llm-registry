@@ -11,6 +11,17 @@
       "releaseDate": "2026-02-19",
       "tier": "verified",
       "family": null,
+      "specs": {
+        "contextWindow": 0,
+        "pricing": {
+          "input": 0,
+          "output": 0
+        }
+      },
+      "capabilities": [],
+      "isOpenSource": false,
+      "apiSupport": {},
+      "modalities": {},
       "hasScores": false,
       "scoreCount": 0
     },
@@ -21,6 +32,17 @@
       "releaseDate": "2026-02-16",
       "tier": "verified",
       "family": null,
+      "specs": {
+        "contextWindow": 0,
+        "pricing": {
+          "input": 0,
+          "output": 0
+        }
+      },
+      "capabilities": [],
+      "isOpenSource": false,
+      "apiSupport": {},
+      "modalities": {},
       "hasScores": false,
       "scoreCount": 0
     },
@@ -31,6 +53,17 @@
       "releaseDate": "2026-02-14",
       "tier": "verified",
       "family": null,
+      "specs": {
+        "contextWindow": 0,
+        "pricing": {
+          "input": 0,
+          "output": 0
+        }
+      },
+      "capabilities": [],
+      "isOpenSource": false,
+      "apiSupport": {},
+      "modalities": {},
       "hasScores": false,
       "scoreCount": 0
     },
@@ -41,6 +74,17 @@
       "releaseDate": "2026-02-14",
       "tier": "verified",
       "family": null,
+      "specs": {
+        "contextWindow": 0,
+        "pricing": {
+          "input": 0,
+          "output": 0
+        }
+      },
+      "capabilities": [],
+      "isOpenSource": false,
+      "apiSupport": {},
+      "modalities": {},
       "hasScores": false,
       "scoreCount": 0
     },
@@ -51,6 +95,17 @@
       "releaseDate": "2026-02-14",
       "tier": "verified",
       "family": null,
+      "specs": {
+        "contextWindow": 0,
+        "pricing": {
+          "input": 0,
+          "output": 0
+        }
+      },
+      "capabilities": [],
+      "isOpenSource": false,
+      "apiSupport": {},
+      "modalities": {},
       "hasScores": false,
       "scoreCount": 0
     },
@@ -61,6 +116,17 @@
       "releaseDate": "2026-02-12",
       "tier": "verified",
       "family": null,
+      "specs": {
+        "contextWindow": 0,
+        "pricing": {
+          "input": 0,
+          "output": 0
+        }
+      },
+      "capabilities": [],
+      "isOpenSource": false,
+      "apiSupport": {},
+      "modalities": {},
       "hasScores": false,
       "scoreCount": 0
     },
@@ -71,9 +137,14 @@
       "releaseDate": "2026-02-12",
       "tier": "verified",
       "family": "minimax",
-      "trainingCutoff": "2025-01",
-      "lastUpdated": "2026-02-12",
-      "interleavedReasoningField": "reasoning_content",
+      "specs": {
+        "maxOutputTokens": 131072,
+        "pricing": {
+          "cacheInput": 0.03
+        }
+      },
+      "capabilities": [],
+      "isOpenSource": false,
       "apiSupport": {
         "reasoning": true,
         "toolCall": true,
@@ -88,12 +159,9 @@
           "text"
         ]
       },
-      "specs": {
-        "maxOutputTokens": 131072,
-        "pricing": {
-          "cacheInput": 0.03
-        }
-      },
+      "trainingCutoff": "2025-01",
+      "lastUpdated": "2026-02-12",
+      "interleavedReasoningField": "reasoning_content",
       "metadataSourceId": "models-dev",
       "metadataAsOfDate": "2026-03-01",
       "hasScores": false,
@@ -106,9 +174,14 @@
       "releaseDate": "2026-02-11",
       "tier": "verified",
       "family": "glm",
-      "trainingCutoff": "2025-04",
-      "lastUpdated": "2026-02-11",
-      "interleavedReasoningField": "reasoning_content",
+      "specs": {
+        "maxOutputTokens": 131072,
+        "pricing": {
+          "cacheInput": 0.2
+        }
+      },
+      "capabilities": [],
+      "isOpenSource": false,
       "apiSupport": {
         "reasoning": true,
         "toolCall": true,
@@ -123,12 +196,9 @@
           "text"
         ]
       },
-      "specs": {
-        "maxOutputTokens": 131072,
-        "pricing": {
-          "cacheInput": 0.2
-        }
-      },
+      "trainingCutoff": "2025-04",
+      "lastUpdated": "2026-02-11",
+      "interleavedReasoningField": "reasoning_content",
       "metadataSourceId": "models-dev",
       "metadataAsOfDate": "2026-03-01",
       "hasScores": false,
@@ -141,8 +211,14 @@
       "releaseDate": "2026-02-05",
       "tier": "verified",
       "family": "gpt",
-      "lastUpdated": "2026-02-24",
-      "interleavedReasoningField": "reasoning_content",
+      "specs": {
+        "maxOutputTokens": 128000,
+        "pricing": {
+          "cacheInput": 0.175
+        }
+      },
+      "capabilities": [],
+      "isOpenSource": false,
       "apiSupport": {
         "reasoning": true,
         "toolCall": true,
@@ -159,12 +235,8 @@
           "text"
         ]
       },
-      "specs": {
-        "maxOutputTokens": 128000,
-        "pricing": {
-          "cacheInput": 0.175
-        }
-      },
+      "lastUpdated": "2026-02-24",
+      "interleavedReasoningField": "reasoning_content",
       "metadataSourceId": "models-dev",
       "metadataAsOfDate": "2026-03-01",
       "hasScores": false,
@@ -177,9 +249,20 @@
       "releaseDate": "2026-02-05",
       "tier": "verified",
       "family": "claude-opus",
-      "trainingCutoff": "2025-05",
-      "lastUpdated": "2026-02-05",
-      "interleavedReasoningField": "reasoning_content",
+      "specs": {
+        "maxOutputTokens": 128000,
+        "pricing": {
+          "cacheInput": 0.5,
+          "cacheOutput": 6.25,
+          "contextOver200k": {
+            "input": 10,
+            "output": 37.5,
+            "cacheRead": 1
+          }
+        }
+      },
+      "capabilities": [],
+      "isOpenSource": false,
       "apiSupport": {
         "reasoning": true,
         "toolCall": true,
@@ -196,18 +279,9 @@
           "text"
         ]
       },
-      "specs": {
-        "maxOutputTokens": 128000,
-        "pricing": {
-          "cacheInput": 0.5,
-          "cacheOutput": 6.25,
-          "contextOver200k": {
-            "input": 10,
-            "output": 37.5,
-            "cacheRead": 1
-          }
-        }
-      },
+      "trainingCutoff": "2025-05",
+      "lastUpdated": "2026-02-05",
+      "interleavedReasoningField": "reasoning_content",
       "metadataSourceId": "models-dev",
       "metadataAsOfDate": "2026-03-01",
       "hasScores": false,
@@ -220,9 +294,14 @@
       "releaseDate": "2026-02-01",
       "tier": "verified",
       "family": "o-mini",
-      "trainingCutoff": "2024-05",
-      "lastUpdated": "2025-04-16",
-      "interleavedReasoningField": "reasoning_content",
+      "specs": {
+        "maxOutputTokens": 100000,
+        "pricing": {
+          "cacheInput": 0.28
+        }
+      },
+      "capabilities": [],
+      "isOpenSource": false,
       "apiSupport": {
         "reasoning": true,
         "toolCall": true,
@@ -238,12 +317,9 @@
           "text"
         ]
       },
-      "specs": {
-        "maxOutputTokens": 100000,
-        "pricing": {
-          "cacheInput": 0.28
-        }
-      },
+      "trainingCutoff": "2024-05",
+      "lastUpdated": "2025-04-16",
+      "interleavedReasoningField": "reasoning_content",
       "metadataSourceId": "models-dev",
       "metadataAsOfDate": "2026-03-01",
       "hasScores": false,
@@ -256,9 +332,15 @@
       "releaseDate": "2026-02-01",
       "tier": "verified",
       "family": "grok",
-      "trainingCutoff": "2025-07",
-      "lastUpdated": "2025-07-09",
-      "interleavedReasoningField": "reasoning_content",
+      "specs": {
+        "maxOutputTokens": 64000,
+        "pricing": {
+          "cacheInput": 0.75,
+          "reasoning": 15
+        }
+      },
+      "capabilities": [],
+      "isOpenSource": false,
       "apiSupport": {
         "reasoning": true,
         "toolCall": true,
@@ -273,13 +355,9 @@
           "text"
         ]
       },
-      "specs": {
-        "maxOutputTokens": 64000,
-        "pricing": {
-          "cacheInput": 0.75,
-          "reasoning": 15
-        }
-      },
+      "trainingCutoff": "2025-07",
+      "lastUpdated": "2025-07-09",
+      "interleavedReasoningField": "reasoning_content",
       "metadataSourceId": "models-dev",
       "metadataAsOfDate": "2026-03-01",
       "hasScores": false,
@@ -292,9 +370,14 @@
       "releaseDate": "2026-01-30",
       "tier": "verified",
       "family": "grok",
-      "trainingCutoff": "2025-07",
-      "lastUpdated": "2025-11-19",
-      "interleavedReasoningField": "reasoning_content",
+      "specs": {
+        "maxOutputTokens": 30000,
+        "pricing": {
+          "cacheInput": 0.05
+        }
+      },
+      "capabilities": [],
+      "isOpenSource": false,
       "apiSupport": {
         "reasoning": true,
         "toolCall": true,
@@ -310,12 +393,9 @@
           "text"
         ]
       },
-      "specs": {
-        "maxOutputTokens": 30000,
-        "pricing": {
-          "cacheInput": 0.05
-        }
-      },
+      "trainingCutoff": "2025-07",
+      "lastUpdated": "2025-11-19",
+      "interleavedReasoningField": "reasoning_content",
       "metadataSourceId": "models-dev",
       "metadataAsOfDate": "2026-03-01",
       "hasScores": false,
@@ -328,8 +408,11 @@
       "releaseDate": "2026-01-20",
       "tier": "verified",
       "family": "kimi",
-      "lastUpdated": "2025-01-27",
-      "interleavedReasoningField": "reasoning_content",
+      "specs": {
+        "maxOutputTokens": 32768
+      },
+      "capabilities": [],
+      "isOpenSource": false,
       "apiSupport": {
         "reasoning": true,
         "toolCall": true,
@@ -346,9 +429,8 @@
           "text"
         ]
       },
-      "specs": {
-        "maxOutputTokens": 32768
-      },
+      "lastUpdated": "2025-01-27",
+      "interleavedReasoningField": "reasoning_content",
       "metadataSourceId": "models-dev",
       "metadataAsOfDate": "2026-03-01",
       "hasScores": false,
@@ -361,6 +443,17 @@
       "releaseDate": "2026-01-15",
       "tier": "verified",
       "family": null,
+      "specs": {
+        "contextWindow": 0,
+        "pricing": {
+          "input": 0,
+          "output": 0
+        }
+      },
+      "capabilities": [],
+      "isOpenSource": false,
+      "apiSupport": {},
+      "modalities": {},
       "hasScores": false,
       "scoreCount": 0
     },
@@ -371,6 +464,17 @@
       "releaseDate": "2026-01-14",
       "tier": "verified",
       "family": null,
+      "specs": {
+        "contextWindow": 0,
+        "pricing": {
+          "input": 0,
+          "output": 0
+        }
+      },
+      "capabilities": [],
+      "isOpenSource": false,
+      "apiSupport": {},
+      "modalities": {},
       "hasScores": false,
       "scoreCount": 0
     },
@@ -381,8 +485,11 @@
       "releaseDate": "2026-01-14",
       "tier": "verified",
       "family": "llama",
-      "trainingCutoff": "2024-08",
-      "lastUpdated": "2025-04-05",
+      "specs": {
+        "maxOutputTokens": 4096
+      },
+      "capabilities": [],
+      "isOpenSource": false,
       "apiSupport": {
         "reasoning": false,
         "toolCall": true,
@@ -398,9 +505,8 @@
           "text"
         ]
       },
-      "specs": {
-        "maxOutputTokens": 4096
-      },
+      "trainingCutoff": "2024-08",
+      "lastUpdated": "2025-04-05",
       "metadataSourceId": "models-dev",
       "metadataAsOfDate": "2026-03-01",
       "hasScores": false,
@@ -413,9 +519,11 @@
       "releaseDate": "2025-12-22",
       "tier": "verified",
       "family": "glm",
-      "trainingCutoff": "2025-04",
-      "lastUpdated": "2025-12-22",
-      "interleavedReasoningField": "reasoning_content",
+      "specs": {
+        "maxOutputTokens": 131072
+      },
+      "capabilities": [],
+      "isOpenSource": false,
       "apiSupport": {
         "reasoning": true,
         "toolCall": true,
@@ -430,9 +538,9 @@
           "text"
         ]
       },
-      "specs": {
-        "maxOutputTokens": 131072
-      },
+      "trainingCutoff": "2025-04",
+      "lastUpdated": "2025-12-22",
+      "interleavedReasoningField": "reasoning_content",
       "metadataSourceId": "models-dev",
       "metadataAsOfDate": "2026-03-01",
       "hasScores": false,
@@ -445,9 +553,14 @@
       "releaseDate": "2025-12-17",
       "tier": "verified",
       "family": "gemini-flash",
-      "trainingCutoff": "2025-03",
-      "lastUpdated": "2025-12-17",
-      "interleavedReasoningField": "reasoning_content",
+      "specs": {
+        "maxOutputTokens": 64000,
+        "pricing": {
+          "cacheInput": 0.05
+        }
+      },
+      "capabilities": [],
+      "isOpenSource": false,
       "apiSupport": {
         "reasoning": true,
         "toolCall": true,
@@ -464,12 +577,9 @@
           "text"
         ]
       },
-      "specs": {
-        "maxOutputTokens": 64000,
-        "pricing": {
-          "cacheInput": 0.05
-        }
-      },
+      "trainingCutoff": "2025-03",
+      "lastUpdated": "2025-12-17",
+      "interleavedReasoningField": "reasoning_content",
       "metadataSourceId": "models-dev",
       "metadataAsOfDate": "2026-03-01",
       "hasScores": false,
@@ -482,6 +592,17 @@
       "releaseDate": "2025-12-17",
       "tier": "verified",
       "family": null,
+      "specs": {
+        "contextWindow": 0,
+        "pricing": {
+          "input": 0,
+          "output": 0
+        }
+      },
+      "capabilities": [],
+      "isOpenSource": false,
+      "apiSupport": {},
+      "modalities": {},
       "hasScores": false,
       "scoreCount": 0
     },
@@ -492,8 +613,11 @@
       "releaseDate": "2025-12-11",
       "tier": "verified",
       "family": "gpt-pro",
-      "lastUpdated": "2026-01",
-      "interleavedReasoningField": "reasoning_content",
+      "specs": {
+        "maxOutputTokens": 128000
+      },
+      "capabilities": [],
+      "isOpenSource": false,
       "apiSupport": {
         "reasoning": true,
         "toolCall": true,
@@ -510,9 +634,8 @@
           "text"
         ]
       },
-      "specs": {
-        "maxOutputTokens": 128000
-      },
+      "lastUpdated": "2026-01",
+      "interleavedReasoningField": "reasoning_content",
       "metadataSourceId": "models-dev",
       "metadataAsOfDate": "2026-03-01",
       "hasScores": false,
@@ -525,9 +648,14 @@
       "releaseDate": "2025-12-11",
       "tier": "verified",
       "family": "gpt",
-      "trainingCutoff": "2025-08-31",
-      "lastUpdated": "2025-12-11",
-      "interleavedReasoningField": "reasoning_content",
+      "specs": {
+        "maxOutputTokens": 128000,
+        "pricing": {
+          "cacheInput": 0.125
+        }
+      },
+      "capabilities": [],
+      "isOpenSource": false,
       "apiSupport": {
         "reasoning": true,
         "toolCall": true,
@@ -543,12 +671,9 @@
           "text"
         ]
       },
-      "specs": {
-        "maxOutputTokens": 128000,
-        "pricing": {
-          "cacheInput": 0.125
-        }
-      },
+      "trainingCutoff": "2025-08-31",
+      "lastUpdated": "2025-12-11",
+      "interleavedReasoningField": "reasoning_content",
       "metadataSourceId": "models-dev",
       "metadataAsOfDate": "2026-03-01",
       "hasScores": false,
@@ -561,6 +686,17 @@
       "releaseDate": "2025-12-11",
       "tier": "verified",
       "family": null,
+      "specs": {
+        "contextWindow": 0,
+        "pricing": {
+          "input": 0,
+          "output": 0
+        }
+      },
+      "capabilities": [],
+      "isOpenSource": false,
+      "apiSupport": {},
+      "modalities": {},
       "hasScores": false,
       "scoreCount": 0
     },
@@ -571,6 +707,17 @@
       "releaseDate": "2025-12-11",
       "tier": "verified",
       "family": null,
+      "specs": {
+        "contextWindow": 0,
+        "pricing": {
+          "input": 0,
+          "output": 0
+        }
+      },
+      "capabilities": [],
+      "isOpenSource": false,
+      "apiSupport": {},
+      "modalities": {},
       "hasScores": false,
       "scoreCount": 0
     },
@@ -581,6 +728,17 @@
       "releaseDate": "2025-12-05",
       "tier": "verified",
       "family": null,
+      "specs": {
+        "contextWindow": 0,
+        "pricing": {
+          "input": 0,
+          "output": 0
+        }
+      },
+      "capabilities": [],
+      "isOpenSource": false,
+      "apiSupport": {},
+      "modalities": {},
       "hasScores": false,
       "scoreCount": 0
     },
@@ -591,6 +749,17 @@
       "releaseDate": "2025-12-01",
       "tier": "verified",
       "family": null,
+      "specs": {
+        "contextWindow": 0,
+        "pricing": {
+          "input": 0,
+          "output": 0
+        }
+      },
+      "capabilities": [],
+      "isOpenSource": false,
+      "apiSupport": {},
+      "modalities": {},
       "hasScores": false,
       "scoreCount": 0
     },
@@ -601,9 +770,11 @@
       "releaseDate": "2025-12-01",
       "tier": "verified",
       "family": "deepseek",
-      "trainingCutoff": "2024-07",
-      "lastUpdated": "2025-12-01",
-      "interleavedReasoningField": "reasoning_content",
+      "specs": {
+        "maxOutputTokens": 128000
+      },
+      "capabilities": [],
+      "isOpenSource": false,
       "apiSupport": {
         "reasoning": true,
         "toolCall": false,
@@ -618,9 +789,9 @@
           "text"
         ]
       },
-      "specs": {
-        "maxOutputTokens": 128000
-      },
+      "trainingCutoff": "2024-07",
+      "lastUpdated": "2025-12-01",
+      "interleavedReasoningField": "reasoning_content",
       "metadataSourceId": "models-dev",
       "metadataAsOfDate": "2026-03-01",
       "hasScores": false,
@@ -633,9 +804,15 @@
       "releaseDate": "2025-11-24",
       "tier": "verified",
       "family": "claude-opus",
-      "trainingCutoff": "2025-03-31",
-      "lastUpdated": "2025-08-01",
-      "interleavedReasoningField": "reasoning_content",
+      "specs": {
+        "maxOutputTokens": 64000,
+        "pricing": {
+          "cacheInput": 0.5,
+          "cacheOutput": 6.25
+        }
+      },
+      "capabilities": [],
+      "isOpenSource": false,
       "apiSupport": {
         "reasoning": true,
         "toolCall": true,
@@ -652,13 +829,9 @@
           "text"
         ]
       },
-      "specs": {
-        "maxOutputTokens": 64000,
-        "pricing": {
-          "cacheInput": 0.5,
-          "cacheOutput": 6.25
-        }
-      },
+      "trainingCutoff": "2025-03-31",
+      "lastUpdated": "2025-08-01",
+      "interleavedReasoningField": "reasoning_content",
       "metadataSourceId": "models-dev",
       "metadataAsOfDate": "2026-03-01",
       "hasScores": false,
@@ -671,6 +844,17 @@
       "releaseDate": "2025-11-24",
       "tier": "verified",
       "family": null,
+      "specs": {
+        "contextWindow": 0,
+        "pricing": {
+          "input": 0,
+          "output": 0
+        }
+      },
+      "capabilities": [],
+      "isOpenSource": false,
+      "apiSupport": {},
+      "modalities": {},
       "hasScores": false,
       "scoreCount": 0
     },
@@ -681,9 +865,15 @@
       "releaseDate": "2025-11-24",
       "tier": "verified",
       "family": "claude-sonnet",
-      "trainingCutoff": "2025-07-31",
-      "lastUpdated": "2025-11-18",
-      "interleavedReasoningField": "reasoning_content",
+      "specs": {
+        "maxOutputTokens": 64000,
+        "pricing": {
+          "cacheInput": 0.3,
+          "cacheOutput": 3.75
+        }
+      },
+      "capabilities": [],
+      "isOpenSource": false,
       "apiSupport": {
         "reasoning": true,
         "toolCall": true,
@@ -701,13 +891,9 @@
           "text"
         ]
       },
-      "specs": {
-        "maxOutputTokens": 64000,
-        "pricing": {
-          "cacheInput": 0.3,
-          "cacheOutput": 3.75
-        }
-      },
+      "trainingCutoff": "2025-07-31",
+      "lastUpdated": "2025-11-18",
+      "interleavedReasoningField": "reasoning_content",
       "metadataSourceId": "models-dev",
       "metadataAsOfDate": "2026-03-01",
       "hasScores": false,
@@ -720,6 +906,17 @@
       "releaseDate": "2025-11-24",
       "tier": "verified",
       "family": null,
+      "specs": {
+        "contextWindow": 0,
+        "pricing": {
+          "input": 0,
+          "output": 0
+        }
+      },
+      "capabilities": [],
+      "isOpenSource": false,
+      "apiSupport": {},
+      "modalities": {},
       "hasScores": false,
       "scoreCount": 0
     },
@@ -730,6 +927,17 @@
       "releaseDate": "2025-11-20",
       "tier": "verified",
       "family": null,
+      "specs": {
+        "contextWindow": 0,
+        "pricing": {
+          "input": 0,
+          "output": 0
+        }
+      },
+      "capabilities": [],
+      "isOpenSource": false,
+      "apiSupport": {},
+      "modalities": {},
       "hasScores": false,
       "scoreCount": 0
     },
@@ -740,8 +948,14 @@
       "releaseDate": "2025-11-18",
       "tier": "verified",
       "family": "gemini-pro",
-      "lastUpdated": "2025-10-22",
-      "interleavedReasoningField": "reasoning_content",
+      "specs": {
+        "maxOutputTokens": 65536,
+        "pricing": {
+          "cacheInput": 0.16
+        }
+      },
+      "capabilities": [],
+      "isOpenSource": false,
       "apiSupport": {
         "reasoning": true,
         "toolCall": true,
@@ -759,12 +973,8 @@
           "text"
         ]
       },
-      "specs": {
-        "maxOutputTokens": 65536,
-        "pricing": {
-          "cacheInput": 0.16
-        }
-      },
+      "lastUpdated": "2025-10-22",
+      "interleavedReasoningField": "reasoning_content",
       "metadataSourceId": "models-dev",
       "metadataAsOfDate": "2026-03-01",
       "hasScores": false,
@@ -777,6 +987,17 @@
       "releaseDate": "2025-11-18",
       "tier": "verified",
       "family": null,
+      "specs": {
+        "contextWindow": 0,
+        "pricing": {
+          "input": 0,
+          "output": 0
+        }
+      },
+      "capabilities": [],
+      "isOpenSource": false,
+      "apiSupport": {},
+      "modalities": {},
       "hasScores": false,
       "scoreCount": 0
     },
@@ -787,8 +1008,11 @@
       "releaseDate": "2025-11-10",
       "tier": "verified",
       "family": "kimi",
-      "lastUpdated": "2025-11-06",
-      "interleavedReasoningField": "reasoning_content",
+      "specs": {
+        "maxOutputTokens": 16384
+      },
+      "capabilities": [],
+      "isOpenSource": false,
       "apiSupport": {
         "reasoning": true,
         "toolCall": true,
@@ -804,9 +1028,8 @@
           "text"
         ]
       },
-      "specs": {
-        "maxOutputTokens": 16384
-      },
+      "lastUpdated": "2025-11-06",
+      "interleavedReasoningField": "reasoning_content",
       "metadataSourceId": "models-dev",
       "metadataAsOfDate": "2026-03-01",
       "hasScores": false,
@@ -819,8 +1042,11 @@
       "releaseDate": "2025-10-20",
       "tier": "verified",
       "family": "gpt",
-      "trainingCutoff": "2024-10",
-      "lastUpdated": "2025-12-24",
+      "specs": {
+        "maxOutputTokens": 8192
+      },
+      "capabilities": [],
+      "isOpenSource": false,
       "apiSupport": {
         "reasoning": false,
         "toolCall": true,
@@ -836,9 +1062,8 @@
           "text"
         ]
       },
-      "specs": {
-        "maxOutputTokens": 8192
-      },
+      "trainingCutoff": "2024-10",
+      "lastUpdated": "2025-12-24",
       "metadataSourceId": "models-dev",
       "metadataAsOfDate": "2026-03-01",
       "hasScores": false,
@@ -851,8 +1076,11 @@
       "releaseDate": "2025-09-30",
       "tier": "verified",
       "family": "llama",
-      "trainingCutoff": "2024-08",
-      "lastUpdated": "2025-04-05",
+      "specs": {
+        "maxOutputTokens": 4096
+      },
+      "capabilities": [],
+      "isOpenSource": false,
       "apiSupport": {
         "reasoning": false,
         "toolCall": true,
@@ -868,9 +1096,8 @@
           "text"
         ]
       },
-      "specs": {
-        "maxOutputTokens": 4096
-      },
+      "trainingCutoff": "2024-08",
+      "lastUpdated": "2025-04-05",
       "metadataSourceId": "models-dev",
       "metadataAsOfDate": "2026-03-01",
       "hasScores": false,
@@ -883,9 +1110,11 @@
       "releaseDate": "2025-09-30",
       "tier": "verified",
       "family": "glm",
-      "trainingCutoff": "2024-07",
-      "lastUpdated": "2024-07-18",
-      "interleavedReasoningField": "reasoning_content",
+      "specs": {
+        "maxOutputTokens": 131072
+      },
+      "capabilities": [],
+      "isOpenSource": false,
       "apiSupport": {
         "reasoning": true,
         "toolCall": true,
@@ -900,9 +1129,9 @@
           "text"
         ]
       },
-      "specs": {
-        "maxOutputTokens": 131072
-      },
+      "trainingCutoff": "2024-07",
+      "lastUpdated": "2024-07-18",
+      "interleavedReasoningField": "reasoning_content",
       "metadataSourceId": "models-dev",
       "metadataAsOfDate": "2026-03-01",
       "hasScores": false,
@@ -915,9 +1144,14 @@
       "releaseDate": "2025-09-22",
       "tier": "verified",
       "family": "deepseek",
-      "trainingCutoff": "2025-09",
-      "lastUpdated": "2025-09-22",
-      "interleavedReasoningField": "reasoning_content",
+      "specs": {
+        "maxOutputTokens": 16384,
+        "pricing": {
+          "cacheInput": 0.21600000000000003
+        }
+      },
+      "capabilities": [],
+      "isOpenSource": false,
       "apiSupport": {
         "reasoning": true,
         "toolCall": true,
@@ -932,12 +1166,9 @@
           "text"
         ]
       },
-      "specs": {
-        "maxOutputTokens": 16384,
-        "pricing": {
-          "cacheInput": 0.21600000000000003
-        }
-      },
+      "trainingCutoff": "2025-09",
+      "lastUpdated": "2025-09-22",
+      "interleavedReasoningField": "reasoning_content",
       "metadataSourceId": "models-dev",
       "metadataAsOfDate": "2026-03-01",
       "hasScores": false,
@@ -950,9 +1181,14 @@
       "releaseDate": "2025-09-21",
       "tier": "verified",
       "family": "qwen",
-      "trainingCutoff": "2025-04",
-      "lastUpdated": "2025-04",
-      "interleavedReasoningField": "reasoning_content",
+      "specs": {
+        "maxOutputTokens": 32768,
+        "pricing": {
+          "reasoning": 2.867051
+        }
+      },
+      "capabilities": [],
+      "isOpenSource": false,
       "apiSupport": {
         "reasoning": true,
         "toolCall": true,
@@ -968,12 +1204,9 @@
           "text"
         ]
       },
-      "specs": {
-        "maxOutputTokens": 32768,
-        "pricing": {
-          "reasoning": 2.867051
-        }
-      },
+      "trainingCutoff": "2025-04",
+      "lastUpdated": "2025-04",
+      "interleavedReasoningField": "reasoning_content",
       "metadataSourceId": "models-dev",
       "metadataAsOfDate": "2026-03-01",
       "hasScores": false,
@@ -986,6 +1219,17 @@
       "releaseDate": "2025-09-21",
       "tier": "verified",
       "family": null,
+      "specs": {
+        "contextWindow": 0,
+        "pricing": {
+          "input": 0,
+          "output": 0
+        }
+      },
+      "capabilities": [],
+      "isOpenSource": false,
+      "apiSupport": {},
+      "modalities": {},
       "hasScores": false,
       "scoreCount": 0
     },
@@ -996,9 +1240,14 @@
       "releaseDate": "2025-09-05",
       "tier": "verified",
       "family": "kimi",
-      "trainingCutoff": "2024-10",
-      "lastUpdated": "2025-09-05",
-      "status": "deprecated",
+      "specs": {
+        "maxOutputTokens": 262144,
+        "pricing": {
+          "cacheInput": 0.4
+        }
+      },
+      "capabilities": [],
+      "isOpenSource": false,
       "apiSupport": {
         "reasoning": false,
         "toolCall": true,
@@ -1013,12 +1262,9 @@
           "text"
         ]
       },
-      "specs": {
-        "maxOutputTokens": 262144,
-        "pricing": {
-          "cacheInput": 0.4
-        }
-      },
+      "trainingCutoff": "2024-10",
+      "lastUpdated": "2025-09-05",
+      "status": "deprecated",
       "metadataSourceId": "models-dev",
       "metadataAsOfDate": "2026-03-01",
       "hasScores": false,
@@ -1031,8 +1277,14 @@
       "releaseDate": "2025-08-15",
       "tier": "verified",
       "family": null,
-      "lastUpdated": "2025-11-13",
-      "interleavedReasoningField": "reasoning_content",
+      "specs": {
+        "maxOutputTokens": 128000,
+        "pricing": {
+          "cacheInput": 0.125
+        }
+      },
+      "capabilities": [],
+      "isOpenSource": false,
       "apiSupport": {
         "reasoning": true,
         "toolCall": true,
@@ -1048,12 +1300,8 @@
           "text"
         ]
       },
-      "specs": {
-        "maxOutputTokens": 128000,
-        "pricing": {
-          "cacheInput": 0.125
-        }
-      },
+      "lastUpdated": "2025-11-13",
+      "interleavedReasoningField": "reasoning_content",
       "metadataSourceId": "models-dev",
       "metadataAsOfDate": "2026-03-01",
       "hasScores": false,
@@ -1066,9 +1314,14 @@
       "releaseDate": "2025-08-07",
       "tier": "verified",
       "family": "gpt-mini",
-      "trainingCutoff": "2024-05-30",
-      "lastUpdated": "2025-08-07",
-      "interleavedReasoningField": "reasoning_content",
+      "specs": {
+        "maxOutputTokens": 128000,
+        "pricing": {
+          "cacheInput": 0.03
+        }
+      },
+      "capabilities": [],
+      "isOpenSource": false,
       "apiSupport": {
         "reasoning": true,
         "toolCall": true,
@@ -1084,12 +1337,9 @@
           "text"
         ]
       },
-      "specs": {
-        "maxOutputTokens": 128000,
-        "pricing": {
-          "cacheInput": 0.03
-        }
-      },
+      "trainingCutoff": "2024-05-30",
+      "lastUpdated": "2025-08-07",
+      "interleavedReasoningField": "reasoning_content",
       "metadataSourceId": "models-dev",
       "metadataAsOfDate": "2026-03-01",
       "hasScores": false,
@@ -1102,6 +1352,17 @@
       "releaseDate": "2025-08-07",
       "tier": "verified",
       "family": null,
+      "specs": {
+        "contextWindow": 0,
+        "pricing": {
+          "input": 0,
+          "output": 0
+        }
+      },
+      "capabilities": [],
+      "isOpenSource": false,
+      "apiSupport": {},
+      "modalities": {},
       "hasScores": false,
       "scoreCount": 0
     },
@@ -1112,6 +1373,17 @@
       "releaseDate": "2025-08-01",
       "tier": "verified",
       "family": null,
+      "specs": {
+        "contextWindow": 0,
+        "pricing": {
+          "input": 0,
+          "output": 0
+        }
+      },
+      "capabilities": [],
+      "isOpenSource": false,
+      "apiSupport": {},
+      "modalities": {},
       "hasScores": false,
       "scoreCount": 0
     },
@@ -1122,8 +1394,15 @@
       "releaseDate": "2025-06-25",
       "tier": "verified",
       "family": null,
-      "lastUpdated": "2025-06-05",
-      "interleavedReasoningField": "reasoning_content",
+      "specs": {
+        "maxOutputTokens": 65536,
+        "pricing": {
+          "cacheInput": 0.125,
+          "cacheOutput": 0.375
+        }
+      },
+      "capabilities": [],
+      "isOpenSource": false,
       "apiSupport": {
         "reasoning": true,
         "toolCall": true,
@@ -1141,13 +1420,8 @@
           "text"
         ]
       },
-      "specs": {
-        "maxOutputTokens": 65536,
-        "pricing": {
-          "cacheInput": 0.125,
-          "cacheOutput": 0.375
-        }
-      },
+      "lastUpdated": "2025-06-05",
+      "interleavedReasoningField": "reasoning_content",
       "metadataSourceId": "models-dev",
       "metadataAsOfDate": "2026-03-01",
       "hasScores": false,
@@ -1160,6 +1434,17 @@
       "releaseDate": "2025-06-25",
       "tier": "verified",
       "family": null,
+      "specs": {
+        "contextWindow": 0,
+        "pricing": {
+          "input": 0,
+          "output": 0
+        }
+      },
+      "capabilities": [],
+      "isOpenSource": false,
+      "apiSupport": {},
+      "modalities": {},
       "hasScores": false,
       "scoreCount": 0
     },
@@ -1170,9 +1455,11 @@
       "releaseDate": "2025-06-10",
       "tier": "verified",
       "family": "o-pro",
-      "trainingCutoff": "2024-05",
-      "lastUpdated": "2025-06-10",
-      "interleavedReasoningField": "reasoning_content",
+      "specs": {
+        "maxOutputTokens": 100000
+      },
+      "capabilities": [],
+      "isOpenSource": false,
       "apiSupport": {
         "reasoning": true,
         "toolCall": true,
@@ -1189,9 +1476,9 @@
           "text"
         ]
       },
-      "specs": {
-        "maxOutputTokens": 100000
-      },
+      "trainingCutoff": "2024-05",
+      "lastUpdated": "2025-06-10",
+      "interleavedReasoningField": "reasoning_content",
       "metadataSourceId": "models-dev",
       "metadataAsOfDate": "2026-03-01",
       "hasScores": false,
@@ -1204,6 +1491,17 @@
       "releaseDate": "2025-05-01",
       "tier": "verified",
       "family": null,
+      "specs": {
+        "contextWindow": 0,
+        "pricing": {
+          "input": 0,
+          "output": 0
+        }
+      },
+      "capabilities": [],
+      "isOpenSource": false,
+      "apiSupport": {},
+      "modalities": {},
       "hasScores": false,
       "scoreCount": 0
     },
@@ -1214,6 +1512,17 @@
       "releaseDate": "2025-04-30",
       "tier": "verified",
       "family": null,
+      "specs": {
+        "contextWindow": 0,
+        "pricing": {
+          "input": 0,
+          "output": 0
+        }
+      },
+      "capabilities": [],
+      "isOpenSource": false,
+      "apiSupport": {},
+      "modalities": {},
       "hasScores": false,
       "scoreCount": 0
     },
@@ -1224,9 +1533,14 @@
       "releaseDate": "2025-04-12",
       "tier": "verified",
       "family": "o",
-      "trainingCutoff": "2024-05",
-      "lastUpdated": "2025-04-16",
-      "interleavedReasoningField": "reasoning_content",
+      "specs": {
+        "maxOutputTokens": 100000,
+        "pricing": {
+          "cacheInput": 0.5
+        }
+      },
+      "capabilities": [],
+      "isOpenSource": false,
       "apiSupport": {
         "reasoning": true,
         "toolCall": true,
@@ -1242,12 +1556,9 @@
           "text"
         ]
       },
-      "specs": {
-        "maxOutputTokens": 100000,
-        "pricing": {
-          "cacheInput": 0.5
-        }
-      },
+      "trainingCutoff": "2024-05",
+      "lastUpdated": "2025-04-16",
+      "interleavedReasoningField": "reasoning_content",
       "metadataSourceId": "models-dev",
       "metadataAsOfDate": "2026-03-01",
       "hasScores": false,
@@ -1260,9 +1571,11 @@
       "releaseDate": "2025-04-10",
       "tier": "verified",
       "family": "minimax",
-      "trainingCutoff": "2024-11",
-      "lastUpdated": "2025-10-27",
-      "interleavedReasoningField": "reasoning_content",
+      "specs": {
+        "maxOutputTokens": 400000
+      },
+      "capabilities": [],
+      "isOpenSource": false,
       "apiSupport": {
         "reasoning": true,
         "toolCall": true,
@@ -1277,9 +1590,9 @@
           "text"
         ]
       },
-      "specs": {
-        "maxOutputTokens": 400000
-      },
+      "trainingCutoff": "2024-11",
+      "lastUpdated": "2025-10-27",
+      "interleavedReasoningField": "reasoning_content",
       "metadataSourceId": "models-dev",
       "metadataAsOfDate": "2026-03-01",
       "hasScores": false,
@@ -1292,8 +1605,15 @@
       "releaseDate": "2025-03-25",
       "tier": "verified",
       "family": "claude-sonnet",
-      "trainingCutoff": "2025-02",
-      "lastUpdated": "2025-02-19",
+      "specs": {
+        "maxOutputTokens": 64000,
+        "pricing": {
+          "cacheInput": 0.30000000000000004,
+          "cacheOutput": 3.75
+        }
+      },
+      "capabilities": [],
+      "isOpenSource": false,
       "apiSupport": {
         "reasoning": false,
         "toolCall": true,
@@ -1309,13 +1629,8 @@
           "text"
         ]
       },
-      "specs": {
-        "maxOutputTokens": 64000,
-        "pricing": {
-          "cacheInput": 0.30000000000000004,
-          "cacheOutput": 3.75
-        }
-      },
+      "trainingCutoff": "2025-02",
+      "lastUpdated": "2025-02-19",
       "metadataSourceId": "models-dev",
       "metadataAsOfDate": "2026-03-01",
       "hasScores": false,
@@ -1328,6 +1643,17 @@
       "releaseDate": "2025-03-01",
       "tier": "verified",
       "family": null,
+      "specs": {
+        "contextWindow": 0,
+        "pricing": {
+          "input": 0,
+          "output": 0
+        }
+      },
+      "capabilities": [],
+      "isOpenSource": false,
+      "apiSupport": {},
+      "modalities": {},
       "hasScores": false,
       "scoreCount": 0
     },
@@ -1338,8 +1664,14 @@
       "releaseDate": "2025-02-15",
       "tier": "verified",
       "family": "grok",
-      "trainingCutoff": "2024-11",
-      "lastUpdated": "2025-02-17",
+      "specs": {
+        "maxOutputTokens": 8192,
+        "pricing": {
+          "cacheInput": 0.75
+        }
+      },
+      "capabilities": [],
+      "isOpenSource": false,
       "apiSupport": {
         "reasoning": false,
         "toolCall": true,
@@ -1354,12 +1686,8 @@
           "text"
         ]
       },
-      "specs": {
-        "maxOutputTokens": 8192,
-        "pricing": {
-          "cacheInput": 0.75
-        }
-      },
+      "trainingCutoff": "2024-11",
+      "lastUpdated": "2025-02-17",
       "metadataSourceId": "models-dev",
       "metadataAsOfDate": "2026-03-01",
       "hasScores": false,
@@ -1372,6 +1700,17 @@
       "releaseDate": "2025-02-14",
       "tier": "verified",
       "family": null,
+      "specs": {
+        "contextWindow": 0,
+        "pricing": {
+          "input": 0,
+          "output": 0
+        }
+      },
+      "capabilities": [],
+      "isOpenSource": false,
+      "apiSupport": {},
+      "modalities": {},
       "hasScores": false,
       "scoreCount": 0
     },
@@ -1382,8 +1721,11 @@
       "releaseDate": "2025-02-01",
       "tier": "verified",
       "family": "phi",
-      "trainingCutoff": "2023-10",
-      "lastUpdated": "2024-12-11",
+      "specs": {
+        "maxOutputTokens": 4096
+      },
+      "capabilities": [],
+      "isOpenSource": false,
       "apiSupport": {
         "reasoning": false,
         "toolCall": false,
@@ -1398,9 +1740,8 @@
           "text"
         ]
       },
-      "specs": {
-        "maxOutputTokens": 4096
-      },
+      "trainingCutoff": "2023-10",
+      "lastUpdated": "2024-12-11",
       "metadataSourceId": "models-dev",
       "metadataAsOfDate": "2026-03-01",
       "hasScores": false,
@@ -1413,6 +1754,17 @@
       "releaseDate": "2025-01-29",
       "tier": "verified",
       "family": null,
+      "specs": {
+        "contextWindow": 0,
+        "pricing": {
+          "input": 0,
+          "output": 0
+        }
+      },
+      "capabilities": [],
+      "isOpenSource": false,
+      "apiSupport": {},
+      "modalities": {},
       "hasScores": false,
       "scoreCount": 0
     },
@@ -1423,8 +1775,11 @@
       "releaseDate": "2025-01-20",
       "tier": "verified",
       "family": "deepseek-thinking",
-      "lastUpdated": "2025-01-01",
-      "interleavedReasoningField": "reasoning_content",
+      "specs": {
+        "maxOutputTokens": 16384
+      },
+      "capabilities": [],
+      "isOpenSource": false,
       "apiSupport": {
         "reasoning": true,
         "toolCall": true,
@@ -1439,9 +1794,8 @@
           "text"
         ]
       },
-      "specs": {
-        "maxOutputTokens": 16384
-      },
+      "lastUpdated": "2025-01-01",
+      "interleavedReasoningField": "reasoning_content",
       "metadataSourceId": "models-dev",
       "metadataAsOfDate": "2026-03-01",
       "hasScores": false,
@@ -1454,6 +1808,17 @@
       "releaseDate": "2025-01-20",
       "tier": "verified",
       "family": null,
+      "specs": {
+        "contextWindow": 0,
+        "pricing": {
+          "input": 0,
+          "output": 0
+        }
+      },
+      "capabilities": [],
+      "isOpenSource": false,
+      "apiSupport": {},
+      "modalities": {},
       "hasScores": false,
       "scoreCount": 0
     },
@@ -1464,8 +1829,11 @@
       "releaseDate": "2025-01-20",
       "tier": "verified",
       "family": "deepseek-thinking",
-      "lastUpdated": "2025-01-01",
-      "interleavedReasoningField": "reasoning_content",
+      "specs": {
+        "maxOutputTokens": 16384
+      },
+      "capabilities": [],
+      "isOpenSource": false,
       "apiSupport": {
         "reasoning": true,
         "toolCall": true,
@@ -1480,9 +1848,8 @@
           "text"
         ]
       },
-      "specs": {
-        "maxOutputTokens": 16384
-      },
+      "lastUpdated": "2025-01-01",
+      "interleavedReasoningField": "reasoning_content",
       "metadataSourceId": "models-dev",
       "metadataAsOfDate": "2026-03-01",
       "hasScores": false,
@@ -1495,8 +1862,11 @@
       "releaseDate": "2025-01-20",
       "tier": "verified",
       "family": "qwen",
-      "lastUpdated": "2025-01-01",
-      "interleavedReasoningField": "reasoning_content",
+      "specs": {
+        "maxOutputTokens": 16384
+      },
+      "capabilities": [],
+      "isOpenSource": false,
       "apiSupport": {
         "reasoning": true,
         "toolCall": true,
@@ -1511,9 +1881,8 @@
           "text"
         ]
       },
-      "specs": {
-        "maxOutputTokens": 16384
-      },
+      "lastUpdated": "2025-01-01",
+      "interleavedReasoningField": "reasoning_content",
       "metadataSourceId": "models-dev",
       "metadataAsOfDate": "2026-03-01",
       "hasScores": false,
@@ -1526,7 +1895,11 @@
       "releaseDate": "2024-12-26",
       "tier": "verified",
       "family": "deepseek",
-      "lastUpdated": "2024-12-01",
+      "specs": {
+        "maxOutputTokens": 8192
+      },
+      "capabilities": [],
+      "isOpenSource": false,
       "apiSupport": {
         "reasoning": false,
         "toolCall": true,
@@ -1541,9 +1914,7 @@
           "text"
         ]
       },
-      "specs": {
-        "maxOutputTokens": 8192
-      },
+      "lastUpdated": "2024-12-01",
       "metadataSourceId": "models-dev",
       "metadataAsOfDate": "2026-03-01",
       "hasScores": false,
@@ -1556,8 +1927,14 @@
       "releaseDate": "2024-12-11",
       "tier": "verified",
       "family": "gemini-flash",
-      "trainingCutoff": "2024-06",
-      "lastUpdated": "2024-12-11",
+      "specs": {
+        "maxOutputTokens": 8192,
+        "pricing": {
+          "cacheInput": 0.025
+        }
+      },
+      "capabilities": [],
+      "isOpenSource": false,
       "apiSupport": {
         "reasoning": false,
         "toolCall": true,
@@ -1577,12 +1954,8 @@
           "text"
         ]
       },
-      "specs": {
-        "maxOutputTokens": 8192,
-        "pricing": {
-          "cacheInput": 0.025
-        }
-      },
+      "trainingCutoff": "2024-06",
+      "lastUpdated": "2024-12-11",
       "metadataSourceId": "models-dev",
       "metadataAsOfDate": "2026-03-01",
       "hasScores": false,
@@ -1595,8 +1968,11 @@
       "releaseDate": "2024-12-06",
       "tier": "verified",
       "family": "llama",
-      "trainingCutoff": "2023-12",
-      "lastUpdated": "2024-12-06",
+      "specs": {
+        "maxOutputTokens": 4096
+      },
+      "capabilities": [],
+      "isOpenSource": false,
       "apiSupport": {
         "reasoning": false,
         "toolCall": true,
@@ -1611,9 +1987,8 @@
           "text"
         ]
       },
-      "specs": {
-        "maxOutputTokens": 4096
-      },
+      "trainingCutoff": "2023-12",
+      "lastUpdated": "2024-12-06",
       "metadataSourceId": "models-dev",
       "metadataAsOfDate": "2026-03-01",
       "hasScores": false,
@@ -1626,9 +2001,14 @@
       "releaseDate": "2024-12-05",
       "tier": "verified",
       "family": "o",
-      "trainingCutoff": "2023-09",
-      "lastUpdated": "2024-12-05",
-      "interleavedReasoningField": "reasoning_content",
+      "specs": {
+        "maxOutputTokens": 100000,
+        "pricing": {
+          "cacheInput": 7.5
+        }
+      },
+      "capabilities": [],
+      "isOpenSource": false,
       "apiSupport": {
         "reasoning": true,
         "toolCall": true,
@@ -1644,12 +2024,9 @@
           "text"
         ]
       },
-      "specs": {
-        "maxOutputTokens": 100000,
-        "pricing": {
-          "cacheInput": 7.5
-        }
-      },
+      "trainingCutoff": "2023-09",
+      "lastUpdated": "2024-12-05",
+      "interleavedReasoningField": "reasoning_content",
       "metadataSourceId": "models-dev",
       "metadataAsOfDate": "2026-03-01",
       "hasScores": true,
@@ -1662,8 +2039,14 @@
       "releaseDate": "2024-12-01",
       "tier": "verified",
       "family": "nova-pro",
-      "trainingCutoff": "2024-10",
-      "lastUpdated": "2024-12-03",
+      "specs": {
+        "maxOutputTokens": 8192,
+        "pricing": {
+          "cacheInput": 0.2
+        }
+      },
+      "capabilities": [],
+      "isOpenSource": false,
       "apiSupport": {
         "reasoning": false,
         "toolCall": true,
@@ -1680,12 +2063,8 @@
           "text"
         ]
       },
-      "specs": {
-        "maxOutputTokens": 8192,
-        "pricing": {
-          "cacheInput": 0.2
-        }
-      },
+      "trainingCutoff": "2024-10",
+      "lastUpdated": "2024-12-03",
       "metadataSourceId": "models-dev",
       "metadataAsOfDate": "2026-03-01",
       "hasScores": false,
@@ -1698,8 +2077,15 @@
       "releaseDate": "2024-10-22",
       "tier": "verified",
       "family": "claude-haiku",
-      "trainingCutoff": "2024-10",
-      "lastUpdated": "2024-10-22",
+      "specs": {
+        "maxOutputTokens": 8192,
+        "pricing": {
+          "cacheInput": 0.08,
+          "cacheOutput": 1
+        }
+      },
+      "capabilities": [],
+      "isOpenSource": false,
       "apiSupport": {
         "reasoning": false,
         "toolCall": true,
@@ -1715,13 +2101,8 @@
           "text"
         ]
       },
-      "specs": {
-        "maxOutputTokens": 8192,
-        "pricing": {
-          "cacheInput": 0.08,
-          "cacheOutput": 1
-        }
-      },
+      "trainingCutoff": "2024-10",
+      "lastUpdated": "2024-10-22",
       "metadataSourceId": "models-dev",
       "metadataAsOfDate": "2026-03-01",
       "hasScores": false,
@@ -1734,8 +2115,11 @@
       "releaseDate": "2024-10-16",
       "tier": "verified",
       "family": "ministral",
-      "trainingCutoff": "2024-03",
-      "lastUpdated": "2024-10-22",
+      "specs": {
+        "maxOutputTokens": 8192
+      },
+      "capabilities": [],
+      "isOpenSource": false,
       "apiSupport": {
         "reasoning": false,
         "toolCall": true,
@@ -1750,9 +2134,8 @@
           "text"
         ]
       },
-      "specs": {
-        "maxOutputTokens": 8192
-      },
+      "trainingCutoff": "2024-03",
+      "lastUpdated": "2024-10-22",
       "metadataSourceId": "models-dev",
       "metadataAsOfDate": "2026-03-01",
       "hasScores": false,
@@ -1765,6 +2148,17 @@
       "releaseDate": "2024-10-15",
       "tier": "verified",
       "family": null,
+      "specs": {
+        "contextWindow": 0,
+        "pricing": {
+          "input": 0,
+          "output": 0
+        }
+      },
+      "capabilities": [],
+      "isOpenSource": false,
+      "apiSupport": {},
+      "modalities": {},
       "hasScores": false,
       "scoreCount": 0
     },
@@ -1775,9 +2169,14 @@
       "releaseDate": "2024-09-12",
       "tier": "verified",
       "family": "o",
-      "trainingCutoff": "2023-09",
-      "lastUpdated": "2024-09-12",
-      "interleavedReasoningField": "reasoning_content",
+      "specs": {
+        "maxOutputTokens": 32768,
+        "pricing": {
+          "cacheInput": 8.25
+        }
+      },
+      "capabilities": [],
+      "isOpenSource": false,
       "apiSupport": {
         "reasoning": true,
         "toolCall": true,
@@ -1792,12 +2191,9 @@
           "text"
         ]
       },
-      "specs": {
-        "maxOutputTokens": 32768,
-        "pricing": {
-          "cacheInput": 8.25
-        }
-      },
+      "trainingCutoff": "2023-09",
+      "lastUpdated": "2024-09-12",
+      "interleavedReasoningField": "reasoning_content",
       "metadataSourceId": "models-dev",
       "metadataAsOfDate": "2026-03-01",
       "hasScores": false,
@@ -1810,9 +2206,14 @@
       "releaseDate": "2024-09-12",
       "tier": "verified",
       "family": "o-mini",
-      "trainingCutoff": "2023-09",
-      "lastUpdated": "2024-09-12",
-      "interleavedReasoningField": "reasoning_content",
+      "specs": {
+        "maxOutputTokens": 65536,
+        "pricing": {
+          "cacheInput": 0.55
+        }
+      },
+      "capabilities": [],
+      "isOpenSource": false,
       "apiSupport": {
         "reasoning": true,
         "toolCall": true,
@@ -1827,12 +2228,9 @@
           "text"
         ]
       },
-      "specs": {
-        "maxOutputTokens": 65536,
-        "pricing": {
-          "cacheInput": 0.55
-        }
-      },
+      "trainingCutoff": "2023-09",
+      "lastUpdated": "2024-09-12",
+      "interleavedReasoningField": "reasoning_content",
       "metadataSourceId": "models-dev",
       "metadataAsOfDate": "2026-03-01",
       "hasScores": false,
@@ -1845,9 +2243,11 @@
       "releaseDate": "2024-08-01",
       "tier": "verified",
       "family": "command-r",
-      "trainingCutoff": "2024-06-01",
-      "lastUpdated": "2024-08-30",
-      "interleavedReasoningField": "reasoning_content",
+      "specs": {
+        "maxOutputTokens": 4000
+      },
+      "capabilities": [],
+      "isOpenSource": false,
       "apiSupport": {
         "reasoning": true,
         "toolCall": true,
@@ -1862,9 +2262,9 @@
           "text"
         ]
       },
-      "specs": {
-        "maxOutputTokens": 4000
-      },
+      "trainingCutoff": "2024-06-01",
+      "lastUpdated": "2024-08-30",
+      "interleavedReasoningField": "reasoning_content",
       "metadataSourceId": "models-dev",
       "metadataAsOfDate": "2026-03-01",
       "hasScores": false,
@@ -1877,6 +2277,17 @@
       "releaseDate": "2024-07-24",
       "tier": "verified",
       "family": null,
+      "specs": {
+        "contextWindow": 0,
+        "pricing": {
+          "input": 0,
+          "output": 0
+        }
+      },
+      "capabilities": [],
+      "isOpenSource": false,
+      "apiSupport": {},
+      "modalities": {},
       "hasScores": false,
       "scoreCount": 0
     },
@@ -1887,6 +2298,17 @@
       "releaseDate": "2024-07-23",
       "tier": "verified",
       "family": null,
+      "specs": {
+        "contextWindow": 0,
+        "pricing": {
+          "input": 0,
+          "output": 0
+        }
+      },
+      "capabilities": [],
+      "isOpenSource": false,
+      "apiSupport": {},
+      "modalities": {},
       "hasScores": false,
       "scoreCount": 0
     },
@@ -1897,8 +2319,11 @@
       "releaseDate": "2024-06-20",
       "tier": "verified",
       "family": null,
-      "lastUpdated": "2025-09-09",
-      "interleavedReasoningField": "reasoning_content",
+      "specs": {
+        "maxOutputTokens": 8200
+      },
+      "capabilities": [],
+      "isOpenSource": false,
       "apiSupport": {
         "reasoning": true,
         "toolCall": true,
@@ -1915,9 +2340,8 @@
           "text"
         ]
       },
-      "specs": {
-        "maxOutputTokens": 8200
-      },
+      "lastUpdated": "2025-09-09",
+      "interleavedReasoningField": "reasoning_content",
       "metadataSourceId": "models-dev",
       "metadataAsOfDate": "2026-03-01",
       "hasScores": false,
@@ -1930,7 +2354,14 @@
       "releaseDate": "2024-05-13",
       "tier": "verified",
       "family": null,
-      "lastUpdated": "2024-08-06",
+      "specs": {
+        "maxOutputTokens": 16384,
+        "pricing": {
+          "cacheInput": 1.25
+        }
+      },
+      "capabilities": [],
+      "isOpenSource": false,
       "apiSupport": {
         "reasoning": false,
         "toolCall": true,
@@ -1946,12 +2377,7 @@
           "text"
         ]
       },
-      "specs": {
-        "maxOutputTokens": 16384,
-        "pricing": {
-          "cacheInput": 1.25
-        }
-      },
+      "lastUpdated": "2024-08-06",
       "metadataSourceId": "models-dev",
       "metadataAsOfDate": "2026-03-01",
       "hasScores": false,
@@ -1964,6 +2390,17 @@
       "releaseDate": "2024-05-13",
       "tier": "verified",
       "family": null,
+      "specs": {
+        "contextWindow": 0,
+        "pricing": {
+          "input": 0,
+          "output": 0
+        }
+      },
+      "capabilities": [],
+      "isOpenSource": false,
+      "apiSupport": {},
+      "modalities": {},
       "hasScores": false,
       "scoreCount": 0
     },
@@ -1974,6 +2411,17 @@
       "releaseDate": "2024-04-24",
       "tier": "verified",
       "family": null,
+      "specs": {
+        "contextWindow": 0,
+        "pricing": {
+          "input": 0,
+          "output": 0
+        }
+      },
+      "capabilities": [],
+      "isOpenSource": false,
+      "apiSupport": {},
+      "modalities": {},
       "hasScores": false,
       "scoreCount": 0
     },
@@ -1984,6 +2432,17 @@
       "releaseDate": "2024-03-27",
       "tier": "verified",
       "family": null,
+      "specs": {
+        "contextWindow": 0,
+        "pricing": {
+          "input": 0,
+          "output": 0
+        }
+      },
+      "capabilities": [],
+      "isOpenSource": false,
+      "apiSupport": {},
+      "modalities": {},
       "hasScores": false,
       "scoreCount": 0
     },
@@ -1994,6 +2453,17 @@
       "releaseDate": "2024-02-28",
       "tier": "verified",
       "family": null,
+      "specs": {
+        "contextWindow": 0,
+        "pricing": {
+          "input": 0,
+          "output": 0
+        }
+      },
+      "capabilities": [],
+      "isOpenSource": false,
+      "apiSupport": {},
+      "modalities": {},
       "hasScores": false,
       "scoreCount": 0
     },
@@ -2004,6 +2474,17 @@
       "releaseDate": "2024-02-15",
       "tier": "verified",
       "family": null,
+      "specs": {
+        "contextWindow": 0,
+        "pricing": {
+          "input": 0,
+          "output": 0
+        }
+      },
+      "capabilities": [],
+      "isOpenSource": false,
+      "apiSupport": {},
+      "modalities": {},
       "hasScores": false,
       "scoreCount": 0
     },

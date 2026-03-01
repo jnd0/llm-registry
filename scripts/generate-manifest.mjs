@@ -81,6 +81,18 @@ const manifestModels = manualModels.map(model => {
     releaseDate: model.releaseDate,
     tier: 'verified',
     family: metadata.family || null,
+    // Include full specs for Explore page compatibility
+    specs: {
+      contextWindow: model.specs?.contextWindow || 0,
+      maxOutputTokens: model.specs?.maxOutputTokens,
+      pricing: model.specs?.pricing || { input: 0, output: 0 }
+    },
+    // Include capabilities for filtering
+    capabilities: model.capabilities || [],
+    isOpenSource: model.isOpenSource || false,
+    apiSupport: metadata.apiSupport || {},
+    modalities: metadata.modalities || {},
+    trainingCutoff: metadata.trainingCutoff,
     ...metadata
   };
   

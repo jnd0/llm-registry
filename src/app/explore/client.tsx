@@ -75,19 +75,20 @@ export function ExploreClient({
     return filteredModels
       .map((model) => {
         let xValue: number | null = null;
+        const pricing = model.specs?.pricing || { input: 0, output: 0 };
 
         switch (xAxis) {
           case "price":
-            xValue = model.specs.pricing.input + model.specs.pricing.output;
+            xValue = (pricing.input || 0) + (pricing.output || 0);
             break;
           case "inputPrice":
-            xValue = model.specs.pricing.input;
+            xValue = pricing.input || 0;
             break;
           case "outputPrice":
-            xValue = model.specs.pricing.output;
+            xValue = pricing.output || 0;
             break;
           case "contextWindow":
-            xValue = model.specs.contextWindow;
+            xValue = model.specs?.contextWindow || 0;
             break;
           case "releaseDate":
             xValue = new Date(model.releaseDate).getTime();
@@ -95,7 +96,7 @@ export function ExploreClient({
         }
 
         let yValue: number | null = null;
-        yValue = model.scores[yAxis]?.score ?? null;
+        yValue = (model as any).scores?.[yAxis]?.score ?? null;
 
         if (xValue === null || yValue === null || xValue <= 0) return null;
 
