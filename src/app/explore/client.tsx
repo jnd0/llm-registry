@@ -5,6 +5,8 @@ import { useState, useMemo } from "react";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { Search, ChevronDown } from "lucide-react";
+import { FilterPanel, applyModelFilters } from "@/components/model/filter-panel";
+import type { ModelFilter } from "@/components/model/filter-panel";
 
 interface BenchmarkOption {
   id: string;
@@ -43,18 +45,22 @@ export function ExploreClient({
   const [xAxis, setXAxis] = useState<XAxisOption>("price");
   const [yAxis, setYAxis] = useState<YAxisOption>(benchmarkOptions[0]?.id ?? "mmlu");
   const [hoveredPoint, setHoveredPoint] = useState<ChartDataPoint | null>(null);
-  const [selectedLicense, setSelectedLicense] = useState<"all" | "open" | "proprietary">("all");
   const [logScale, setLogScale] = useState(true);
   const [benchmarkSearch, setBenchmarkSearch] = useState("");
   const [showBenchmarkDropdown, setShowBenchmarkDropdown] = useState(false);
+  const [showFilters, setShowFilters] = useState(false);
+  const [filter, setFilter] = useState<ModelFilter>({
+    families: [],
+    capabilities: [],
+    providers: [],
+    openSource: "all",
+    sortBy: "releaseDate",
+    sortOrder: "desc",
+  });
 
   const filteredModels = useMemo(() => {
-    return models.filter((m) => {
-      if (selectedLicense === "open") return m.isOpenSource;
-      if (selectedLicense === "proprietary") return !m.isOpenSource;
-      return true;
-    });
-  }, [models, selectedLicense]);
+    return applyModelFilters(models, filter);
+  }, [models, filter]);
 
   const filteredBenchmarks = useMemo(() => {
     if (!benchmarkSearch) return benchmarkOptions;
@@ -283,39 +289,19 @@ export function ExploreClient({
           </div>
         </div>
 
-        <div className="flex items-center gap-1 bg-muted/30 p-0.5 rounded-full border border-border/40">
-          <button
-            onClick={() => setSelectedLicense("all")}
-            className={cn(
-              "h-6 rounded-full px-2.5 text-[10px] font-bold uppercase tracking-wider transition-all",
-              selectedLicense === "all" ? "bg-background text-primary shadow-sm" : "text-muted-foreground"
-            )}
-          >
-            All
-          </button>
-          <button
-            onClick={() => setSelectedLicense("open")}
-            className={cn(
-              "h-6 rounded-full px-2.5 text-[10px] font-bold uppercase tracking-wider transition-all",
-              selectedLicense === "open" ? "bg-background text-primary shadow-sm" : "text-muted-foreground"
-            )}
-          >
-            Open
-          </button>
-          <button
-            onClick={() => setSelectedLicense("proprietary")}
-            className={cn(
-              "h-6 rounded-full px-2.5 text-[10px] font-bold uppercase tracking-wider transition-all",
-              selectedLicense === "proprietary" ? "bg-background text-primary shadow-sm" : "text-muted-foreground"
-            )}
-          >
-            Proprietary
-          </button>
+        <div className="flex items-center gap-2">
+          <FilterPanel
+            models={models}
+            filter={filter}
+            onFilterChange={setFilter}
+            isOpen={showFilters}
+            onToggle={() => setShowFilters(!showFilters)}
+          />
+          
+          <span className="text-xs text-muted-foreground font-mono">
+            {chartData.data.length} models
+          </span>
         </div>
-
-        <span className="text-xs text-muted-foreground font-mono">
-          {chartData.data.length} models
-        </span>
       </div>
 
       {chartData.data.length === 0 ? (
