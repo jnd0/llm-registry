@@ -1,4 +1,4 @@
-import { Model, ModelStatus } from "@/types";
+import { Model, ModelStatus, ModelContextSurcharge } from "@/types";
 
 export interface ModelMetadataOverride {
   family?: string;
@@ -30,6 +30,7 @@ export interface ModelMetadataOverride {
       reasoning?: number;
       inputAudio?: number;
       outputAudio?: number;
+      contextOver200k?: ModelContextSurcharge;
     };
   };
 }
