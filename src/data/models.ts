@@ -2405,6 +2405,7 @@ function addDefaultModelType(input: Model[]): Model[] {
   return input.map((model) => ({
     ...model,
     modelType: model.modelType ?? "text",
+    tier: model.tier ?? ('verified' as const),
     variants: model.variants ? addDefaultModelType(model.variants) : undefined,
   }));
 }
@@ -2423,30 +2424,56 @@ function addDiscoveredModels(manualModels: Model[], discoveredMetadata: Record<s
       // Only add if not already in manual registry AND has metadata
       return !manualIds.has(id) && metadata;
     })
-    .map(([id, metadata]) => ({
-      id,
-      name: metadata.name || id,
-      provider: metadata.provider || 'Unknown',
-      releaseDate: metadata.releaseDate || 'Unknown',
-      capabilities: ['text'] as const,
-      isOpenSource: false,
-      specs: {
-        contextWindow: metadata.specs?.contextWindow || 0,
-        parameters: 'Unknown',
-        pricing: {
-          input: metadata.specs?.pricing?.input ?? 0,
-          output: metadata.specs?.pricing?.output ?? 0,
+    .map(([id, metadata]) => {
+      // Derive provider from ID if not available
+      const providerId = id.split('-')[0];
+      const providerName = providerId.charAt(0).toUpperCase() + providerId.slice(1);
+      
+      // Infer capabilities from modalities
+      const capabilities: Array<'text' | 'vision' | 'audio' | 'video' | 'code'> = ['text'];
+      if (metadata.modalities?.input) {
+        if (metadata.modalities.input.includes('image')) capabilities.push('vision');
+        if (metadata.modalities.input.includes('audio')) capabilities.push('audio');
+        if (metadata.modalities.input.includes('video')) capabilities.push('video');
+      }
+      if (metadata.modalities?.output) {
+        if (metadata.modalities.output.includes('image') && !capabilities.includes('vision')) {
+          capabilities.push('vision');
         }
-      },
-      scores: {}, // No scores yet - these are discovered models
-      family: metadata.family,
-      trainingCutoff: metadata.trainingCutoff,
-      lastUpdated: metadata.lastUpdated,
-      apiSupport: metadata.apiSupport,
-      modalities: metadata.modalities,
-      metadataSourceId: 'models-dev',
-      metadataAsOfDate: metadata.metadataAsOfDate,
-    }));
+        if (metadata.modalities.output.includes('audio') && !capabilities.includes('audio')) {
+          capabilities.push('audio');
+        }
+        if (metadata.modalities.output.includes('video') && !capabilities.includes('video')) {
+          capabilities.push('video');
+        }
+      }
+      
+      return {
+        id,
+        name: id, // Use ID as name since models.dev doesn't provide display names
+        provider: metadata.providers?.[0] || providerName,
+        releaseDate: 'Unknown', // Would need to come from models.dev API
+        capabilities: capabilities as any,
+        isOpenSource: false,
+        tier: 'discovered' as const,
+        specs: {
+          contextWindow: metadata.specs?.contextWindow || 0,
+          parameters: 'Unknown',
+          pricing: {
+            input: metadata.specs?.pricing?.input ?? 0,
+            output: metadata.specs?.pricing?.output ?? 0,
+          }
+        },
+        scores: {}, // No scores yet - these are discovered models
+        family: metadata.family,
+        trainingCutoff: metadata.trainingCutoff,
+        lastUpdated: metadata.lastUpdated,
+        apiSupport: metadata.apiSupport,
+        modalities: metadata.modalities,
+        metadataSourceId: 'models-dev',
+        metadataAsOfDate: metadata.metadataAsOfDate,
+      };
+    });
   
   return [...manualModels, ...discoveredModels];
 }

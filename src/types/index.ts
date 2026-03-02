@@ -122,6 +122,7 @@ export interface Model {
   name: string;                  // Display name
   provider: string;              // Changed to string for flexibility
   family?: string;               // Model family grouping (e.g., "llama", "gpt", "claude")
+  tier?: 'verified' | 'discovered'; // Model tier: verified (manual) or discovered (auto-imported)
   releaseDate: string;           // ISO 8601 (YYYY-MM-DD)
   capabilities: ModelCapability[];
   isOpenSource: boolean;         // True if weights are available (Llama, DeepSeek)

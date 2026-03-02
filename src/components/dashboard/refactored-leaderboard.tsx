@@ -8,8 +8,10 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Shield, Sparkles, Trophy, TrendingUp } from "lucide-react";
 import { cn } from "@/lib/utils";
 
+import { RegistryModel } from "@/hooks/use-registry";
+
 interface ModelRowProps {
-  model: any;
+  model: RegistryModel;
   rank: number;
 }
 

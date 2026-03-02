@@ -340,7 +340,7 @@ export default async function ModelPage({ params }: PageProps) {
               {model.family && (
                 <FamilyBadge family={model.family} size="sm" showLink={false} />
               )}
-              <TierBadge tier="verified" size="sm" />
+              <TierBadge tier={model.tier || 'verified'} size="sm" />
               {model.isOpenSource && (
                 <Badge variant="outline" className="rounded-full border-emerald-500/20 bg-emerald-500/10 px-3 py-0.5 font-bold text-[10px] uppercase tracking-widest text-emerald-700 dark:text-emerald-400">
                   Open Weights

@@ -32,7 +32,7 @@ const xAxisLabels: Record<XAxisOption, string> = {
 };
 
 interface ChartDataPoint {
-  model: any;
+  model: Model;
   x: number;
   y: number;
   xPixel: number;
@@ -43,9 +43,10 @@ export function ExploreClient({
   models: passedModels,
   benchmarkOptions,
 }: ExploreClientProps) {
-  // Use passed models if available (for Explore page), otherwise use hook
-  const { models: registryModels } = useRegistry({ includeUnscored: true });
-  const models = passedModels || registryModels;
+  // Note: Explore page uses passed models from SSG for optimal performance
+  // The scatter plot requires scores which aren't in the registry manifest
+  // Using SSG avoids multiple client-side fetches and provides instant rendering
+  const models = passedModels;
   const [selectedLicense, setSelectedLicense] = useState<"all" | "open" | "proprietary">("all");
   const [xAxis, setXAxis] = useState<XAxisOption>("price");
   const [yAxis, setYAxis] = useState<YAxisOption>(benchmarkOptions[0]?.id ?? "mmlu");
@@ -64,7 +65,8 @@ export function ExploreClient({
   });
 
   const filteredModels = useMemo(() => {
-    return applyModelFilters(models as any, filter);
+    if (!models) return [];
+    return applyModelFilters(models, filter);
   }, [models, filter]);
 
   const filteredBenchmarks = useMemo(() => {
@@ -100,7 +102,7 @@ export function ExploreClient({
         }
 
         let yValue: number | null = null;
-        yValue = (model as any).scores?.[yAxis]?.score ?? null;
+        yValue = model.scores?.[yAxis]?.score ?? null;
 
         if (xValue === null || yValue === null || xValue <= 0) return null;
 

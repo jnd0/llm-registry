@@ -2,52 +2,85 @@
 // Creates a lightweight, searchable manifest with tier information
 // Usage: bun run generate:manifest
 
-import { readFileSync, writeFileSync, existsSync, mkdirSync, readdirSync, copyFileSync } from 'fs';
+import { writeFileSync, existsSync, mkdirSync, readdirSync, copyFileSync } from 'fs';
 import { join } from 'path';
+import { execSync } from 'child_process';
+import { mkdtempSync, unlinkSync, rmdirSync, writeFileSync as writeFile } from 'fs';
+import { tmpdir } from 'os';
 
 console.log('🔧 Generating registry manifest...');
 
 const scoresDir = join(process.cwd(), 'src', 'data', 'scores');
-const modelsDevMetadataPath = join(process.cwd(), 'src', 'data', 'models-dev-import.ts');
-const modelsPath = join(process.cwd(), 'src', 'data', 'models.ts');
 const outputPath = join(process.cwd(), 'public', 'api', 'registry-manifest.json');
 
-// Helper to extract models from TypeScript file
-function extractModelsFromTS(content) {
-  const models = [];
-  const modelRegex = /{\s*id:\s*["']([^"']+)["'],\s*name:\s*["']([^"']+)["'],\s*provider:\s*["']([^"']+)["'][\s\S]*?releaseDate:\s*["']([^"']+)["']/g;
+// Use bun to load the models array directly with full dependency resolution
+// This is more robust than regex parsing
+function loadModels() {
+  const tempDir = mkdtempSync(join(tmpdir(), 'llm-registry-manifest-'));
+  const tempScript = join(tempDir, 'loader.ts');
+  const modelsPath = join(process.cwd(), 'src', 'data', 'models.ts');
   
-  let match;
-  while ((match = modelRegex.exec(content)) !== null) {
-    models.push({
-      id: match[1],
-      name: match[2],
-      provider: match[3],
-      releaseDate: match[4]
+  const loaderCode = `
+    import { models } from '${modelsPath}';
+    
+    // Convert models to serializable format
+    const serializableModels = models.map(m => ({
+      id: m.id,
+      name: m.name,
+      provider: m.provider,
+      releaseDate: m.releaseDate,
+      tier: m.tier,
+      family: m.family,
+      specs: {
+        contextWindow: m.specs?.contextWindow || 0,
+        maxOutputTokens: m.specs?.maxOutputTokens,
+        pricing: m.specs?.pricing || { input: 0, output: 0 }
+      },
+      capabilities: m.capabilities || [],
+      isOpenSource: m.isOpenSource || false,
+      apiSupport: m.apiSupport || {},
+      modalities: m.modalities || {},
+      trainingCutoff: m.trainingCutoff,
+    }));
+    
+    process.stdout.write(JSON.stringify({ success: true, models: serializableModels }));
+  `;
+  
+  try {
+    writeFile(tempScript, loaderCode);
+    
+    const result = execSync(`bun run "${tempScript}"`, {
+      encoding: 'utf8',
+      maxBuffer: 100 * 1024 * 1024,
+      stdio: ['pipe', 'pipe', 'pipe'],
+      env: { ...process.env, NODE_ENV: 'development' }
     });
-  }
-  
-  return models;
-}
-
-// Read manual models
-const manualModels = extractModelsFromTS(readFileSync(modelsPath, 'utf-8'));
-console.log(`📝 Found ${manualModels.length} manually curated models`);
-
-// Read models.dev metadata if available
-let modelsDevMetadata = {};
-if (existsSync(modelsDevMetadataPath)) {
-  const metadataContent = readFileSync(modelsDevMetadataPath, 'utf-8');
-  const jsonMatch = metadataContent.match(/modelsDevMetadata:\s*Record<string,\s*ModelMetadataOverride>\s*=\s*({[\s\S]*?});\s*$/);
-  if (jsonMatch) {
+    
+    const parsed = JSON.parse(result.trim());
+    if (!parsed.success) {
+      throw new Error('Loader script failed');
+    }
+    return parsed.models;
+  } catch (error) {
+    console.error('Failed to load models:', error.message);
+    if (error.stderr) {
+      console.error('stderr:', error.stderr.toString());
+    }
+    throw error;
+  } finally {
+    // Cleanup temp files
     try {
-      modelsDevMetadata = JSON.parse(jsonMatch[1]);
-      console.log(`📊 Loaded metadata for ${Object.keys(modelsDevMetadata).length} models from models.dev`);
-    } catch (error) {
-      console.warn('⚠️  Could not parse models.dev metadata:', error.message);
+      unlinkSync(tempScript);
+      rmdirSync(tempDir);
+    } catch (e) {
+      // Ignore cleanup errors
     }
   }
 }
+
+// Load models using bun
+const manualModels = loadModels();
+console.log(`📝 Found ${manualModels.length} manually curated models`);
 
 // Read score files to count scores per model
 const scoreCounts = {};
@@ -58,7 +91,6 @@ if (existsSync(sourceScoresDir)) {
   
   files.forEach(modelId => {
     try {
-      // modelId is already the full filename (e.g., "o1.json"), don't append .json again
       const scoreData = JSON.parse(readFileSync(join(sourceScoresDir, modelId), 'utf-8'));
       const key = modelId.replace('.json', '');
       scoreCounts[key] = Object.keys(scoreData.scores || {}).length;
@@ -68,57 +100,17 @@ if (existsSync(sourceScoresDir)) {
   });
 }
 
-// Build the manifest
+// Build the manifest with score information
 const manifestModels = manualModels.map(model => {
-  const metadata = modelsDevMetadata[model.id] || {};
   const modelScoreCount = scoreCounts[model.id] || 0;
   const modelHasScores = modelScoreCount > 0;
   
-  const manifestModel = {
-    id: model.id,
-    name: model.name,
-    provider: model.provider,
-    releaseDate: model.releaseDate,
-    tier: 'verified',
-    family: metadata.family || null,
-    // Include full specs for Explore page compatibility
-    specs: {
-      contextWindow: model.specs?.contextWindow || 0,
-      maxOutputTokens: model.specs?.maxOutputTokens,
-      pricing: model.specs?.pricing || { input: 0, output: 0 }
-    },
-    // Include capabilities for filtering
-    capabilities: model.capabilities || [],
-    isOpenSource: model.isOpenSource || false,
-    apiSupport: metadata.apiSupport || {},
-    modalities: metadata.modalities || {},
-    trainingCutoff: metadata.trainingCutoff,
-    ...metadata
+  return {
+    ...model,
+    hasScores: modelHasScores,
+    scoreCount: modelScoreCount
   };
-  
-  // Explicitly set score fields AFTER spreading metadata to prevent overwrite
-  manifestModel.hasScores = modelHasScores;
-  manifestModel.scoreCount = modelScoreCount;
-  
-  return manifestModel;
 });
-
-// Add discovered-only models from models.dev (not in manual list)
-const manualIds = new Set(manualModels.map(m => m.id));
-const discoveredModels = Object.entries(modelsDevMetadata)
-  .filter(([id]) => !manualIds.has(id))
-  .map(([id, metadata]) => ({
-    id,
-    name: metadata.name || id,
-    provider: metadata.provider || 'Unknown',
-    releaseDate: metadata.releaseDate || 'Unknown',
-    tier: 'discovered',
-    hasScores: false,
-    scoreCount: 0,
-    ...metadata
-  }));
-
-manifestModels.push(...discoveredModels);
 
 // Sort by release date (newest first)
 manifestModels.sort((a, b) => 
