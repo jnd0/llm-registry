@@ -2413,4 +2413,44 @@ const withMetadata = applyMetadataOverrides(rawModels, mergedMetadataOverrides);
 const withOverrides = applyScoreOverrides(withMetadata, modelScoreOverrides);
 const withModelType = addDefaultModelType(withOverrides);
 
-export const models: Model[] = addScoreProvenance(withModelType);
+
+// Add discovered models from models.dev that don't exist in manual registry
+function addDiscoveredModels(manualModels: Model[], discoveredMetadata: Record<string, ModelMetadataOverride>): Model[] {
+  const manualIds = new Set(manualModels.map(m => m.id));
+  
+  const discoveredModels: Model[] = Object.entries(discoveredMetadata)
+    .filter(([id, metadata]) => {
+      // Only add if not already in manual registry AND has metadata
+      return !manualIds.has(id) && metadata;
+    })
+    .map(([id, metadata]) => ({
+      id,
+      name: metadata.name || id,
+      provider: metadata.provider || 'Unknown',
+      releaseDate: metadata.releaseDate || 'Unknown',
+      capabilities: ['text'] as const,
+      isOpenSource: false,
+      specs: {
+        contextWindow: metadata.specs?.contextWindow || 0,
+        parameters: 'Unknown',
+        pricing: {
+          input: metadata.specs?.pricing?.input ?? 0,
+          output: metadata.specs?.pricing?.output ?? 0,
+        }
+      },
+      scores: {}, // No scores yet - these are discovered models
+      family: metadata.family,
+      trainingCutoff: metadata.trainingCutoff,
+      lastUpdated: metadata.lastUpdated,
+      apiSupport: metadata.apiSupport,
+      modalities: metadata.modalities,
+      metadataSourceId: 'models-dev',
+      metadataAsOfDate: metadata.metadataAsOfDate,
+    }));
+  
+  return [...manualModels, ...discoveredModels];
+}
+
+// Apply discovered models merge
+const allModels = addDiscoveredModels(withModelType, modelsDevMetadata);
+export const models: Model[] = addScoreProvenance(allModels);
