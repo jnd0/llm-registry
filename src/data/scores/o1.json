@@ -1,0 +1,35 @@
+{
+  "modelId": "o1",
+  "scores": {
+    "mmlu": {
+      "score": 91.8,
+      "verified": true,
+      "verificationLevel": "provider",
+      "sourceId": "openai",
+      "asOfDate": "2024-12-05"
+    },
+    "gpqa-diamond": {
+      "score": 78.0,
+      "verified": true,
+      "verificationLevel": "provider",
+      "sourceId": "openai",
+      "asOfDate": "2024-12-05"
+    },
+    "math-500": {
+      "score": 96.4,
+      "verified": true,
+      "verificationLevel": "provider",
+      "sourceId": "openai",
+      "asOfDate": "2024-12-05"
+    },
+    "human-eval": {
+      "score": 88.1,
+      "verified": true,
+      "verificationLevel": "provider",
+      "sourceId": "openai",
+      "asOfDate": "2024-12-05"
+    }
+  },
+  "lastUpdated": "2024-12-05",
+  "source": "manual-curation"
+}

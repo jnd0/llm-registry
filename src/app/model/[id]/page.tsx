@@ -13,6 +13,7 @@ import { siteName, siteUrl } from "@/lib/site";
 import { safeExternalHref, toSafeJsonLd } from "@/lib/security";
 import { CapabilityBadges } from "@/components/model/capability-icon";
 import { FamilyBadge } from "@/components/model/family-badge";
+import { TierBadge, ScoreCount } from "@/components/ui/tier-badge";
 
 const sourceMap = new Map(sources.map((source) => [source.id, source]));
 
@@ -337,8 +338,9 @@ export default async function ModelPage({ params }: PageProps) {
                 {model.provider}
               </Badge>
               {model.family && (
-                <FamilyBadge family={model.family} size="sm" showLink />
+                <FamilyBadge family={model.family} size="sm" showLink={false} />
               )}
+              <TierBadge tier={model.tier || 'verified'} size="sm" />
               {model.isOpenSource && (
                 <Badge variant="outline" className="rounded-full border-emerald-500/20 bg-emerald-500/10 px-3 py-0.5 font-bold text-[10px] uppercase tracking-widest text-emerald-700 dark:text-emerald-400">
                   Open Weights
@@ -360,6 +362,7 @@ export default async function ModelPage({ params }: PageProps) {
                   {model.status}
                 </Badge>
               )}
+              <ScoreCount scoreCount={scoredBenchmarkCount} hasScores={scoredBenchmarkCount > 0} />
             </div>
 
             <div className="flex flex-wrap items-center gap-3">

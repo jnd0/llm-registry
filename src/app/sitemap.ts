@@ -69,12 +69,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.5,
   }));
 
-  const modelRoutes: MetadataRoute.Sitemap = models.map((model) => ({
-    url: `${siteUrl}/model/${model.id}`,
-    lastModified: new Date(model.releaseDate),
-    changeFrequency: "weekly",
-    priority: 0.6,
-  }));
+  const modelRoutes: MetadataRoute.Sitemap = models
+    .filter(model => model.releaseDate !== 'Unknown')
+    .map((model) => ({
+      url: `${siteUrl}/model/${model.id}`,
+      lastModified: new Date(model.releaseDate),
+      changeFrequency: "weekly",
+      priority: 0.6,
+    }));
 
   return [...staticRoutes, ...categoryRoutes, ...domainRoutes, ...benchmarkRoutes, ...modelRoutes];
 }

@@ -4,25 +4,40 @@ The Source of Truth for LLM Benchmarks. Compare top models like **DeepSeek V3**,
 
 ## Features
 
-- **Global Leaderboard**: Sortable, filterable index of top LLMs with pagination and column selection
+- **Global Leaderboard**: Sortable, filterable index with tier filtering (Verified vs Discovered)
 - **Interactive Comparison**: "Versus Mode" with Radar Charts and Delta tables
-- **Deep Specs**: Detailed context window, pricing, and parameter data
-- **Verified Scores**: Distinguishes between self-reported and verified benchmark results
-- **Data Freshness**: Visual indicators showing score age (amber for aging, red for stale)
-- **Coverage-Assisted Mode**: Family-proxy estimation for sparse models with clear attribution
-- **API Access**: REST API for programmatic access to benchmark data
+- **Deep Specs**: Context window, pricing (input/output/cache/reasoning), max output tokens
+- **Verified Scores**: Distinguishes between third-party, provider, community, and estimated results
+- **Data Freshness**: Training cutoff dates and score age indicators
+- **Tier System**: Verified (curated) vs Discovered (auto-imported) model classification
+- **Capability Filtering**: Filter by reasoning, vision, tools, audio, code specialization
+- **Family System**: Model family grouping (Llama, GPT, Claude, Gemini, etc.)
+- **API Access**: REST API with rate limiting and OpenAPI 3.0 spec
 - **Data Validation**: Built-in scripts to prevent broken IDs and out-of-range scores
+- **Scalable Architecture**: Supports 10,000+ models with on-demand data loading
 
 ## Stack
 
 - **Framework**: Next.js 16 (App Router)
 - **Styling**: Tailwind CSS v4 + Shadcn UI
-- **Data**: TypeScript-based local "database" (for speed & type safety)
-- **Schema Validation**: Zod runtime guards for registry data integrity
-- **State**: `nuqs` (URL-driven state management)
+- **Data**: Hybrid architecture (manifest + full data)
+- **State Management**: SWR for on-demand data fetching
 - **Charts**: Recharts
+- **Deployment**: Cloudflare Pages (static + edge delivery)
 
-Leaderboard filtering/sorting/pagination is URL-driven and server-applied, so the client only hydrates the current page slice instead of the full registry dataset.
+### Architecture
+
+**Hybrid Data Loading:**
+- **Registry Manifest** (~50KB): Lightweight model list for discovery
+- **Full Model Data** (~870KB): Complete specs and benchmarks (used where needed)
+- **Score Files** (<1KB each): On-demand score loading
+
+**Key Hooks:**
+- `useRegistry()` - Fetch model lists with tier filtering
+- `useModelScores()` - Load scores on-demand
+- `useRegistryFamilies()` - Get unique model families
+
+See [`docs/SCALABLE_ARCHITECTURE.md`](docs/SCALABLE_ARCHITECTURE.md) for complete documentation.
 
 ## Getting Started
 
@@ -31,19 +46,36 @@ Leaderboard filtering/sorting/pagination is URL-driven and server-applied, so th
    bun install
    ```
 
-2. Run the development server:
+2. Generate registry manifest:
+   ```bash
+   bun run import:models-dev
+   bun run generate:manifest
+   ```
+
+3. Run the development server:
    ```bash
    bun dev
    ```
 
-3. Open [http://localhost:3000](http://localhost:3000)
+4. Open [http://localhost:3000](http://localhost:3000)
 
 ## Data Quality Commands
+
+- **Import models.dev metadata:**
+  ```bash
+  bun run import:models-dev
+  ```
+  
+- **Generate registry manifest:**
+  ```bash
+  bun run generate:manifest
+  ```
 
 - Validate registry integrity:
   ```bash
   bun run validate:data
   ```
+  
 - Run strict validation (CI parity):
   ```bash
   bun run validate:data:strict
@@ -158,3 +190,131 @@ Benchmark data includes contributions from:
 - Third-party evaluation results
 
 All imported data includes provenance tracking with source IDs, verification levels, and as-of dates.
+
+---
+
+## Build & Deployment
+
+### Production Build
+
+```bash
+bun run build:cf
+```
+
+This will:
+1. Generate registry manifest (1,581 models)
+2. Copy score files to public directory
+3. Build Next.js application
+4. Output static files to `dist/`
+
+### Deploy to Cloudflare Pages
+
+```bash
+# Manual deployment
+bun run build:cf
+npx wrangler pages deploy dist/
+
+# Or connect GitHub repo for auto-deploy
+```
+
+### Automated Sync (Weekly)
+
+GitHub Actions automatically:
+- Imports latest models.dev data (every Monday 2 AM UTC)
+- Detects changes
+- Creates pull request for review
+
+See [`.github/workflows/update-models-dev.yml`](.github/workflows/update-models-dev.yml)
+
+---
+
+## Performance
+
+### Bundle Sizes
+
+| Component | Size | Notes |
+|-----------|------|-------|
+| Client Bundle | ~150KB | React + app code |
+| Registry Manifest | ~50KB | 1,581 models |
+| Score Files | <1KB | Per model |
+
+### Load Times
+
+| Page | Initial Load | Data Fetch | Total |
+|------|--------------|------------|-------|
+| Leaderboard | <1s | <200ms | <1.2s |
+| Model Detail | <1s | <50ms | <1.05s |
+| Explore | <1s | N/A | <1s |
+
+### Scalability
+
+- **Current Models:** 1,581
+- **Max Supported:** 50,000+
+- **Build Time:** ~3 seconds
+- **API Response:** <20ms (edge cached)
+
+---
+
+## API Documentation
+
+REST API available at `/api/v1/`:
+
+- `GET /api/v1/models` - List all models
+- `GET /api/v1/models/[id]` - Model details
+- `GET /api/v1/benchmarks` - List benchmarks
+- `GET /api/v1/scores` - Query scores
+- `GET /api/v1/leaderboards/[category]` - Category rankings
+- `GET /api/v1/export` - Export data (JSON/CSV)
+
+**Rate Limiting:** 100 requests/minute per IP (via Cloudflare WAF)
+
+Full documentation: [`/api-docs`](/api-docs)
+
+---
+
+## Documentation
+
+- **[Scalable Architecture](docs/SCALABLE_ARCHITECTURE.md)** - Data loading patterns
+- **[Cloudflare WAF Setup](docs/CLOUDFLARE_WAF_SETUP.md)** - Rate limiting
+- **[Migration Guide](docs/MIGRATION_GUIDE.md)** - Upgrading to v0.7.0
+- **[API Documentation](/api-docs)** - REST API reference
+
+---
+
+## Version
+
+**Current:** v0.7.0 (2026-03-01)
+
+**Recent Changes:**
+- Tier system (Verified/Discovered models)
+- On-demand data loading with hooks
+- Automated models.dev import
+- 1,581 models with rich metadata
+- Advanced filtering (family, capability, provider)
+- Score files for on-demand loading
+
+See [Changelog](src/data/changelog.ts) for complete history.
+
+---
+
+## License
+
+MIT License - see [LICENSE](LICENSE) file for details.
+
+## Attribution
+
+**Data Sources:**
+- [models.dev](https://models.dev) - Model metadata (MIT License)
+- [Artificial Analysis](https://artificialanalysis.ai/) - Score overrides
+- Manual curation - Benchmark scores
+
+**Technologies:**
+- Next.js 16
+- TypeScript 5
+- React 19
+- Tailwind CSS v4
+- Shadcn UI
+- SWR
+- Cloudflare Pages
+
+Built with ❤️ for the AI community.

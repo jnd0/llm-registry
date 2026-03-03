@@ -7,6 +7,7 @@ import Link from "next/link";
 import { Search, ChevronDown } from "lucide-react";
 import { FilterPanel, applyModelFilters } from "@/components/model/filter-panel";
 import type { ModelFilter } from "@/components/model/filter-panel";
+import { useRegistry } from "@/hooks/use-registry";
 
 interface BenchmarkOption {
   id: string;
@@ -15,7 +16,7 @@ interface BenchmarkOption {
 }
 
 interface ExploreClientProps {
-  models: Model[];
+  models?: Model[];
   benchmarkOptions: BenchmarkOption[];
 }
 
@@ -39,9 +40,14 @@ interface ChartDataPoint {
 }
 
 export function ExploreClient({
-  models,
+  models: passedModels,
   benchmarkOptions,
 }: ExploreClientProps) {
+  // Note: Explore page uses passed models from SSG for optimal performance
+  // The scatter plot requires scores which aren't in the registry manifest
+  // Using SSG avoids multiple client-side fetches and provides instant rendering
+  const models = passedModels;
+  const [selectedLicense, setSelectedLicense] = useState<"all" | "open" | "proprietary">("all");
   const [xAxis, setXAxis] = useState<XAxisOption>("price");
   const [yAxis, setYAxis] = useState<YAxisOption>(benchmarkOptions[0]?.id ?? "mmlu");
   const [hoveredPoint, setHoveredPoint] = useState<ChartDataPoint | null>(null);
@@ -59,6 +65,7 @@ export function ExploreClient({
   });
 
   const filteredModels = useMemo(() => {
+    if (!models) return [];
     return applyModelFilters(models, filter);
   }, [models, filter]);
 
@@ -74,19 +81,20 @@ export function ExploreClient({
     return filteredModels
       .map((model) => {
         let xValue: number | null = null;
+        const pricing = model.specs?.pricing || { input: 0, output: 0 };
 
         switch (xAxis) {
           case "price":
-            xValue = model.specs.pricing.input + model.specs.pricing.output;
+            xValue = (pricing.input || 0) + (pricing.output || 0);
             break;
           case "inputPrice":
-            xValue = model.specs.pricing.input;
+            xValue = pricing.input || 0;
             break;
           case "outputPrice":
-            xValue = model.specs.pricing.output;
+            xValue = pricing.output || 0;
             break;
           case "contextWindow":
-            xValue = model.specs.contextWindow;
+            xValue = model.specs?.contextWindow || 0;
             break;
           case "releaseDate":
             xValue = new Date(model.releaseDate).getTime();
@@ -94,7 +102,7 @@ export function ExploreClient({
         }
 
         let yValue: number | null = null;
-        yValue = model.scores[yAxis]?.score ?? null;
+        yValue = model.scores?.[yAxis]?.score ?? null;
 
         if (xValue === null || yValue === null || xValue <= 0) return null;
 
@@ -291,7 +299,7 @@ export function ExploreClient({
 
         <div className="flex items-center gap-2">
           <FilterPanel
-            models={models}
+            models={models as any}
             filter={filter}
             onFilterChange={setFilter}
             isOpen={showFilters}

@@ -66,7 +66,9 @@ function LoadingShell() {
 export default function Home() {
   const { totalScores, latestScoreDate } = getHomeMetrics(models, benchmarks);
 
-  const latestArrival = [...models].sort((a, b) => b.releaseDate.localeCompare(a.releaseDate))[0];
+  const latestArrival = [...models]
+    .filter(m => m.releaseDate !== 'Unknown')
+    .sort((a, b) => b.releaseDate.localeCompare(a.releaseDate))[0];
 
   const homeStructuredData = {
     "@context": "https://schema.org",

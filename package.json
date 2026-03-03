@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "build:cf": "next build",
+    "build:cf": "bun run generate:manifest && next build",
     "start": "next start",
     "lint": "eslint",
     "test": "node --test 'tests/**/*.test.mjs'",
@@ -14,7 +14,9 @@
     "validate:data:strict": "node scripts/validate-registry.mjs --strict",
     "report:coverage": "node scripts/coverage-report.mjs",
     "import:yaman:metadata": "node scripts/import-yaman-metadata.mjs",
-    "import:models-dev": "bun scripts/import-models-dev.mjs"
+    "import:models-dev": "bun scripts/import-models-dev.mjs",
+    "extract-scores": "bun scripts/extract-scores.mjs",
+    "generate:manifest": "bun scripts/generate-manifest.mjs"
   },
   "dependencies": {
     "@tanstack/react-table": "^8.21.3",
