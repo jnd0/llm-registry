@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import { Benchmark, Model } from "@/types";
 import { domainDefinitions, domainToSlug, type CapabilityDomain } from "@/lib/domains";
+import { DialogTitle } from "@radix-ui/react-dialog";
 
 const domainIcons: Record<CapabilityDomain, React.ElementType> = {
   "Intelligence": Brain,
@@ -85,6 +86,7 @@ export function CommandPalette({ open, onOpenChange, models, benchmarks }: Comma
       onOpenChange={onOpenChange}
       className="fixed inset-0 z-50"
     >
+      <DialogTitle className="sr-only">Search models, benchmarks, and providers</DialogTitle>
       <div className="fixed inset-0 bg-black/50 backdrop-blur-sm" />
       
       <div className="fixed left-1/2 top-[20%] z-50 max-h-[70vh] w-full max-w-xl -translate-x-1/2 overflow-hidden rounded-2xl border border-border bg-card shadow-2xl">
