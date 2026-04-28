@@ -2509,6 +2509,221 @@ const rawModels: Model[] = [
       "swe-bench-verified": { score: 79.0, verified: true, sourceId: "deepseek-v4-announce", asOfDate: "2026-04-24" },
       "terminal-bench": { score: 56.9, verified: true, sourceId: "deepseek-v4-announce", asOfDate: "2026-04-24" },
     }
+  },
+  {
+    id: "claude-opus-4-7",
+    name: "Claude Opus 4.7",
+    provider: "Anthropic",
+    releaseDate: "2026-04-16",
+    capabilities: ["text", "code", "vision", "reasoning"],
+    isOpenSource: false,
+    specs: {
+      contextWindow: 1000000,
+      parameters: "Unknown",
+      pricing: { input: 5.00, output: 25.00 }
+    },
+    scores: {
+      "swe-bench-verified": { score: 87.6, verified: true, sourceId: "anthropic-opus-4-7-announce", asOfDate: "2026-04-16" },
+      "swe-bench-pro": { score: 64.3, verified: true, sourceId: "anthropic-opus-4-7-announce", asOfDate: "2026-04-16" },
+      "terminal-bench": { score: 69.4, verified: true, sourceId: "anthropic-opus-4-7-announce", asOfDate: "2026-04-16" },
+      "gpqa-diamond": { score: 94.2, verified: true, sourceId: "anthropic-opus-4-7-announce", asOfDate: "2026-04-16" },
+      "hle-full": { score: 46.9, verified: true, sourceId: "anthropic-opus-4-7-announce", asOfDate: "2026-04-16" },
+      "hle-full-tools": { score: 54.7, verified: true, sourceId: "anthropic-opus-4-7-announce", asOfDate: "2026-04-16" },
+      "mcp-atlas": { score: 77.3, verified: true, sourceId: "anthropic-opus-4-7-announce", asOfDate: "2026-04-16" },
+      "osworld-verified": { score: 78.0, verified: true, sourceId: "anthropic-opus-4-7-announce", asOfDate: "2026-04-16" },
+      "browsecomp": { score: 79.3, verified: true, sourceId: "anthropic-opus-4-7-announce", asOfDate: "2026-04-16" },
+      "mmmlu": { score: 91.5, verified: true, sourceId: "anthropic-opus-4-7-announce", asOfDate: "2026-04-16" },
+      "swe-multilingual": { score: 80.5, verified: true, sourceId: "anthropic-opus-4-7-announce", asOfDate: "2026-04-16" },
+      "cybergym": { score: 73.1, verified: true, sourceId: "anthropic-opus-4-7-announce", asOfDate: "2026-04-16" },
+      "charxiv-reasoning": { score: 82.1, verified: true, sourceId: "anthropic-opus-4-7-announce", asOfDate: "2026-04-16" },
+      "screenspot-pro": { score: 79.5, verified: true, sourceId: "anthropic-opus-4-7-announce", asOfDate: "2026-04-16" },
+    }
+  },
+  {
+    id: "google-gemma-4-31b-it",
+    name: "Gemma 4 31B IT",
+    provider: "Google DeepMind",
+    releaseDate: "2026-04-02",
+    capabilities: ["text", "code", "vision", "reasoning"],
+    isOpenSource: true,
+    specs: {
+      contextWindow: 256000,
+      parameters: "30.7B",
+      pricing: { input: 0.13, output: 0.38 }
+    },
+    scores: {
+      "mmlu-pro": { score: 85.2, verified: true, sourceId: "google-gemma-4-announce", asOfDate: "2026-04-02" },
+      "aime-2026": { score: 89.2, verified: true, sourceId: "google-gemma-4-announce", asOfDate: "2026-04-02" },
+      "livecodebench-v6": { score: 80.0, verified: true, sourceId: "google-gemma-4-announce", asOfDate: "2026-04-02" },
+      "gpqa-diamond": { score: 84.3, verified: true, sourceId: "google-gemma-4-announce", asOfDate: "2026-04-02" },
+      "hle-full": { score: 19.5, verified: true, sourceId: "google-gemma-4-announce", asOfDate: "2026-04-02" },
+      "hle-full-tools": { score: 26.5, verified: true, sourceId: "google-gemma-4-announce", asOfDate: "2026-04-02" },
+      "bigbench-extra-hard": { score: 74.4, verified: true, sourceId: "google-gemma-4-announce", asOfDate: "2026-04-02" },
+      "mmmlu": { score: 88.4, verified: true, sourceId: "google-gemma-4-announce", asOfDate: "2026-04-02" },
+      "mmmu-pro": { score: 76.9, verified: true, sourceId: "google-gemma-4-announce", asOfDate: "2026-04-02" },
+      "mathvision": { score: 85.6, verified: true, sourceId: "google-gemma-4-announce", asOfDate: "2026-04-02" },
+    }
+  },
+  {
+    id: "google-gemma-4-26b-a4b-it",
+    name: "Gemma 4 26B A4B IT",
+    provider: "Google DeepMind",
+    releaseDate: "2026-04-03",
+    capabilities: ["text", "code", "vision", "reasoning"],
+    isOpenSource: true,
+    specs: {
+      contextWindow: 256000,
+      parameters: "25.2B total (3.8B active)",
+      pricing: { input: 0.06, output: 0.33 }
+    },
+    scores: {
+      "mmlu-pro": { score: 82.6, verified: true, sourceId: "google-gemma-4-announce", asOfDate: "2026-04-03" },
+      "aime-2026": { score: 88.3, verified: true, sourceId: "google-gemma-4-announce", asOfDate: "2026-04-03" },
+      "livecodebench-v6": { score: 77.1, verified: true, sourceId: "google-gemma-4-announce", asOfDate: "2026-04-03" },
+      "gpqa-diamond": { score: 82.3, verified: true, sourceId: "google-gemma-4-announce", asOfDate: "2026-04-03" },
+      "hle-full": { score: 8.7, verified: true, sourceId: "google-gemma-4-announce", asOfDate: "2026-04-03" },
+      "hle-full-tools": { score: 17.2, verified: true, sourceId: "google-gemma-4-announce", asOfDate: "2026-04-03" },
+      "bigbench-extra-hard": { score: 64.8, verified: true, sourceId: "google-gemma-4-announce", asOfDate: "2026-04-03" },
+      "mmmlu": { score: 86.3, verified: true, sourceId: "google-gemma-4-announce", asOfDate: "2026-04-03" },
+      "mmmu-pro": { score: 73.8, verified: true, sourceId: "google-gemma-4-announce", asOfDate: "2026-04-03" },
+      "mathvision": { score: 82.4, verified: true, sourceId: "google-gemma-4-announce", asOfDate: "2026-04-03" },
+    }
+  },
+  {
+    id: "google-gemma-4-e4b-it",
+    name: "Gemma 4 E4B IT",
+    provider: "Google DeepMind",
+    releaseDate: "2026-04-02",
+    capabilities: ["text", "code", "vision", "audio", "reasoning"],
+    isOpenSource: true,
+    specs: {
+      contextWindow: 128000,
+      parameters: "4.5B effective (8B with embeddings)",
+      pricing: { input: 0, output: 0 }
+    },
+    scores: {
+      "mmlu-pro": { score: 69.4, verified: true, sourceId: "google-gemma-4-announce", asOfDate: "2026-04-02" },
+      "aime-2026": { score: 42.5, verified: true, sourceId: "google-gemma-4-announce", asOfDate: "2026-04-02" },
+      "livecodebench-v6": { score: 52.0, verified: true, sourceId: "google-gemma-4-announce", asOfDate: "2026-04-02" },
+      "gpqa-diamond": { score: 58.6, verified: true, sourceId: "google-gemma-4-announce", asOfDate: "2026-04-02" },
+      "bigbench-extra-hard": { score: 33.1, verified: true, sourceId: "google-gemma-4-announce", asOfDate: "2026-04-02" },
+      "mmmlu": { score: 76.6, verified: true, sourceId: "google-gemma-4-announce", asOfDate: "2026-04-02" },
+      "mmmu-pro": { score: 52.6, verified: true, sourceId: "google-gemma-4-announce", asOfDate: "2026-04-02" },
+      "mathvision": { score: 59.5, verified: true, sourceId: "google-gemma-4-announce", asOfDate: "2026-04-02" },
+    }
+  },
+  {
+    id: "google-gemma-4-e2b-it",
+    name: "Gemma 4 E2B IT",
+    provider: "Google DeepMind",
+    releaseDate: "2026-04-02",
+    capabilities: ["text", "code", "vision", "audio", "reasoning"],
+    isOpenSource: true,
+    specs: {
+      contextWindow: 128000,
+      parameters: "2.3B effective (5.1B with embeddings)",
+      pricing: { input: 0, output: 0 }
+    },
+    scores: {
+      "mmlu-pro": { score: 60.0, verified: true, sourceId: "google-gemma-4-announce", asOfDate: "2026-04-02" },
+      "aime-2026": { score: 37.5, verified: true, sourceId: "google-gemma-4-announce", asOfDate: "2026-04-02" },
+      "livecodebench-v6": { score: 44.0, verified: true, sourceId: "google-gemma-4-announce", asOfDate: "2026-04-02" },
+      "gpqa-diamond": { score: 43.4, verified: true, sourceId: "google-gemma-4-announce", asOfDate: "2026-04-02" },
+      "bigbench-extra-hard": { score: 21.9, verified: true, sourceId: "google-gemma-4-announce", asOfDate: "2026-04-02" },
+      "mmmlu": { score: 67.4, verified: true, sourceId: "google-gemma-4-announce", asOfDate: "2026-04-02" },
+      "mmmu-pro": { score: 44.2, verified: true, sourceId: "google-gemma-4-announce", asOfDate: "2026-04-02" },
+      "mathvision": { score: 52.4, verified: true, sourceId: "google-gemma-4-announce", asOfDate: "2026-04-02" },
+    }
+  },
+  {
+    id: "minimax-m2-7",
+    name: "MiniMax M2.7",
+    provider: "Minimax",
+    releaseDate: "2026-03-18",
+    capabilities: ["text", "code", "reasoning"],
+    isOpenSource: true,
+    specs: {
+      contextWindow: 196608,
+      parameters: "229B MoE",
+      pricing: { input: 0.30, output: 1.20 }
+    },
+    scores: {
+      "swe-bench-pro": { score: 56.2, verified: true, sourceId: "minimax-m27-announce", asOfDate: "2026-03-18" },
+      "terminal-bench": { score: 57.0, verified: true, sourceId: "minimax-m27-announce", asOfDate: "2026-03-18" },
+      "toolathlon": { score: 46.3, verified: true, sourceId: "minimax-m27-announce", asOfDate: "2026-03-18" },
+    }
+  },
+  {
+    id: "qwen-3-6-27b",
+    name: "Qwen3.6 27B",
+    provider: "Alibaba",
+    releaseDate: "2026-04-27",
+    capabilities: ["text", "code", "vision", "video", "reasoning"],
+    isOpenSource: true,
+    specs: {
+      contextWindow: 262144,
+      parameters: "27B",
+      pricing: { input: 0.50, output: 2.00 }
+    },
+    scores: {
+      "mmlu-pro": { score: 86.2, verified: true, sourceId: "qwen-3-6-announce", asOfDate: "2026-04-27" },
+      "gpqa-diamond": { score: 87.8, verified: true, sourceId: "qwen-3-6-announce", asOfDate: "2026-04-27" },
+      "swe-bench-verified": { score: 77.2, verified: true, sourceId: "qwen-3-6-announce", asOfDate: "2026-04-27" },
+      "swe-bench-pro": { score: 53.5, verified: true, sourceId: "qwen-3-6-announce", asOfDate: "2026-04-27" },
+      "aime-2026": { score: 94.1, verified: true, sourceId: "qwen-3-6-announce", asOfDate: "2026-04-27" },
+      "livecodebench-v6": { score: 83.9, verified: true, sourceId: "qwen-3-6-announce", asOfDate: "2026-04-27" },
+      "hmmt-feb-2026": { score: 84.3, verified: true, sourceId: "qwen-3-6-announce", asOfDate: "2026-04-27" },
+      "terminal-bench": { score: 59.3, verified: true, sourceId: "qwen-3-6-announce", asOfDate: "2026-04-27" },
+    }
+  },
+  {
+    id: "qwen-3-6-35b-a3b",
+    name: "Qwen3.6 35B A3B",
+    provider: "Alibaba",
+    releaseDate: "2026-04-27",
+    capabilities: ["text", "code", "vision", "video", "reasoning"],
+    isOpenSource: true,
+    specs: {
+      contextWindow: 262144,
+      parameters: "35B total (3B active)",
+      pricing: { input: 0.1612, output: 0.9653 }
+    },
+    scores: {
+      "mmlu-pro": { score: 85.2, verified: true, sourceId: "qwen-3-6-announce", asOfDate: "2026-04-27" },
+      "gpqa-diamond": { score: 86.0, verified: true, sourceId: "qwen-3-6-announce", asOfDate: "2026-04-27" },
+      "swe-bench-verified": { score: 73.4, verified: true, sourceId: "qwen-3-6-announce", asOfDate: "2026-04-27" },
+      "swe-bench-pro": { score: 49.5, verified: true, sourceId: "qwen-3-6-announce", asOfDate: "2026-04-27" },
+      "aime-2026": { score: 92.7, verified: true, sourceId: "qwen-3-6-announce", asOfDate: "2026-04-27" },
+      "livecodebench-v6": { score: 80.4, verified: true, sourceId: "qwen-3-6-announce", asOfDate: "2026-04-27" },
+      "hmmt-feb-2026": { score: 83.6, verified: true, sourceId: "qwen-3-6-announce", asOfDate: "2026-04-27" },
+      "terminal-bench": { score: 51.5, verified: true, sourceId: "qwen-3-6-announce", asOfDate: "2026-04-27" },
+    }
+  },
+  {
+    id: "gpt-5-5",
+    name: "GPT-5.5",
+    provider: "OpenAI",
+    releaseDate: "2026-04-23",
+    capabilities: ["text", "code", "vision", "reasoning"],
+    isOpenSource: false,
+    specs: {
+      contextWindow: 1050000,
+      parameters: "Unknown",
+      pricing: { input: 5.00, output: 30.00 }
+    },
+    scores: {
+      "swe-bench-pro": { score: 58.6, verified: true, sourceId: "openai-gpt55-announce", asOfDate: "2026-04-23" },
+      "terminal-bench": { score: 82.7, verified: true, sourceId: "openai-gpt55-announce", asOfDate: "2026-04-23" },
+      "gpqa-diamond": { score: 93.6, verified: true, sourceId: "openai-gpt55-announce", asOfDate: "2026-04-23" },
+      "hle-full": { score: 41.4, verified: true, sourceId: "openai-gpt55-announce", asOfDate: "2026-04-23" },
+      "hle-full-tools": { score: 52.2, verified: true, sourceId: "openai-gpt55-announce", asOfDate: "2026-04-23" },
+      "osworld-verified": { score: 78.7, verified: true, sourceId: "openai-gpt55-announce", asOfDate: "2026-04-23" },
+      "browsecomp": { score: 84.4, verified: true, sourceId: "openai-gpt55-announce", asOfDate: "2026-04-23" },
+      "toolathlon": { score: 55.6, verified: true, sourceId: "openai-gpt55-announce", asOfDate: "2026-04-23" },
+      "mmmu-pro": { score: 81.2, verified: true, sourceId: "openai-gpt55-announce", asOfDate: "2026-04-23" },
+      "arc-agi-1": { score: 95.0, verified: true, sourceId: "openai-gpt55-announce", asOfDate: "2026-04-23" },
+      "arc-agi-2": { score: 85.0, verified: true, sourceId: "openai-gpt55-announce", asOfDate: "2026-04-23" },
+    }
   }
 ];
 

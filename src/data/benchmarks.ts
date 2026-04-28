@@ -559,6 +559,16 @@ const rawBenchmarks: Benchmark[] = [
     higherIsBetter: true,
   },
   {
+    id: "bigbench-extra-hard",
+    name: "BigBench Extra Hard",
+    category: "Reasoning",
+    description: "Extra-hard subset of BIG-bench focusing on challenging reasoning and knowledge tasks.",
+    maxScore: 100,
+    higherIsBetter: true,
+    normalization: "max",
+    unit: "%",
+  },
+  {
     id: "graphwalks-bfs",
     name: "Graphwalks Bfs",
     category: "Long Context",
