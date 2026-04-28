@@ -23,7 +23,8 @@ export type ModelProvider =
   | "Baichuan"
   | "Snowflake"
   | "Zhipu AI"
-  | "AI21";
+  | "AI21"
+  | "Xiaomi";
 
 
 export type ModelCapability = 

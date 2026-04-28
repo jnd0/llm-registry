@@ -26,6 +26,7 @@ const PROVIDER_SOURCE_MAP: Record<string, string> = {
   "Snowflake": "artificial-analysis",
   "Zhipu AI": "zhipu-news",
   "AI21": "ai21-news",
+  "Xiaomi": "xiaomi-mimo",
 };
 
 function addScoreProvenance(input: Model[]): Model[] {
@@ -2384,6 +2385,129 @@ const rawModels: Model[] = [
     scores: {
       "mmlu": { score: 83.4, verified: true },
       "mmmu": { score: 76.5, verified: true }
+    }
+  },
+  {
+    id: "kimi-k2-6",
+    name: "Kimi K2.6",
+    provider: "Moonshot AI",
+    releaseDate: "2026-04-20",
+    capabilities: ["text", "code", "vision", "reasoning"],
+    isOpenSource: true,
+    specs: {
+      contextWindow: 256000,
+      parameters: "1T MoE (32B activated)",
+      pricing: { input: 0.205, output: 4.00, cacheInput: 0.16 }
+    },
+    scores: {
+      "hle-full-tools": { score: 54.0, verified: true, sourceId: "moonshot-k2-6-announce", asOfDate: "2026-04-20" },
+      "browsecomp": { score: 83.2, verified: true, sourceId: "moonshot-k2-6-announce", asOfDate: "2026-04-20" },
+      "browsecomp-agent-swarm": { score: 86.3, verified: true, sourceId: "moonshot-k2-6-announce", asOfDate: "2026-04-20" },
+      "deepsearchqa": { score: 83.0, verified: true, sourceId: "moonshot-k2-6-announce", asOfDate: "2026-04-20" },
+      "widesearch": { score: 80.8, verified: true, sourceId: "moonshot-k2-6-announce", asOfDate: "2026-04-20" },
+      "toolathlon": { score: 50.0, verified: true, sourceId: "moonshot-k2-6-announce", asOfDate: "2026-04-20" },
+      "mcp-mark": { score: 55.9, verified: true, sourceId: "moonshot-k2-6-announce", asOfDate: "2026-04-20" },
+      "claw-eval": { score: 62.3, verified: true, sourceId: "moonshot-k2-6-announce", asOfDate: "2026-04-20" },
+      "apex-agents": { score: 27.9, verified: true, sourceId: "moonshot-k2-6-announce", asOfDate: "2026-04-20" },
+      "osworld-verified": { score: 73.1, verified: true, sourceId: "moonshot-k2-6-announce", asOfDate: "2026-04-20" },
+      "terminal-bench": { score: 66.7, verified: true, sourceId: "moonshot-k2-6-announce", asOfDate: "2026-04-20" },
+      "swe-bench-pro": { score: 58.6, verified: true, sourceId: "moonshot-k2-6-announce", asOfDate: "2026-04-20" },
+      "swe-multilingual": { score: 76.7, verified: true, sourceId: "moonshot-k2-6-announce", asOfDate: "2026-04-20" },
+      "swe-bench-verified": { score: 80.2, verified: true, sourceId: "moonshot-k2-6-announce", asOfDate: "2026-04-20" },
+      "scicode": { score: 52.2, verified: true, sourceId: "moonshot-k2-6-announce", asOfDate: "2026-04-20" },
+      "ojbench-python": { score: 60.6, verified: true, sourceId: "moonshot-k2-6-announce", asOfDate: "2026-04-20" },
+      "livecodebench-v6": { score: 89.6, verified: true, sourceId: "moonshot-k2-6-announce", asOfDate: "2026-04-20" },
+      "hle-full": { score: 34.7, verified: true, sourceId: "moonshot-k2-6-announce", asOfDate: "2026-04-20" },
+      "aime-2026": { score: 96.4, verified: true, sourceId: "moonshot-k2-6-announce", asOfDate: "2026-04-20" },
+      "hmmt-feb-2026": { score: 92.7, verified: true, sourceId: "moonshot-k2-6-announce", asOfDate: "2026-04-20" },
+      "imo-answerbench": { score: 86.0, verified: true, sourceId: "moonshot-k2-6-announce", asOfDate: "2026-04-20" },
+      "gpqa-diamond": { score: 90.5, verified: true, sourceId: "moonshot-k2-6-announce", asOfDate: "2026-04-20" },
+      "mmmu-pro": { score: 79.4, verified: true, sourceId: "moonshot-k2-6-announce", asOfDate: "2026-04-20" },
+      "charxiv-rq": { score: 80.4, verified: true, sourceId: "moonshot-k2-6-announce", asOfDate: "2026-04-20" },
+      "mathvision": { score: 87.4, verified: true, sourceId: "moonshot-k2-6-announce", asOfDate: "2026-04-20" },
+      "babyvision": { score: 39.8, verified: true, sourceId: "moonshot-k2-6-announce", asOfDate: "2026-04-20" },
+    }
+  },
+  {
+    id: "mimo-v2-5",
+    name: "MiMo V2.5",
+    provider: "Xiaomi",
+    releaseDate: "2026-04-27",
+    capabilities: ["text", "code", "vision", "audio", "video", "reasoning"],
+    isOpenSource: true,
+    specs: {
+      contextWindow: 1000000,
+      parameters: "310B MoE (15B activated)",
+      pricing: { input: 0.40, output: 2.00, cacheInput: 0.08 }
+    },
+    scores: {
+      "swe-bench-pro": { score: 56.1, verified: true, sourceId: "xiaomi-mimo", asOfDate: "2026-04-27" },
+      "terminal-bench": { score: 65.8, verified: true, sourceId: "xiaomi-mimo", asOfDate: "2026-04-27" },
+      "claw-eval": { score: 62.3, verified: true, sourceId: "xiaomi-mimo", asOfDate: "2026-04-27" },
+    }
+  },
+  {
+    id: "mimo-v2-5-pro",
+    name: "MiMo V2.5-Pro",
+    provider: "Xiaomi",
+    releaseDate: "2026-04-27",
+    capabilities: ["text", "code", "vision", "audio", "video", "reasoning"],
+    isOpenSource: true,
+    specs: {
+      contextWindow: 1000000,
+      parameters: "1.02T MoE (42B activated)",
+      pricing: { input: 1.00, output: 3.00, cacheInput: 0.20 }
+    },
+    scores: {
+      "gpqa-diamond": { score: 66.7, verified: true, sourceId: "xiaomi-mimo", asOfDate: "2026-04-27" },
+      "gsm8k": { score: 99.6, verified: true, sourceId: "xiaomi-mimo", asOfDate: "2026-04-27" },
+      "hle-full": { score: 48.0, verified: true, sourceId: "xiaomi-mimo", asOfDate: "2026-04-27" },
+      "mmlu-pro": { score: 68.5, verified: true, sourceId: "xiaomi-mimo", asOfDate: "2026-04-27" },
+      "swe-bench-pro": { score: 57.2, verified: true, sourceId: "xiaomi-mimo", asOfDate: "2026-04-27" },
+      "swe-bench-verified": { score: 78.9, verified: true, sourceId: "xiaomi-mimo", asOfDate: "2026-04-27" },
+      "terminal-bench": { score: 68.4, verified: true, sourceId: "xiaomi-mimo", asOfDate: "2026-04-27" },
+    }
+  },
+  {
+    id: "deepseek-v4-pro",
+    name: "DeepSeek V4 Pro",
+    provider: "DeepSeek",
+    releaseDate: "2026-04-24",
+    capabilities: ["text", "code", "reasoning"],
+    isOpenSource: true,
+    specs: {
+      contextWindow: 1000000,
+      parameters: "1.6T MoE (49B activated)",
+      pricing: { input: 0.435, output: 0.87 }
+    },
+    scores: {
+      "gpqa-diamond": { score: 90.1, verified: true, sourceId: "deepseek-v4-announce", asOfDate: "2026-04-24" },
+      "gsm8k": { score: 92.6, verified: true, sourceId: "deepseek-v4-announce", asOfDate: "2026-04-24" },
+      "hle-full": { score: 37.7, verified: true, sourceId: "deepseek-v4-announce", asOfDate: "2026-04-24" },
+      "mmlu-pro": { score: 87.5, verified: true, sourceId: "deepseek-v4-announce", asOfDate: "2026-04-24" },
+      "swe-bench-pro": { score: 55.4, verified: true, sourceId: "deepseek-v4-announce", asOfDate: "2026-04-24" },
+      "swe-bench-verified": { score: 80.6, verified: true, sourceId: "deepseek-v4-announce", asOfDate: "2026-04-24" },
+      "terminal-bench": { score: 67.9, verified: true, sourceId: "deepseek-v4-announce", asOfDate: "2026-04-24" },
+    }
+  },
+  {
+    id: "deepseek-v4-flash",
+    name: "DeepSeek V4 Flash",
+    provider: "DeepSeek",
+    releaseDate: "2026-04-24",
+    capabilities: ["text", "code", "reasoning"],
+    isOpenSource: true,
+    specs: {
+      contextWindow: 1000000,
+      parameters: "284B MoE (13B activated)",
+      pricing: { input: 0.14, output: 0.28 }
+    },
+    scores: {
+      "gpqa-diamond": { score: 88.1, verified: true, sourceId: "deepseek-v4-announce", asOfDate: "2026-04-24" },
+      "hle-full": { score: 34.8, verified: true, sourceId: "deepseek-v4-announce", asOfDate: "2026-04-24" },
+      "mmlu-pro": { score: 86.4, verified: true, sourceId: "deepseek-v4-announce", asOfDate: "2026-04-24" },
+      "swe-bench-verified": { score: 79.0, verified: true, sourceId: "deepseek-v4-announce", asOfDate: "2026-04-24" },
+      "terminal-bench": { score: 56.9, verified: true, sourceId: "deepseek-v4-announce", asOfDate: "2026-04-24" },
     }
   }
 ];

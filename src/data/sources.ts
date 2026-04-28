@@ -189,4 +189,24 @@ export const sources: SourceRecord[] = [
     url: "https://models.dev",
     publisher: "models.dev Community",
   },
+  {
+    id: "xiaomi-mimo",
+    name: "Xiaomi MiMo",
+    url: "https://mimo.xiaomi.com/",
+    publisher: "Xiaomi",
+  },
+  {
+    id: "moonshot-k2-6-announce",
+    name: "Kimi K2.6 Announcement",
+    url: "https://huggingface.co/moonshotai/Kimi-K2.6",
+    publisher: "Moonshot AI",
+    updatedAt: "2026-04-20",
+  },
+  {
+    id: "deepseek-v4-announce",
+    name: "DeepSeek V4 Announcement",
+    url: "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro",
+    publisher: "DeepSeek",
+    updatedAt: "2026-04-24",
+  },
 ];
