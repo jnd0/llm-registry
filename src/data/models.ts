@@ -2457,6 +2457,11 @@ const rawModels: Model[] = [
       "cybergym": { score: 73.1, verified: true, sourceId: "anthropic-opus-4-7-announce", asOfDate: "2026-04-16" },
       "charxiv-reasoning": { score: 82.1, verified: true, sourceId: "anthropic-opus-4-7-announce", asOfDate: "2026-04-16" },
       "screenspot-pro": { score: 79.5, verified: true, sourceId: "anthropic-opus-4-7-announce", asOfDate: "2026-04-16" },
+      "finance-agent": { score: 64.4, verified: true, sourceId: "anthropic-opus-4-7-announce", asOfDate: "2026-04-16" },
+      "officeqa-pro": { score: 80.6, verified: true, sourceId: "anthropic-opus-4-7-announce", asOfDate: "2026-04-16" },
+      "graphwalks-bfs": { score: 58.6, verified: true, sourceId: "anthropic-opus-4-7-announce", asOfDate: "2026-04-16" },
+      "structural-biology": { score: 74.0, verified: true, sourceId: "anthropic-opus-4-7-announce", asOfDate: "2026-04-16" },
+      "swe-multimodal": { score: 34.5, verified: true, sourceId: "anthropic-opus-4-7-announce", asOfDate: "2026-04-16" },
     }
   },
   {
@@ -2464,6 +2469,7 @@ const rawModels: Model[] = [
     name: "Gemma 4 31B IT",
     provider: "Google DeepMind",
     releaseDate: "2026-04-02",
+    trainingCutoff: "2025-01",
     capabilities: ["text", "code", "vision", "reasoning"],
     isOpenSource: true,
     specs: {
@@ -2493,6 +2499,7 @@ const rawModels: Model[] = [
     name: "Gemma 4 26B A4B IT",
     provider: "Google DeepMind",
     releaseDate: "2026-04-03",
+    trainingCutoff: "2025-01",
     capabilities: ["text", "code", "vision", "reasoning"],
     isOpenSource: true,
     specs: {
@@ -2522,6 +2529,7 @@ const rawModels: Model[] = [
     name: "Gemma 4 E4B IT",
     provider: "Google DeepMind",
     releaseDate: "2026-04-02",
+    trainingCutoff: "2025-01",
     capabilities: ["text", "code", "vision", "audio", "reasoning"],
     isOpenSource: true,
     specs: {
@@ -2551,6 +2559,7 @@ const rawModels: Model[] = [
     name: "Gemma 4 E2B IT",
     provider: "Google DeepMind",
     releaseDate: "2026-04-02",
+    trainingCutoff: "2025-01",
     capabilities: ["text", "code", "vision", "audio", "reasoning"],
     isOpenSource: true,
     specs: {
@@ -2702,6 +2711,7 @@ const rawModels: Model[] = [
       "tau-bench-telecom": { score: 98.0, verified: true, sourceId: "openai-gpt55-announce", asOfDate: "2026-04-23" },
       "genebench": { score: 25.0, verified: true, sourceId: "openai-gpt55-announce", asOfDate: "2026-04-23" },
       "bixbench": { score: 80.5, verified: true, sourceId: "openai-gpt55-announce", asOfDate: "2026-04-23" },
+      "frontiermath-tier-4": { score: 35.4, verified: true, sourceId: "openai-gpt55-announce", asOfDate: "2026-04-23" },
     }
   },
   {
@@ -2709,6 +2719,7 @@ const rawModels: Model[] = [
     name: "GPT-5.4",
     provider: "OpenAI",
     releaseDate: "2026-03-05",
+    trainingCutoff: "2025-08",
     capabilities: ["text", "code", "vision", "reasoning"],
     isOpenSource: false,
     specs: {

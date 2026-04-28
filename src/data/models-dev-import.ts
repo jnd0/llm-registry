@@ -8447,31 +8447,6 @@ export const modelsDevMetadata: Record<string, ModelMetadataOverride> = {
     "metadataSourceId": "models-dev",
     "metadataAsOfDate": "2026-03-01"
   },
-  "kimi-k2-thinking": {
-    "family": "kimi",
-    "lastUpdated": "2025-11-06",
-    "interleavedReasoningField": "reasoning_content",
-    "apiSupport": {
-      "reasoning": true,
-      "toolCall": true,
-      "structuredOutput": true,
-      "temperature": true,
-      "attachment": false
-    },
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "specs": {
-      "maxOutputTokens": 16384
-    },
-    "metadataSourceId": "models-dev",
-    "metadataAsOfDate": "2026-03-01"
-  },
   "ministral-3:3b": {
     "family": "ministral",
     "lastUpdated": "2026-01-19",
