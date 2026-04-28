@@ -435,7 +435,11 @@ const rawModels: Model[] = [
       "swe-bench-verified": { score: 72.4, verified: true },
       "terminal-bench": { score: 77.3, verified: true },
       "osworld-verified": { score: 64.7, verified: true },
-      "livebench": { score: 74.30, verified: true, sourceId: "livebench", asOfDate: "2026-02-20" }
+      "livebench": { score: 74.30, verified: true, sourceId: "livebench", asOfDate: "2026-02-20" },
+      "swe-bench-pro": { score: 56.8, verified: true, sourceId: "openai-gpt53-codex-announce", asOfDate: "2026-02-05" },
+      "gdpval-aa": { score: 70.9, verified: true, sourceId: "openai-gpt53-codex-announce", asOfDate: "2026-02-05" },
+      "cybergym": { score: 77.6, verified: true, sourceId: "openai-gpt53-codex-announce", asOfDate: "2026-02-05" },
+      "swe-lancer": { score: 81.4, verified: true, sourceId: "openai-gpt53-codex-announce", asOfDate: "2026-02-05" },
     }
   },
   {
@@ -1560,22 +1564,6 @@ const rawModels: Model[] = [
 
   // --- STARTUPS / EMERGING ---
   {
-    id: "minimax-2-1",
-    name: "MiniMax 2.1",
-    provider: "Minimax",
-    releaseDate: "2024-10-15",
-    capabilities: ["text", "code"],
-    isOpenSource: false,
-    specs: {
-      contextWindow: 128000,
-      parameters: "Proprietary",
-      pricing: { input: 0.15, output: 0.60 }
-    },
-    scores: {
-      "mmlu": { score: 82.0, verified: true }
-    }
-  },
-  {
     id: "minimax-m2",
     name: "MiniMax M2",
     provider: "Minimax",
@@ -1924,45 +1912,6 @@ const rawModels: Model[] = [
     }
   },
   {
-    id: "starcoder2-15b",
-    name: "StarCoder2-15B",
-    provider: "BigCode",
-    releaseDate: "2024-02-28",
-    capabilities: ["code"],
-    isOpenSource: true,
-    specs: {
-      contextWindow: 16000,
-      parameters: "15B",
-      pricing: { input: 0, output: 0 }
-    },
-    scores: {
-      "mmlu": { score: 45.2, verified: true, sourceId: "artificial-analysis", asOfDate: "2026-02-16" },
-      "gpqa-diamond": { score: 28.5, verified: true, sourceId: "artificial-analysis", asOfDate: "2026-02-16" },
-      "human-eval": { score: 72.6, verified: true, sourceId: "bigcode-project", asOfDate: "2024-02-28" },
-      "bigcodebench": { score: 28.7, verified: true, sourceId: "artificial-analysis", asOfDate: "2026-02-16" },
-      "livecodebench-v6": { score: 24.5, verified: true, sourceId: "artificial-analysis", asOfDate: "2026-02-16" },
-      "lmarena-elo": { score: 1105, verified: true, sourceId: "lmarena", asOfDate: "2026-02-18" }
-    }
-  },
-  {
-    id: "dbrx-instruct",
-    name: "DBRX Instruct",
-    provider: "Databricks",
-    releaseDate: "2024-03-27",
-    capabilities: ["text", "code"],
-    isOpenSource: true,
-    specs: {
-      contextWindow: 32000,
-      parameters: "132B (MoE)",
-      pricing: { input: 0.60, output: 2.40 }
-    },
-    scores: {
-      "mmlu": { score: 74.5, verified: true },
-      "human-eval": { score: 70.1, verified: true },
-      "gsm8k": { score: 72.8, verified: true }
-    }
-  },
-  {
     id: "internlm3-8b",
     name: "InternLM3-8B",
     provider: "Shanghai AI Lab",
@@ -1982,27 +1931,6 @@ const rawModels: Model[] = [
       "human-eval": { score: 82.3, verified: true },
       "mmmu": { score: 55.6, verified: false, sourceId: "artificial-analysis" },
       "lmarena-elo": { score: 1210, verified: false, sourceId: "lmarena" }
-    }
-  },
-  {
-    id: "yi-1-5-34b",
-    name: "Yi-1.5-34B",
-    provider: "01.AI",
-    releaseDate: "2024-05-13",
-    capabilities: ["text", "code"],
-    isOpenSource: true,
-    specs: {
-      contextWindow: 32000,
-      parameters: "34B",
-      pricing: { input: 0, output: 0 }
-    },
-    scores: {
-      "mmlu": { score: 81.0, verified: true },
-      "gpqa-diamond": { score: 42.5, verified: false, sourceId: "artificial-analysis" },
-      "math": { score: 52.1, verified: false, sourceId: "artificial-analysis" },
-      "human-eval": { score: 76.4, verified: false, sourceId: "artificial-analysis" },
-      "mmmu": { score: 48.2, verified: false, sourceId: "artificial-analysis" },
-      "lmarena-elo": { score: 1240, verified: false, sourceId: "lmarena" }
     }
   },
   {
@@ -2026,24 +1954,6 @@ const rawModels: Model[] = [
       "lmarena-elo": { score: 1290, verified: false, sourceId: "lmarena" }
     }
   },
-  {
-    id: "snowflake-arctic",
-    name: "Snowflake Arctic",
-    provider: "Snowflake",
-    releaseDate: "2024-04-24",
-    capabilities: ["text", "code"],
-    isOpenSource: true,
-    specs: {
-      contextWindow: 4096,
-      parameters: "480B MoE (17B active)",
-      pricing: { input: 0, output: 0 }
-    },
-    scores: {
-      "mmlu": { score: 75.0, verified: true },
-      "human-eval": { score: 38.0, verified: true },
-      "lmarena-elo": { score: 1109, verified: true }
-    }
-  },
   // --- MISTRAL ---
   {
     id: "mistral-large-2",
@@ -2061,26 +1971,6 @@ const rawModels: Model[] = [
       "mmlu": { score: 84.0, verified: true },
       "math": { score: 76.6, verified: true },
       "human-eval": { score: 92.0, verified: true }
-    }
-  },
-  {
-    id: "ministral-3b",
-    name: "Ministral 3B",
-    provider: "Mistral",
-    releaseDate: "2024-10-16",
-    capabilities: ["text", "code"],
-    isOpenSource: true,
-    specs: {
-      contextWindow: 128000,
-      parameters: "3B",
-      pricing: { input: 0.04, output: 0.04 }
-    },
-    scores: {
-      "mmlu": { score: 68.8, verified: true },
-      "gpqa-diamond": { score: 29.7, verified: false, sourceId: "mistral-news" },
-      "math": { score: 33.3, verified: true },
-      "human-eval": { score: 63.4, verified: true },
-      "lmarena-elo": { score: 1164, verified: true }
     }
   },
 
@@ -2488,6 +2378,21 @@ const rawModels: Model[] = [
       "swe-bench-pro": { score: 55.4, verified: true, sourceId: "deepseek-v4-announce", asOfDate: "2026-04-24" },
       "swe-bench-verified": { score: 80.6, verified: true, sourceId: "deepseek-v4-announce", asOfDate: "2026-04-24" },
       "terminal-bench": { score: 67.9, verified: true, sourceId: "deepseek-v4-announce", asOfDate: "2026-04-24" },
+      "mmlu": { score: 90.1, verified: true, sourceId: "deepseek-v4-announce", asOfDate: "2026-04-24" },
+      "math": { score: 64.5, verified: true, sourceId: "deepseek-v4-announce", asOfDate: "2026-04-24" },
+      "human-eval": { score: 76.8, verified: true, sourceId: "deepseek-v4-announce", asOfDate: "2026-04-24" },
+      "bigcodebench": { score: 59.2, verified: true, sourceId: "deepseek-v4-announce", asOfDate: "2026-04-24" },
+      "longbench-v2": { score: 51.5, verified: true, sourceId: "deepseek-v4-announce", asOfDate: "2026-04-24" },
+      "livecodebench-v6": { score: 93.5, verified: true, sourceId: "deepseek-v4-announce", asOfDate: "2026-04-24" },
+      "codeforces": { score: 3206, verified: true, sourceId: "deepseek-v4-announce", asOfDate: "2026-04-24" },
+      "hmmt-feb-2026": { score: 95.2, verified: true, sourceId: "deepseek-v4-announce", asOfDate: "2026-04-24" },
+      "imo-answerbench": { score: 89.8, verified: true, sourceId: "deepseek-v4-announce", asOfDate: "2026-04-24" },
+      "mrcr-v2": { score: 83.5, verified: true, sourceId: "deepseek-v4-announce", asOfDate: "2026-04-24" },
+      "browsecomp": { score: 83.4, verified: true, sourceId: "deepseek-v4-announce", asOfDate: "2026-04-24" },
+      "hle-full-tools": { score: 48.2, verified: true, sourceId: "deepseek-v4-announce", asOfDate: "2026-04-24" },
+      "mcp-atlas": { score: 73.6, verified: true, sourceId: "deepseek-v4-announce", asOfDate: "2026-04-24" },
+      "toolathlon": { score: 51.8, verified: true, sourceId: "deepseek-v4-announce", asOfDate: "2026-04-24" },
+      "swe-multilingual": { score: 76.2, verified: true, sourceId: "deepseek-v4-announce", asOfDate: "2026-04-24" },
     }
   },
   {
@@ -2508,6 +2413,21 @@ const rawModels: Model[] = [
       "mmlu-pro": { score: 86.4, verified: true, sourceId: "deepseek-v4-announce", asOfDate: "2026-04-24" },
       "swe-bench-verified": { score: 79.0, verified: true, sourceId: "deepseek-v4-announce", asOfDate: "2026-04-24" },
       "terminal-bench": { score: 56.9, verified: true, sourceId: "deepseek-v4-announce", asOfDate: "2026-04-24" },
+      "mmlu": { score: 88.7, verified: true, sourceId: "deepseek-v4-announce", asOfDate: "2026-04-24" },
+      "math": { score: 57.4, verified: true, sourceId: "deepseek-v4-announce", asOfDate: "2026-04-24" },
+      "human-eval": { score: 69.5, verified: true, sourceId: "deepseek-v4-announce", asOfDate: "2026-04-24" },
+      "bigcodebench": { score: 56.8, verified: true, sourceId: "deepseek-v4-announce", asOfDate: "2026-04-24" },
+      "longbench-v2": { score: 44.7, verified: true, sourceId: "deepseek-v4-announce", asOfDate: "2026-04-24" },
+      "livecodebench-v6": { score: 91.6, verified: true, sourceId: "deepseek-v4-announce", asOfDate: "2026-04-24" },
+      "codeforces": { score: 3052, verified: true, sourceId: "deepseek-v4-announce", asOfDate: "2026-04-24" },
+      "hmmt-feb-2026": { score: 94.8, verified: true, sourceId: "deepseek-v4-announce", asOfDate: "2026-04-24" },
+      "imo-answerbench": { score: 88.4, verified: true, sourceId: "deepseek-v4-announce", asOfDate: "2026-04-24" },
+      "mrcr-v2": { score: 78.7, verified: true, sourceId: "deepseek-v4-announce", asOfDate: "2026-04-24" },
+      "browsecomp": { score: 73.2, verified: true, sourceId: "deepseek-v4-announce", asOfDate: "2026-04-24" },
+      "hle-full-tools": { score: 45.1, verified: true, sourceId: "deepseek-v4-announce", asOfDate: "2026-04-24" },
+      "mcp-atlas": { score: 69.0, verified: true, sourceId: "deepseek-v4-announce", asOfDate: "2026-04-24" },
+      "toolathlon": { score: 47.8, verified: true, sourceId: "deepseek-v4-announce", asOfDate: "2026-04-24" },
+      "swe-multilingual": { score: 73.3, verified: true, sourceId: "deepseek-v4-announce", asOfDate: "2026-04-24" },
     }
   },
   {
@@ -2674,6 +2594,9 @@ const rawModels: Model[] = [
       "swe-multilingual": { score: 76.5, verified: true, sourceId: "minimax-m27-announce", asOfDate: "2026-03-18" },
       "mm-clawbench": { score: 62.7, verified: true, sourceId: "minimax-m27-announce", asOfDate: "2026-03-18" },
       "mle-bench-lite": { score: 66.6, verified: true, sourceId: "minimax-m27-announce", asOfDate: "2026-03-18" },
+      "vibe-coding": { score: 55.6, verified: true, sourceId: "minimax-m27-announce", asOfDate: "2026-03-18" },
+      "nl2repo-bench": { score: 39.8, verified: true, sourceId: "minimax-m27-announce", asOfDate: "2026-03-18" },
+      "multi-swe-bench": { score: 52.7, verified: true, sourceId: "minimax-m27-announce", asOfDate: "2026-03-18" },
     }
   },
   {
@@ -2808,6 +2731,12 @@ const rawModels: Model[] = [
       "toolathlon": { score: 54.6, verified: true, sourceId: "openai-gpt54-announce", asOfDate: "2026-03-05" },
       "tau-bench-telecom": { score: 98.9, verified: true, sourceId: "openai-gpt54-announce", asOfDate: "2026-03-05" },
       "omnidocbench-15": { score: 0.109, verified: true, sourceId: "openai-gpt54-announce", asOfDate: "2026-03-05" },
+      "mcp-atlas": { score: 67.2, verified: true, sourceId: "openai-gpt54-announce", asOfDate: "2026-03-05" },
+      "webarena": { score: 67.3, verified: true, sourceId: "openai-gpt54-announce", asOfDate: "2026-03-05" },
+      "gdpval-aa": { score: 83.0, verified: true, sourceId: "openai-gpt54-announce", asOfDate: "2026-03-05" },
+      "frontiersci-research": { score: 33.0, verified: true, sourceId: "openai-gpt54-announce", asOfDate: "2026-03-05" },
+      "graphwalks-bfs": { score: 93.0, verified: true, sourceId: "openai-gpt54-announce", asOfDate: "2026-03-05" },
+      "mrcr-v2": { score: 97.3, verified: true, sourceId: "openai-gpt54-announce", asOfDate: "2026-03-05" },
     }
   },
   {

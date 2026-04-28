@@ -252,6 +252,13 @@ export const sources: SourceRecord[] = [
     updatedAt: "2026-03-05",
   },
   {
+    id: "openai-gpt53-codex-announce",
+    name: "Introducing GPT-5.3 Codex",
+    url: "https://openai.com/index/introducing-gpt-5-3-codex",
+    publisher: "OpenAI",
+    updatedAt: "2026-02-05",
+  },
+  {
     id: "mistral-small-4-announce",
     name: "Mistral Small 4 Announcement",
     url: "https://mistral.ai/news/mistral-small-4",
