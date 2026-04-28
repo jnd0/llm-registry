@@ -244,4 +244,25 @@ export const sources: SourceRecord[] = [
     publisher: "OpenAI",
     updatedAt: "2026-04-23",
   },
+  {
+    id: "openai-gpt54-announce",
+    name: "Introducing GPT-5.4",
+    url: "https://openai.com/index/introducing-gpt-5-4",
+    publisher: "OpenAI",
+    updatedAt: "2026-03-05",
+  },
+  {
+    id: "mistral-small-4-announce",
+    name: "Mistral Small 4 Announcement",
+    url: "https://mistral.ai/news/mistral-small-4",
+    publisher: "Mistral",
+    updatedAt: "2026-03-16",
+  },
+  {
+    id: "zhipu-glm-5-1-announce",
+    name: "GLM 5.1 Announcement",
+    url: "https://huggingface.co/zai-org/GLM-5.1",
+    publisher: "Zhipu AI",
+    updatedAt: "2026-04-07",
+  },
 ];

@@ -2562,6 +2562,10 @@ const rawModels: Model[] = [
       "mmmlu": { score: 88.4, verified: true, sourceId: "google-gemma-4-announce", asOfDate: "2026-04-02" },
       "mmmu-pro": { score: 76.9, verified: true, sourceId: "google-gemma-4-announce", asOfDate: "2026-04-02" },
       "mathvision": { score: 85.6, verified: true, sourceId: "google-gemma-4-announce", asOfDate: "2026-04-02" },
+      "codeforces": { score: 2150, verified: true, sourceId: "google-gemma-4-announce", asOfDate: "2026-04-02" },
+      "omnidocbench-15": { score: 0.131, verified: true, sourceId: "google-gemma-4-announce", asOfDate: "2026-04-02" },
+      "medxpertqa-mm": { score: 61.3, verified: true, sourceId: "google-gemma-4-announce", asOfDate: "2026-04-02" },
+      "mrcr-v2": { score: 66.4, verified: true, sourceId: "google-gemma-4-announce", asOfDate: "2026-04-02" },
     }
   },
   {
@@ -2587,6 +2591,10 @@ const rawModels: Model[] = [
       "mmmlu": { score: 86.3, verified: true, sourceId: "google-gemma-4-announce", asOfDate: "2026-04-03" },
       "mmmu-pro": { score: 73.8, verified: true, sourceId: "google-gemma-4-announce", asOfDate: "2026-04-03" },
       "mathvision": { score: 82.4, verified: true, sourceId: "google-gemma-4-announce", asOfDate: "2026-04-03" },
+      "codeforces": { score: 1718, verified: true, sourceId: "google-gemma-4-announce", asOfDate: "2026-04-03" },
+      "omnidocbench-15": { score: 0.149, verified: true, sourceId: "google-gemma-4-announce", asOfDate: "2026-04-03" },
+      "medxpertqa-mm": { score: 58.1, verified: true, sourceId: "google-gemma-4-announce", asOfDate: "2026-04-03" },
+      "mrcr-v2": { score: 44.1, verified: true, sourceId: "google-gemma-4-announce", asOfDate: "2026-04-03" },
     }
   },
   {
@@ -2610,6 +2618,12 @@ const rawModels: Model[] = [
       "mmmlu": { score: 76.6, verified: true, sourceId: "google-gemma-4-announce", asOfDate: "2026-04-02" },
       "mmmu-pro": { score: 52.6, verified: true, sourceId: "google-gemma-4-announce", asOfDate: "2026-04-02" },
       "mathvision": { score: 59.5, verified: true, sourceId: "google-gemma-4-announce", asOfDate: "2026-04-02" },
+      "codeforces": { score: 940, verified: true, sourceId: "google-gemma-4-announce", asOfDate: "2026-04-02" },
+      "omnidocbench-15": { score: 0.181, verified: true, sourceId: "google-gemma-4-announce", asOfDate: "2026-04-02" },
+      "medxpertqa-mm": { score: 28.7, verified: true, sourceId: "google-gemma-4-announce", asOfDate: "2026-04-02" },
+      "mrcr-v2": { score: 25.4, verified: true, sourceId: "google-gemma-4-announce", asOfDate: "2026-04-02" },
+      "covost": { score: 35.54, verified: true, sourceId: "google-gemma-4-announce", asOfDate: "2026-04-02" },
+      "fleurs": { score: 0.08, verified: true, sourceId: "google-gemma-4-announce", asOfDate: "2026-04-02" },
     }
   },
   {
@@ -2633,6 +2647,12 @@ const rawModels: Model[] = [
       "mmmlu": { score: 67.4, verified: true, sourceId: "google-gemma-4-announce", asOfDate: "2026-04-02" },
       "mmmu-pro": { score: 44.2, verified: true, sourceId: "google-gemma-4-announce", asOfDate: "2026-04-02" },
       "mathvision": { score: 52.4, verified: true, sourceId: "google-gemma-4-announce", asOfDate: "2026-04-02" },
+      "codeforces": { score: 633, verified: true, sourceId: "google-gemma-4-announce", asOfDate: "2026-04-02" },
+      "omnidocbench-15": { score: 0.290, verified: true, sourceId: "google-gemma-4-announce", asOfDate: "2026-04-02" },
+      "medxpertqa-mm": { score: 23.5, verified: true, sourceId: "google-gemma-4-announce", asOfDate: "2026-04-02" },
+      "mrcr-v2": { score: 19.1, verified: true, sourceId: "google-gemma-4-announce", asOfDate: "2026-04-02" },
+      "covost": { score: 33.47, verified: true, sourceId: "google-gemma-4-announce", asOfDate: "2026-04-02" },
+      "fleurs": { score: 0.09, verified: true, sourceId: "google-gemma-4-announce", asOfDate: "2026-04-02" },
     }
   },
   {
@@ -2651,6 +2671,9 @@ const rawModels: Model[] = [
       "swe-bench-pro": { score: 56.2, verified: true, sourceId: "minimax-m27-announce", asOfDate: "2026-03-18" },
       "terminal-bench": { score: 57.0, verified: true, sourceId: "minimax-m27-announce", asOfDate: "2026-03-18" },
       "toolathlon": { score: 46.3, verified: true, sourceId: "minimax-m27-announce", asOfDate: "2026-03-18" },
+      "swe-multilingual": { score: 76.5, verified: true, sourceId: "minimax-m27-announce", asOfDate: "2026-03-18" },
+      "mm-clawbench": { score: 62.7, verified: true, sourceId: "minimax-m27-announce", asOfDate: "2026-03-18" },
+      "mle-bench-lite": { score: 66.6, verified: true, sourceId: "minimax-m27-announce", asOfDate: "2026-03-18" },
     }
   },
   {
@@ -2674,6 +2697,20 @@ const rawModels: Model[] = [
       "livecodebench-v6": { score: 83.9, verified: true, sourceId: "qwen-3-6-announce", asOfDate: "2026-04-27" },
       "hmmt-feb-2026": { score: 84.3, verified: true, sourceId: "qwen-3-6-announce", asOfDate: "2026-04-27" },
       "terminal-bench": { score: 59.3, verified: true, sourceId: "qwen-3-6-announce", asOfDate: "2026-04-27" },
+      "mmmu": { score: 82.9, verified: true, sourceId: "qwen-3-6-announce", asOfDate: "2026-04-27" },
+      "mmmu-pro": { score: 75.8, verified: true, sourceId: "qwen-3-6-announce", asOfDate: "2026-04-27" },
+      "mathvista-mini": { score: 87.4, verified: true, sourceId: "qwen-3-6-announce", asOfDate: "2026-04-27" },
+      "videomme": { score: 87.7, verified: true, sourceId: "qwen-3-6-announce", asOfDate: "2026-04-27" },
+      "videommmu": { score: 84.4, verified: true, sourceId: "qwen-3-6-announce", asOfDate: "2026-04-27" },
+      "realworldqa": { score: 84.1, verified: true, sourceId: "qwen-3-6-announce", asOfDate: "2026-04-27" },
+      "mmstar": { score: 81.4, verified: true, sourceId: "qwen-3-6-announce", asOfDate: "2026-04-27" },
+      "simplevqa": { score: 56.1, verified: true, sourceId: "qwen-3-6-announce", asOfDate: "2026-04-27" },
+      "charxiv-rq": { score: 78.4, verified: true, sourceId: "qwen-3-6-announce", asOfDate: "2026-04-27" },
+      "erqa": { score: 62.5, verified: true, sourceId: "qwen-3-6-announce", asOfDate: "2026-04-27" },
+      "countbench": { score: 97.8, verified: true, sourceId: "qwen-3-6-announce", asOfDate: "2026-04-27" },
+      "androidworld": { score: 70.3, verified: true, sourceId: "qwen-3-6-announce", asOfDate: "2026-04-27" },
+      "mlvu": { score: 86.6, verified: true, sourceId: "qwen-3-6-announce", asOfDate: "2026-04-27" },
+      "mvbench": { score: 75.5, verified: true, sourceId: "qwen-3-6-announce", asOfDate: "2026-04-27" },
     }
   },
   {
@@ -2697,6 +2734,19 @@ const rawModels: Model[] = [
       "livecodebench-v6": { score: 80.4, verified: true, sourceId: "qwen-3-6-announce", asOfDate: "2026-04-27" },
       "hmmt-feb-2026": { score: 83.6, verified: true, sourceId: "qwen-3-6-announce", asOfDate: "2026-04-27" },
       "terminal-bench": { score: 51.5, verified: true, sourceId: "qwen-3-6-announce", asOfDate: "2026-04-27" },
+      "mmmu": { score: 81.7, verified: true, sourceId: "qwen-3-6-announce", asOfDate: "2026-04-27" },
+      "mmmu-pro": { score: 75.3, verified: true, sourceId: "qwen-3-6-announce", asOfDate: "2026-04-27" },
+      "mathvista-mini": { score: 86.4, verified: true, sourceId: "qwen-3-6-announce", asOfDate: "2026-04-27" },
+      "videomme": { score: 86.6, verified: true, sourceId: "qwen-3-6-announce", asOfDate: "2026-04-27" },
+      "videommmu": { score: 83.7, verified: true, sourceId: "qwen-3-6-announce", asOfDate: "2026-04-27" },
+      "realworldqa": { score: 85.3, verified: true, sourceId: "qwen-3-6-announce", asOfDate: "2026-04-27" },
+      "mmstar": { score: 80.7, verified: true, sourceId: "qwen-3-6-announce", asOfDate: "2026-04-27" },
+      "simplevqa": { score: 58.9, verified: true, sourceId: "qwen-3-6-announce", asOfDate: "2026-04-27" },
+      "charxiv-rq": { score: 78.0, verified: true, sourceId: "qwen-3-6-announce", asOfDate: "2026-04-27" },
+      "erqa": { score: 61.8, verified: true, sourceId: "qwen-3-6-announce", asOfDate: "2026-04-27" },
+      "countbench": { score: 96.1, verified: true, sourceId: "qwen-3-6-announce", asOfDate: "2026-04-27" },
+      "mlvu": { score: 86.2, verified: true, sourceId: "qwen-3-6-announce", asOfDate: "2026-04-27" },
+      "mvbench": { score: 74.6, verified: true, sourceId: "qwen-3-6-announce", asOfDate: "2026-04-27" },
     }
   },
   {
@@ -2723,6 +2773,92 @@ const rawModels: Model[] = [
       "mmmu-pro": { score: 81.2, verified: true, sourceId: "openai-gpt55-announce", asOfDate: "2026-04-23" },
       "arc-agi-1": { score: 95.0, verified: true, sourceId: "openai-gpt55-announce", asOfDate: "2026-04-23" },
       "arc-agi-2": { score: 85.0, verified: true, sourceId: "openai-gpt55-announce", asOfDate: "2026-04-23" },
+      "frontiermath": { score: 51.7, verified: true, sourceId: "openai-gpt55-announce", asOfDate: "2026-04-23" },
+      "expert-swe": { score: 73.1, verified: true, sourceId: "openai-gpt55-announce", asOfDate: "2026-04-23" },
+      "cybergym": { score: 81.8, verified: true, sourceId: "openai-gpt55-announce", asOfDate: "2026-04-23" },
+      "tau-bench-telecom": { score: 98.0, verified: true, sourceId: "openai-gpt55-announce", asOfDate: "2026-04-23" },
+      "genebench": { score: 25.0, verified: true, sourceId: "openai-gpt55-announce", asOfDate: "2026-04-23" },
+      "bixbench": { score: 80.5, verified: true, sourceId: "openai-gpt55-announce", asOfDate: "2026-04-23" },
+    }
+  },
+  {
+    id: "gpt-5-4",
+    name: "GPT-5.4",
+    provider: "OpenAI",
+    releaseDate: "2026-03-05",
+    capabilities: ["text", "code", "vision", "reasoning"],
+    isOpenSource: false,
+    specs: {
+      contextWindow: 1050000,
+      parameters: "Unknown",
+      pricing: { input: 2.50, output: 15.00 }
+    },
+    scores: {
+      "swe-bench-pro": { score: 57.7, verified: true, sourceId: "openai-gpt54-announce", asOfDate: "2026-03-05" },
+      "terminal-bench": { score: 75.1, verified: true, sourceId: "openai-gpt54-announce", asOfDate: "2026-03-05" },
+      "gpqa-diamond": { score: 92.8, verified: true, sourceId: "openai-gpt54-announce", asOfDate: "2026-03-05" },
+      "hle-full": { score: 39.8, verified: true, sourceId: "openai-gpt54-announce", asOfDate: "2026-03-05" },
+      "hle-full-tools": { score: 52.1, verified: true, sourceId: "openai-gpt54-announce", asOfDate: "2026-03-05" },
+      "osworld-verified": { score: 75.0, verified: true, sourceId: "openai-gpt54-announce", asOfDate: "2026-03-05" },
+      "browsecomp": { score: 82.7, verified: true, sourceId: "openai-gpt54-announce", asOfDate: "2026-03-05" },
+      "mmmu-pro": { score: 81.2, verified: true, sourceId: "openai-gpt54-announce", asOfDate: "2026-03-05" },
+      "arc-agi-1": { score: 93.7, verified: true, sourceId: "openai-gpt54-announce", asOfDate: "2026-03-05" },
+      "arc-agi-2": { score: 73.3, verified: true, sourceId: "openai-gpt54-announce", asOfDate: "2026-03-05" },
+      "frontiermath": { score: 47.6, verified: true, sourceId: "openai-gpt54-announce", asOfDate: "2026-03-05" },
+      "toolathlon": { score: 54.6, verified: true, sourceId: "openai-gpt54-announce", asOfDate: "2026-03-05" },
+      "tau-bench-telecom": { score: 98.9, verified: true, sourceId: "openai-gpt54-announce", asOfDate: "2026-03-05" },
+      "omnidocbench-15": { score: 0.109, verified: true, sourceId: "openai-gpt54-announce", asOfDate: "2026-03-05" },
+    }
+  },
+  {
+    id: "mistral-small-4",
+    name: "Mistral Small 4",
+    provider: "Mistral",
+    releaseDate: "2026-03-16",
+    capabilities: ["text", "code", "vision", "reasoning"],
+    isOpenSource: true,
+    specs: {
+      contextWindow: 256000,
+      parameters: "119B total (6B active)",
+      pricing: { input: 0.15, output: 0.60 }
+    },
+    scores: {
+      "mmlu-pro": { score: 78.0, verified: true, sourceId: "mistral-small-4-announce", asOfDate: "2026-03-16" },
+      "gpqa-diamond": { score: 71.2, verified: true, sourceId: "mistral-small-4-announce", asOfDate: "2026-03-16" },
+      "aime-2025": { score: 83.8, verified: true, sourceId: "mistral-small-4-announce", asOfDate: "2026-03-16" },
+      "livecodebench-v6": { score: 63.6, verified: true, sourceId: "mistral-small-4-announce", asOfDate: "2026-03-16" },
+      "lcr": { score: 71.2, verified: true, sourceId: "mistral-small-4-announce", asOfDate: "2026-03-16" },
+      "ifbench": { score: 48.0, verified: true, sourceId: "mistral-small-4-announce", asOfDate: "2026-03-16" },
+      "mmmu-pro": { score: 60.0, verified: true, sourceId: "mistral-small-4-announce", asOfDate: "2026-03-16" },
+    }
+  },
+  {
+    id: "glm-5-1",
+    name: "GLM 5.1",
+    provider: "Zhipu AI",
+    releaseDate: "2026-04-07",
+    capabilities: ["text", "code", "vision", "reasoning"],
+    isOpenSource: true,
+    specs: {
+      contextWindow: 200000,
+      parameters: "744B total (40B active)",
+      pricing: { input: 1.40, output: 4.40, cacheInput: 0.26 }
+    },
+    scores: {
+      "hle": { score: 31.0, verified: true, sourceId: "zhipu-glm-5-1-announce", asOfDate: "2026-04-07" },
+      "hle-full-tools": { score: 52.3, verified: true, sourceId: "zhipu-glm-5-1-announce", asOfDate: "2026-04-07" },
+      "aime-2026": { score: 95.3, verified: true, sourceId: "zhipu-glm-5-1-announce", asOfDate: "2026-04-07" },
+      "gpqa-diamond": { score: 86.2, verified: true, sourceId: "zhipu-glm-5-1-announce", asOfDate: "2026-04-07" },
+      "swe-bench-pro": { score: 58.4, verified: true, sourceId: "zhipu-glm-5-1-announce", asOfDate: "2026-04-07" },
+      "terminal-bench": { score: 63.5, verified: true, sourceId: "zhipu-glm-5-1-announce", asOfDate: "2026-04-07" },
+      "cybergym": { score: 68.7, verified: true, sourceId: "zhipu-glm-5-1-announce", asOfDate: "2026-04-07" },
+      "browsecomp": { score: 68.0, verified: true, sourceId: "zhipu-glm-5-1-announce", asOfDate: "2026-04-07" },
+      "mcp-atlas": { score: 71.8, verified: true, sourceId: "zhipu-glm-5-1-announce", asOfDate: "2026-04-07" },
+      "toolathlon": { score: 40.7, verified: true, sourceId: "zhipu-glm-5-1-announce", asOfDate: "2026-04-07" },
+      "tau-bench": { score: 70.6, verified: true, sourceId: "zhipu-glm-5-1-announce", asOfDate: "2026-04-07" },
+      "hmmt-nov-2025": { score: 94.0, verified: true, sourceId: "zhipu-glm-5-1-announce", asOfDate: "2026-04-07" },
+      "hmmt-feb-2026": { score: 82.6, verified: true, sourceId: "zhipu-glm-5-1-announce", asOfDate: "2026-04-07" },
+      "imo-answerbench": { score: 83.8, verified: true, sourceId: "zhipu-glm-5-1-announce", asOfDate: "2026-04-07" },
     }
   }
 ];
