@@ -2859,6 +2859,7 @@ const rawModels: Model[] = [
       pricing: { input: 1.50, output: 9.00 }
     },
     scores: {
+      "gpqa-diamond": { score: 90.4, verified: true, sourceId: "google-gemini35flash-announce", asOfDate: "2026-05-01" },
       "arc-agi-2": { score: 72.1, verified: true, sourceId: "google-gemini35flash-announce", asOfDate: "2026-05-01" },
       "swe-bench-pro": { score: 55.1, verified: true, sourceId: "google-gemini35flash-announce", asOfDate: "2026-05-01" },
       "terminal-bench": { score: 76.2, verified: true, sourceId: "google-gemini35flash-announce", asOfDate: "2026-05-01" },
@@ -2866,6 +2867,9 @@ const rawModels: Model[] = [
       "mmmu-pro": { score: 83.6, verified: true, sourceId: "google-gemini35flash-announce", asOfDate: "2026-05-01" },
       "mcp-atlas": { score: 83.6, verified: true, sourceId: "google-gemini35flash-announce", asOfDate: "2026-05-01" },
       "osworld-verified": { score: 78.4, verified: true, sourceId: "google-gemini35flash-announce", asOfDate: "2026-05-01" },
+      "lmarena-elo": { score: 1480, verified: true, sourceId: "lmarena", asOfDate: "2026-05-21" },
+      "mmlu-pro": { score: 78.3, verified: true, sourceId: "google-gemini35flash-announce", asOfDate: "2026-05-01" },
+      "finance-agent": { score: 57.9, verified: true, sourceId: "google-gemini35flash-announce", asOfDate: "2026-05-01" },
     }
   },
 
@@ -3140,6 +3144,362 @@ const rawModels: Model[] = [
       "terminal-bench": { score: 54.4, verified: true, sourceId: "artificial-analysis", asOfDate: "2026-04-22" },
       "hle": { score: 30.0, verified: true, sourceId: "artificial-analysis", asOfDate: "2026-04-22" },
     }
+  },
+
+  // --- BAIDU: ERNIE 5.1 (2026) ---
+  {
+    id: "ernie-5-1",
+    name: "ERNIE 5.1",
+    provider: "Baidu",
+    releaseDate: "2026-04-01",
+    capabilities: ["text", "code", "vision", "reasoning"],
+    isOpenSource: false,
+    specs: {
+      contextWindow: 128000,
+      parameters: "Unknown",
+      pricing: { input: 0, output: 0 }
+    },
+    scores: {
+      "lmarena-elo": { score: 1473, verified: true, sourceId: "lmarena", asOfDate: "2026-05-21" },
+    }
+  },
+
+  // --- BAIDU: ERNIE 5.0 (2025) ---
+  {
+    id: "ernie-5-0",
+    name: "ERNIE 5.0",
+    provider: "Baidu",
+    releaseDate: "2025-12-01",
+    capabilities: ["text", "code", "vision", "reasoning"],
+    isOpenSource: false,
+    specs: {
+      contextWindow: 128000,
+      parameters: "Unknown",
+      pricing: { input: 0, output: 0 }
+    },
+    scores: {
+      "lmarena-elo": { score: 1450, verified: true, sourceId: "lmarena", asOfDate: "2026-05-21" },
+    }
+  },
+
+  // --- XAI: Grok 4.20 (2026) ---
+  {
+    id: "grok-4-20",
+    name: "Grok 4.20",
+    provider: "xAI",
+    releaseDate: "2026-03-09",
+    capabilities: ["text", "code", "vision", "reasoning"],
+    isOpenSource: false,
+    specs: {
+      contextWindow: 2000000,
+      parameters: "Unknown",
+      pricing: { input: 0, output: 0 }
+    },
+    scores: {
+      "lmarena-elo": { score: 1478, verified: true, sourceId: "lmarena", asOfDate: "2026-05-21" },
+    }
+  },
+
+  // --- XAI: Grok 4.1 Thinking (2026) ---
+  {
+    id: "grok-4-1-thinking",
+    name: "Grok 4.1 Thinking",
+    provider: "xAI",
+    releaseDate: "2026-02-01",
+    capabilities: ["text", "code", "vision", "reasoning"],
+    isOpenSource: false,
+    specs: {
+      contextWindow: 1000000,
+      parameters: "Unknown",
+      pricing: { input: 0, output: 0 }
+    },
+    scores: {
+      "lmarena-elo": { score: 1467, verified: true, sourceId: "lmarena", asOfDate: "2026-05-21" },
+    }
+  },
+
+  // --- XAI: Grok 4.1 (2026) ---
+  {
+    id: "grok-4-1",
+    name: "Grok 4.1",
+    provider: "xAI",
+    releaseDate: "2026-02-01",
+    capabilities: ["text", "code", "vision"],
+    isOpenSource: false,
+    specs: {
+      contextWindow: 1000000,
+      parameters: "Unknown",
+      pricing: { input: 0, output: 0 }
+    },
+    scores: {
+      "lmarena-elo": { score: 1460, verified: true, sourceId: "lmarena", asOfDate: "2026-05-21" },
+    }
+  },
+
+  // --- ALIBABA: Qwen3.6 Plus (2026) ---
+  {
+    id: "qwen-3-6-plus",
+    name: "Qwen3.6 Plus",
+    provider: "Alibaba",
+    releaseDate: "2026-04-01",
+    capabilities: ["text", "code", "vision", "reasoning"],
+    isOpenSource: false,
+    specs: {
+      contextWindow: 1000000,
+      parameters: "Unknown",
+      pricing: { input: 0.43, output: 1.72 }
+    },
+    scores: {
+      "lmarena-elo": { score: 1457, verified: true, sourceId: "lmarena", asOfDate: "2026-05-21" },
+    }
+  },
+
+  // --- ALIBABA: Qwen3.5 Max (2026) ---
+  {
+    id: "qwen-3-5-max",
+    name: "Qwen3.5 Max",
+    provider: "Alibaba",
+    releaseDate: "2026-02-01",
+    capabilities: ["text", "code", "vision", "reasoning"],
+    isOpenSource: false,
+    specs: {
+      contextWindow: 1000000,
+      parameters: "Unknown",
+      pricing: { input: 0, output: 0 }
+    },
+    scores: {
+      "lmarena-elo": { score: 1464, verified: true, sourceId: "lmarena", asOfDate: "2026-05-21" },
+    }
+  },
+
+  // --- OPENAI: GPT-5.4 mini (2026) ---
+  {
+    id: "gpt-5-4-mini",
+    name: "GPT-5.4 mini",
+    provider: "OpenAI",
+    releaseDate: "2026-03-05",
+    capabilities: ["text", "code", "vision", "reasoning"],
+    isOpenSource: false,
+    specs: {
+      contextWindow: 400000,
+      parameters: "Unknown",
+      pricing: { input: 0.75, output: 4.50 }
+    },
+    scores: {
+      "lmarena-elo": { score: 1454, verified: true, sourceId: "lmarena", asOfDate: "2026-05-21" },
+    }
+  },
+
+  // --- OPENAI: GPT-5.4 nano (2026) ---
+  {
+    id: "gpt-5-4-nano",
+    name: "GPT-5.4 nano",
+    provider: "OpenAI",
+    releaseDate: "2026-03-05",
+    capabilities: ["text", "code", "vision"],
+    isOpenSource: false,
+    specs: {
+      contextWindow: 400000,
+      parameters: "Unknown",
+      pricing: { input: 0.18, output: 0.72 }
+    },
+    scores: {}
+  },
+
+  // --- DEEPSEEK: DeepSeek V4 Pro Thinking (2026) ---
+  {
+    id: "deepseek-v4-pro-thinking",
+    name: "DeepSeek V4 Pro Thinking",
+    provider: "DeepSeek",
+    releaseDate: "2026-04-24",
+    capabilities: ["text", "code", "reasoning"],
+    isOpenSource: true,
+    specs: {
+      contextWindow: 1000000,
+      parameters: "Unknown",
+      pricing: { input: 0.435, output: 0.87 }
+    },
+    scores: {
+      "lmarena-elo": { score: 1461, verified: true, sourceId: "lmarena", asOfDate: "2026-05-21" },
+    }
+  },
+
+  // --- BYTEDANCE: Dola Seed 2.0 Pro (2026) ---
+  {
+    id: "dola-seed-2-0-pro",
+    name: "Dola Seed 2.0 Pro",
+    provider: "ByteDance",
+    releaseDate: "2026-02-14",
+    capabilities: ["text", "code", "vision", "reasoning"],
+    isOpenSource: false,
+    specs: {
+      contextWindow: 128000,
+      parameters: "Unknown",
+      pricing: { input: 0.47, output: 2.37 }
+    },
+    scores: {
+      "lmarena-elo": { score: 1456, verified: true, sourceId: "lmarena", asOfDate: "2026-05-21" },
+    }
+  },
+
+  // --- XIAOMI: MiMo-V2-Omni (2026) ---
+  {
+    id: "mimo-v2-omni",
+    name: "MiMo V2 Omni",
+    provider: "Xiaomi",
+    releaseDate: "2026-03-27",
+    capabilities: ["text", "code", "vision", "audio", "reasoning"],
+    isOpenSource: true,
+    specs: {
+      contextWindow: 256000,
+      parameters: "Unknown",
+      pricing: { input: 0, output: 0.34 }
+    },
+    scores: {}
+  },
+
+  // --- XIAOMI: MiMo-V2-Flash (2026) ---
+  {
+    id: "mimo-v2-flash",
+    name: "MiMo V2 Flash",
+    provider: "Xiaomi",
+    releaseDate: "2026-02-01",
+    capabilities: ["text", "code", "vision"],
+    isOpenSource: true,
+    specs: {
+      contextWindow: 256000,
+      parameters: "Unknown",
+      pricing: { input: 0.06, output: 0.06 }
+    },
+    scores: {}
+  },
+
+  // --- Z AI: GLM-5-Turbo (2026) ---
+  {
+    id: "glm-5-turbo",
+    name: "GLM-5 Turbo",
+    provider: "Zhipu AI",
+    releaseDate: "2026-03-01",
+    capabilities: ["text", "code", "vision", "reasoning"],
+    isOpenSource: false,
+    specs: {
+      contextWindow: 200000,
+      parameters: "Unknown",
+      pricing: { input: 0, output: 0 }
+    },
+    scores: {}
+  },
+
+  // --- AMAZON: Nova 2.0 Pro Preview (2026) ---
+  {
+    id: "amazon-nova-2-0-pro",
+    name: "Nova 2.0 Pro Preview",
+    provider: "Amazon",
+    releaseDate: "2026-04-01",
+    capabilities: ["text", "code", "vision", "reasoning"],
+    isOpenSource: false,
+    specs: {
+      contextWindow: 256000,
+      parameters: "Unknown",
+      pricing: { input: 1.47, output: 5.88 }
+    },
+    scores: {}
+  },
+
+  // --- INCLUSIONAI: Ring-2.6-1T (2026) ---
+  {
+    id: "ring-2-6-1t",
+    name: "Ring 2.6 1T",
+    provider: "InclusionAI",
+    releaseDate: "2026-04-01",
+    capabilities: ["text", "code", "reasoning"],
+    isOpenSource: true,
+    specs: {
+      contextWindow: 262000,
+      parameters: "1T",
+      pricing: { input: 0, output: 0 }
+    },
+    scores: {}
+  },
+
+  // --- ARCEE AI: Trinity Large Thinking (2026) ---
+  {
+    id: "arcee-trinity-large-thinking",
+    name: "Trinity Large Thinking",
+    provider: "Arcee AI",
+    releaseDate: "2026-03-01",
+    capabilities: ["text", "code", "reasoning"],
+    isOpenSource: false,
+    specs: {
+      contextWindow: 512000,
+      parameters: "Unknown",
+      pricing: { input: 0.24, output: 0.24 }
+    },
+    scores: {}
+  },
+
+  // --- LG AI: EXAONE 4.5 33B (2026) ---
+  {
+    id: "exaone-4-5-33b",
+    name: "EXAONE 4.5 33B",
+    provider: "LG AI Research",
+    releaseDate: "2026-03-01",
+    capabilities: ["text", "code", "reasoning"],
+    isOpenSource: true,
+    specs: {
+      contextWindow: 262000,
+      parameters: "33B",
+      pricing: { input: 0, output: 0 }
+    },
+    scores: {}
+  },
+
+  // --- NVIDIA: Nemotron 3 Super (2026) ---
+  {
+    id: "nvidia-nemotron-3-super",
+    name: "Nemotron 3 Super",
+    provider: "NVIDIA",
+    releaseDate: "2026-03-01",
+    capabilities: ["text", "code", "reasoning"],
+    isOpenSource: true,
+    specs: {
+      contextWindow: 1000000,
+      parameters: "Unknown",
+      pricing: { input: 0.28, output: 0.28 }
+    },
+    scores: {}
+  },
+
+  // --- UPSTAGE: Solar Pro 3 (2026) ---
+  {
+    id: "solar-pro-3",
+    name: "Solar Pro 3",
+    provider: "Upstage",
+    releaseDate: "2026-02-01",
+    capabilities: ["text", "code", "reasoning"],
+    isOpenSource: false,
+    specs: {
+      contextWindow: 128000,
+      parameters: "Unknown",
+      pricing: { input: 0, output: 0 }
+    },
+    scores: {}
+  },
+
+  // --- IBM: Granite 4.1 30B (2026) ---
+  {
+    id: "granite-4-1-30b",
+    name: "Granite 4.1 30B",
+    provider: "IBM",
+    releaseDate: "2026-03-01",
+    capabilities: ["text", "code"],
+    isOpenSource: true,
+    specs: {
+      contextWindow: 131000,
+      parameters: "30B",
+      pricing: { input: 0, output: 0 }
+    },
+    scores: {}
   },
 ];
 
