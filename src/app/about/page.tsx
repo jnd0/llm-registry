@@ -2,13 +2,23 @@ import { benchmarks, models, sources } from "@/lib/registry-data";
 import { changelog } from "@/data/changelog";
 import type { Metadata } from "next";
 import { siteName, siteUrl } from "@/lib/site";
+import { toSafeJsonLd } from "@/lib/security";
 
 const categories = Array.from(new Set(benchmarks.map((benchmark) => benchmark.category)));
 
 export const metadata: Metadata = {
-  title: "Methodology",
-  description: "Read data policy, normalization rules, attribution, and confidence caveats used in LLM Registry rankings.",
-  keywords: ["llm methodology", "benchmark normalization", "score provenance", "verification tiers"],
+  title: "Methodology — How LLM Benchmarks Work",
+  description: "How LLM Registry normalizes benchmark scores, tracks provenance, and ranks AI models. Data policy, verification tiers, and attribution methodology.",
+  keywords: [
+    "llm methodology",
+    "benchmark normalization",
+    "score provenance",
+    "verification tiers",
+    "how llm benchmarks work",
+    "ai model evaluation methodology",
+    "llm benchmark methodology",
+    "ai model ranking methodology",
+  ],
   alternates: {
     canonical: "/about",
   },
@@ -35,8 +45,31 @@ export const metadata: Metadata = {
 };
 
 export default function AboutPage() {
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    name: `${siteName} Methodology`,
+    description: "Data policy, normalization rules, and provenance labeling used across the global benchmark registry.",
+    url: `${siteUrl}/about`,
+    isPartOf: {
+      "@type": "WebSite",
+      name: siteName,
+      url: siteUrl,
+    },
+    mainEntity: {
+      "@type": "Article",
+      headline: "LLM Registry Methodology and Data Policy",
+      description: "How LLM Registry normalizes benchmark scores, tracks provenance, and ranks AI models.",
+      author: { "@type": "Organization", name: siteName },
+      publisher: { "@type": "Organization", name: siteName },
+      datePublished: "2025-01-01",
+      dateModified: changelog[0]?.date ?? "2025-01-01",
+    },
+  };
+
   return (
     <div className="animate-in fade-in duration-700 space-y-10 pb-20">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toSafeJsonLd(structuredData) }} />
       <section className="relative overflow-hidden rounded-2xl border border-border bg-card/50 px-6 py-8 sm:px-10 sm:py-12">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_0%_0%,color-mix(in_oklab,var(--primary)_8%,transparent),transparent_50%)]" />
         <div className="relative max-w-3xl space-y-4">
@@ -264,7 +297,7 @@ export default function AboutPage() {
               <article className="rounded-2xl border border-border bg-card p-5">
                 <p className="font-mono text-[10px] font-bold uppercase tracking-widest text-primary">Edge Delivery</p>
                 <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
-                  All API endpoints are pre-generated at build time and served from Cloudflare's edge network globally, providing under 20ms response times worldwide with 100% uptime SLA.
+                  All API endpoints are pre-generated at build time and served from Cloudflare&apos;s edge network globally, providing under 20ms response times worldwide with 100% uptime SLA.
                 </p>
               </article>
 

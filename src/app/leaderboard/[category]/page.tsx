@@ -5,7 +5,9 @@ import { benchmarkCategories, categoryToSlug, slugToCategory } from "@/lib/categ
 import { siteName, siteUrl } from "@/lib/site";
 import { Suspense } from "react";
 import { RefactoredCategoryLeaderboard } from "@/components/dashboard/refactored-leaderboard";
-import { Skeleton } from "@/components/ui/skeleton";
+import { models, benchmarks } from "@/lib/registry-data";
+import { toSafeJsonLd } from "@/lib/security";
+import { normalizeScore } from "@/lib/stats";
 
 interface CategoryPageProps {
   params: Promise<{ category: string }>;
@@ -32,15 +34,18 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
     };
   }
 
-  const description = `Normalized rankings and benchmark coverage for ${activeCategory} models in LLM Registry.`;
+  const description = `Compare top ${activeCategory.toLowerCase()} AI models by normalized benchmark scores. Rankings for GPT, Claude, Gemini, DeepSeek and more — with provenance and pricing.`;
 
   return {
-    title: `${activeCategory} Leaderboard`,
+    title: `${activeCategory} Leaderboard — Compare AI Models`,
     description,
     keywords: [
       `${activeCategory.toLowerCase()} leaderboard`,
       `${activeCategory.toLowerCase()} llm benchmark`,
+      `best ai for ${activeCategory.toLowerCase()}`,
+      `compare ${activeCategory.toLowerCase()} models`,
       "llm category rankings",
+      "ai model comparison",
     ],
     alternates: {
       canonical: `/leaderboard/${categorySlug}`,
@@ -76,14 +81,78 @@ function LoadingShell() {
   );
 }
 
+function getCategoryTopModels(category: string) {
+  const categoryBenchmarks = benchmarks.filter((b) => b.category === category);
+  if (categoryBenchmarks.length === 0) return [];
+
+  const modelScores: { model: (typeof models)[number]; avgScore: number }[] = [];
+
+  for (const model of models) {
+    let totalNormalized = 0;
+    let count = 0;
+
+    for (const bm of categoryBenchmarks) {
+      const entry = model.scores[bm.id];
+      if (entry?.score !== null && entry?.score !== undefined) {
+        totalNormalized += normalizeScore(entry.score, bm);
+        count++;
+      }
+    }
+
+    if (count > 0) {
+      modelScores.push({ model, avgScore: totalNormalized / count });
+    }
+  }
+
+  return modelScores.sort((a, b) => b.avgScore - a.avgScore).slice(0, 10);
+}
+
 export default async function CategoryLeaderboardPage({ params }: CategoryPageProps) {
   const { category: categorySlug } = await params;
   const activeCategory = slugToCategory(categorySlug);
 
   if (!activeCategory) return notFound();
 
+  const topModels = getCategoryTopModels(activeCategory);
+
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "Dataset",
+    name: `${activeCategory} LLM Leaderboard`,
+    description: `Normalized benchmark rankings for ${activeCategory} AI models with provenance tracking.`,
+    url: `${siteUrl}/leaderboard/${categorySlug}`,
+    creator: { "@type": "Organization", name: siteName },
+    keywords: [activeCategory, "LLM", "benchmark", "leaderboard", "AI evaluation"],
+    ...(topModels.length > 0 && {
+      distribution: topModels.map((entry, i) => ({
+        "@type": "DataDownload",
+        name: entry.model.name,
+        contentUrl: `${siteUrl}/model/${entry.model.id}`,
+        position: i + 1,
+      })),
+    }),
+  };
+
+  const itemListData =
+    topModels.length > 0
+      ? {
+          "@context": "https://schema.org",
+          "@type": "ItemList",
+          name: `Top ${activeCategory} AI Models`,
+          itemListElement: topModels.map((entry, i) => ({
+            "@type": "ListItem",
+            position: i + 1,
+            name: entry.model.name,
+            url: `${siteUrl}/model/${entry.model.id}`,
+          })),
+        }
+      : null;
+
   return (
     <div className="animate-in fade-in duration-500 space-y-8">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toSafeJsonLd(structuredData) }} />
+      {itemListData && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toSafeJsonLd(itemListData) }} />}
+
       <section className="surface-panel rounded-2xl px-5 py-6 sm:px-7 sm:py-7">
         <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <div>
