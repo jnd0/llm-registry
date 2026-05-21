@@ -1640,10 +1640,10 @@ const rawModels: Model[] = [
     provider: "Moonshot AI",
     releaseDate: "2026-01-20",
     capabilities: ["text", "code", "reasoning"],
-    isOpenSource: false,
+    isOpenSource: true,
     specs: {
-      contextWindow: 10000000,
-      parameters: "Proprietary",
+      contextWindow: 256000,
+      parameters: "1T MoE (32B activated)",
       pricing: { input: 1.00, output: 3.00 }
     },
     scores: {
@@ -2316,6 +2316,10 @@ const rawModels: Model[] = [
       "charxiv-rq": { score: 80.4, verified: true, sourceId: "moonshot-k2-6-announce", asOfDate: "2026-04-20" },
       "mathvision": { score: 87.4, verified: true, sourceId: "moonshot-k2-6-announce", asOfDate: "2026-04-20" },
       "babyvision": { score: 39.8, verified: true, sourceId: "moonshot-k2-6-announce", asOfDate: "2026-04-20" },
+      "lmarena-elo": { score: 1462, verified: true, sourceId: "lmarena", asOfDate: "2026-05-21" },
+      "lmarena-webdev-elo": { score: 1519, verified: true, sourceId: "lmarena", asOfDate: "2026-05-21" },
+      "lmarena-vision-elo": { score: 1259, verified: true, sourceId: "lmarena", asOfDate: "2026-05-21" },
+      "lmarena-document-elo": { score: 1454, verified: true, sourceId: "lmarena", asOfDate: "2026-05-21" },
     }
   },
   {
@@ -2462,6 +2466,11 @@ const rawModels: Model[] = [
       "graphwalks-bfs": { score: 58.6, verified: true, sourceId: "anthropic-opus-4-7-announce", asOfDate: "2026-04-16" },
       "structural-biology": { score: 74.0, verified: true, sourceId: "anthropic-opus-4-7-announce", asOfDate: "2026-04-16" },
       "swe-multimodal": { score: 34.5, verified: true, sourceId: "anthropic-opus-4-7-announce", asOfDate: "2026-04-16" },
+      "lmarena-elo": { score: 1492, verified: true, sourceId: "lmarena", asOfDate: "2026-05-21" },
+      "lmarena-webdev-elo": { score: 1560, verified: true, sourceId: "lmarena", asOfDate: "2026-05-21" },
+      "lmarena-vision-elo": { score: 1304, verified: true, sourceId: "lmarena", asOfDate: "2026-05-21" },
+      "lmarena-document-elo": { score: 1510, verified: true, sourceId: "lmarena", asOfDate: "2026-05-21" },
+      "lmarena-search-elo": { score: 1237, verified: true, sourceId: "lmarena", asOfDate: "2026-05-21" },
     }
   },
   {
@@ -2712,6 +2721,10 @@ const rawModels: Model[] = [
       "genebench": { score: 25.0, verified: true, sourceId: "openai-gpt55-announce", asOfDate: "2026-04-23" },
       "bixbench": { score: 80.5, verified: true, sourceId: "openai-gpt55-announce", asOfDate: "2026-04-23" },
       "frontiermath-tier-4": { score: 35.4, verified: true, sourceId: "openai-gpt55-announce", asOfDate: "2026-04-23" },
+      "lmarena-elo": { score: 1478, verified: true, sourceId: "lmarena", asOfDate: "2026-05-21" },
+      "lmarena-webdev-elo": { score: 1440, verified: true, sourceId: "lmarena", asOfDate: "2026-05-21" },
+      "lmarena-vision-elo": { score: 1288, verified: true, sourceId: "lmarena", asOfDate: "2026-05-21" },
+      "lmarena-document-elo": { score: 1492, verified: true, sourceId: "lmarena", asOfDate: "2026-05-21" },
     }
   },
   {
@@ -2799,6 +2812,8 @@ const rawModels: Model[] = [
       "hmmt-nov-2025": { score: 94.0, verified: true, sourceId: "zhipu-glm-5-1-announce", asOfDate: "2026-04-07" },
       "hmmt-feb-2026": { score: 82.6, verified: true, sourceId: "zhipu-glm-5-1-announce", asOfDate: "2026-04-07" },
       "imo-answerbench": { score: 83.8, verified: true, sourceId: "zhipu-glm-5-1-announce", asOfDate: "2026-04-07" },
+      "lmarena-elo": { score: 1472, verified: true, sourceId: "lmarena", asOfDate: "2026-05-21" },
+      "lmarena-webdev-elo": { score: 1532, verified: true, sourceId: "lmarena", asOfDate: "2026-05-21" },
     }
   },
 
@@ -2841,6 +2856,10 @@ const rawModels: Model[] = [
       "arc-agi-2": { score: 60.4, verified: true, sourceId: "anthropic-sonnet46-announce", asOfDate: "2026-02-17" },
       "hle-full-tools": { score: 35.0, verified: true, sourceId: "anthropic-sonnet46-announce", asOfDate: "2026-02-17" },
       "lmarena-elo": { score: 1495, verified: true, sourceId: "lmarena", asOfDate: "2026-05-21" },
+      "lmarena-webdev-elo": { score: 1524, verified: true, sourceId: "lmarena", asOfDate: "2026-05-21" },
+      "lmarena-vision-elo": { score: 1275, verified: true, sourceId: "lmarena", asOfDate: "2026-05-21" },
+      "lmarena-document-elo": { score: 1495, verified: true, sourceId: "lmarena", asOfDate: "2026-05-21" },
+      "lmarena-search-elo": { score: 1219, verified: true, sourceId: "lmarena", asOfDate: "2026-05-21" },
     }
   },
 
@@ -2868,6 +2887,7 @@ const rawModels: Model[] = [
       "mcp-atlas": { score: 83.6, verified: true, sourceId: "google-gemini35flash-announce", asOfDate: "2026-05-01" },
       "osworld-verified": { score: 78.4, verified: true, sourceId: "google-gemini35flash-announce", asOfDate: "2026-05-01" },
       "lmarena-elo": { score: 1480, verified: true, sourceId: "lmarena", asOfDate: "2026-05-21" },
+      "lmarena-webdev-elo": { score: 1507, verified: true, sourceId: "lmarena", asOfDate: "2026-05-21" },
       "mmlu-pro": { score: 78.3, verified: true, sourceId: "google-gemini35flash-announce", asOfDate: "2026-05-01" },
       "finance-agent": { score: 57.9, verified: true, sourceId: "google-gemini35flash-announce", asOfDate: "2026-05-01" },
     }
@@ -2929,6 +2949,8 @@ const rawModels: Model[] = [
     },
     scores: {
       "lmarena-elo": { score: 1451, verified: true, sourceId: "lmarena", asOfDate: "2026-05-21" },
+      "lmarena-vision-elo": { score: 1247, verified: true, sourceId: "lmarena", asOfDate: "2026-05-21" },
+      "lmarena-search-elo": { score: 1189, verified: true, sourceId: "lmarena", asOfDate: "2026-05-21" },
     }
   },
 
@@ -3197,6 +3219,7 @@ const rawModels: Model[] = [
     },
     scores: {
       "lmarena-elo": { score: 1478, verified: true, sourceId: "lmarena", asOfDate: "2026-05-21" },
+      "lmarena-search-elo": { score: 1193, verified: true, sourceId: "lmarena", asOfDate: "2026-05-21" },
     }
   },
 
@@ -3500,6 +3523,58 @@ const rawModels: Model[] = [
       pricing: { input: 0, output: 0 }
     },
     scores: {}
+  },
+
+  // --- ANTHROPIC: Claude Haiku 4.5 (2025) ---
+  {
+    id: "claude-haiku-4-5",
+    name: "Claude Haiku 4.5",
+    provider: "Anthropic",
+    releaseDate: "2025-11-01",
+    capabilities: ["text", "code", "vision", "reasoning"],
+    isOpenSource: false,
+    specs: {
+      contextWindow: 200000,
+      parameters: "Unknown",
+      pricing: { input: 1.00, output: 5.00 }
+    },
+    scores: {
+      "lmarena-elo": { score: 1423, verified: true, sourceId: "lmarena", asOfDate: "2026-05-21" },
+    }
+  },
+
+  // --- OPENAI: o3-mini (2025) ---
+  {
+    id: "o3-mini",
+    name: "o3-mini",
+    provider: "OpenAI",
+    releaseDate: "2025-01-31",
+    capabilities: ["text", "code", "reasoning"],
+    isOpenSource: false,
+    specs: {
+      contextWindow: 128000,
+      parameters: "Unknown",
+      pricing: { input: 1.10, output: 4.40 }
+    },
+    scores: {}
+  },
+
+  // --- XAI: Grok 4.20 Multi-Agent (2026) ---
+  {
+    id: "grok-4-20-multi-agent",
+    name: "Grok 4.20 Multi-Agent",
+    provider: "xAI",
+    releaseDate: "2026-03-09",
+    capabilities: ["text", "code", "vision", "reasoning"],
+    isOpenSource: false,
+    specs: {
+      contextWindow: 2000000,
+      parameters: "Unknown",
+      pricing: { input: 0, output: 0 }
+    },
+    scores: {
+      "lmarena-search-elo": { score: 1209, verified: true, sourceId: "lmarena", asOfDate: "2026-05-21" },
+    }
   },
 ];
 

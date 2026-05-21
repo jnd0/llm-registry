@@ -198,6 +198,54 @@ const rawBenchmarks: Benchmark[] = [
     link: "https://chat.lmsys.org/?leaderboard"
   },
   {
+    id: "lmarena-webdev-elo",
+    name: "LMArena WebDev ELO",
+    category: "Coding",
+    description: "WebDev Arena ELO score. Human preference ranking for web development tasks.",
+    maxScore: 1700,
+    minScore: 1000,
+    higherIsBetter: true,
+    normalization: "elo",
+    unit: "ELO",
+    link: "https://lmarena.ai/leaderboard/code/webdev"
+  },
+  {
+    id: "lmarena-vision-elo",
+    name: "LMArena Vision ELO",
+    category: "Vision",
+    description: "Vision Arena ELO score. Human preference ranking for multimodal vision tasks.",
+    maxScore: 1700,
+    minScore: 1000,
+    higherIsBetter: true,
+    normalization: "elo",
+    unit: "ELO",
+    link: "https://lmarena.ai/leaderboard/vision"
+  },
+  {
+    id: "lmarena-search-elo",
+    name: "LMArena Search ELO",
+    category: "Real-world",
+    description: "Search Arena ELO score. Human preference ranking for search-augmented generation.",
+    maxScore: 1700,
+    minScore: 1000,
+    higherIsBetter: true,
+    normalization: "elo",
+    unit: "ELO",
+    link: "https://lmarena.ai/leaderboard/search"
+  },
+  {
+    id: "lmarena-document-elo",
+    name: "LMArena Document ELO",
+    category: "Vision",
+    description: "Document Arena ELO score. Human preference ranking for document understanding.",
+    maxScore: 1700,
+    minScore: 1000,
+    higherIsBetter: true,
+    normalization: "elo",
+    unit: "ELO",
+    link: "https://lmarena.ai/leaderboard/document"
+  },
+  {
     id: "aa-intelligence-index",
     name: "AA Intelligence Index",
     category: "Real-world",
