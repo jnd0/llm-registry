@@ -7,6 +7,26 @@ export interface ChangelogEntry {
 
 export const changelog: ChangelogEntry[] = [
   {
+    version: "0.8.0",
+    date: "2026-05-21",
+    title: "April-May Model Sweep, SEO Improvements, and Score Refresh",
+    notes: [
+      "Added 15+ new models including GPT-5.5 Instant, Claude Sonnet 4.6, Gemini 3.5 Flash, Gemini 3.1 Flash-Lite, Qwen3.7 Max, Grok 4.3, Muse Spark, Mistral Medium 3.5",
+      "Added new providers: Tencent (Hy3), StepFun (Step 3.5 Flash), Inception (Mercury 2), Baidu (ERNIE 4.5 Thinking)",
+      "Added coding-specialized models: Qwen3 Coder Next, Devstral, Mistral Medium 3.5",
+      "Added 8 new data sources for model announcements and benchmarks",
+      "Improved SEO with FAQ section, Current Leaders highlights, and JSON-LD structured data on all pages",
+      "Added FAQPage schema to homepage targeting 'llm comparison' and 'best llm' queries",
+      "Added Dataset + ItemList JSON-LD to leaderboard category pages",
+      "Added WebPage JSON-LD to compare page",
+      "Added AboutPage + Article JSON-LD to methodology page",
+      "Improved page titles targeting comparison and leaderboard search queries",
+      "Redesigned footer with 4-column layout and resource links",
+      "Fixed GitHub link in footer (yamanahlawat to jnd0)",
+      "Modernized README.md with updated model references and cleaner structure",
+    ],
+  },
+  {
     version: "0.7.0",
     date: "2026-03-01",
     title: "Models.dev Integration and Advanced Filtering",

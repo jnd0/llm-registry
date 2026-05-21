@@ -2800,7 +2800,347 @@ const rawModels: Model[] = [
       "hmmt-feb-2026": { score: 82.6, verified: true, sourceId: "zhipu-glm-5-1-announce", asOfDate: "2026-04-07" },
       "imo-answerbench": { score: 83.8, verified: true, sourceId: "zhipu-glm-5-1-announce", asOfDate: "2026-04-07" },
     }
-  }
+  },
+
+  // --- OPENAI: GPT-5.5 Instant (May 2026) ---
+  {
+    id: "gpt-5-5-instant",
+    name: "GPT-5.5 Instant",
+    provider: "OpenAI",
+    releaseDate: "2026-05-05",
+    capabilities: ["text", "code", "vision", "reasoning"],
+    isOpenSource: false,
+    specs: {
+      contextWindow: 400000,
+      maxOutputTokens: 128000,
+      parameters: "Unknown",
+      pricing: { input: 5.00, output: 30.00, cacheInput: 0.50 }
+    },
+    scores: {
+      "lmarena-elo": { score: 1453, verified: true, sourceId: "lmarena", asOfDate: "2026-05-21" },
+    }
+  },
+
+  // --- ANTHROPIC: Claude Sonnet 4.6 (February 2026) ---
+  {
+    id: "claude-sonnet-4-6",
+    name: "Claude Sonnet 4.6",
+    provider: "Anthropic",
+    releaseDate: "2026-02-17",
+    capabilities: ["text", "code", "vision", "reasoning"],
+    isOpenSource: false,
+    specs: {
+      contextWindow: 1000000,
+      maxOutputTokens: 64000,
+      parameters: "Unknown",
+      pricing: { input: 3.00, output: 15.00 }
+    },
+    scores: {
+      "gpqa-diamond": { score: 84.0, verified: true, sourceId: "anthropic-sonnet46-announce", asOfDate: "2026-02-17" },
+      "swe-bench-verified": { score: 80.2, verified: true, sourceId: "anthropic-sonnet46-announce", asOfDate: "2026-02-17" },
+      "arc-agi-2": { score: 60.4, verified: true, sourceId: "anthropic-sonnet46-announce", asOfDate: "2026-02-17" },
+      "hle-full-tools": { score: 35.0, verified: true, sourceId: "anthropic-sonnet46-announce", asOfDate: "2026-02-17" },
+      "lmarena-elo": { score: 1495, verified: true, sourceId: "lmarena", asOfDate: "2026-05-21" },
+    }
+  },
+
+  // --- GOOGLE: Gemini 3.5 Flash (May 2026) ---
+  {
+    id: "gemini-3.5-flash",
+    name: "Gemini 3.5 Flash",
+    provider: "Google DeepMind",
+    releaseDate: "2026-05-01",
+    capabilities: ["text", "code", "vision", "audio", "video", "reasoning"],
+    isOpenSource: false,
+    specs: {
+      contextWindow: 1000000,
+      maxOutputTokens: 64000,
+      parameters: "Unknown",
+      pricing: { input: 1.50, output: 9.00 }
+    },
+    scores: {
+      "arc-agi-2": { score: 72.1, verified: true, sourceId: "google-gemini35flash-announce", asOfDate: "2026-05-01" },
+      "swe-bench-pro": { score: 55.1, verified: true, sourceId: "google-gemini35flash-announce", asOfDate: "2026-05-01" },
+      "terminal-bench": { score: 76.2, verified: true, sourceId: "google-gemini35flash-announce", asOfDate: "2026-05-01" },
+      "hle": { score: 40.2, verified: true, sourceId: "google-gemini35flash-announce", asOfDate: "2026-05-01" },
+      "mmmu-pro": { score: 83.6, verified: true, sourceId: "google-gemini35flash-announce", asOfDate: "2026-05-01" },
+      "mcp-atlas": { score: 83.6, verified: true, sourceId: "google-gemini35flash-announce", asOfDate: "2026-05-01" },
+      "osworld-verified": { score: 78.4, verified: true, sourceId: "google-gemini35flash-announce", asOfDate: "2026-05-01" },
+    }
+  },
+
+  // --- GOOGLE: Gemini 3.1 Flash-Lite Preview (2026) ---
+  {
+    id: "gemini-3.1-flash-lite",
+    name: "Gemini 3.1 Flash-Lite",
+    provider: "Google DeepMind",
+    releaseDate: "2026-04-01",
+    capabilities: ["text", "code", "vision", "audio", "video"],
+    isOpenSource: false,
+    specs: {
+      contextWindow: 1000000,
+      maxOutputTokens: 64000,
+      parameters: "Unknown",
+      pricing: { input: 0.25, output: 1.50 }
+    },
+    scores: {
+      "gpqa-diamond": { score: 86.9, verified: true, sourceId: "google-gemini31flashlite-announce", asOfDate: "2026-04-01" },
+      "mmmu-pro": { score: 76.8, verified: true, sourceId: "google-gemini31flashlite-announce", asOfDate: "2026-04-01" },
+      "mmmlu": { score: 88.9, verified: true, sourceId: "google-gemini31flashlite-announce", asOfDate: "2026-04-01" },
+      "livecodebench-v6": { score: 72.0, verified: true, sourceId: "google-gemini31flashlite-announce", asOfDate: "2026-04-01" },
+    }
+  },
+
+  // --- ALIBABA: Qwen3.7 Max (May 2026) ---
+  {
+    id: "qwen-3-7-max",
+    name: "Qwen3.7 Max",
+    provider: "Alibaba",
+    releaseDate: "2026-05-01",
+    capabilities: ["text", "code", "reasoning"],
+    isOpenSource: false,
+    specs: {
+      contextWindow: 1000000,
+      maxOutputTokens: 64000,
+      parameters: "Unknown",
+      pricing: { input: 2.50, output: 7.50 }
+    },
+    scores: {
+      "lmarena-elo": { score: 1475, verified: true, sourceId: "lmarena", asOfDate: "2026-05-21" },
+    }
+  },
+
+  // --- XAI: Grok 4.3 (2026) ---
+  {
+    id: "grok-4-3",
+    name: "Grok 4.3",
+    provider: "xAI",
+    releaseDate: "2026-04-01",
+    capabilities: ["text", "code", "vision", "reasoning"],
+    isOpenSource: false,
+    specs: {
+      contextWindow: 1000000,
+      parameters: "Unknown",
+      pricing: { input: 1.25, output: 2.50, cacheInput: 0.20 }
+    },
+    scores: {
+      "lmarena-elo": { score: 1451, verified: true, sourceId: "lmarena", asOfDate: "2026-05-21" },
+    }
+  },
+
+  // --- META: Muse Spark (April 2026) ---
+  {
+    id: "muse-spark",
+    name: "Muse Spark",
+    provider: "Meta",
+    releaseDate: "2026-04-08",
+    capabilities: ["text", "code", "vision", "reasoning"],
+    isOpenSource: false,
+    specs: {
+      contextWindow: 262000,
+      parameters: "Unknown",
+      pricing: { input: 0, output: 0 }
+    },
+    scores: {
+      "hle-full-tools": { score: 50.2, verified: true, sourceId: "meta-muse-spark-announce", asOfDate: "2026-04-08" },
+      "arc-agi-2": { score: 42.5, verified: true, sourceId: "meta-muse-spark-announce", asOfDate: "2026-04-08" },
+      "mmmu-pro": { score: 80.5, verified: true, sourceId: "meta-muse-spark-announce", asOfDate: "2026-04-08" },
+      "healthbench-hard": { score: 42.8, verified: true, sourceId: "meta-muse-spark-announce", asOfDate: "2026-04-08" },
+      "lmarena-elo": { score: 1489, verified: true, sourceId: "lmarena", asOfDate: "2026-05-21" },
+    }
+  },
+
+  // --- MISTRAL: Mistral Medium 3.5 (April 2026) ---
+  {
+    id: "mistral-medium-3-5",
+    name: "Mistral Medium 3.5",
+    provider: "Mistral",
+    releaseDate: "2026-04-01",
+    capabilities: ["text", "code", "vision", "reasoning"],
+    isOpenSource: true,
+    specs: {
+      contextWindow: 256000,
+      parameters: "128B",
+      pricing: { input: 1.50, output: 7.50 }
+    },
+    scores: {
+      "gpqa-diamond": { score: 76.6, verified: true, sourceId: "mistral-medium35-announce", asOfDate: "2026-04-01" },
+      "swe-bench-verified": { score: 77.6, verified: true, sourceId: "mistral-medium35-announce", asOfDate: "2026-04-01" },
+      "math-500": { score: 90.0, verified: true, sourceId: "mistral-medium35-announce", asOfDate: "2026-04-01" },
+      "aime-2025": { score: 72.8, verified: true, sourceId: "mistral-medium35-announce", asOfDate: "2026-04-01" },
+      "livecodebench-v6": { score: 55.1, verified: true, sourceId: "mistral-medium35-announce", asOfDate: "2026-04-01" },
+      "aider-polyglot": { score: 68.4, verified: true, sourceId: "mistral-medium35-announce", asOfDate: "2026-04-01" },
+      "tau-bench-telecom": { score: 91.4, verified: true, sourceId: "mistral-medium35-announce", asOfDate: "2026-04-01" },
+      "tau-bench-retail": { score: 76.5, verified: true, sourceId: "mistral-medium35-announce", asOfDate: "2026-04-01" },
+    }
+  },
+
+  // --- MISTRAL: Mistral Large 3 (December 2025) ---
+  {
+    id: "mistral-large-3",
+    name: "Mistral Large 3",
+    provider: "Mistral",
+    releaseDate: "2025-12-01",
+    capabilities: ["text", "code", "vision", "reasoning"],
+    isOpenSource: true,
+    specs: {
+      contextWindow: 256000,
+      parameters: "675B total (41B active, MoE)",
+      pricing: { input: 0, output: 0 }
+    },
+    scores: {
+      "lmarena-elo": { score: 1400, verified: true, sourceId: "lmarena", asOfDate: "2026-05-21" },
+    }
+  },
+
+  // --- MISTRAL: Magistral Medium (June 2025, reasoning model) ---
+  {
+    id: "magistral-medium",
+    name: "Magistral Medium",
+    provider: "Mistral",
+    releaseDate: "2025-06-10",
+    capabilities: ["text", "code", "reasoning"],
+    isOpenSource: false,
+    specs: {
+      contextWindow: 128000,
+      parameters: "Unknown",
+      pricing: { input: 0, output: 0 }
+    },
+    scores: {
+      "gpqa-diamond": { score: 70.83, verified: true, sourceId: "mistral-news", asOfDate: "2025-06-10" },
+      "aime": { score: 73.6, verified: true, sourceId: "mistral-news", asOfDate: "2025-06-10" },
+      "livecodebench-v6": { score: 59.36, verified: true, sourceId: "mistral-news", asOfDate: "2025-06-10" },
+    }
+  },
+
+  // --- MISTRAL: Devstral (May 2025, coding model) ---
+  {
+    id: "devstral",
+    name: "Devstral",
+    provider: "Mistral",
+    releaseDate: "2025-05-21",
+    capabilities: ["text", "code"],
+    isOpenSource: true,
+    specs: {
+      contextWindow: 128000,
+      parameters: "24B",
+      pricing: { input: 0.10, output: 0.30 }
+    },
+    scores: {
+      "swe-bench-verified": { score: 46.8, verified: true, sourceId: "mistral-news", asOfDate: "2025-05-21" },
+    }
+  },
+
+  // --- BAIDU: ERNIE 4.5 Thinking (June 2025) ---
+  {
+    id: "ernie-4-5-thinking",
+    name: "ERNIE 4.5 Thinking",
+    provider: "Baidu",
+    releaseDate: "2025-06-30",
+    capabilities: ["text", "code", "vision", "reasoning"],
+    isOpenSource: true,
+    specs: {
+      contextWindow: 32000,
+      parameters: "21B total (3B active, MoE)",
+      pricing: { input: 0, output: 0 }
+    },
+    scores: {}
+  },
+
+  // --- STEPFUN: Step 3.5 Flash (January 2026) ---
+  {
+    id: "step-3-5-flash",
+    name: "Step 3.5 Flash",
+    provider: "StepFun",
+    releaseDate: "2026-01-29",
+    capabilities: ["text", "code", "reasoning"],
+    isOpenSource: true,
+    specs: {
+      contextWindow: 256000,
+      parameters: "196B total (11B active, MoE)",
+      pricing: { input: 0.09, output: 0.30 }
+    },
+    scores: {
+      "gpqa-diamond": { score: 83.5, verified: true, sourceId: "artificial-analysis", asOfDate: "2026-01-29" },
+      "swe-bench-verified": { score: 74.4, verified: true, sourceId: "artificial-analysis", asOfDate: "2026-01-29" },
+      "mmlu-pro": { score: 84.4, verified: true, sourceId: "artificial-analysis", asOfDate: "2026-01-29" },
+      "aime-2025": { score: 97.3, verified: true, sourceId: "artificial-analysis", asOfDate: "2026-01-29" },
+      "terminal-bench": { score: 51.0, verified: true, sourceId: "artificial-analysis", asOfDate: "2026-01-29" },
+    }
+  },
+
+  // --- INCEPTION: Mercury 2 (March 2026, fastest model) ---
+  {
+    id: "mercury-2",
+    name: "Mercury 2",
+    provider: "Inception",
+    releaseDate: "2026-03-04",
+    capabilities: ["text", "code"],
+    isOpenSource: false,
+    specs: {
+      contextWindow: 128000,
+      parameters: "Unknown (Diffusion LLM)",
+      pricing: { input: 0.25, output: 0.75 }
+    },
+    scores: {}
+  },
+
+  // --- ALIBABA: Qwen3 Coder Next (February 2026) ---
+  {
+    id: "qwen3-coder-next",
+    name: "Qwen3 Coder Next",
+    provider: "Alibaba",
+    releaseDate: "2026-02-04",
+    capabilities: ["text", "code"],
+    isOpenSource: true,
+    specs: {
+      contextWindow: 256000,
+      parameters: "80B total (3B active, MoE)",
+      pricing: { input: 0.11, output: 0.80 }
+    },
+    scores: {
+      "swe-bench-verified": { score: 70.6, verified: true, sourceId: "qwen-ai-blog", asOfDate: "2026-02-04" },
+      "swe-bench-pro": { score: 44.3, verified: true, sourceId: "qwen-ai-blog", asOfDate: "2026-02-04" },
+      "terminal-bench": { score: 36.2, verified: true, sourceId: "qwen-ai-blog", asOfDate: "2026-02-04" },
+    }
+  },
+
+  // --- COHERE: Command A+ (March 2025) ---
+  {
+    id: "cohere-command-a-plus",
+    name: "Command A+",
+    provider: "Cohere",
+    releaseDate: "2025-03-01",
+    capabilities: ["text", "code", "reasoning"],
+    isOpenSource: true,
+    specs: {
+      contextWindow: 192000,
+      parameters: "111B",
+      pricing: { input: 0, output: 0 }
+    },
+    scores: {}
+  },
+
+  // --- TENCENT: Hy3-preview (April 2026) ---
+  {
+    id: "tencent-hy3-preview",
+    name: "Hy3 Preview",
+    provider: "Tencent",
+    releaseDate: "2026-04-22",
+    capabilities: ["text", "code", "reasoning"],
+    isOpenSource: true,
+    specs: {
+      contextWindow: 256000,
+      parameters: "295B total (21B active, MoE)",
+      pricing: { input: 0.066, output: 0.26 }
+    },
+    scores: {
+      "gpqa-diamond": { score: 87.2, verified: true, sourceId: "artificial-analysis", asOfDate: "2026-04-22" },
+      "swe-bench-verified": { score: 74.4, verified: true, sourceId: "artificial-analysis", asOfDate: "2026-04-22" },
+      "terminal-bench": { score: 54.4, verified: true, sourceId: "artificial-analysis", asOfDate: "2026-04-22" },
+      "hle": { score: 30.0, verified: true, sourceId: "artificial-analysis", asOfDate: "2026-04-22" },
+    }
+  },
 ];
 
 const modelScoreOverrides: Record<string, Model["scores"]> =
