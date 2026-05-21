@@ -2764,6 +2764,31 @@ const rawModels: Model[] = [
       "lmarena-document-elo": { score: 1492, verified: true, sourceId: "lmarena", asOfDate: "2026-05-21" },
     }
   },
+
+  // --- OPENAI: GPT-5.5 Pro (April 2026) ---
+  {
+    id: "gpt-5-5-pro",
+    name: "GPT-5.5 Pro",
+    provider: "OpenAI",
+    releaseDate: "2026-04-23",
+    capabilities: ["text", "code", "vision", "reasoning"],
+    isOpenSource: false,
+    specs: {
+      contextWindow: 1050000,
+      maxOutputTokens: 128000,
+      parameters: "Unknown",
+      pricing: { input: 30.00, output: 180.00 }
+    },
+    scores: {
+      "hle-full": { score: 43.1, verified: true, sourceId: "openai-gpt55-announce", asOfDate: "2026-04-23" },
+      "hle-full-tools": { score: 57.2, verified: true, sourceId: "openai-gpt55-announce", asOfDate: "2026-04-23" },
+      "browsecomp": { score: 90.1, verified: true, sourceId: "openai-gpt55-announce", asOfDate: "2026-04-23" },
+      "frontiermath": { score: 52.4, verified: true, sourceId: "openai-gpt55-announce", asOfDate: "2026-04-23" },
+      "frontiermath-tier-4": { score: 39.6, verified: true, sourceId: "openai-gpt55-announce", asOfDate: "2026-04-23" },
+      "genebench": { score: 33.2, verified: true, sourceId: "openai-gpt55-announce", asOfDate: "2026-04-23" },
+    }
+  },
+
   {
     id: "gpt-5-4",
     name: "GPT-5.4",
@@ -3612,6 +3637,58 @@ const rawModels: Model[] = [
     scores: {
       "lmarena-search-elo": { score: 1209, verified: true, sourceId: "lmarena", asOfDate: "2026-05-21" },
     }
+  },
+
+  // --- CURSOR (ANYSPHERE): Cursor Composer 2 (March 2026) ---
+  {
+    id: "cursor-composer-2",
+    name: "Cursor Composer 2",
+    provider: "Anysphere",
+    releaseDate: "2026-03-19",
+    capabilities: ["text", "code", "reasoning"],
+    isOpenSource: false,
+    specs: {
+      contextWindow: 256000,
+      parameters: "Based on Kimi K2.5 (1T MoE)",
+      pricing: { input: 0.50, output: 2.50 }
+    },
+    scores: {
+      "terminal-bench": { score: 61.7, verified: true, sourceId: "cursor-news", asOfDate: "2026-03-19" },
+      "swe-multilingual": { score: 73.7, verified: true, sourceId: "cursor-news", asOfDate: "2026-03-19" },
+    }
+  },
+
+  // --- CURSOR (ANYSPHERE): Cursor Composer 2.5 (May 2026) ---
+  {
+    id: "cursor-composer-2-5",
+    name: "Cursor Composer 2.5",
+    provider: "Anysphere",
+    releaseDate: "2026-05-18",
+    capabilities: ["text", "code", "reasoning"],
+    isOpenSource: false,
+    specs: {
+      contextWindow: 256000,
+      parameters: "Based on Kimi K2.5 (1T MoE)",
+      pricing: { input: 0.50, output: 2.50 }
+    },
+    scores: {}
+  },
+
+  // --- DEEPSEEK: DeepSeek V3.2 (December 2025) ---
+  {
+    id: "deepseek-v3-2",
+    name: "DeepSeek V3.2",
+    provider: "DeepSeek",
+    releaseDate: "2025-12-01",
+    capabilities: ["text", "code", "reasoning"],
+    isOpenSource: true,
+    specs: {
+      contextWindow: 1000000,
+      maxOutputTokens: 384000,
+      parameters: "685B MoE",
+      pricing: { input: 0.435, output: 0.87, cacheInput: 0.03625 }
+    },
+    scores: {}
   },
 ];
 

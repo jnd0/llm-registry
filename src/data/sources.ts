@@ -388,4 +388,10 @@ export const sources: SourceRecord[] = [
     url: "https://www.arcee.ai/",
     publisher: "Arcee AI",
   },
+  {
+    id: "cursor-news",
+    name: "Cursor AI",
+    url: "https://cursor.com/blog",
+    publisher: "Anysphere",
+  },
 ];
