@@ -2762,6 +2762,10 @@ const rawModels: Model[] = [
       "lmarena-webdev-elo": { score: 1440, verified: true, sourceId: "lmarena", asOfDate: "2026-05-21" },
       "lmarena-vision-elo": { score: 1288, verified: true, sourceId: "lmarena", asOfDate: "2026-05-21" },
       "lmarena-document-elo": { score: 1492, verified: true, sourceId: "lmarena", asOfDate: "2026-05-21" },
+      "mcp-atlas": { score: 75.3, verified: true, sourceId: "openai-gpt55-announce", asOfDate: "2026-04-23" },
+      "finance-agent": { score: 60.0, verified: true, sourceId: "openai-gpt55-announce", asOfDate: "2026-04-23" },
+      "officeqa-pro": { score: 54.1, verified: true, sourceId: "openai-gpt55-announce", asOfDate: "2026-04-23" },
+      "graphwalks-bfs": { score: 73.7, verified: true, sourceId: "openai-gpt55-announce", asOfDate: "2026-04-23" },
     }
   },
 
@@ -3687,6 +3691,211 @@ const rawModels: Model[] = [
       maxOutputTokens: 384000,
       parameters: "685B MoE",
       pricing: { input: 0.435, output: 0.87, cacheInput: 0.03625 }
+    },
+    scores: {}
+  },
+
+  // --- ALIBABA: Qwen3.5 Omni Plus (2026) ---
+  {
+    id: "qwen-3-5-omni-plus",
+    name: "Qwen3.5 Omni Plus",
+    provider: "Alibaba",
+    releaseDate: "2026-03-01",
+    capabilities: ["text", "code", "vision", "audio", "reasoning"],
+    isOpenSource: false,
+    specs: {
+      contextWindow: 256000,
+      parameters: "Unknown",
+      pricing: { input: 0.84, output: 3.36 }
+    },
+    scores: {}
+  },
+
+  // --- Z AI: GLM 5V Turbo (2026) ---
+  {
+    id: "glm-5v-turbo",
+    name: "GLM 5V Turbo",
+    provider: "Zhipu AI",
+    releaseDate: "2026-03-01",
+    capabilities: ["text", "code", "vision", "reasoning"],
+    isOpenSource: false,
+    specs: {
+      contextWindow: 200000,
+      parameters: "Unknown",
+      pricing: { input: 0, output: 0 }
+    },
+    scores: {
+      "lmarena-vision-elo": { score: 1227, verified: true, sourceId: "lmarena", asOfDate: "2026-05-21" },
+    }
+  },
+
+  // --- ALIBABA: Qwen3.6 Max (2026) ---
+  {
+    id: "qwen-3-6-max",
+    name: "Qwen3.6 Max",
+    provider: "Alibaba",
+    releaseDate: "2026-04-01",
+    capabilities: ["text", "code", "vision", "reasoning"],
+    isOpenSource: false,
+    specs: {
+      contextWindow: 1000000,
+      parameters: "Unknown",
+      pricing: { input: 0, output: 0 }
+    },
+    scores: {
+      "lmarena-elo": { score: 1457, verified: true, sourceId: "lmarena", asOfDate: "2026-05-21" },
+      "lmarena-webdev-elo": { score: 1491, verified: true, sourceId: "lmarena", asOfDate: "2026-05-21" },
+    }
+  },
+
+  // --- ALIBABA: Qwen3.7 Plus Preview (2026) ---
+  {
+    id: "qwen-3-7-plus-preview",
+    name: "Qwen3.7 Plus Preview",
+    provider: "Alibaba",
+    releaseDate: "2026-05-01",
+    capabilities: ["text", "code", "vision", "reasoning"],
+    isOpenSource: false,
+    specs: {
+      contextWindow: 1000000,
+      parameters: "Unknown",
+      pricing: { input: 0, output: 0 }
+    },
+    scores: {
+      "lmarena-vision-elo": { score: 1260, verified: true, sourceId: "lmarena", asOfDate: "2026-05-21" },
+    }
+  },
+
+  // --- XIAOMI: MiMo V2 Pro (2026) ---
+  {
+    id: "mimo-v2-pro",
+    name: "MiMo V2 Pro",
+    provider: "Xiaomi",
+    releaseDate: "2026-03-01",
+    capabilities: ["text", "code", "vision", "reasoning"],
+    isOpenSource: true,
+    specs: {
+      contextWindow: 1000000,
+      parameters: "Unknown",
+      pricing: { input: 0, output: 0 }
+    },
+    scores: {
+      "lmarena-elo": { score: 1447, verified: true, sourceId: "lmarena", asOfDate: "2026-05-21" },
+    }
+  },
+
+  // --- XAI: Grok Code Fast 1 (2026) ---
+  {
+    id: "grok-code-fast-1",
+    name: "Grok Code Fast 1",
+    provider: "xAI",
+    releaseDate: "2026-03-01",
+    capabilities: ["text", "code"],
+    isOpenSource: false,
+    specs: {
+      contextWindow: 256000,
+      parameters: "Unknown",
+      pricing: { input: 0, output: 0 }
+    },
+    scores: {}
+  },
+
+  // --- TENCENT: Hunyuan Vision 1.5 Thinking (2026) ---
+  {
+    id: "hunyuan-vision-1-5-thinking",
+    name: "Hunyuan Vision 1.5 Thinking",
+    provider: "Tencent",
+    releaseDate: "2026-04-01",
+    capabilities: ["text", "code", "vision", "reasoning"],
+    isOpenSource: false,
+    specs: {
+      contextWindow: 256000,
+      parameters: "Unknown",
+      pricing: { input: 0, output: 0 }
+    },
+    scores: {
+      "lmarena-vision-elo": { score: 1162, verified: true, sourceId: "lmarena", asOfDate: "2026-05-21" },
+    }
+  },
+
+  // --- BAIDU: ERNIE 5.0 Thinking Preview (2026) ---
+  {
+    id: "ernie-5-0-thinking",
+    name: "ERNIE 5.0 Thinking Preview",
+    provider: "Baidu",
+    releaseDate: "2026-01-01",
+    capabilities: ["text", "code", "vision", "reasoning"],
+    isOpenSource: false,
+    specs: {
+      contextWindow: 128000,
+      parameters: "Unknown",
+      pricing: { input: 0, output: 0 }
+    },
+    scores: {}
+  },
+
+  // --- MEITUAN: LongCat Flash Chat (2026) ---
+  {
+    id: "longcat-flash-chat",
+    name: "LongCat Flash Chat",
+    provider: "Meituan",
+    releaseDate: "2026-03-01",
+    capabilities: ["text", "code"],
+    isOpenSource: false,
+    specs: {
+      contextWindow: 256000,
+      parameters: "Unknown",
+      pricing: { input: 0, output: 0 }
+    },
+    scores: {
+      "lmarena-elo": { score: 1435, verified: true, sourceId: "lmarena", asOfDate: "2026-05-21" },
+    }
+  },
+
+  // --- INCLUSIONAI: Ling-2.6-1T (2026) ---
+  {
+    id: "ling-2-6-1t",
+    name: "Ling 2.6 1T",
+    provider: "InclusionAI",
+    releaseDate: "2026-04-01",
+    capabilities: ["text", "code", "reasoning"],
+    isOpenSource: true,
+    specs: {
+      contextWindow: 262000,
+      parameters: "1T",
+      pricing: { input: 0.52, output: 2.08 }
+    },
+    scores: {}
+  },
+
+  // --- NVIDIA: Nemotron Cascade 2 30B A3B (2026) ---
+  {
+    id: "nemotron-cascade-2-30b",
+    name: "Nemotron Cascade 2 30B A3B",
+    provider: "NVIDIA",
+    releaseDate: "2026-03-01",
+    capabilities: ["text", "code"],
+    isOpenSource: true,
+    specs: {
+      contextWindow: 1000000,
+      parameters: "30B (3B active, MoE)",
+      pricing: { input: 0, output: 0 }
+    },
+    scores: {}
+  },
+
+  // --- LG AI: K-EXAONE (2026) ---
+  {
+    id: "k-exaone",
+    name: "K-EXAONE",
+    provider: "LG AI Research",
+    releaseDate: "2026-03-01",
+    capabilities: ["text", "code", "reasoning"],
+    isOpenSource: true,
+    specs: {
+      contextWindow: 256000,
+      parameters: "Unknown",
+      pricing: { input: 0, output: 0 }
     },
     scores: {}
   },
