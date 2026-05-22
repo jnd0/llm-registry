@@ -103,6 +103,7 @@ export const modelSchema: z.ZodType<any> = z.lazy(() =>
     externalModelId: z.string().min(1).optional(),
     modelCardUrl: httpUrlSchema.optional(),
     modelUrl: httpUrlSchema.optional(),
+    tier: z.enum(["verified", "discovered"]).optional(),
     scores: z.record(z.string(), scoreSchema),
     variants: z.array(z.lazy(() => modelSchema)).optional(),
   })

@@ -39,7 +39,7 @@ interface PageProps {
 }
 
 export async function generateStaticParams() {
-  return models.map((model) => ({
+  return models.filter((model) => model.tier !== "discovered").map((model) => ({
     id: model.id,
   }));
 }

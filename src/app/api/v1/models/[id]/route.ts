@@ -3,7 +3,7 @@ import { findModel, flattenedModels } from "@/lib/registry-data";
 
 // Generate static params for all models
 export function generateStaticParams() {
-  return flattenedModels.map((model) => ({
+  return flattenedModels.filter((model) => model.tier !== "discovered").map((model) => ({
     id: model.id,
   }));
 }
